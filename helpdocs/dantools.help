@@ -1,0 +1,7 @@
+Dantools Version 1.0.0 by Daniel Klimes
+Tools for the Comparison of Disparate Genomes
+
+Usage: dantools <command> [options]
+
+Commands:
+  pseudogen - produces a pseudogenome from two input fasta files

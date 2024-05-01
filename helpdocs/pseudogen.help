@@ -1,0 +1,5 @@
+Usage: dantools pseudogen [options]
+Produces a pseudogenome from two input fasta files
+
+Required options:
+  -b, --base  A fasta file that will serve as the basis for 
