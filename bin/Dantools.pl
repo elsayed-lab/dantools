@@ -14,13 +14,19 @@ use Cwd qw"abs_path cwd getcwd";
 use Getopt::Long;
 
 #Define which methods can be passed
-my @tools = ('pseudogen', 'fragment', 'phylo', 'trasnloc');
+my @tools = ('pseudogen', 'fragment', 'phylo', 'trasnloc', 'help');
 
 #Figure out which method was passed
 my $method = $ARGV[0];
 
 if (! defined($method)) {
-    die "ERROR: no arguments passed\n";
+    my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/dantools.help");
+    while (<$helpdoc>) { print $_ };
+    exit;
+} elsif ("$method" eq 'help') {
+    my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/dantools.help");
+    while (<$helpdoc>) { print $_ };
+    exit;
 } elsif (! grep(/^$method$/, @tools)) {
     die "ERROR: Could not find method \"$method\"\n";
 };
@@ -47,28 +53,30 @@ if ($method eq 'pseudogen') {
     my $reads2 = ''; #mate 2 input reads
     my $input_type;
     my $fragment = 'yes';
-    my $lengths = '50,200,1000';
+    my $lengths = '200,10000';
     my $min_length = 20;
-    my $overlap = 80;
+    my $overlap = 75;
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
     my $output_name = '';
     my $keepers = 'all';
-    my $logfile = 'data.tsv';
+    my $logfile = 'log.txt';
     my $outdir = '';
     my $threads = 1;
     my $bin_size = 10000;
     my $add_flanks = 'no'; #Whether to add regions to ends of features
-    my $flank_lengths = 0,0; #How long to make flanks
-    my $feature_type = 'gene';
+    my $flank_lengths = '50,50'; #How long to make flanks
+    my $feature_types = 'gene,five_prime_UTR,three_prime_UTR';
     my $feature_name = 'ID'; #Which element of gff attributes to select as the "name"
     my $var_fraction = 0.501;
+    my $help = 0;
+    my $scoremin = 'L,0,-1.50';
     GetOptions(
         "gff|f=s" => \$gff,
         "base|b=s" => \$base,
         "fai=s" => \$base_fai,
         "base-idx=s" => \$base_idx,
         "source|s=s" => \$source,
-        "reads-u=s" => \$readsu,
+        "reads-u|u=s" => \$readsu,
         "reads-1|1=s" => \$reads1,
         "reads-2|2=s" => \$reads2,
         "lengths|l=s" => \$lengths,
@@ -83,13 +91,21 @@ if ($method eq 'pseudogen') {
         "bin-size=i" => \$bin_size,
         "add-flanks=s" => \$add_flanks,
         "flank-lengths=s" => \$flank_lengths,
-        "feature-type=s" => \$feature_type,
+        "feature-type=s" => \$feature_types,
         "var-fraction=f" => \$var_fraction,
+        "score-min=s" => \$scoremin,
         "feature-name=s" => \$feature_name,
-        "fragment=s" => \$fragment
+        "fragment=s" => \$fragment,
+        "help|h" => \$help
         ) or die "Error in Parsing Arguments";
 
     #Checking input arguments and setting them manually for some
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+
     if ("$outdir" eq '') {
         $outdir = getcwd;
     } elsif ( ! -d "$outdir" ) {
@@ -137,9 +153,8 @@ if ($method eq 'pseudogen') {
     }
 
     if ("$output_name" eq '') {
-        $output_name = basename($source, ('.fasta')) . "_on_" . basename($base, ('.fasta'));
+        $output_name = basename($source, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
     }
-
     Bio::Dantools::pseudogen(gff => "$gff",
                              base => "$base",
                              fai => "$base_fai",
@@ -162,8 +177,9 @@ if ($method eq 'pseudogen') {
                              bin_size => "$bin_size",
                              add_flanks => "$add_flanks",
                              flank_lengths => "$flank_lengths",
-                             feature_type => "$feature_type",
+                             feature_type => "$feature_types",
                              feature_name => "$feature_name",
-                             var_fraction => "$var_fraction"
+                             var_fraction => "$var_fraction",
+                             scoremin => "$scoremin"
         );
 }

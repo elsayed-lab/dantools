@@ -44,6 +44,7 @@ sub pseudogen {
     my $var_fraction = $args{'var_fraction'};
     my $outdir = $args{'outdir'};
     my $min_variants = $args{'min_variants'};
+    my $scoremin = $args{'scoremin'};
     my $bin_size = $args{'bin_size'};
     my $source = $args{'source'};
     my $readsu = $args{'readsu'};
@@ -92,7 +93,8 @@ sub pseudogen {
                    '--source', "fragments.fasta",
                    '-t', "$threads",
                    '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type"
+                   '--input_type', "$input_type",
+                   '--scoremin', "$scoremin"
                 );
             $input_name = basename("$source", ('.fasta'));
         } elsif (("$input_type" eq 'fasta') & ("$fragment" eq 'no')) {
@@ -105,7 +107,8 @@ sub pseudogen {
                    '--source', "$source",
                    '-t', "$threads",
                    '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type"
+                   '--input_type', "$input_type",
+                   '--scoremin', "$scoremin"
                 );
             $input_name = basename("$source", ('.fasta.'));
         } elsif (("$input_type" eq 'fastq_u')) {
@@ -118,7 +121,8 @@ sub pseudogen {
                    '--readsu', "$readsu",
                    '-t', "$threads",
                    '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type"
+                   '--input_type', "$input_type",
+                   '--scoremin', "$scoremin"
                 );
             $input_name = basename("$readsu", ('.fastq'));
         } elsif (("$input_type" eq 'fastq_p')) {
@@ -132,7 +136,8 @@ sub pseudogen {
                    '--reads2', "$reads2",
                    '-t', "$threads",
                    '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type"
+                   '--input_type', "$input_type",
+                   '--scoremin', "$scoremin"
                 );
             $input_name = basename("$reads1", ('.fastq'));
         }
@@ -450,7 +455,7 @@ sub pseudogen {
             output => "output/labeled_variants.tsv",
             add_flanks => "$args{'add_flanks'}",
             flank_lengths => "$args{'flank_lengths'}",
-            feature_type => "$args{'feature_type'}",
+            feature_types => "$args{'feature_types'}",
             feature_name => "$args{'feature_name'}"
             );
 
@@ -805,7 +810,11 @@ sub vcf_labeler {
 
     while(my $row = $gff_tsv->getline_hr($gff_fh)) {
         next if($row->{'seqid'} =~ /^#/);
-        next if($row->{'type'} ne "$feature_type");
+        my $type = $row->{'type'};
+        #Test if feature is in my array of acceptable features
+        my @feature_types = split(/,/, $args{'feature_types'});
+        my %feature_types = map { $_ => 1 } @feature_types;
+        next if(! exists($feature_types{"$type"}));
 
         #Trying to extract gene ID based on the feature name I was given
         my @tmp = split /;/, $row->{'attributes'};

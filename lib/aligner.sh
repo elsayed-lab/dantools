@@ -65,6 +65,10 @@ while [ -n "$1" ]; do
             input_type="$2"
             shift 1
             ;;
+        --scoremin)
+            scoremin="$2"
+            shift 1
+            ;;
     esac
     shift 1
 done
@@ -102,21 +106,21 @@ fi
 if [ "$input_type" == 'fasta' ]; then
     hisat2 -x "$indexes" \
            -f -p "$threads" --no-softclip --no-spliced-alignment \
-           --score-min L,0,-1.50 -k 1 --no-unal --norc \
+           --score-min "$scoremin" -k 1 --no-unal --norc \
            -U "$source" -S it"$it"/raw.sam \
            2>it"$it"/MAPPING.stderr
 elif [ "$input_type" == 'fastq_u' ]; then
     hisat2 -x "$indexes" \
            -q -p "$threads" --no-softclip \
            --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 \
-           --score-min L,0,-1.50 -k 1 --no-unal \
+           --score-min "$scoremin" -k 1 --no-unal \
            -U "$readsu" -S it"$it"/raw.sam \
            2>it"$it"/MAPPING.stderr
 elif [ "$input_type" == 'fastq_p' ]; then
     hisat2 -x "$indexes" \
            -q -p "$threads" --no-softclip \
            --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 \
-           --score-min L,0,-1.50 -k 1 --no-unal \
+           --score-min "$scoremin" -k 1 --no-unal \
            -1 "$reads1" -2 "$reads2" -S it"$it"/raw.sam \
            2>it"$it"/MAPPING.stderr
 fi

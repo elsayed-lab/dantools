@@ -39,12 +39,13 @@ Bio::Dantools::pseudogen(gff => "$start_dir/base.gff",
                          bin_size => 10000,
                          add_flanks => 'yes',
                          flank_lengths => '50,50',
-                         feature_type => 'protein_coding_gene',
+                         feature_types => 'protein_coding_gene,mRNA',
                          feature_name => 'ID',
                          var_fraction => 0.501,
                          outdir => "$start/test_output",
                          input_type => "fasta",
-                         fragment => 'yes'
+                         fragment => 'yes',
+                         scoremin => 'L,0,-1.50'
     );
 
 #Now I should have all the files ready and I can begin checking them
