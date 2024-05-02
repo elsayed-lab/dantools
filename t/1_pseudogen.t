@@ -7,6 +7,7 @@ use Cwd;
 use File::ShareDir qw"dist_dir";
 use File::Which;
 use File::Slurp;
+use File::Path qw( rmtree );
 use String::Diff;
 use lib "$FindBin::Bin/../lib";
 use Bio::Dantools;
@@ -43,8 +44,7 @@ Bio::Dantools::pseudogen(gff => "$start_dir/base.gff",
                          var_fraction => 0.501,
                          outdir => "$start/test_output",
                          input_type => "fasta",
-                         fragment => 'yes',
-
+                         fragment => 'yes'
     );
 
 #Now I should have all the files ready and I can begin checking them
@@ -56,7 +56,8 @@ system("bcftools view -O bcf -o output/test.bcf output/test.vcf");
 
 system("bcftools index output/test.bcf");
 
-my $error = system("bcftools consensus -f $start_dir/base.fasta -o output/remade.fasta output/test.bcf");
+my $error = qx"bcftools consensus -f $start_dir/base.fasta -o output/remade.fasta output/test.bcf 2>&1";
+
 if (index($error, "Applied") == -1) {
     print "$error\n";
 }
@@ -68,3 +69,6 @@ unless (ok($out eq $remade, 'The vcf file recreates the output')) {
     my ($old, $new) = diff($out, $remade);
     diag("--Output--\n${old}\n--Actual--\n${new}\n");
 };
+
+chdir($start);
+rmtree("test_output");

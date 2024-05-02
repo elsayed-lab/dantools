@@ -1,4 +1,3 @@
-#!/usr/bin/env perl
 
 #Until I have added more functions to this package, I'll keep
 #everything here which should make the "use ..." setup much more
@@ -38,6 +37,7 @@ sub pseudogen {
     my $og_base_idx = $base_idx;
     my $base = $args{'base'}; #This changes throughout so it needs a variable
     my $og_base = $base;
+    my $gff = $args{'gff'};
     my $keepers = $args{'keepers'};
     my $output_name = $args{'output_name'};
     my $threads = $args{'threads'};
@@ -428,7 +428,6 @@ sub pseudogen {
     #to what it was in the alignment. I could and probably should make
     #this more efficient by skipping the printing to a file and just
     #building a hash of arrays.
-
     Bio::Dantools::vcf_maker(
         input => "needle_files/combined_bases.tsv",
         output => "output/$output_name.vcf",
@@ -444,15 +443,16 @@ sub pseudogen {
     }
 
     #Now the second to last step, labeling the VCF file:
-    Bio::Dantools::vcf_labeler(
-        gff => "$args{'gff'}",
-        vcf => "output/$output_name.vcf",
-        output => "output/labeled_variants.tsv",
-        add_flanks => "$args{'add_flanks'}",
-        flank_lengths => "$args{'flank_lengths'}",
-        feature_type => "$args{'feature_type'}",
-        feature_name => "$args{'feature_name'}"
-        );
+    if ("$gff" ne '') {
+        Bio::Dantools::vcf_labeler(
+            gff => "$args{'gff'}",
+            vcf => "output/$output_name.vcf",
+            output => "output/labeled_variants.tsv",
+            add_flanks => "$args{'add_flanks'}",
+            flank_lengths => "$args{'flank_lengths'}",
+            feature_type => "$args{'feature_type'}",
+            feature_name => "$args{'feature_name'}"
+            );
 
     #Ok so now I'm finally almost done. I just need one last step, and
     #that is to take my original gff and my vcf file and modiy the
@@ -462,6 +462,7 @@ sub pseudogen {
         input_vcf => "output/$args{'output_name'}.vcf",
         output => "output/$args{'output_name'}.gff"
         );
+    };
 };
 
 

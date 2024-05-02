@@ -69,8 +69,8 @@ if ($method eq 'pseudogen') {
         "base-idx=s" => \$base_idx,
         "source|s=s" => \$source,
         "reads-u=s" => \$readsu,
-        "reads-1=s" => \$reads1,
-        "reads-2=s" => \$reads2,
+        "reads-1|1=s" => \$reads1,
+        "reads-2|2=s" => \$reads2,
         "lengths|l=s" => \$lengths,
         "min-length=s" => \$min_length,
         "overlap=f" => \$overlap,
@@ -85,7 +85,8 @@ if ($method eq 'pseudogen') {
         "flank-lengths=s" => \$flank_lengths,
         "feature-type=s" => \$feature_type,
         "var-fraction=f" => \$var_fraction,
-        "feature-name=s" => \$feature_name
+        "feature-name=s" => \$feature_name,
+        "fragment=s" => \$fragment
         ) or die "Error in Parsing Arguments";
 
     #Checking input arguments and setting them manually for some
