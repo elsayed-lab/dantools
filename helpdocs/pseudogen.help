@@ -1,0 +1,51 @@
+Usage: dantools pseudogen [options]
+Produces a pseudogenome from two input fasta files
+
+Required options:
+  -b, --base      the fasta file that will serve as the basis for
+
+  One of:
+  -s, --source    a .fasta genome to be fragmented and aligned against the base
+  -u, --reads-u   unpaired .fastq reads to be aligned against the base
+  -1, --reads-1   mate 1s of paired end .fastq reads
+  -2, --reads-2   mate 2s of paired end .fastq reads
+
+Optional inputs:
+  -f, --gff       a GFF file corresponding to the base genome (RECOMMENDED)
+  --fai           a .fasta.fai index file for fasta sources
+  --base-idx      the path and base name for hisat2 indexes
+
+Output options:
+  --outdir        the directory in which to output all files (default: current directory)
+  --output-name   the name to use for output files (default: <source>_on_<base>)
+  -k, --keep      which temporary files to keep, one of "all, variants, alignments
+                  genomes, none" (default: all)
+  --logfile       a filename to print a log of activity to (default: log.txt)
+
+Fragmentation options:
+  -l, --lengths   a comma-separated list of fragment lengths to employ (default: 200,10000)
+  --fragment      whether to fragment input fasta file, yes or no (default: "yes")
+  --min-length    minimum base length of fragment to be used (default: 20)
+  --overlap       integer indicating percent overlap of adjacent fragments (default: 75)
+
+Alignment/Variant options:
+  --score-min     the input to the HISAT2 score-min function, which governs minimum the
+                  alignment score for a successful alignment (default: L,0,-1.50)
+  --var-fraction  the fraction of alleles that must agree to call a variant (default: 0.501)
+  --min-var       the minimum number of variants an iteration needs to call to justify another
+                  iteration (default: 100)
+
+Variant annotation options:
+  --add-flanks    whether to label variants as being up or down stream of given features,
+                  either yes or no (default: no)
+  --flank-lengths two comma-separated values indicating the length of "flanks" around each
+                  feature up and downstream respectively (default: 50,50)
+  --feature-types a single or comma-separated list of labels indicating which features to
+                  annotate variants relative to (default: gene,five_prime_UTR,three_prime_UTR)
+  --feature-name  the value the feature name is associated with in the GFF (default: ID)
+
+Other options:
+  -t, --threads   the number of parallel threads to run (default: 1)
+  --bin-size      the size of genome sections to align in final Needleman-Wunsch (default: 10000)
+  -h, --help      display this help message
+  
