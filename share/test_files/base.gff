@@ -1,0 +1,841 @@
+##gff-version 3
+##species http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=347515
+##sequence-region LmjF.01 1 268988
+##sequence-region LmjF.02 1 355712
+LmjF.01	VEuPathDB	protein_coding_gene	3704	4702	.	-	.	ID=LmjF.01.0010;description=Protein of unknown function (DUF2946)%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	3704	4702	.	-	.	ID=LmjF.01.0010:mRNA;Parent=LmjF.01.0010;description=Protein of unknown function (DUF2946)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	3704	4702	.	-	.	ID=exon_LmjF.01.0010:mRNA-E1;Parent=LmjF.01.0010:mRNA;gene_id=LmjF.01.0010
+LmjF.01	VEuPathDB	CDS	3704	4702	.	-	0	ID=LmjF.01.0010:mRNA-p1-CDS1;Parent=LmjF.01.0010:mRNA;gene_id=LmjF.01.0010;protein_source_id=LmjF.01.0010:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	5790	7439	.	-	.	ID=LmjF.01.0020;description=Endonuclease/Exonuclease/phosphatase family%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	5790	7439	.	-	.	ID=LmjF.01.0020:mRNA;Parent=LmjF.01.0020;description=Endonuclease/Exonuclease/phosphatase family%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	5790	7439	.	-	.	ID=exon_LmjF.01.0020:mRNA-E1;Parent=LmjF.01.0020:mRNA;gene_id=LmjF.01.0020
+LmjF.01	VEuPathDB	CDS	5790	7439	.	-	0	ID=LmjF.01.0020:mRNA-p1-CDS1;Parent=LmjF.01.0020:mRNA;gene_id=LmjF.01.0020;protein_source_id=LmjF.01.0020:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	9061	11067	.	-	.	ID=LmjF.01.0030;Name=KIN13-1;description=Kinesin-13 1%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	9061	11067	.	-	.	ID=LmjF.01.0030:mRNA;Parent=LmjF.01.0030;description=Kinesin-13 1%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	9061	11067	.	-	.	ID=exon_LmjF.01.0030:mRNA-E1;Parent=LmjF.01.0030:mRNA;gene_id=LmjF.01.0030
+LmjF.01	VEuPathDB	CDS	9061	11067	.	-	0	ID=LmjF.01.0030:mRNA-p1-CDS1;Parent=LmjF.01.0030:mRNA;gene_id=LmjF.01.0030;protein_source_id=LmjF.01.0030:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	12073	12642	.	-	.	ID=LmjF.01.0040;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	12073	12642	.	-	.	ID=LmjF.01.0040:mRNA;Parent=LmjF.01.0040;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	12073	12642	.	-	.	ID=exon_LmjF.01.0040:mRNA-E1;Parent=LmjF.01.0040:mRNA;gene_id=LmjF.01.0040
+LmjF.01	VEuPathDB	CDS	12073	12642	.	-	0	ID=LmjF.01.0040:mRNA-p1-CDS1;Parent=LmjF.01.0040:mRNA;gene_id=LmjF.01.0040;protein_source_id=LmjF.01.0040:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	15025	17022	.	-	.	ID=LmjF.01.0050;description=carboxylase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	15025	17022	.	-	.	ID=LmjF.01.0050:mRNA;Parent=LmjF.01.0050;Note=6.4.-.- (Forming carbon-carbon bonds.);description=carboxylase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	15025	17022	.	-	.	ID=exon_LmjF.01.0050:mRNA-E1;Parent=LmjF.01.0050:mRNA;gene_id=LmjF.01.0050
+LmjF.01	VEuPathDB	CDS	15025	17022	.	-	0	ID=LmjF.01.0050:mRNA-p1-CDS1;Parent=LmjF.01.0050:mRNA;gene_id=LmjF.01.0050;protein_source_id=LmjF.01.0050:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	18137	18886	.	-	.	ID=LmjF.01.0060;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	18137	18886	.	-	.	ID=LmjF.01.0060:mRNA;Parent=LmjF.01.0060;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	18137	18886	.	-	.	ID=exon_LmjF.01.0060:mRNA-E1;Parent=LmjF.01.0060:mRNA;gene_id=LmjF.01.0060
+LmjF.01	VEuPathDB	CDS	18137	18886	.	-	0	ID=LmjF.01.0060:mRNA-p1-CDS1;Parent=LmjF.01.0060:mRNA;gene_id=LmjF.01.0060;protein_source_id=LmjF.01.0060:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	19951	21747	.	-	.	ID=LmjF.01.0070;description=BSD domain containing protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	19951	21747	.	-	.	ID=LmjF.01.0070:mRNA;Parent=LmjF.01.0070;description=BSD domain containing protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	19951	21747	.	-	.	ID=exon_LmjF.01.0070:mRNA-E1;Parent=LmjF.01.0070:mRNA;gene_id=LmjF.01.0070
+LmjF.01	VEuPathDB	CDS	19951	21747	.	-	0	ID=LmjF.01.0070:mRNA-p1-CDS1;Parent=LmjF.01.0070:mRNA;gene_id=LmjF.01.0070;protein_source_id=LmjF.01.0070:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	22613	23326	.	-	.	ID=LmjF.01.0080;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	22613	23326	.	-	.	ID=LmjF.01.0080:mRNA;Parent=LmjF.01.0080;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	22613	23326	.	-	.	ID=exon_LmjF.01.0080:mRNA-E1;Parent=LmjF.01.0080:mRNA;gene_id=LmjF.01.0080
+LmjF.01	VEuPathDB	CDS	22613	23326	.	-	0	ID=LmjF.01.0080:mRNA-p1-CDS1;Parent=LmjF.01.0080:mRNA;gene_id=LmjF.01.0080;protein_source_id=LmjF.01.0080:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	24859	25683	.	-	.	ID=LmjF.01.0090;description=UMP-CMP kinase%2C mitochondrial%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	24859	25683	.	-	.	ID=LmjF.01.0090:mRNA;Parent=LmjF.01.0090;description=UMP-CMP kinase%2C mitochondrial%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	24859	25683	.	-	.	ID=exon_LmjF.01.0090:mRNA-E1;Parent=LmjF.01.0090:mRNA;gene_id=LmjF.01.0090
+LmjF.01	VEuPathDB	CDS	24859	25683	.	-	0	ID=LmjF.01.0090:mRNA-p1-CDS1;Parent=LmjF.01.0090:mRNA;gene_id=LmjF.01.0090;protein_source_id=LmjF.01.0090:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	26405	27451	.	-	.	ID=LmjF.01.0100;Name=FUT1;description=Fucosyltransferase 1;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	26405	27451	.	-	.	ID=LmjF.01.0100:mRNA;Parent=LmjF.01.0100;description=Fucosyltransferase 1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	26405	27451	.	-	.	ID=exon_LmjF.01.0100:mRNA-E1;Parent=LmjF.01.0100:mRNA;gene_id=LmjF.01.0100
+LmjF.01	VEuPathDB	CDS	26405	27451	.	-	0	ID=LmjF.01.0100:mRNA-p1-CDS1;Parent=LmjF.01.0100:mRNA;gene_id=LmjF.01.0100;protein_source_id=LmjF.01.0100:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	28521	29108	.	-	.	ID=LmjF.01.0110;description=monothiol glutaredoxin%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	28521	29108	.	-	.	ID=LmjF.01.0110:mRNA;Parent=LmjF.01.0110;description=monothiol glutaredoxin%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	28521	29108	.	-	.	ID=exon_LmjF.01.0110:mRNA-E1;Parent=LmjF.01.0110:mRNA;gene_id=LmjF.01.0110
+LmjF.01	VEuPathDB	CDS	28521	29108	.	-	0	ID=LmjF.01.0110:mRNA-p1-CDS1;Parent=LmjF.01.0110:mRNA;gene_id=LmjF.01.0110;protein_source_id=LmjF.01.0110:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	30278	32251	.	-	.	ID=LmjF.01.0120;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	30278	32251	.	-	.	ID=LmjF.01.0120:mRNA;Parent=LmjF.01.0120;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	30278	32251	.	-	.	ID=exon_LmjF.01.0120:mRNA-E1;Parent=LmjF.01.0120:mRNA;gene_id=LmjF.01.0120
+LmjF.01	VEuPathDB	CDS	30278	32251	.	-	0	ID=LmjF.01.0120:mRNA-p1-CDS1;Parent=LmjF.01.0120:mRNA;gene_id=LmjF.01.0120;protein_source_id=LmjF.01.0120:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	33630	34826	.	-	.	ID=LmjF.01.0130;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	33630	34826	.	-	.	ID=LmjF.01.0130:mRNA;Parent=LmjF.01.0130;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	33630	34826	.	-	.	ID=exon_LmjF.01.0130:mRNA-E1;Parent=LmjF.01.0130:mRNA;gene_id=LmjF.01.0130
+LmjF.01	VEuPathDB	CDS	33630	34826	.	-	0	ID=LmjF.01.0130:mRNA-p1-CDS1;Parent=LmjF.01.0130:mRNA;gene_id=LmjF.01.0130;protein_source_id=LmjF.01.0130:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	36878	37126	.	-	.	ID=LmjF.01.0140;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	36878	37126	.	-	.	ID=LmjF.01.0140:mRNA;Parent=LmjF.01.0140;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	36878	37126	.	-	.	ID=exon_LmjF.01.0140:mRNA-E1;Parent=LmjF.01.0140:mRNA;gene_id=LmjF.01.0140
+LmjF.01	VEuPathDB	CDS	36878	37126	.	-	0	ID=LmjF.01.0140:mRNA-p1-CDS1;Parent=LmjF.01.0140:mRNA;gene_id=LmjF.01.0140;protein_source_id=LmjF.01.0140:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	37714	38064	.	-	.	ID=LmjF.01.0150;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	37714	38064	.	-	.	ID=LmjF.01.0150:mRNA;Parent=LmjF.01.0150;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	37714	38064	.	-	.	ID=exon_LmjF.01.0150:mRNA-E1;Parent=LmjF.01.0150:mRNA;gene_id=LmjF.01.0150
+LmjF.01	VEuPathDB	CDS	37714	38064	.	-	0	ID=LmjF.01.0150:mRNA-p1-CDS1;Parent=LmjF.01.0150:mRNA;gene_id=LmjF.01.0150;protein_source_id=LmjF.01.0150:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	38940	39182	.	-	.	ID=LmjF.01.0160;description=LSM domain containing protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	38940	39182	.	-	.	ID=LmjF.01.0160:mRNA;Parent=LmjF.01.0160;description=LSM domain containing protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	38940	39182	.	-	.	ID=exon_LmjF.01.0160:mRNA-E1;Parent=LmjF.01.0160:mRNA;gene_id=LmjF.01.0160
+LmjF.01	VEuPathDB	CDS	38940	39182	.	-	0	ID=LmjF.01.0160:mRNA-p1-CDS1;Parent=LmjF.01.0160:mRNA;gene_id=LmjF.01.0160;protein_source_id=LmjF.01.0160:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	41273	42649	.	-	.	ID=LmjF.01.0170;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	41273	42649	.	-	.	ID=LmjF.01.0170:mRNA;Parent=LmjF.01.0170;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	41273	42649	.	-	.	ID=exon_LmjF.01.0170:mRNA-E1;Parent=LmjF.01.0170:mRNA;gene_id=LmjF.01.0170
+LmjF.01	VEuPathDB	CDS	41273	42649	.	-	0	ID=LmjF.01.0170:mRNA-p1-CDS1;Parent=LmjF.01.0170:mRNA;gene_id=LmjF.01.0170;protein_source_id=LmjF.01.0170:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	44148	46466	.	-	.	ID=LmjF.01.0180;description=CLC-type chloride channel%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	44148	46466	.	-	.	ID=LmjF.01.0180:mRNA;Parent=LmjF.01.0180;description=CLC-type chloride channel%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	44148	46466	.	-	.	ID=exon_LmjF.01.0180:mRNA-E1;Parent=LmjF.01.0180:mRNA;gene_id=LmjF.01.0180
+LmjF.01	VEuPathDB	CDS	44148	46466	.	-	0	ID=LmjF.01.0180:mRNA-p1-CDS1;Parent=LmjF.01.0180:mRNA;gene_id=LmjF.01.0180;protein_source_id=LmjF.01.0180:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	47548	48138	.	-	.	ID=LmjF.01.0190;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	47548	48138	.	-	.	ID=LmjF.01.0190:mRNA;Parent=LmjF.01.0190;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	47548	48138	.	-	.	ID=exon_LmjF.01.0190:mRNA-E1;Parent=LmjF.01.0190:mRNA;gene_id=LmjF.01.0190
+LmjF.01	VEuPathDB	CDS	47548	48138	.	-	0	ID=LmjF.01.0190:mRNA-p1-CDS1;Parent=LmjF.01.0190:mRNA;gene_id=LmjF.01.0190;protein_source_id=LmjF.01.0190:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	48851	49651	.	-	.	ID=LmjF.01.0200;description=Low molecular weight phosphotyrosine protein phosphatase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	48851	49651	.	-	.	ID=LmjF.01.0200:mRNA;Parent=LmjF.01.0200;description=Low molecular weight phosphotyrosine protein phosphatase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	48851	49651	.	-	.	ID=exon_LmjF.01.0200:mRNA-E1;Parent=LmjF.01.0200:mRNA;gene_id=LmjF.01.0200
+LmjF.01	VEuPathDB	CDS	48851	49651	.	-	0	ID=LmjF.01.0200:mRNA-p1-CDS1;Parent=LmjF.01.0200:mRNA;gene_id=LmjF.01.0200;protein_source_id=LmjF.01.0200:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	50677	53370	.	-	.	ID=LmjF.01.0210;description=CUE domain/Domain of unknown function (DUF1771)/Smr domain containing protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	50677	53370	.	-	.	ID=LmjF.01.0210:mRNA;Parent=LmjF.01.0210;description=CUE domain/Domain of unknown function (DUF1771)/Smr domain containing protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	50677	53370	.	-	.	ID=exon_LmjF.01.0210:mRNA-E1;Parent=LmjF.01.0210:mRNA;gene_id=LmjF.01.0210
+LmjF.01	VEuPathDB	CDS	50677	53370	.	-	0	ID=LmjF.01.0210:mRNA-p1-CDS1;Parent=LmjF.01.0210:mRNA;gene_id=LmjF.01.0210;protein_source_id=LmjF.01.0210:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	57026	58033	.	-	.	ID=LmjF.01.0220;Name=CYP12;description=cyclophilin 12%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	57026	58033	.	-	.	ID=LmjF.01.0220:mRNA;Parent=LmjF.01.0220;Note=5.2.1.8 (Peptidylprolyl isomerase);description=cyclophilin 12%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	57026	58033	.	-	.	ID=exon_LmjF.01.0220:mRNA-E1;Parent=LmjF.01.0220:mRNA;gene_id=LmjF.01.0220
+LmjF.01	VEuPathDB	CDS	57026	58033	.	-	0	ID=LmjF.01.0220:mRNA-p1-CDS1;Parent=LmjF.01.0220:mRNA;gene_id=LmjF.01.0220;protein_source_id=LmjF.01.0220:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	58837	59253	.	-	.	ID=LmjF.01.0230;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	58837	59253	.	-	.	ID=LmjF.01.0230:mRNA;Parent=LmjF.01.0230;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	58837	59253	.	-	.	ID=exon_LmjF.01.0230:mRNA-E1;Parent=LmjF.01.0230:mRNA;gene_id=LmjF.01.0230
+LmjF.01	VEuPathDB	CDS	58837	59253	.	-	0	ID=LmjF.01.0230:mRNA-p1-CDS1;Parent=LmjF.01.0230:mRNA;gene_id=LmjF.01.0230;protein_source_id=LmjF.01.0230:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	60056	62833	.	-	.	ID=LmjF.01.0240;description=DNA excision/repair protein SNF2%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	60056	62833	.	-	.	ID=LmjF.01.0240:mRNA;Parent=LmjF.01.0240;description=DNA excision/repair protein SNF2%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	60056	62833	.	-	.	ID=exon_LmjF.01.0240:mRNA-E1;Parent=LmjF.01.0240:mRNA;gene_id=LmjF.01.0240
+LmjF.01	VEuPathDB	CDS	60056	62833	.	-	0	ID=LmjF.01.0240:mRNA-p1-CDS1;Parent=LmjF.01.0240:mRNA;gene_id=LmjF.01.0240;protein_source_id=LmjF.01.0240:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	63619	66090	.	-	.	ID=LmjF.01.0250;description=Right handed beta helix region%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	63619	66090	.	-	.	ID=LmjF.01.0250:mRNA;Parent=LmjF.01.0250;description=Right handed beta helix region%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	63619	66090	.	-	.	ID=exon_LmjF.01.0250:mRNA-E1;Parent=LmjF.01.0250:mRNA;gene_id=LmjF.01.0250
+LmjF.01	VEuPathDB	CDS	63619	66090	.	-	0	ID=LmjF.01.0250:mRNA-p1-CDS1;Parent=LmjF.01.0250:mRNA;gene_id=LmjF.01.0250;protein_source_id=LmjF.01.0250:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	67443	68288	.	-	.	ID=LmjF.01.0260;description=Calmodulin-binding%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	67443	68288	.	-	.	ID=LmjF.01.0260:mRNA;Parent=LmjF.01.0260;description=Calmodulin-binding%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	67443	68288	.	-	.	ID=exon_LmjF.01.0260:mRNA-E1;Parent=LmjF.01.0260:mRNA;gene_id=LmjF.01.0260
+LmjF.01	VEuPathDB	CDS	67443	68288	.	-	0	ID=LmjF.01.0260:mRNA-p1-CDS1;Parent=LmjF.01.0260:mRNA;gene_id=LmjF.01.0260;protein_source_id=LmjF.01.0260:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	69584	69907	.	-	.	ID=LmjF.01.0270;description=thioredoxin%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	69584	69907	.	-	.	ID=LmjF.01.0270:mRNA;Parent=LmjF.01.0270;description=thioredoxin%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	69584	69907	.	-	.	ID=exon_LmjF.01.0270:mRNA-E1;Parent=LmjF.01.0270:mRNA;gene_id=LmjF.01.0270
+LmjF.01	VEuPathDB	CDS	69584	69907	.	-	0	ID=LmjF.01.0270:mRNA-p1-CDS1;Parent=LmjF.01.0270:mRNA;gene_id=LmjF.01.0270;protein_source_id=LmjF.01.0270:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	71546	72787	.	-	.	ID=LmjF.01.0280;description=pseudouridylate synthase-like protein;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	71546	72787	.	-	.	ID=LmjF.01.0280:mRNA;Parent=LmjF.01.0280;description=pseudouridylate synthase-like protein;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	71546	72787	.	-	.	ID=exon_LmjF.01.0280:mRNA-E1;Parent=LmjF.01.0280:mRNA;gene_id=LmjF.01.0280
+LmjF.01	VEuPathDB	CDS	71546	72787	.	-	0	ID=LmjF.01.0280:mRNA-p1-CDS1;Parent=LmjF.01.0280:mRNA;gene_id=LmjF.01.0280;protein_source_id=LmjF.01.0280:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	74034	74552	.	-	.	ID=LmjF.01.0290;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	74034	74552	.	-	.	ID=LmjF.01.0290:mRNA;Parent=LmjF.01.0290;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	74034	74552	.	-	.	ID=exon_LmjF.01.0290:mRNA-E1;Parent=LmjF.01.0290:mRNA;gene_id=LmjF.01.0290
+LmjF.01	VEuPathDB	CDS	74034	74552	.	-	0	ID=LmjF.01.0290:mRNA-p1-CDS1;Parent=LmjF.01.0290:mRNA;gene_id=LmjF.01.0290;protein_source_id=LmjF.01.0290:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	75474	75653	.	-	.	ID=LmjF.01.0300;description=4F5 protein family%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	75474	75653	.	-	.	ID=LmjF.01.0300:mRNA;Parent=LmjF.01.0300;description=4F5 protein family%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	75474	75653	.	-	.	ID=exon_LmjF.01.0300:mRNA-E1;Parent=LmjF.01.0300:mRNA;gene_id=LmjF.01.0300
+LmjF.01	VEuPathDB	CDS	75474	75653	.	-	0	ID=LmjF.01.0300:mRNA-p1-CDS1;Parent=LmjF.01.0300:mRNA;gene_id=LmjF.01.0300;protein_source_id=LmjF.01.0300:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	76217	77383	.	-	.	ID=LmjF.01.0310;description=acidocalcisomal exopolyphosphatase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	76217	77383	.	-	.	ID=LmjF.01.0310:mRNA;Parent=LmjF.01.0310;Note=3.6.1.11 (Exopolyphosphatase);description=acidocalcisomal exopolyphosphatase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	76217	77383	.	-	.	ID=exon_LmjF.01.0310:mRNA-E1;Parent=LmjF.01.0310:mRNA;gene_id=LmjF.01.0310
+LmjF.01	VEuPathDB	CDS	76217	77383	.	-	0	ID=LmjF.01.0310:mRNA-p1-CDS1;Parent=LmjF.01.0310:mRNA;gene_id=LmjF.01.0310;protein_source_id=LmjF.01.0310:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	77741	78172	.	-	.	ID=LmjF.01.0315;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	77741	78172	.	-	.	ID=LmjF.01.0315:mRNA;Parent=LmjF.01.0315;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	77741	78172	.	-	.	ID=exon_LmjF.01.0315:mRNA-E1;Parent=LmjF.01.0315:mRNA;gene_id=LmjF.01.0315
+LmjF.01	VEuPathDB	CDS	77741	78172	.	-	0	ID=LmjF.01.0315:mRNA-p1-CDS1;Parent=LmjF.01.0315:mRNA;gene_id=LmjF.01.0315;protein_source_id=LmjF.01.0315:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	79049	80068	.	+	.	ID=LmjF.01.0320;description=poly(A) export protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	79049	80068	.	+	.	ID=LmjF.01.0320:mRNA;Parent=LmjF.01.0320;description=poly(A) export protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	79049	80068	.	+	.	ID=exon_LmjF.01.0320:mRNA-E1;Parent=LmjF.01.0320:mRNA;gene_id=LmjF.01.0320
+LmjF.01	VEuPathDB	CDS	79049	80068	.	+	0	ID=LmjF.01.0320:mRNA-p1-CDS1;Parent=LmjF.01.0320:mRNA;gene_id=LmjF.01.0320;protein_source_id=LmjF.01.0320:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	80472	81164	.	+	.	ID=LmjF.01.0330;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	80472	81164	.	+	.	ID=LmjF.01.0330.2:mRNA;Parent=LmjF.01.0330;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	80583	81164	.	+	.	ID=LmjF.01.0330.1:mRNA;Parent=LmjF.01.0330;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	80472	81164	.	+	.	ID=exon_LmjF.01.0330.2:mRNA-E1;Parent=LmjF.01.0330.2:mRNA;gene_id=LmjF.01.0330
+LmjF.01	VEuPathDB	exon	80583	81164	.	+	.	ID=exon_LmjF.01.0330.1:mRNA-E1;Parent=LmjF.01.0330.1:mRNA;gene_id=LmjF.01.0330
+LmjF.01	VEuPathDB	CDS	80535	81164	.	+	0	ID=LmjF.01.0330.2:mRNA-p1-CDS1;Parent=LmjF.01.0330.2:mRNA;gene_id=LmjF.01.0330;protein_source_id=LmjF.01.0330.2:mRNA-p1
+LmjF.01	VEuPathDB	CDS	80964	81164	.	+	0	ID=LmjF.01.0330.1:mRNA-p1-CDS1;Parent=LmjF.01.0330.1:mRNA;gene_id=LmjF.01.0330;protein_source_id=LmjF.01.0330.1:mRNA-p1
+LmjF.01	VEuPathDB	five_prime_UTR	80472	80534	.	+	.	ID=utr_LmjF.01.0330.2:mRNA_1;Parent=LmjF.01.0330.2:mRNA
+LmjF.01	VEuPathDB	five_prime_UTR	80583	80963	.	+	.	ID=utr_LmjF.01.0330.1:mRNA_1;Parent=LmjF.01.0330.1:mRNA
+LmjF.01	VEuPathDB	protein_coding_gene	81749	82042	.	+	.	ID=LmjF.01.0335;Name=MPC1;description=Mitochondrial pyruvate carrier 1;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	81749	82042	.	+	.	ID=LmjF.01.0335:mRNA;Parent=LmjF.01.0335;description=Mitochondrial pyruvate carrier 1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	81749	82042	.	+	.	ID=exon_LmjF.01.0335:mRNA-E1;Parent=LmjF.01.0335:mRNA;gene_id=LmjF.01.0335
+LmjF.01	VEuPathDB	CDS	81749	82042	.	+	0	ID=LmjF.01.0335:mRNA-p1-CDS1;Parent=LmjF.01.0335:mRNA;gene_id=LmjF.01.0335;protein_source_id=LmjF.01.0335:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	83341	84117	.	+	.	ID=LmjF.01.0340;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	83341	84117	.	+	.	ID=LmjF.01.0340:mRNA;Parent=LmjF.01.0340;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	83341	84117	.	+	.	ID=exon_LmjF.01.0340:mRNA-E1;Parent=LmjF.01.0340:mRNA;gene_id=LmjF.01.0340
+LmjF.01	VEuPathDB	CDS	83341	84117	.	+	0	ID=LmjF.01.0340:mRNA-p1-CDS1;Parent=LmjF.01.0340:mRNA;gene_id=LmjF.01.0340;protein_source_id=LmjF.01.0340:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	85901	88105	.	+	.	ID=LmjF.01.0350;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	85901	88105	.	+	.	ID=LmjF.01.0350:mRNA;Parent=LmjF.01.0350;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	85901	88105	.	+	.	ID=exon_LmjF.01.0350:mRNA-E1;Parent=LmjF.01.0350:mRNA;gene_id=LmjF.01.0350
+LmjF.01	VEuPathDB	CDS	85901	88105	.	+	0	ID=LmjF.01.0350:mRNA-p1-CDS1;Parent=LmjF.01.0350:mRNA;gene_id=LmjF.01.0350;protein_source_id=LmjF.01.0350:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	88974	89543	.	+	.	ID=LmjF.01.0360;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	88974	89543	.	+	.	ID=LmjF.01.0360:mRNA;Parent=LmjF.01.0360;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	88974	89543	.	+	.	ID=exon_LmjF.01.0360:mRNA-E1;Parent=LmjF.01.0360:mRNA;gene_id=LmjF.01.0360
+LmjF.01	VEuPathDB	CDS	88974	89543	.	+	0	ID=LmjF.01.0360:mRNA-p1-CDS1;Parent=LmjF.01.0360:mRNA;gene_id=LmjF.01.0360;protein_source_id=LmjF.01.0360:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	90100	90666	.	+	.	ID=LmjF.01.0370;description=Protein of unknown function (DUF788)%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	90100	90666	.	+	.	ID=LmjF.01.0370:mRNA;Parent=LmjF.01.0370;description=Protein of unknown function (DUF788)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	90100	90666	.	+	.	ID=exon_LmjF.01.0370:mRNA-E1;Parent=LmjF.01.0370:mRNA;gene_id=LmjF.01.0370
+LmjF.01	VEuPathDB	CDS	90100	90666	.	+	0	ID=LmjF.01.0370:mRNA-p1-CDS1;Parent=LmjF.01.0370:mRNA;gene_id=LmjF.01.0370;protein_source_id=LmjF.01.0370:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	91351	93807	.	+	.	ID=LmjF.01.0380;description=Dyggve-Melchior-Clausen syndrome protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	91351	93807	.	+	.	ID=LmjF.01.0380:mRNA;Parent=LmjF.01.0380;description=Dyggve-Melchior-Clausen syndrome protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	91351	93807	.	+	.	ID=exon_LmjF.01.0380:mRNA-E1;Parent=LmjF.01.0380:mRNA;gene_id=LmjF.01.0380
+LmjF.01	VEuPathDB	CDS	91351	93807	.	+	0	ID=LmjF.01.0380:mRNA-p1-CDS1;Parent=LmjF.01.0380:mRNA;gene_id=LmjF.01.0380;protein_source_id=LmjF.01.0380:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	94762	97230	.	+	.	ID=LmjF.01.0390;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	94762	97230	.	+	.	ID=LmjF.01.0390:mRNA;Parent=LmjF.01.0390;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	94762	97230	.	+	.	ID=exon_LmjF.01.0390:mRNA-E1;Parent=LmjF.01.0390:mRNA;gene_id=LmjF.01.0390
+LmjF.01	VEuPathDB	CDS	94762	97230	.	+	0	ID=LmjF.01.0390:mRNA-p1-CDS1;Parent=LmjF.01.0390:mRNA;gene_id=LmjF.01.0390;protein_source_id=LmjF.01.0390:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	98194	99873	.	+	.	ID=LmjF.01.0400;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	98194	99873	.	+	.	ID=LmjF.01.0400:mRNA;Parent=LmjF.01.0400;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	98194	99873	.	+	.	ID=exon_LmjF.01.0400:mRNA-E1;Parent=LmjF.01.0400:mRNA;gene_id=LmjF.01.0400
+LmjF.01	VEuPathDB	CDS	98194	99873	.	+	0	ID=LmjF.01.0400:mRNA-p1-CDS1;Parent=LmjF.01.0400:mRNA;gene_id=LmjF.01.0400;protein_source_id=LmjF.01.0400:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	100528	101130	.	+	.	ID=LmjF.01.0410;description=ribosomal protein S7%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	100528	101130	.	+	.	ID=LmjF.01.0410:mRNA;Parent=LmjF.01.0410;description=ribosomal protein S7%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	100528	101130	.	+	.	ID=exon_LmjF.01.0410:mRNA-E1;Parent=LmjF.01.0410:mRNA;gene_id=LmjF.01.0410
+LmjF.01	VEuPathDB	CDS	100528	101130	.	+	0	ID=LmjF.01.0410:mRNA-p1-CDS1;Parent=LmjF.01.0410:mRNA;gene_id=LmjF.01.0410;protein_source_id=LmjF.01.0410:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	102444	103046	.	+	.	ID=LmjF.01.0420;description=ribosomal protein S7%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	102444	103046	.	+	.	ID=LmjF.01.0420:mRNA;Parent=LmjF.01.0420;description=ribosomal protein S7%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	102444	103046	.	+	.	ID=exon_LmjF.01.0420:mRNA-E1;Parent=LmjF.01.0420:mRNA;gene_id=LmjF.01.0420
+LmjF.01	VEuPathDB	CDS	102444	103046	.	+	0	ID=LmjF.01.0420:mRNA-p1-CDS1;Parent=LmjF.01.0420:mRNA;gene_id=LmjF.01.0420;protein_source_id=LmjF.01.0420:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	103842	106073	.	+	.	ID=LmjF.01.0430;description=Ring finger domain/Zn-finger in ubiquitin-hydrolases and other protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	103842	106073	.	+	.	ID=LmjF.01.0430:mRNA;Parent=LmjF.01.0430;description=Ring finger domain/Zn-finger in ubiquitin-hydrolases and other protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	103842	106073	.	+	.	ID=exon_LmjF.01.0430:mRNA-E1;Parent=LmjF.01.0430:mRNA;gene_id=LmjF.01.0430
+LmjF.01	VEuPathDB	CDS	103842	106073	.	+	0	ID=LmjF.01.0430:mRNA-p1-CDS1;Parent=LmjF.01.0430:mRNA;gene_id=LmjF.01.0430;protein_source_id=LmjF.01.0430:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	107438	109201	.	+	.	ID=LmjF.01.0440;description=Protein of unknown function (DUF791)%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	107438	109201	.	+	.	ID=LmjF.01.0440:mRNA;Parent=LmjF.01.0440;description=Protein of unknown function (DUF791)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	107438	109201	.	+	.	ID=exon_LmjF.01.0440:mRNA-E1;Parent=LmjF.01.0440:mRNA;gene_id=LmjF.01.0440
+LmjF.01	VEuPathDB	CDS	107438	109201	.	+	0	ID=LmjF.01.0440:mRNA-p1-CDS1;Parent=LmjF.01.0440:mRNA;gene_id=LmjF.01.0440;protein_source_id=LmjF.01.0440:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	112139	112795	.	+	.	ID=LmjF.01.0450;Name=PNC1;description=nicotinamidase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	112139	112795	.	+	.	ID=LmjF.01.0450:mRNA;Parent=LmjF.01.0450;description=nicotinamidase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	112139	112795	.	+	.	ID=exon_LmjF.01.0450:mRNA-E1;Parent=LmjF.01.0450:mRNA;gene_id=LmjF.01.0450
+LmjF.01	VEuPathDB	CDS	112139	112795	.	+	0	ID=LmjF.01.0450:mRNA-p1-CDS1;Parent=LmjF.01.0450:mRNA;gene_id=LmjF.01.0450;protein_source_id=LmjF.01.0450:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	114558	119183	.	+	.	ID=LmjF.01.0460;description=conserved protein;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	114558	119183	.	+	.	ID=LmjF.01.0460:mRNA;Parent=LmjF.01.0460;description=conserved protein;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	114558	119183	.	+	.	ID=exon_LmjF.01.0460:mRNA-E1;Parent=LmjF.01.0460:mRNA;gene_id=LmjF.01.0460
+LmjF.01	VEuPathDB	CDS	114558	119183	.	+	0	ID=LmjF.01.0460:mRNA-p1-CDS1;Parent=LmjF.01.0460:mRNA;gene_id=LmjF.01.0460;protein_source_id=LmjF.01.0460:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	121759	123849	.	+	.	ID=LmjF.01.0470;description=fatty acyl CoA syntetase 1%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	121759	123849	.	+	.	ID=LmjF.01.0470:mRNA;Parent=LmjF.01.0470;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=fatty acyl CoA syntetase 1%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	121759	123849	.	+	.	ID=exon_LmjF.01.0470:mRNA-E1;Parent=LmjF.01.0470:mRNA;gene_id=LmjF.01.0470
+LmjF.01	VEuPathDB	CDS	121759	123849	.	+	0	ID=LmjF.01.0470:mRNA-p1-CDS1;Parent=LmjF.01.0470:mRNA;gene_id=LmjF.01.0470;protein_source_id=LmjF.01.0470:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	124711	125790	.	+	.	ID=LmjF.01.0480;description=beta eliminating lyase%2Cputative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	124711	125790	.	+	.	ID=LmjF.01.0480:mRNA;Parent=LmjF.01.0480;description=beta eliminating lyase%2Cputative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	124711	125790	.	+	.	ID=exon_LmjF.01.0480:mRNA-E1;Parent=LmjF.01.0480:mRNA;gene_id=LmjF.01.0480
+LmjF.01	VEuPathDB	CDS	124711	125790	.	+	0	ID=LmjF.01.0480:mRNA-p1-CDS1;Parent=LmjF.01.0480:mRNA;gene_id=LmjF.01.0480;protein_source_id=LmjF.01.0480:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	127704	129800	.	+	.	ID=LmjF.01.0490;description=long-chain-fatty-acid-CoA ligase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	127704	129800	.	+	.	ID=LmjF.01.0490:mRNA;Parent=LmjF.01.0490;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=long-chain-fatty-acid-CoA ligase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	127704	129800	.	+	.	ID=exon_LmjF.01.0490:mRNA-E1;Parent=LmjF.01.0490:mRNA;gene_id=LmjF.01.0490
+LmjF.01	VEuPathDB	CDS	127704	129800	.	+	0	ID=LmjF.01.0490:mRNA-p1-CDS1;Parent=LmjF.01.0490:mRNA;gene_id=LmjF.01.0490;protein_source_id=LmjF.01.0490:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	130947	133070	.	+	.	ID=LmjF.01.0500;description=fatty acyl CoA synthetase 2%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	130947	133070	.	+	.	ID=LmjF.01.0500:mRNA;Parent=LmjF.01.0500;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=fatty acyl CoA synthetase 2%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	130947	133070	.	+	.	ID=exon_LmjF.01.0500:mRNA-E1;Parent=LmjF.01.0500:mRNA;gene_id=LmjF.01.0500
+LmjF.01	VEuPathDB	CDS	130947	133070	.	+	0	ID=LmjF.01.0500:mRNA-p1-CDS1;Parent=LmjF.01.0500:mRNA;gene_id=LmjF.01.0500;protein_source_id=LmjF.01.0500:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	136526	137110	.	+	.	ID=LmjF.01.0510;description=fatty acyl CoA synthetase 2%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	136526	137110	.	+	.	ID=LmjF.01.0510:mRNA;Parent=LmjF.01.0510;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=fatty acyl CoA synthetase 2%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	136526	137110	.	+	.	ID=exon_LmjF.01.0510:mRNA-E1;Parent=LmjF.01.0510:mRNA;gene_id=LmjF.01.0510
+LmjF.01	VEuPathDB	CDS	136526	137110	.	+	0	ID=LmjF.01.0510:mRNA-p1-CDS1;Parent=LmjF.01.0510:mRNA;gene_id=LmjF.01.0510;protein_source_id=LmjF.01.0510:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	137710	139857	.	+	.	ID=LmjF.01.0520;description=long-chain-fatty-acid-CoA ligase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	137710	139857	.	+	.	ID=LmjF.01.0520:mRNA;Parent=LmjF.01.0520;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=long-chain-fatty-acid-CoA ligase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	137710	139857	.	+	.	ID=exon_LmjF.01.0520:mRNA-E1;Parent=LmjF.01.0520:mRNA;gene_id=LmjF.01.0520
+LmjF.01	VEuPathDB	CDS	137710	139857	.	+	0	ID=LmjF.01.0520:mRNA-p1-CDS1;Parent=LmjF.01.0520:mRNA;gene_id=LmjF.01.0520;protein_source_id=LmjF.01.0520:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	143750	148573	.	+	.	ID=LmjF.01.0530;description=long-chain-fatty-acid-CoA ligase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	143750	148573	.	+	.	ID=LmjF.01.0530:mRNA;Parent=LmjF.01.0530;Note=6.2.1.3 (Long-chain-fatty-acid--CoA ligase);description=long-chain-fatty-acid-CoA ligase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	143750	148573	.	+	.	ID=exon_LmjF.01.0530:mRNA-E1;Parent=LmjF.01.0530:mRNA;gene_id=LmjF.01.0530
+LmjF.01	VEuPathDB	CDS	143750	148573	.	+	0	ID=LmjF.01.0530:mRNA-p1-CDS1;Parent=LmjF.01.0530:mRNA;gene_id=LmjF.01.0530;protein_source_id=LmjF.01.0530:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	149673	151652	.	+	.	ID=LmjF.01.0540;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	149673	151652	.	+	.	ID=LmjF.01.0540:mRNA;Parent=LmjF.01.0540;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	149673	151652	.	+	.	ID=exon_LmjF.01.0540:mRNA-E1;Parent=LmjF.01.0540:mRNA;gene_id=LmjF.01.0540
+LmjF.01	VEuPathDB	CDS	149673	151652	.	+	0	ID=LmjF.01.0540:mRNA-p1-CDS1;Parent=LmjF.01.0540:mRNA;gene_id=LmjF.01.0540;protein_source_id=LmjF.01.0540:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	152788	153657	.	+	.	ID=LmjF.01.0550;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	152788	153657	.	+	.	ID=LmjF.01.0550:mRNA;Parent=LmjF.01.0550;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	152788	153657	.	+	.	ID=exon_LmjF.01.0550:mRNA-E1;Parent=LmjF.01.0550:mRNA;gene_id=LmjF.01.0550
+LmjF.01	VEuPathDB	CDS	152788	153657	.	+	0	ID=LmjF.01.0550:mRNA-p1-CDS1;Parent=LmjF.01.0550:mRNA;gene_id=LmjF.01.0550;protein_source_id=LmjF.01.0550:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	154977	156839	.	+	.	ID=LmjF.01.0560;description=pre-mRNA processing factor 3 (PRP3)/Protein of unknown function (DUF1115)%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	154977	156839	.	+	.	ID=LmjF.01.0560:mRNA;Parent=LmjF.01.0560;description=pre-mRNA processing factor 3 (PRP3)/Protein of unknown function (DUF1115)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	154977	156839	.	+	.	ID=exon_LmjF.01.0560:mRNA-E1;Parent=LmjF.01.0560:mRNA;gene_id=LmjF.01.0560
+LmjF.01	VEuPathDB	CDS	154977	156839	.	+	0	ID=LmjF.01.0560:mRNA-p1-CDS1;Parent=LmjF.01.0560:mRNA;gene_id=LmjF.01.0560;protein_source_id=LmjF.01.0560:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	157437	158417	.	+	.	ID=LmjF.01.0570;description=tricarboxylate carrier%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	157437	158417	.	+	.	ID=LmjF.01.0570:mRNA;Parent=LmjF.01.0570;description=tricarboxylate carrier%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	157437	158417	.	+	.	ID=exon_LmjF.01.0570:mRNA-E1;Parent=LmjF.01.0570:mRNA;gene_id=LmjF.01.0570
+LmjF.01	VEuPathDB	CDS	157437	158417	.	+	0	ID=LmjF.01.0570:mRNA-p1-CDS1;Parent=LmjF.01.0570:mRNA;gene_id=LmjF.01.0570;protein_source_id=LmjF.01.0570:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	159196	162105	.	+	.	ID=LmjF.01.0580;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	159196	162105	.	+	.	ID=LmjF.01.0580:mRNA;Parent=LmjF.01.0580;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	159196	162105	.	+	.	ID=exon_LmjF.01.0580:mRNA-E1;Parent=LmjF.01.0580:mRNA;gene_id=LmjF.01.0580
+LmjF.01	VEuPathDB	CDS	159196	162105	.	+	0	ID=LmjF.01.0580:mRNA-p1-CDS1;Parent=LmjF.01.0580:mRNA;gene_id=LmjF.01.0580;protein_source_id=LmjF.01.0580:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	162904	164482	.	+	.	ID=LmjF.01.0590;Name=KREL1;description=mitochondrial RNA editing ligase 1;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	163009	164482	.	+	.	ID=LmjF.01.0590.2:mRNA;Parent=LmjF.01.0590;Note=6.5.1.3 (RNA ligase (ATP));description=mitochondrial RNA editing ligase 1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	162904	164482	.	+	.	ID=LmjF.01.0590.1:mRNA;Parent=LmjF.01.0590;Note=6.5.1.3 (RNA ligase (ATP));description=mitochondrial RNA editing ligase 1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	162904	164482	.	+	.	ID=exon_LmjF.01.0590.1:mRNA-E1;Parent=LmjF.01.0590.1:mRNA;gene_id=LmjF.01.0590
+LmjF.01	VEuPathDB	exon	163009	164482	.	+	.	ID=exon_LmjF.01.0590.2:mRNA-E1;Parent=LmjF.01.0590.2:mRNA;gene_id=LmjF.01.0590
+LmjF.01	VEuPathDB	CDS	163010	164482	.	+	0	ID=LmjF.01.0590.1:mRNA-p1-CDS1;Parent=LmjF.01.0590.1:mRNA;gene_id=LmjF.01.0590;protein_source_id=LmjF.01.0590.1:mRNA-p1
+LmjF.01	VEuPathDB	CDS	163208	164482	.	+	0	ID=LmjF.01.0590.2:mRNA-p1-CDS1;Parent=LmjF.01.0590.2:mRNA;gene_id=LmjF.01.0590;protein_source_id=LmjF.01.0590.2:mRNA-p1
+LmjF.01	VEuPathDB	five_prime_UTR	162904	163009	.	+	.	ID=utr_LmjF.01.0590.1:mRNA_1;Parent=LmjF.01.0590.1:mRNA
+LmjF.01	VEuPathDB	five_prime_UTR	163009	163207	.	+	.	ID=utr_LmjF.01.0590.2:mRNA_1;Parent=LmjF.01.0590.2:mRNA
+LmjF.01	VEuPathDB	protein_coding_gene	165535	171000	.	+	.	ID=LmjF.01.0600;description=Rab-GTPase-TBC domain containing protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	165535	171000	.	+	.	ID=LmjF.01.0600:mRNA;Parent=LmjF.01.0600;description=Rab-GTPase-TBC domain containing protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	165535	171000	.	+	.	ID=exon_LmjF.01.0600:mRNA-E1;Parent=LmjF.01.0600:mRNA;gene_id=LmjF.01.0600
+LmjF.01	VEuPathDB	CDS	165535	171000	.	+	0	ID=LmjF.01.0600:mRNA-p1-CDS1;Parent=LmjF.01.0600:mRNA;gene_id=LmjF.01.0600;protein_source_id=LmjF.01.0600:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	171562	172734	.	+	.	ID=LmjF.01.0610;description=DNA-damage inducible protein DDI1-like protein;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	171562	172734	.	+	.	ID=LmjF.01.0610:mRNA;Parent=LmjF.01.0610;description=DNA-damage inducible protein DDI1-like protein;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	171562	172734	.	+	.	ID=exon_LmjF.01.0610:mRNA-E1;Parent=LmjF.01.0610:mRNA;gene_id=LmjF.01.0610
+LmjF.01	VEuPathDB	CDS	171562	172734	.	+	0	ID=LmjF.01.0610:mRNA-p1-CDS1;Parent=LmjF.01.0610:mRNA;gene_id=LmjF.01.0610;protein_source_id=LmjF.01.0610:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	173376	175259	.	+	.	ID=LmjF.01.0620;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	173376	175259	.	+	.	ID=LmjF.01.0620:mRNA;Parent=LmjF.01.0620;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	173376	175259	.	+	.	ID=exon_LmjF.01.0620:mRNA-E1;Parent=LmjF.01.0620:mRNA;gene_id=LmjF.01.0620
+LmjF.01	VEuPathDB	CDS	173376	175259	.	+	0	ID=LmjF.01.0620:mRNA-p1-CDS1;Parent=LmjF.01.0620:mRNA;gene_id=LmjF.01.0620;protein_source_id=LmjF.01.0620:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	177152	179605	.	+	.	ID=LmjF.01.0630;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	177152	179605	.	+	.	ID=LmjF.01.0630:mRNA;Parent=LmjF.01.0630;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	177152	179605	.	+	.	ID=exon_LmjF.01.0630:mRNA-E1;Parent=LmjF.01.0630:mRNA;gene_id=LmjF.01.0630
+LmjF.01	VEuPathDB	CDS	177152	179605	.	+	0	ID=LmjF.01.0630:mRNA-p1-CDS1;Parent=LmjF.01.0630:mRNA;gene_id=LmjF.01.0630;protein_source_id=LmjF.01.0630:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	181458	184796	.	+	.	ID=LmjF.01.0640;Name=HSP70.a;description=HSP70-like protein;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	181458	184796	.	+	.	ID=LmjF.01.0640:mRNA;Parent=LmjF.01.0640;description=HSP70-like protein;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	181458	184796	.	+	.	ID=exon_LmjF.01.0640:mRNA-E1;Parent=LmjF.01.0640:mRNA;gene_id=LmjF.01.0640
+LmjF.01	VEuPathDB	CDS	181458	184796	.	+	0	ID=LmjF.01.0640:mRNA-p1-CDS1;Parent=LmjF.01.0640:mRNA;gene_id=LmjF.01.0640;protein_source_id=LmjF.01.0640:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	185785	187269	.	+	.	ID=LmjF.01.0650;Name=MPPB;description=mitochondrial-processing peptidase subunit beta%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	185785	187269	.	+	.	ID=LmjF.01.0650:mRNA;Parent=LmjF.01.0650;Note=3.4.24.64 (Mitochondrial processing peptidase);description=mitochondrial-processing peptidase subunit beta%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	185785	187269	.	+	.	ID=exon_LmjF.01.0650:mRNA-E1;Parent=LmjF.01.0650:mRNA;gene_id=LmjF.01.0650
+LmjF.01	VEuPathDB	CDS	185785	187269	.	+	0	ID=LmjF.01.0650:mRNA-p1-CDS1;Parent=LmjF.01.0650:mRNA;gene_id=LmjF.01.0650;protein_source_id=LmjF.01.0650:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	188417	193030	.	+	.	ID=LmjF.01.0660;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	188417	193030	.	+	.	ID=LmjF.01.0660:mRNA;Parent=LmjF.01.0660;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	188417	193030	.	+	.	ID=exon_LmjF.01.0660:mRNA-E1;Parent=LmjF.01.0660:mRNA;gene_id=LmjF.01.0660
+LmjF.01	VEuPathDB	CDS	188417	193030	.	+	0	ID=LmjF.01.0660:mRNA-p1-CDS1;Parent=LmjF.01.0660:mRNA;gene_id=LmjF.01.0660;protein_source_id=LmjF.01.0660:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	194045	194962	.	+	.	ID=LmjF.01.0670;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	194045	194962	.	+	.	ID=LmjF.01.0670:mRNA;Parent=LmjF.01.0670;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	194045	194962	.	+	.	ID=exon_LmjF.01.0670:mRNA-E1;Parent=LmjF.01.0670:mRNA;gene_id=LmjF.01.0670
+LmjF.01	VEuPathDB	CDS	194045	194962	.	+	0	ID=LmjF.01.0670:mRNA-p1-CDS1;Parent=LmjF.01.0670:mRNA;gene_id=LmjF.01.0670;protein_source_id=LmjF.01.0670:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	198854	201256	.	+	.	ID=LmjF.01.0680;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	198854	201256	.	+	.	ID=LmjF.01.0680:mRNA;Parent=LmjF.01.0680;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	198854	201256	.	+	.	ID=exon_LmjF.01.0680:mRNA-E1;Parent=LmjF.01.0680:mRNA;gene_id=LmjF.01.0680
+LmjF.01	VEuPathDB	CDS	198854	201256	.	+	0	ID=LmjF.01.0680:mRNA-p1-CDS1;Parent=LmjF.01.0680:mRNA;gene_id=LmjF.01.0680;protein_source_id=LmjF.01.0680:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	202894	203586	.	+	.	ID=LmjF.01.0690;description=PLAC8 family%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	202894	203586	.	+	.	ID=LmjF.01.0690:mRNA;Parent=LmjF.01.0690;description=PLAC8 family%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	202894	203586	.	+	.	ID=exon_LmjF.01.0690:mRNA-E1;Parent=LmjF.01.0690:mRNA;gene_id=LmjF.01.0690
+LmjF.01	VEuPathDB	CDS	202894	203586	.	+	0	ID=LmjF.01.0690:mRNA-p1-CDS1;Parent=LmjF.01.0690:mRNA;gene_id=LmjF.01.0690;protein_source_id=LmjF.01.0690:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	206309	207073	.	+	.	ID=LmjF.01.0700;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	206309	207073	.	+	.	ID=LmjF.01.0700:mRNA;Parent=LmjF.01.0700;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	206309	207073	.	+	.	ID=exon_LmjF.01.0700:mRNA-E1;Parent=LmjF.01.0700:mRNA;gene_id=LmjF.01.0700
+LmjF.01	VEuPathDB	CDS	206309	207073	.	+	0	ID=LmjF.01.0700:mRNA-p1-CDS1;Parent=LmjF.01.0700:mRNA;gene_id=LmjF.01.0700;protein_source_id=LmjF.01.0700:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	208464	210089	.	+	.	ID=LmjF.01.0710;description=ubiquitin activating enzyme%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	208464	210089	.	+	.	ID=LmjF.01.0710:mRNA;Parent=LmjF.01.0710;Note=6.3.2.19 (Transferred entry: 2.3.2.23%2C 2.3.2.27 and 6.2.1.45);description=ubiquitin activating enzyme%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	208464	210089	.	+	.	ID=exon_LmjF.01.0710:mRNA-E1;Parent=LmjF.01.0710:mRNA;gene_id=LmjF.01.0710
+LmjF.01	VEuPathDB	CDS	208464	210089	.	+	0	ID=LmjF.01.0710:mRNA-p1-CDS1;Parent=LmjF.01.0710:mRNA;gene_id=LmjF.01.0710;protein_source_id=LmjF.01.0710:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	210558	215417	.	+	.	ID=LmjF.01.0720;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	210558	215417	.	+	.	ID=LmjF.01.0720:mRNA;Parent=LmjF.01.0720;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	210558	215417	.	+	.	ID=exon_LmjF.01.0720:mRNA-E1;Parent=LmjF.01.0720:mRNA;gene_id=LmjF.01.0720
+LmjF.01	VEuPathDB	CDS	210558	215417	.	+	0	ID=LmjF.01.0720:mRNA-p1-CDS1;Parent=LmjF.01.0720:mRNA;gene_id=LmjF.01.0720;protein_source_id=LmjF.01.0720:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	216579	223304	.	+	.	ID=LmjF.01.0730;Name=mks6;description=Meckel syndrome type 6 protein%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	216579	223304	.	+	.	ID=LmjF.01.0730:mRNA;Parent=LmjF.01.0730;description=Meckel syndrome type 6 protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	216579	223304	.	+	.	ID=exon_LmjF.01.0730:mRNA-E1;Parent=LmjF.01.0730:mRNA;gene_id=LmjF.01.0730
+LmjF.01	VEuPathDB	CDS	216579	223304	.	+	0	ID=LmjF.01.0730:mRNA-p1-CDS1;Parent=LmjF.01.0730:mRNA;gene_id=LmjF.01.0730;protein_source_id=LmjF.01.0730:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	223998	226253	.	+	.	ID=LmjF.01.0740;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	223998	226253	.	+	.	ID=LmjF.01.0740:mRNA;Parent=LmjF.01.0740;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	223998	226253	.	+	.	ID=exon_LmjF.01.0740:mRNA-E1;Parent=LmjF.01.0740:mRNA;gene_id=LmjF.01.0740
+LmjF.01	VEuPathDB	CDS	223998	226253	.	+	0	ID=LmjF.01.0740:mRNA-p1-CDS1;Parent=LmjF.01.0740:mRNA;gene_id=LmjF.01.0740;protein_source_id=LmjF.01.0740:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	227560	231813	.	+	.	ID=LmjF.01.0750;description=CMGC family protein kinase%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	227560	231813	.	+	.	ID=LmjF.01.0750:mRNA;Parent=LmjF.01.0750;Note=2.7.1.37 (2.7.11.12%2C 2.7.11.13%2C 2.7.11.21%2C 2.7.11.22%2C 2.7.11.24%2C 2.7.11.25%2C2.7.11.30 and 2.7.12.1);description=CMGC family protein kinase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	227560	231813	.	+	.	ID=exon_LmjF.01.0750:mRNA-E1;Parent=LmjF.01.0750:mRNA;gene_id=LmjF.01.0750
+LmjF.01	VEuPathDB	CDS	227560	231813	.	+	0	ID=LmjF.01.0750:mRNA-p1-CDS1;Parent=LmjF.01.0750:mRNA;gene_id=LmjF.01.0750;protein_source_id=LmjF.01.0750:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	232419	233438	.	+	.	ID=LmjF.01.0760;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	232419	233438	.	+	.	ID=LmjF.01.0760:mRNA;Parent=LmjF.01.0760;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	232419	233438	.	+	.	ID=exon_LmjF.01.0760:mRNA-E1;Parent=LmjF.01.0760:mRNA;gene_id=LmjF.01.0760
+LmjF.01	VEuPathDB	CDS	232419	233438	.	+	0	ID=LmjF.01.0760:mRNA-p1-CDS1;Parent=LmjF.01.0760:mRNA;gene_id=LmjF.01.0760;protein_source_id=LmjF.01.0760:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	234392	235603	.	+	.	ID=LmjF.01.0770;Name=EIF4A1;description=Eukaryotic initiation factor 4A-1;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	234392	235603	.	+	.	ID=LmjF.01.0770:mRNA;Parent=LmjF.01.0770;description=Eukaryotic initiation factor 4A-1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	234392	235603	.	+	.	ID=exon_LmjF.01.0770:mRNA-E1;Parent=LmjF.01.0770:mRNA;gene_id=LmjF.01.0770
+LmjF.01	VEuPathDB	CDS	234392	235603	.	+	0	ID=LmjF.01.0770:mRNA-p1-CDS1;Parent=LmjF.01.0770:mRNA;gene_id=LmjF.01.0770;protein_source_id=LmjF.01.0770:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	237389	238600	.	+	.	ID=LmjF.01.0780;Name=EIF4A1;description=Eukaryotic initiation factor 4A-1;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	237389	238600	.	+	.	ID=LmjF.01.0780:mRNA;Parent=LmjF.01.0780;Note=3.6.4.13 (RNA helicase);description=Eukaryotic initiation factor 4A-1;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	237389	238600	.	+	.	ID=exon_LmjF.01.0780:mRNA-E1;Parent=LmjF.01.0780:mRNA;gene_id=LmjF.01.0780
+LmjF.01	VEuPathDB	CDS	237389	238600	.	+	0	ID=LmjF.01.0780:mRNA-p1-CDS1;Parent=LmjF.01.0780:mRNA;gene_id=LmjF.01.0780;protein_source_id=LmjF.01.0780:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	240769	242355	.	+	.	ID=LmjF.01.0790;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	240769	242355	.	+	.	ID=LmjF.01.0790:mRNA;Parent=LmjF.01.0790;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	240769	242355	.	+	.	ID=exon_LmjF.01.0790:mRNA-E1;Parent=LmjF.01.0790:mRNA;gene_id=LmjF.01.0790
+LmjF.01	VEuPathDB	CDS	240769	242355	.	+	0	ID=LmjF.01.0790:mRNA-p1-CDS1;Parent=LmjF.01.0790:mRNA;gene_id=LmjF.01.0790;protein_source_id=LmjF.01.0790:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	244534	246063	.	+	.	ID=LmjF.01.0800;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	244534	246063	.	+	.	ID=LmjF.01.0800:mRNA;Parent=LmjF.01.0800;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	244534	246063	.	+	.	ID=exon_LmjF.01.0800:mRNA-E1;Parent=LmjF.01.0800:mRNA;gene_id=LmjF.01.0800
+LmjF.01	VEuPathDB	CDS	244534	246063	.	+	0	ID=LmjF.01.0800:mRNA-p1-CDS1;Parent=LmjF.01.0800:mRNA;gene_id=LmjF.01.0800;protein_source_id=LmjF.01.0800:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	247550	250603	.	+	.	ID=LmjF.01.0810;description=calcium/potassium channel (CAKC)%2C putative;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	247550	250603	.	+	.	ID=LmjF.01.0810:mRNA;Parent=LmjF.01.0810;description=calcium/potassium channel (CAKC)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	247550	250603	.	+	.	ID=exon_LmjF.01.0810:mRNA-E1;Parent=LmjF.01.0810:mRNA;gene_id=LmjF.01.0810
+LmjF.01	VEuPathDB	CDS	247550	250603	.	+	0	ID=LmjF.01.0810:mRNA-p1-CDS1;Parent=LmjF.01.0810:mRNA;gene_id=LmjF.01.0810;protein_source_id=LmjF.01.0810:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	252411	255890	.	+	.	ID=LmjF.01.0820;description=potassium channel subunit-like protein;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	252411	255890	.	+	.	ID=LmjF.01.0820:mRNA;Parent=LmjF.01.0820;description=potassium channel subunit-like protein;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	252411	255890	.	+	.	ID=exon_LmjF.01.0820:mRNA-E1;Parent=LmjF.01.0820:mRNA;gene_id=LmjF.01.0820
+LmjF.01	VEuPathDB	CDS	252411	255890	.	+	0	ID=LmjF.01.0820:mRNA-p1-CDS1;Parent=LmjF.01.0820:mRNA;gene_id=LmjF.01.0820;protein_source_id=LmjF.01.0820:mRNA-p1
+LmjF.01	VEuPathDB	protein_coding_gene	258831	260867	.	+	.	ID=LmjF.01.0830;description=metallo-peptidase%2C Clan MA(E)%2C Family M3;ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	mRNA	258831	260867	.	+	.	ID=LmjF.01.0830:mRNA;Parent=LmjF.01.0830;Note=3.4.15.- (Peptidyl-dipeptidases.);description=metallo-peptidase%2C Clan MA(E)%2C Family M3;gene_ebi_biotype=protein_coding
+LmjF.01	VEuPathDB	exon	258831	260867	.	+	.	ID=exon_LmjF.01.0830:mRNA-E1;Parent=LmjF.01.0830:mRNA;gene_id=LmjF.01.0830
+LmjF.01	VEuPathDB	CDS	258831	260867	.	+	0	ID=LmjF.01.0830:mRNA-p1-CDS1;Parent=LmjF.01.0830:mRNA;gene_id=LmjF.01.0830;protein_source_id=LmjF.01.0830:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	4431	6875	.	-	.	ID=LmjF.02.0010;Name=SCG3;description=phosphoglycan beta 1%2C3 galactosyltransferase 3;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	4431	6875	.	-	.	ID=LmjF.02.0010:mRNA;Parent=LmjF.02.0010;description=phosphoglycan beta 1%2C3 galactosyltransferase 3;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	4431	6875	.	-	.	ID=exon_LmjF.02.0010:mRNA-E1;Parent=LmjF.02.0010:mRNA;gene_id=LmjF.02.0010
+LmjF.02	VEuPathDB	CDS	4431	6875	.	-	0	ID=LmjF.02.0010:mRNA-p1-CDS1;Parent=LmjF.02.0010:mRNA;gene_id=LmjF.02.0010;protein_source_id=LmjF.02.0010:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	8751	9053	.	-	.	ID=LmjF.02.0020;description=histone H4;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	8751	9053	.	-	.	ID=LmjF.02.0020:mRNA;Parent=LmjF.02.0020;description=histone H4;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	8751	9053	.	-	.	ID=exon_LmjF.02.0020:mRNA-E1;Parent=LmjF.02.0020:mRNA;gene_id=LmjF.02.0020
+LmjF.02	VEuPathDB	CDS	8751	9053	.	-	0	ID=LmjF.02.0020:mRNA-p1-CDS1;Parent=LmjF.02.0020:mRNA;gene_id=LmjF.02.0020;protein_source_id=LmjF.02.0020:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	9863	10846	.	-	.	ID=LmjF.02.0030;description=tagatose-6-phosphate kinase-like protein;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	9863	10846	.	-	.	ID=LmjF.02.0030:mRNA;Parent=LmjF.02.0030;Note=2.7.1.144 (Tagatose-6-phosphate kinase);description=tagatose-6-phosphate kinase-like protein;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	9863	10846	.	-	.	ID=exon_LmjF.02.0030:mRNA-E1;Parent=LmjF.02.0030:mRNA;gene_id=LmjF.02.0030
+LmjF.02	VEuPathDB	CDS	9863	10846	.	-	0	ID=LmjF.02.0030:mRNA-p1-CDS1;Parent=LmjF.02.0030:mRNA;gene_id=LmjF.02.0030;protein_source_id=LmjF.02.0030:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	11678	13537	.	-	.	ID=LmjF.02.0040;description=Xaa-Pro aminopeptidase%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	11678	13537	.	-	.	ID=LmjF.02.0040:mRNA;Parent=LmjF.02.0040;Note=3.4.11.9 (Xaa-Pro aminopeptidase);description=Xaa-Pro aminopeptidase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	11678	13537	.	-	.	ID=exon_LmjF.02.0040:mRNA-E1;Parent=LmjF.02.0040:mRNA;gene_id=LmjF.02.0040
+LmjF.02	VEuPathDB	CDS	11678	13537	.	-	0	ID=LmjF.02.0040:mRNA-p1-CDS1;Parent=LmjF.02.0040:mRNA;gene_id=LmjF.02.0040;protein_source_id=LmjF.02.0040:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	18849	19505	.	-	.	ID=LmjF.02.0050;description=cytochrome b-domain protein%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	18849	19505	.	-	.	ID=LmjF.02.0050:mRNA;Parent=LmjF.02.0050;description=cytochrome b-domain protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	18849	19505	.	-	.	ID=exon_LmjF.02.0050:mRNA-E1;Parent=LmjF.02.0050:mRNA;gene_id=LmjF.02.0050
+LmjF.02	VEuPathDB	CDS	18849	19505	.	-	0	ID=LmjF.02.0050:mRNA-p1-CDS1;Parent=LmjF.02.0050:mRNA;gene_id=LmjF.02.0050;protein_source_id=LmjF.02.0050:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	20184	20759	.	-	.	ID=LmjF.02.0060;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	20184	20759	.	-	.	ID=LmjF.02.0060:mRNA;Parent=LmjF.02.0060;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	20184	20759	.	-	.	ID=exon_LmjF.02.0060:mRNA-E1;Parent=LmjF.02.0060:mRNA;gene_id=LmjF.02.0060
+LmjF.02	VEuPathDB	CDS	20184	20759	.	-	0	ID=LmjF.02.0060:mRNA-p1-CDS1;Parent=LmjF.02.0060:mRNA;gene_id=LmjF.02.0060;protein_source_id=LmjF.02.0060:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	21413	22606	.	-	.	ID=LmjF.02.0070;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	21413	22606	.	-	.	ID=LmjF.02.0070:mRNA;Parent=LmjF.02.0070;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	21413	22606	.	-	.	ID=exon_LmjF.02.0070:mRNA-E1;Parent=LmjF.02.0070:mRNA;gene_id=LmjF.02.0070
+LmjF.02	VEuPathDB	CDS	21413	22606	.	-	0	ID=LmjF.02.0070:mRNA-p1-CDS1;Parent=LmjF.02.0070:mRNA;gene_id=LmjF.02.0070;protein_source_id=LmjF.02.0070:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	24871	28179	.	-	.	ID=LmjF.02.0080;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	24871	28179	.	-	.	ID=LmjF.02.0080:mRNA;Parent=LmjF.02.0080;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	24871	28179	.	-	.	ID=exon_LmjF.02.0080:mRNA-E1;Parent=LmjF.02.0080:mRNA;gene_id=LmjF.02.0080
+LmjF.02	VEuPathDB	CDS	24871	28179	.	-	0	ID=LmjF.02.0080:mRNA-p1-CDS1;Parent=LmjF.02.0080:mRNA;gene_id=LmjF.02.0080;protein_source_id=LmjF.02.0080:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	28965	29888	.	-	.	ID=LmjF.02.0085;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	28965	29888	.	-	.	ID=LmjF.02.0085:mRNA;Parent=LmjF.02.0085;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	28965	29888	.	-	.	ID=exon_LmjF.02.0085:mRNA-E1;Parent=LmjF.02.0085:mRNA;gene_id=LmjF.02.0085
+LmjF.02	VEuPathDB	CDS	28965	29888	.	-	0	ID=LmjF.02.0085:mRNA-p1-CDS1;Parent=LmjF.02.0085:mRNA;gene_id=LmjF.02.0085;protein_source_id=LmjF.02.0085:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	31234	32292	.	-	.	ID=LmjF.02.0090;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	31234	32292	.	-	.	ID=LmjF.02.0090:mRNA;Parent=LmjF.02.0090;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	31234	32292	.	-	.	ID=exon_LmjF.02.0090:mRNA-E1;Parent=LmjF.02.0090:mRNA;gene_id=LmjF.02.0090
+LmjF.02	VEuPathDB	CDS	31234	32292	.	-	0	ID=LmjF.02.0090:mRNA-p1-CDS1;Parent=LmjF.02.0090:mRNA;gene_id=LmjF.02.0090;protein_source_id=LmjF.02.0090:mRNA-p1
+LmjF.02	VEuPathDB	pseudogene	33424	36189	.	-	.	ID=LmjF.02.0100;description=hypothetical protein%2C conserved (pseudogene);ebi_biotype=pseudogene
+LmjF.02	VEuPathDB	pseudogenic_transcript	33424	36189	.	-	.	ID=LmjF.02.0100:pseudogenic_transcript;Parent=LmjF.02.0100;description=hypothetical protein%2C conserved (pseudogene);gene_ebi_biotype=pseudogene
+LmjF.02	VEuPathDB	exon	33424	34446	.	-	.	ID=exon_LmjF.02.0100:pseudogenic_transcript-E3;Parent=LmjF.02.0100:pseudogenic_transcript;gene_id=LmjF.02.0100
+LmjF.02	VEuPathDB	exon	34455	35738	.	-	.	ID=exon_LmjF.02.0100:pseudogenic_transcript-E2;Parent=LmjF.02.0100:pseudogenic_transcript;gene_id=LmjF.02.0100
+LmjF.02	VEuPathDB	exon	35740	36189	.	-	.	ID=exon_LmjF.02.0100:pseudogenic_transcript-E1;Parent=LmjF.02.0100:pseudogenic_transcript;gene_id=LmjF.02.0100
+LmjF.02	VEuPathDB	protein_coding_gene	38538	42038	.	-	.	ID=LmjF.02.0110;description=exportin-T%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	38538	42038	.	-	.	ID=LmjF.02.0110:mRNA;Parent=LmjF.02.0110;description=exportin-T%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	38538	42038	.	-	.	ID=exon_LmjF.02.0110:mRNA-E1;Parent=LmjF.02.0110:mRNA;gene_id=LmjF.02.0110
+LmjF.02	VEuPathDB	CDS	38538	42038	.	-	0	ID=LmjF.02.0110:mRNA-p1-CDS1;Parent=LmjF.02.0110:mRNA;gene_id=LmjF.02.0110;protein_source_id=LmjF.02.0110:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	43915	58632	.	-	.	ID=LmjF.02.0120;Name=ATM;description=phosphatidylinositol kinase related protein%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	43915	58632	.	-	.	ID=LmjF.02.0120:mRNA;Parent=LmjF.02.0120;description=phosphatidylinositol kinase related protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	43915	58632	.	-	.	ID=exon_LmjF.02.0120:mRNA-E1;Parent=LmjF.02.0120:mRNA;gene_id=LmjF.02.0120
+LmjF.02	VEuPathDB	CDS	43915	58632	.	-	0	ID=LmjF.02.0120:mRNA-p1-CDS1;Parent=LmjF.02.0120:mRNA;gene_id=LmjF.02.0120;protein_source_id=LmjF.02.0120:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	60185	60904	.	-	.	ID=LmjF.02.0130;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	60185	60904	.	-	.	ID=LmjF.02.0130:mRNA;Parent=LmjF.02.0130;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	60185	60904	.	-	.	ID=exon_LmjF.02.0130:mRNA-E1;Parent=LmjF.02.0130:mRNA;gene_id=LmjF.02.0130
+LmjF.02	VEuPathDB	CDS	60185	60904	.	-	0	ID=LmjF.02.0130:mRNA-p1-CDS1;Parent=LmjF.02.0130:mRNA;gene_id=LmjF.02.0130;protein_source_id=LmjF.02.0130:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	61959	64646	.	-	.	ID=LmjF.02.0140;description=Ankyrin repeats (3 copies)/Zinc finger%2C C3HC4 type (RING finger)%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	61959	64646	.	-	.	ID=LmjF.02.0140:mRNA;Parent=LmjF.02.0140;description=Ankyrin repeats (3 copies)/Zinc finger%2C C3HC4 type (RING finger)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	61959	64646	.	-	.	ID=exon_LmjF.02.0140:mRNA-E1;Parent=LmjF.02.0140:mRNA;gene_id=LmjF.02.0140
+LmjF.02	VEuPathDB	CDS	61959	64646	.	-	0	ID=LmjF.02.0140:mRNA-p1-CDS1;Parent=LmjF.02.0140:mRNA;gene_id=LmjF.02.0140;protein_source_id=LmjF.02.0140:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	65898	71780	.	-	.	ID=LmjF.02.0150;description=Vps51/Vps67%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	65898	71780	.	-	.	ID=LmjF.02.0150:mRNA;Parent=LmjF.02.0150;description=Vps51/Vps67%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	65898	71780	.	-	.	ID=exon_LmjF.02.0150:mRNA-E1;Parent=LmjF.02.0150:mRNA;gene_id=LmjF.02.0150
+LmjF.02	VEuPathDB	CDS	65898	71780	.	-	0	ID=LmjF.02.0150:mRNA-p1-CDS1;Parent=LmjF.02.0150:mRNA;gene_id=LmjF.02.0150;protein_source_id=LmjF.02.0150:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	72164	72463	.	-	.	ID=LmjF.02.0155;description=hypothetical protein;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	72164	72463	.	-	.	ID=LmjF.02.0155:mRNA;Parent=LmjF.02.0155;description=hypothetical protein;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	72164	72463	.	-	.	ID=exon_LmjF.02.0155:mRNA-E1;Parent=LmjF.02.0155:mRNA;gene_id=LmjF.02.0155
+LmjF.02	VEuPathDB	CDS	72164	72463	.	-	0	ID=LmjF.02.0155:mRNA-p1-CDS1;Parent=LmjF.02.0155:mRNA;gene_id=LmjF.02.0155;protein_source_id=LmjF.02.0155:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	77219	79672	.	-	.	ID=LmjF.02.0160;Name=SCGR6;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	77219	79672	.	-	.	ID=LmjF.02.0160:mRNA;Parent=LmjF.02.0160;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	77219	79672	.	-	.	ID=exon_LmjF.02.0160:mRNA-E1;Parent=LmjF.02.0160:mRNA;gene_id=LmjF.02.0160
+LmjF.02	VEuPathDB	CDS	77219	79672	.	-	0	ID=LmjF.02.0160:mRNA-p1-CDS1;Parent=LmjF.02.0160:mRNA;gene_id=LmjF.02.0160;protein_source_id=LmjF.02.0160:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	84201	86732	.	-	.	ID=LmjF.02.0170;Name=SCGR5;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	84201	86732	.	-	.	ID=LmjF.02.0170:mRNA;Parent=LmjF.02.0170;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	84201	86732	.	-	.	ID=exon_LmjF.02.0170:mRNA-E1;Parent=LmjF.02.0170:mRNA;gene_id=LmjF.02.0170
+LmjF.02	VEuPathDB	CDS	84201	86732	.	-	0	ID=LmjF.02.0170:mRNA-p1-CDS1;Parent=LmjF.02.0170:mRNA;gene_id=LmjF.02.0170;protein_source_id=LmjF.02.0170:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	90005	92607	.	-	.	ID=LmjF.02.0180;Name=SCA2;description=phosphoglycan beta 1%2C2 arabinosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	90005	92607	.	-	.	ID=LmjF.02.0180:mRNA;Parent=LmjF.02.0180;description=phosphoglycan beta 1%2C2 arabinosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	90005	92607	.	-	.	ID=exon_LmjF.02.0180:mRNA-E1;Parent=LmjF.02.0180:mRNA;gene_id=LmjF.02.0180
+LmjF.02	VEuPathDB	CDS	90005	92503	.	-	0	ID=LmjF.02.0180:mRNA-p1-CDS1;Parent=LmjF.02.0180:mRNA;gene_id=LmjF.02.0180;protein_source_id=LmjF.02.0180:mRNA-p1
+LmjF.02	VEuPathDB	five_prime_UTR	92504	92607	.	-	.	ID=utr_LmjF.02.0180:mRNA_1;Parent=LmjF.02.0180:mRNA
+LmjF.02	VEuPathDB	protein_coding_gene	93562	97107	.	-	.	ID=LmjF.02.0190;Name=SCGR4;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	93562	97107	.	-	.	ID=LmjF.02.0190:mRNA;Parent=LmjF.02.0190;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	93562	97107	.	-	.	ID=exon_LmjF.02.0190:mRNA-E1;Parent=LmjF.02.0190:mRNA;gene_id=LmjF.02.0190
+LmjF.02	VEuPathDB	CDS	93562	97107	.	-	0	ID=LmjF.02.0190:mRNA-p1-CDS1;Parent=LmjF.02.0190:mRNA;gene_id=LmjF.02.0190;protein_source_id=LmjF.02.0190:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	99209	101749	.	-	.	ID=LmjF.02.0200;Name=SCGR3;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	99209	101749	.	-	.	ID=LmjF.02.0200:mRNA;Parent=LmjF.02.0200;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	99209	101749	.	-	.	ID=exon_LmjF.02.0200:mRNA-E1;Parent=LmjF.02.0200:mRNA;gene_id=LmjF.02.0200
+LmjF.02	VEuPathDB	CDS	99209	101749	.	-	0	ID=LmjF.02.0200:mRNA-p1-CDS1;Parent=LmjF.02.0200:mRNA;gene_id=LmjF.02.0200;protein_source_id=LmjF.02.0200:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	103804	106395	.	-	.	ID=LmjF.02.0210;Name=SCGR2;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	103804	106395	.	-	.	ID=LmjF.02.0210:mRNA;Parent=LmjF.02.0210;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	103804	106395	.	-	.	ID=exon_LmjF.02.0210:mRNA-E1;Parent=LmjF.02.0210:mRNA;gene_id=LmjF.02.0210
+LmjF.02	VEuPathDB	CDS	103804	106395	.	-	0	ID=LmjF.02.0210:mRNA-p1-CDS1;Parent=LmjF.02.0210:mRNA;gene_id=LmjF.02.0210;protein_source_id=LmjF.02.0210:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	109659	112261	.	-	.	ID=LmjF.02.0220;Name=SCA1;description=phosphoglycan beta 1%2C2 arabinosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	109659	112261	.	-	.	ID=LmjF.02.0220:mRNA;Parent=LmjF.02.0220;description=phosphoglycan beta 1%2C2 arabinosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	109659	112261	.	-	.	ID=exon_LmjF.02.0220:mRNA-E1;Parent=LmjF.02.0220:mRNA;gene_id=LmjF.02.0220
+LmjF.02	VEuPathDB	CDS	109659	112157	.	-	0	ID=LmjF.02.0220:mRNA-p1-CDS1;Parent=LmjF.02.0220:mRNA;gene_id=LmjF.02.0220;protein_source_id=LmjF.02.0220:mRNA-p1
+LmjF.02	VEuPathDB	five_prime_UTR	112158	112261	.	-	.	ID=utr_LmjF.02.0220:mRNA_1;Parent=LmjF.02.0220:mRNA
+LmjF.02	VEuPathDB	protein_coding_gene	113216	116194	.	-	.	ID=LmjF.02.0230;Name=SCGR1;description=phosphoglycan beta 1%2C3 galactosyltransferase;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	113216	116194	.	-	.	ID=LmjF.02.0230:mRNA;Parent=LmjF.02.0230;description=phosphoglycan beta 1%2C3 galactosyltransferase;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	113216	116194	.	-	.	ID=exon_LmjF.02.0230:mRNA-E1;Parent=LmjF.02.0230:mRNA;gene_id=LmjF.02.0230
+LmjF.02	VEuPathDB	CDS	113216	116194	.	-	0	ID=LmjF.02.0230:mRNA-p1-CDS1;Parent=LmjF.02.0230:mRNA;gene_id=LmjF.02.0230;protein_source_id=LmjF.02.0230:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	118452	121487	.	-	.	ID=LmjF.02.0240;description=glycosyltransferase (GlcNAc)%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	118452	121487	.	-	.	ID=LmjF.02.0240:mRNA;Parent=LmjF.02.0240;description=glycosyltransferase (GlcNAc)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	118452	121487	.	-	.	ID=exon_LmjF.02.0240:mRNA-E1;Parent=LmjF.02.0240:mRNA;gene_id=LmjF.02.0240
+LmjF.02	VEuPathDB	CDS	118452	121487	.	-	0	ID=LmjF.02.0240:mRNA-p1-CDS1;Parent=LmjF.02.0240:mRNA;gene_id=LmjF.02.0240;protein_source_id=LmjF.02.0240:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	122781	126218	.	-	.	ID=LmjF.02.0250;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	122781	126218	.	-	.	ID=LmjF.02.0250:mRNA;Parent=LmjF.02.0250;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	122781	126218	.	-	.	ID=exon_LmjF.02.0250:mRNA-E1;Parent=LmjF.02.0250:mRNA;gene_id=LmjF.02.0250
+LmjF.02	VEuPathDB	CDS	122781	126218	.	-	0	ID=LmjF.02.0250:mRNA-p1-CDS1;Parent=LmjF.02.0250:mRNA;gene_id=LmjF.02.0250;protein_source_id=LmjF.02.0250:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	127085	127909	.	-	.	ID=LmjF.02.0260;description=small GTP binding protein rab6-like protein;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	127085	127909	.	-	.	ID=LmjF.02.0260:mRNA;Parent=LmjF.02.0260;description=small GTP binding protein rab6-like protein;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	127085	127909	.	-	.	ID=exon_LmjF.02.0260:mRNA-E1;Parent=LmjF.02.0260:mRNA;gene_id=LmjF.02.0260
+LmjF.02	VEuPathDB	CDS	127085	127909	.	-	0	ID=LmjF.02.0260:mRNA-p1-CDS1;Parent=LmjF.02.0260:mRNA;gene_id=LmjF.02.0260;protein_source_id=LmjF.02.0260:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	129244	129732	.	-	.	ID=LmjF.02.0270;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	129244	129732	.	-	.	ID=LmjF.02.0270:mRNA;Parent=LmjF.02.0270;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	129244	129732	.	-	.	ID=exon_LmjF.02.0270:mRNA-E1;Parent=LmjF.02.0270:mRNA;gene_id=LmjF.02.0270
+LmjF.02	VEuPathDB	CDS	129244	129732	.	-	0	ID=LmjF.02.0270:mRNA-p1-CDS1;Parent=LmjF.02.0270:mRNA;gene_id=LmjF.02.0270;protein_source_id=LmjF.02.0270:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	131592	132101	.	-	.	ID=LmjF.02.0280;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	131592	132101	.	-	.	ID=LmjF.02.0280:mRNA;Parent=LmjF.02.0280;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	131592	132101	.	-	.	ID=exon_LmjF.02.0280:mRNA-E1;Parent=LmjF.02.0280:mRNA;gene_id=LmjF.02.0280
+LmjF.02	VEuPathDB	CDS	131592	132101	.	-	0	ID=LmjF.02.0280:mRNA-p1-CDS1;Parent=LmjF.02.0280:mRNA;gene_id=LmjF.02.0280;protein_source_id=LmjF.02.0280:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	133019	134611	.	-	.	ID=LmjF.02.0290;Name=NEK22;description=Serine/threonine-protein kinase NEK22%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	133019	134611	.	-	.	ID=LmjF.02.0290:mRNA;Parent=LmjF.02.0290;Note=2.7.1.37 (2.7.11.12%2C 2.7.11.13%2C 2.7.11.21%2C 2.7.11.22%2C 2.7.11.24%2C 2.7.11.25%2C2.7.11.30 and 2.7.12.1);description=Serine/threonine-protein kinase NEK22%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	133019	134611	.	-	.	ID=exon_LmjF.02.0290:mRNA-E1;Parent=LmjF.02.0290:mRNA;gene_id=LmjF.02.0290
+LmjF.02	VEuPathDB	CDS	133019	134611	.	-	0	ID=LmjF.02.0290:mRNA-p1-CDS1;Parent=LmjF.02.0290:mRNA;gene_id=LmjF.02.0290;protein_source_id=LmjF.02.0290:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	138486	146384	.	-	.	ID=LmjF.02.0300;Name=ABCA1;description=ATP-binding cassette subfamily A%2C member 1%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	138486	146384	.	-	.	ID=LmjF.02.0300:mRNA;Parent=LmjF.02.0300;description=ATP-binding cassette subfamily A%2C member 1%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	138486	146384	.	-	.	ID=exon_LmjF.02.0300:mRNA-E1;Parent=LmjF.02.0300:mRNA;gene_id=LmjF.02.0300
+LmjF.02	VEuPathDB	CDS	138486	146384	.	-	0	ID=LmjF.02.0300:mRNA-p1-CDS1;Parent=LmjF.02.0300:mRNA;gene_id=LmjF.02.0300;protein_source_id=LmjF.02.0300:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	150192	152276	.	-	.	ID=LmjF.02.0310;description=Soluble NSF attachment protein%2C SNAP%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	150192	152276	.	-	.	ID=LmjF.02.0310:mRNA;Parent=LmjF.02.0310;description=Soluble NSF attachment protein%2C SNAP%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	150192	152276	.	-	.	ID=exon_LmjF.02.0310:mRNA-E1;Parent=LmjF.02.0310:mRNA;gene_id=LmjF.02.0310
+LmjF.02	VEuPathDB	CDS	150192	152276	.	-	0	ID=LmjF.02.0310:mRNA-p1-CDS1;Parent=LmjF.02.0310:mRNA;gene_id=LmjF.02.0310;protein_source_id=LmjF.02.0310:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	153478	154506	.	-	.	ID=LmjF.02.0320;Name=RRP41B;description=ribosomal RNA processing protein 41B%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	153478	154506	.	-	.	ID=LmjF.02.0320:mRNA;Parent=LmjF.02.0320;description=ribosomal RNA processing protein 41B%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	153478	154506	.	-	.	ID=exon_LmjF.02.0320:mRNA-E1;Parent=LmjF.02.0320:mRNA;gene_id=LmjF.02.0320
+LmjF.02	VEuPathDB	CDS	153478	154506	.	-	0	ID=LmjF.02.0320:mRNA-p1-CDS1;Parent=LmjF.02.0320:mRNA;gene_id=LmjF.02.0320;protein_source_id=LmjF.02.0320:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	155154	159968	.	-	.	ID=LmjF.02.0330;Name=FUT2;description=Fucosyltransferase 2%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	155154	159968	.	-	.	ID=LmjF.02.0330:mRNA;Parent=LmjF.02.0330;description=Fucosyltransferase 2%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	155154	159968	.	-	.	ID=exon_LmjF.02.0330:mRNA-E1;Parent=LmjF.02.0330:mRNA;gene_id=LmjF.02.0330
+LmjF.02	VEuPathDB	CDS	155154	159968	.	-	0	ID=LmjF.02.0330:mRNA-p1-CDS1;Parent=LmjF.02.0330:mRNA;gene_id=LmjF.02.0330;protein_source_id=LmjF.02.0330:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	161011	163932	.	-	.	ID=LmjF.02.0340;description=UAA transporter family%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	161011	163932	.	-	.	ID=LmjF.02.0340:mRNA;Parent=LmjF.02.0340;description=UAA transporter family%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	161011	163932	.	-	.	ID=exon_LmjF.02.0340:mRNA-E1;Parent=LmjF.02.0340:mRNA;gene_id=LmjF.02.0340
+LmjF.02	VEuPathDB	CDS	161011	163932	.	-	0	ID=LmjF.02.0340:mRNA-p1-CDS1;Parent=LmjF.02.0340:mRNA;gene_id=LmjF.02.0340;protein_source_id=LmjF.02.0340:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	165087	168242	.	-	.	ID=LmjF.02.0350;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	165087	168242	.	-	.	ID=LmjF.02.0350:mRNA;Parent=LmjF.02.0350;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	165087	168242	.	-	.	ID=exon_LmjF.02.0350:mRNA-E1;Parent=LmjF.02.0350:mRNA;gene_id=LmjF.02.0350
+LmjF.02	VEuPathDB	CDS	165087	168242	.	-	0	ID=LmjF.02.0350:mRNA-p1-CDS1;Parent=LmjF.02.0350:mRNA;gene_id=LmjF.02.0350;protein_source_id=LmjF.02.0350:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	170022	171167	.	-	.	ID=LmjF.02.0360;Name=CK2A2;description=casein kinase II%2C alpha chain%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	170022	171167	.	-	.	ID=LmjF.02.0360:mRNA;Parent=LmjF.02.0360;Note=2.7.1.37 (2.7.11.12%2C 2.7.11.13%2C 2.7.11.21%2C 2.7.11.22%2C 2.7.11.24%2C 2.7.11.25%2C2.7.11.30 and 2.7.12.1);description=casein kinase II%2C alpha chain%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	170022	171167	.	-	.	ID=exon_LmjF.02.0360:mRNA-E1;Parent=LmjF.02.0360:mRNA;gene_id=LmjF.02.0360
+LmjF.02	VEuPathDB	CDS	170022	171167	.	-	0	ID=LmjF.02.0360:mRNA-p1-CDS1;Parent=LmjF.02.0360:mRNA;gene_id=LmjF.02.0360;protein_source_id=LmjF.02.0360:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	172807	174390	.	-	.	ID=LmjF.02.0370;description=proteasome regulatory non-ATPase subunit 6%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	172807	174390	.	-	.	ID=LmjF.02.0370:mRNA;Parent=LmjF.02.0370;description=proteasome regulatory non-ATPase subunit 6%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	172807	174390	.	-	.	ID=exon_LmjF.02.0370:mRNA-E1;Parent=LmjF.02.0370:mRNA;gene_id=LmjF.02.0370
+LmjF.02	VEuPathDB	CDS	172807	174390	.	-	0	ID=LmjF.02.0370:mRNA-p1-CDS1;Parent=LmjF.02.0370:mRNA;gene_id=LmjF.02.0370;protein_source_id=LmjF.02.0370:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	175517	176896	.	-	.	ID=LmjF.02.0380;description=FtsJ-like methyltransferase%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	175517	176896	.	-	.	ID=LmjF.02.0380:mRNA;Parent=LmjF.02.0380;description=FtsJ-like methyltransferase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	175517	176896	.	-	.	ID=exon_LmjF.02.0380:mRNA-E1;Parent=LmjF.02.0380:mRNA;gene_id=LmjF.02.0380
+LmjF.02	VEuPathDB	CDS	175517	176896	.	-	0	ID=LmjF.02.0380:mRNA-p1-CDS1;Parent=LmjF.02.0380:mRNA;gene_id=LmjF.02.0380;protein_source_id=LmjF.02.0380:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	178261	178719	.	-	.	ID=LmjF.02.0390;description=ubiquitin-conjugating enzyme E2%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	178261	178719	.	-	.	ID=LmjF.02.0390:mRNA;Parent=LmjF.02.0390;description=ubiquitin-conjugating enzyme E2%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	178261	178719	.	-	.	ID=exon_LmjF.02.0390:mRNA-E1;Parent=LmjF.02.0390:mRNA;gene_id=LmjF.02.0390
+LmjF.02	VEuPathDB	CDS	178261	178719	.	-	0	ID=LmjF.02.0390:mRNA-p1-CDS1;Parent=LmjF.02.0390:mRNA;gene_id=LmjF.02.0390;protein_source_id=LmjF.02.0390:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	179356	179523	.	-	.	ID=LmjF.02.0400;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	179356	179523	.	-	.	ID=LmjF.02.0400:mRNA;Parent=LmjF.02.0400;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	179356	179523	.	-	.	ID=exon_LmjF.02.0400:mRNA-E1;Parent=LmjF.02.0400:mRNA;gene_id=LmjF.02.0400
+LmjF.02	VEuPathDB	CDS	179356	179523	.	-	0	ID=LmjF.02.0400:mRNA-p1-CDS1;Parent=LmjF.02.0400:mRNA;gene_id=LmjF.02.0400;protein_source_id=LmjF.02.0400:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	180246	183311	.	-	.	ID=LmjF.02.0410;Name=KREPA1;description=Kinetoplastid RNA editing protein 1%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	180246	183311	.	-	.	ID=LmjF.02.0410:mRNA;Parent=LmjF.02.0410;description=Kinetoplastid RNA editing protein 1%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	180246	183311	.	-	.	ID=exon_LmjF.02.0410:mRNA-E1;Parent=LmjF.02.0410:mRNA;gene_id=LmjF.02.0410
+LmjF.02	VEuPathDB	CDS	180246	183311	.	-	0	ID=LmjF.02.0410:mRNA-p1-CDS1;Parent=LmjF.02.0410:mRNA;gene_id=LmjF.02.0410;protein_source_id=LmjF.02.0410:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	185835	188837	.	-	.	ID=LmjF.02.0420;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	185835	188837	.	-	.	ID=LmjF.02.0420:mRNA;Parent=LmjF.02.0420;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	185835	188837	.	-	.	ID=exon_LmjF.02.0420:mRNA-E1;Parent=LmjF.02.0420:mRNA;gene_id=LmjF.02.0420
+LmjF.02	VEuPathDB	CDS	185835	188837	.	-	0	ID=LmjF.02.0420:mRNA-p1-CDS1;Parent=LmjF.02.0420:mRNA;gene_id=LmjF.02.0420;protein_source_id=LmjF.02.0420:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	192736	193848	.	-	.	ID=LmjF.02.0430;description=serine peptidase%2C Clan S-%2C family S54%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	192736	193848	.	-	.	ID=LmjF.02.0430:mRNA;Parent=LmjF.02.0430;description=serine peptidase%2C Clan S-%2C family S54%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	192736	193848	.	-	.	ID=exon_LmjF.02.0430:mRNA-E1;Parent=LmjF.02.0430:mRNA;gene_id=LmjF.02.0430
+LmjF.02	VEuPathDB	CDS	192736	193848	.	-	0	ID=LmjF.02.0430:mRNA-p1-CDS1;Parent=LmjF.02.0430:mRNA;gene_id=LmjF.02.0430;protein_source_id=LmjF.02.0430:mRNA-p1
+LmjF.02	VEuPathDB	pseudogene	196415	198530	.	-	.	ID=LmjF.02.0440;Name=AAT18;description=amino acid permease%2C putative;ebi_biotype=pseudogene
+LmjF.02	VEuPathDB	pseudogenic_transcript	196415	198530	.	-	.	ID=LmjF.02.0440:pseudogenic_transcript;Parent=LmjF.02.0440;description=amino acid permease%2C putative;gene_ebi_biotype=pseudogene
+LmjF.02	VEuPathDB	exon	196415	196735	.	-	.	ID=exon_LmjF.02.0440:pseudogenic_transcript-E2;Parent=LmjF.02.0440:pseudogenic_transcript;gene_id=LmjF.02.0440
+LmjF.02	VEuPathDB	exon	196806	198530	.	-	.	ID=exon_LmjF.02.0440:pseudogenic_transcript-E1;Parent=LmjF.02.0440:pseudogenic_transcript;gene_id=LmjF.02.0440
+LmjF.02	VEuPathDB	protein_coding_gene	200383	201216	.	-	.	ID=LmjF.02.0450;description=voltage-dependent anion-selective channel%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	200383	201216	.	-	.	ID=LmjF.02.0450:mRNA;Parent=LmjF.02.0450;description=voltage-dependent anion-selective channel%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	200383	201216	.	-	.	ID=exon_LmjF.02.0450:mRNA-E1;Parent=LmjF.02.0450:mRNA;gene_id=LmjF.02.0450
+LmjF.02	VEuPathDB	CDS	200383	201216	.	-	0	ID=LmjF.02.0450:mRNA-p1-CDS1;Parent=LmjF.02.0450:mRNA;gene_id=LmjF.02.0450;protein_source_id=LmjF.02.0450:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	204892	205767	.	-	.	ID=LmjF.02.0460;Name=VDAC;description=Mitochondrial outer membrane protein porin%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	204892	205767	.	-	.	ID=LmjF.02.0460:mRNA;Parent=LmjF.02.0460;description=Mitochondrial outer membrane protein porin%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	204892	205767	.	-	.	ID=exon_LmjF.02.0460:mRNA-E1;Parent=LmjF.02.0460:mRNA;gene_id=LmjF.02.0460
+LmjF.02	VEuPathDB	CDS	204892	205767	.	-	0	ID=LmjF.02.0460:mRNA-p1-CDS1;Parent=LmjF.02.0460:mRNA;gene_id=LmjF.02.0460;protein_source_id=LmjF.02.0460:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	207099	216566	.	-	.	ID=LmjF.02.0470;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	207099	216566	.	-	.	ID=LmjF.02.0470:mRNA;Parent=LmjF.02.0470;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	207099	216566	.	-	.	ID=exon_LmjF.02.0470:mRNA-E1;Parent=LmjF.02.0470:mRNA;gene_id=LmjF.02.0470
+LmjF.02	VEuPathDB	CDS	207099	216566	.	-	0	ID=LmjF.02.0470:mRNA-p1-CDS1;Parent=LmjF.02.0470:mRNA;gene_id=LmjF.02.0470;protein_source_id=LmjF.02.0470:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	219347	219952	.	-	.	ID=LmjF.02.0480;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	219347	219952	.	-	.	ID=LmjF.02.0480:mRNA;Parent=LmjF.02.0480;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	219347	219952	.	-	.	ID=exon_LmjF.02.0480:mRNA-E1;Parent=LmjF.02.0480:mRNA;gene_id=LmjF.02.0480
+LmjF.02	VEuPathDB	CDS	219347	219952	.	-	0	ID=LmjF.02.0480:mRNA-p1-CDS1;Parent=LmjF.02.0480:mRNA;gene_id=LmjF.02.0480;protein_source_id=LmjF.02.0480:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	220848	224228	.	-	.	ID=LmjF.02.0490;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	220848	224228	.	-	.	ID=LmjF.02.0490:mRNA;Parent=LmjF.02.0490;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	220848	224228	.	-	.	ID=exon_LmjF.02.0490:mRNA-E1;Parent=LmjF.02.0490:mRNA;gene_id=LmjF.02.0490
+LmjF.02	VEuPathDB	CDS	220848	224228	.	-	0	ID=LmjF.02.0490:mRNA-p1-CDS1;Parent=LmjF.02.0490:mRNA;gene_id=LmjF.02.0490;protein_source_id=LmjF.02.0490:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	224739	227600	.	-	.	ID=LmjF.02.0500;description=glycerate kinase%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	224739	227600	.	-	.	ID=LmjF.02.0500:mRNA;Parent=LmjF.02.0500;Note=2.7.1.31 (Glycerate 3-kinase);description=glycerate kinase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	224739	227600	.	-	.	ID=exon_LmjF.02.0500:mRNA-E1;Parent=LmjF.02.0500:mRNA;gene_id=LmjF.02.0500
+LmjF.02	VEuPathDB	CDS	224739	227600	.	-	0	ID=LmjF.02.0500:mRNA-p1-CDS1;Parent=LmjF.02.0500:mRNA;gene_id=LmjF.02.0500;protein_source_id=LmjF.02.0500:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	228900	229412	.	-	.	ID=LmjF.02.0510;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	228900	229412	.	-	.	ID=LmjF.02.0510:mRNA;Parent=LmjF.02.0510;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	228900	229412	.	-	.	ID=exon_LmjF.02.0510:mRNA-E1;Parent=LmjF.02.0510:mRNA;gene_id=LmjF.02.0510
+LmjF.02	VEuPathDB	CDS	228900	229412	.	-	0	ID=LmjF.02.0510:mRNA-p1-CDS1;Parent=LmjF.02.0510:mRNA;gene_id=LmjF.02.0510;protein_source_id=LmjF.02.0510:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	231085	237336	.	-	.	ID=LmjF.02.0520;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	231085	237336	.	-	.	ID=LmjF.02.0520:mRNA;Parent=LmjF.02.0520;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	231085	237336	.	-	.	ID=exon_LmjF.02.0520:mRNA-E1;Parent=LmjF.02.0520:mRNA;gene_id=LmjF.02.0520
+LmjF.02	VEuPathDB	CDS	231085	237336	.	-	0	ID=LmjF.02.0520:mRNA-p1-CDS1;Parent=LmjF.02.0520:mRNA;gene_id=LmjF.02.0520;protein_source_id=LmjF.02.0520:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	241987	244575	.	-	.	ID=LmjF.02.0530;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	241987	244575	.	-	.	ID=LmjF.02.0530:mRNA;Parent=LmjF.02.0530;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	241987	244575	.	-	.	ID=exon_LmjF.02.0530:mRNA-E1;Parent=LmjF.02.0530:mRNA;gene_id=LmjF.02.0530
+LmjF.02	VEuPathDB	CDS	241987	244575	.	-	0	ID=LmjF.02.0530:mRNA-p1-CDS1;Parent=LmjF.02.0530:mRNA;gene_id=LmjF.02.0530;protein_source_id=LmjF.02.0530:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	246041	247534	.	-	.	ID=LmjF.02.0540;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	246041	247534	.	-	.	ID=LmjF.02.0540:mRNA;Parent=LmjF.02.0540;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	246041	247534	.	-	.	ID=exon_LmjF.02.0540:mRNA-E1;Parent=LmjF.02.0540:mRNA;gene_id=LmjF.02.0540
+LmjF.02	VEuPathDB	CDS	246041	247534	.	-	0	ID=LmjF.02.0540:mRNA-p1-CDS1;Parent=LmjF.02.0540:mRNA;gene_id=LmjF.02.0540;protein_source_id=LmjF.02.0540:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	249521	250012	.	-	.	ID=LmjF.02.0550;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	249521	250012	.	-	.	ID=LmjF.02.0550:mRNA;Parent=LmjF.02.0550;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	249521	250012	.	-	.	ID=exon_LmjF.02.0550:mRNA-E1;Parent=LmjF.02.0550:mRNA;gene_id=LmjF.02.0550
+LmjF.02	VEuPathDB	CDS	249521	250012	.	-	0	ID=LmjF.02.0550:mRNA-p1-CDS1;Parent=LmjF.02.0550:mRNA;gene_id=LmjF.02.0550;protein_source_id=LmjF.02.0550:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	251143	253692	.	-	.	ID=LmjF.02.0560;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	251143	253692	.	-	.	ID=LmjF.02.0560:mRNA;Parent=LmjF.02.0560;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	251143	253692	.	-	.	ID=exon_LmjF.02.0560:mRNA-E1;Parent=LmjF.02.0560:mRNA;gene_id=LmjF.02.0560
+LmjF.02	VEuPathDB	CDS	251143	253692	.	-	0	ID=LmjF.02.0560:mRNA-p1-CDS1;Parent=LmjF.02.0560:mRNA;gene_id=LmjF.02.0560;protein_source_id=LmjF.02.0560:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	257218	261492	.	-	.	ID=LmjF.02.0570;description=protein kinase%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	257218	261492	.	-	.	ID=LmjF.02.0570:mRNA;Parent=LmjF.02.0570;Note=2.7.1.37 (2.7.11.12%2C 2.7.11.13%2C 2.7.11.21%2C 2.7.11.22%2C 2.7.11.24%2C 2.7.11.25%2C2.7.11.30 and 2.7.12.1);description=protein kinase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	257218	261492	.	-	.	ID=exon_LmjF.02.0570:mRNA-E1;Parent=LmjF.02.0570:mRNA;gene_id=LmjF.02.0570
+LmjF.02	VEuPathDB	CDS	257218	261492	.	-	0	ID=LmjF.02.0570:mRNA-p1-CDS1;Parent=LmjF.02.0570:mRNA;gene_id=LmjF.02.0570;protein_source_id=LmjF.02.0570:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	298464	309800	.	+	.	ID=LmjF.02.0580;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	298464	309800	.	+	.	ID=LmjF.02.0580:mRNA;Parent=LmjF.02.0580;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	298464	309800	.	+	.	ID=exon_LmjF.02.0580:mRNA-E1;Parent=LmjF.02.0580:mRNA;gene_id=LmjF.02.0580
+LmjF.02	VEuPathDB	CDS	298464	309800	.	+	0	ID=LmjF.02.0580:mRNA-p1-CDS1;Parent=LmjF.02.0580:mRNA;gene_id=LmjF.02.0580;protein_source_id=LmjF.02.0580:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	310561	312108	.	+	.	ID=LmjF.02.0590;description=TPR repeat/Tetratricopeptide repeat%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	310561	312108	.	+	.	ID=LmjF.02.0590:mRNA;Parent=LmjF.02.0590;description=TPR repeat/Tetratricopeptide repeat%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	310561	312108	.	+	.	ID=exon_LmjF.02.0590:mRNA-E1;Parent=LmjF.02.0590:mRNA;gene_id=LmjF.02.0590
+LmjF.02	VEuPathDB	CDS	310561	312108	.	+	0	ID=LmjF.02.0590:mRNA-p1-CDS1;Parent=LmjF.02.0590:mRNA;gene_id=LmjF.02.0590;protein_source_id=LmjF.02.0590:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	313168	313800	.	+	.	ID=LmjF.02.0600;description=ARP2/3 complex subunit%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	313168	313800	.	+	.	ID=LmjF.02.0600:mRNA;Parent=LmjF.02.0600;description=ARP2/3 complex subunit%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	313168	313800	.	+	.	ID=exon_LmjF.02.0600:mRNA-E1;Parent=LmjF.02.0600:mRNA;gene_id=LmjF.02.0600
+LmjF.02	VEuPathDB	CDS	313168	313800	.	+	0	ID=LmjF.02.0600:mRNA-p1-CDS1;Parent=LmjF.02.0600:mRNA;gene_id=LmjF.02.0600;protein_source_id=LmjF.02.0600:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	315240	316205	.	+	.	ID=LmjF.02.0610;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	315240	316205	.	+	.	ID=LmjF.02.0610:mRNA;Parent=LmjF.02.0610;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	315240	316205	.	+	.	ID=exon_LmjF.02.0610:mRNA-E1;Parent=LmjF.02.0610:mRNA;gene_id=LmjF.02.0610
+LmjF.02	VEuPathDB	CDS	315240	316205	.	+	0	ID=LmjF.02.0610:mRNA-p1-CDS1;Parent=LmjF.02.0610:mRNA;gene_id=LmjF.02.0610;protein_source_id=LmjF.02.0610:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	317353	319047	.	+	.	ID=LmjF.02.0620;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	317353	319047	.	+	.	ID=LmjF.02.0620:mRNA;Parent=LmjF.02.0620;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	317353	319047	.	+	.	ID=exon_LmjF.02.0620:mRNA-E1;Parent=LmjF.02.0620:mRNA;gene_id=LmjF.02.0620
+LmjF.02	VEuPathDB	CDS	317353	319047	.	+	0	ID=LmjF.02.0620:mRNA-p1-CDS1;Parent=LmjF.02.0620:mRNA;gene_id=LmjF.02.0620;protein_source_id=LmjF.02.0620:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	320083	322062	.	+	.	ID=LmjF.02.0630;description=gamma-glutamyl phosphate reductase-like protein;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	320083	322062	.	+	.	ID=LmjF.02.0630:mRNA;Parent=LmjF.02.0630;description=gamma-glutamyl phosphate reductase-like protein;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	320083	322062	.	+	.	ID=exon_LmjF.02.0630:mRNA-E1;Parent=LmjF.02.0630:mRNA;gene_id=LmjF.02.0630
+LmjF.02	VEuPathDB	CDS	320083	322062	.	+	0	ID=LmjF.02.0630:mRNA-p1-CDS1;Parent=LmjF.02.0630:mRNA;gene_id=LmjF.02.0630;protein_source_id=LmjF.02.0630:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	323557	327786	.	+	.	ID=LmjF.02.0640;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	323557	327786	.	+	.	ID=LmjF.02.0640:mRNA;Parent=LmjF.02.0640;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	323557	327786	.	+	.	ID=exon_LmjF.02.0640:mRNA-E1;Parent=LmjF.02.0640:mRNA;gene_id=LmjF.02.0640
+LmjF.02	VEuPathDB	CDS	323557	327786	.	+	0	ID=LmjF.02.0640:mRNA-p1-CDS1;Parent=LmjF.02.0640:mRNA;gene_id=LmjF.02.0640;protein_source_id=LmjF.02.0640:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	328326	329273	.	+	.	ID=LmjF.02.0650;Name=MIC32;description=MICOS complex subunit 32%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	328326	329273	.	+	.	ID=LmjF.02.0650:mRNA;Parent=LmjF.02.0650;description=MICOS complex subunit 32%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	328326	329273	.	+	.	ID=exon_LmjF.02.0650:mRNA-E1;Parent=LmjF.02.0650:mRNA;gene_id=LmjF.02.0650
+LmjF.02	VEuPathDB	CDS	328326	329273	.	+	0	ID=LmjF.02.0650:mRNA-p1-CDS1;Parent=LmjF.02.0650:mRNA;gene_id=LmjF.02.0650;protein_source_id=LmjF.02.0650:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	330066	332858	.	+	.	ID=LmjF.02.0660;description=Nop14-like family%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	330066	332858	.	+	.	ID=LmjF.02.0660:mRNA;Parent=LmjF.02.0660;description=Nop14-like family%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	330066	332858	.	+	.	ID=exon_LmjF.02.0660:mRNA-E1;Parent=LmjF.02.0660:mRNA;gene_id=LmjF.02.0660
+LmjF.02	VEuPathDB	CDS	330066	332858	.	+	0	ID=LmjF.02.0660:mRNA-p1-CDS1;Parent=LmjF.02.0660:mRNA;gene_id=LmjF.02.0660;protein_source_id=LmjF.02.0660:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	333743	334684	.	+	.	ID=LmjF.02.0670;description=mitochondrial carrier protein%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	333743	334684	.	+	.	ID=LmjF.02.0670:mRNA;Parent=LmjF.02.0670;description=mitochondrial carrier protein%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	333743	334684	.	+	.	ID=exon_LmjF.02.0670:mRNA-E1;Parent=LmjF.02.0670:mRNA;gene_id=LmjF.02.0670
+LmjF.02	VEuPathDB	CDS	333743	334684	.	+	0	ID=LmjF.02.0670:mRNA-p1-CDS1;Parent=LmjF.02.0670:mRNA;gene_id=LmjF.02.0670;protein_source_id=LmjF.02.0670:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	336154	337659	.	+	.	ID=LmjF.02.0680;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	336154	337659	.	+	.	ID=LmjF.02.0680:mRNA;Parent=LmjF.02.0680;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	336154	337659	.	+	.	ID=exon_LmjF.02.0680:mRNA-E1;Parent=LmjF.02.0680:mRNA;gene_id=LmjF.02.0680
+LmjF.02	VEuPathDB	CDS	336154	337659	.	+	0	ID=LmjF.02.0680:mRNA-p1-CDS1;Parent=LmjF.02.0680:mRNA;gene_id=LmjF.02.0680;protein_source_id=LmjF.02.0680:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	338291	339655	.	+	.	ID=LmjF.02.0690;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	338291	339655	.	+	.	ID=LmjF.02.0690:mRNA;Parent=LmjF.02.0690;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	338291	339655	.	+	.	ID=exon_LmjF.02.0690:mRNA-E1;Parent=LmjF.02.0690:mRNA;gene_id=LmjF.02.0690
+LmjF.02	VEuPathDB	CDS	338291	339655	.	+	0	ID=LmjF.02.0690:mRNA-p1-CDS1;Parent=LmjF.02.0690:mRNA;gene_id=LmjF.02.0690;protein_source_id=LmjF.02.0690:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	340367	343180	.	+	.	ID=LmjF.02.0700;description=hypothetical protein%2C conserved;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	340367	343180	.	+	.	ID=LmjF.02.0700:mRNA;Parent=LmjF.02.0700;description=hypothetical protein%2C conserved;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	340367	343180	.	+	.	ID=exon_LmjF.02.0700:mRNA-E1;Parent=LmjF.02.0700:mRNA;gene_id=LmjF.02.0700
+LmjF.02	VEuPathDB	CDS	340367	343180	.	+	0	ID=LmjF.02.0700:mRNA-p1-CDS1;Parent=LmjF.02.0700:mRNA;gene_id=LmjF.02.0700;protein_source_id=LmjF.02.0700:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	344949	347402	.	+	.	ID=LmjF.02.0710;description=ATP-dependent Clp protease subunit%2C heat shock protein 78 (HSP78)%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	344949	347402	.	+	.	ID=LmjF.02.0710:mRNA;Parent=LmjF.02.0710;description=ATP-dependent Clp protease subunit%2C heat shock protein 78 (HSP78)%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	344949	347402	.	+	.	ID=exon_LmjF.02.0710:mRNA-E1;Parent=LmjF.02.0710:mRNA;gene_id=LmjF.02.0710
+LmjF.02	VEuPathDB	CDS	344949	347402	.	+	0	ID=LmjF.02.0710:mRNA-p1-CDS1;Parent=LmjF.02.0710:mRNA;gene_id=LmjF.02.0710;protein_source_id=LmjF.02.0710:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	348557	348799	.	+	.	ID=LmjF.02.0720;description=hypothetical protein%2C unknown function;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	348557	348799	.	+	.	ID=LmjF.02.0720:mRNA;Parent=LmjF.02.0720;description=hypothetical protein%2C unknown function;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	348557	348799	.	+	.	ID=exon_LmjF.02.0720:mRNA-E1;Parent=LmjF.02.0720:mRNA;gene_id=LmjF.02.0720
+LmjF.02	VEuPathDB	CDS	348557	348799	.	+	0	ID=LmjF.02.0720:mRNA-p1-CDS1;Parent=LmjF.02.0720:mRNA;gene_id=LmjF.02.0720;protein_source_id=LmjF.02.0720:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	349987	350373	.	+	.	ID=LmjF.02.0730;description=dehydrogenase/oxidoreductase-like protein;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	349987	350373	.	+	.	ID=LmjF.02.0730:mRNA;Parent=LmjF.02.0730;description=dehydrogenase/oxidoreductase-like protein;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	349987	350373	.	+	.	ID=exon_LmjF.02.0730:mRNA-E1;Parent=LmjF.02.0730:mRNA;gene_id=LmjF.02.0730
+LmjF.02	VEuPathDB	CDS	349987	350373	.	+	0	ID=LmjF.02.0730:mRNA-p1-CDS1;Parent=LmjF.02.0730:mRNA;gene_id=LmjF.02.0730;protein_source_id=LmjF.02.0730:mRNA-p1
+LmjF.02	VEuPathDB	protein_coding_gene	351494	353530	.	+	.	ID=LmjF.02.0740;Name=DCP;description=dipeptylcarboxypeptidase%2C putative;ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	mRNA	351494	353530	.	+	.	ID=LmjF.02.0740:mRNA;Parent=LmjF.02.0740;description=dipeptylcarboxypeptidase%2C putative;gene_ebi_biotype=protein_coding
+LmjF.02	VEuPathDB	exon	351494	353530	.	+	.	ID=exon_LmjF.02.0740:mRNA-E1;Parent=LmjF.02.0740:mRNA;gene_id=LmjF.02.0740
+LmjF.02	VEuPathDB	CDS	351494	353530	.	+	0	ID=LmjF.02.0740:mRNA-p1-CDS1;Parent=LmjF.02.0740:mRNA;gene_id=LmjF.02.0740;protein_source_id=LmjF.02.0740:mRNA-p1
+LmjF.02	VEuPathDB	ncRNA_gene	269834	270288	.	+	.	ID=LmjF.02.SLRNA.0010;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	269834	270288	.	+	.	ID=LmjF.02.SLRNA.0010:ncRNA;Parent=LmjF.02.SLRNA.0010;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	269834	270288	.	+	.	ID=exon_LmjF.02.SLRNA.0010:ncRNA-E1;Parent=LmjF.02.SLRNA.0010:ncRNA;gene_id=LmjF.02.SLRNA.0010
+LmjF.02	VEuPathDB	ncRNA_gene	270289	270743	.	+	.	ID=LmjF.02.SLRNA.0020;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	270289	270743	.	+	.	ID=LmjF.02.SLRNA.0020:ncRNA;Parent=LmjF.02.SLRNA.0020;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	270289	270743	.	+	.	ID=exon_LmjF.02.SLRNA.0020:ncRNA-E1;Parent=LmjF.02.SLRNA.0020:ncRNA;gene_id=LmjF.02.SLRNA.0020
+LmjF.02	VEuPathDB	ncRNA_gene	270744	271192	.	+	.	ID=LmjF.02.SLRNA.0030;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	270744	271192	.	+	.	ID=LmjF.02.SLRNA.0030:ncRNA;Parent=LmjF.02.SLRNA.0030;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	270744	271192	.	+	.	ID=exon_LmjF.02.SLRNA.0030:ncRNA-E1;Parent=LmjF.02.SLRNA.0030:ncRNA;gene_id=LmjF.02.SLRNA.0030
+LmjF.02	VEuPathDB	ncRNA_gene	271193	271650	.	+	.	ID=LmjF.02.SLRNA.0040;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	271193	271650	.	+	.	ID=LmjF.02.SLRNA.0040:ncRNA;Parent=LmjF.02.SLRNA.0040;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	271193	271650	.	+	.	ID=exon_LmjF.02.SLRNA.0040:ncRNA-E1;Parent=LmjF.02.SLRNA.0040:ncRNA;gene_id=LmjF.02.SLRNA.0040
+LmjF.02	VEuPathDB	ncRNA_gene	271651	272105	.	+	.	ID=LmjF.02.SLRNA.0050;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	271651	272105	.	+	.	ID=LmjF.02.SLRNA.0050:ncRNA;Parent=LmjF.02.SLRNA.0050;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	271651	272105	.	+	.	ID=exon_LmjF.02.SLRNA.0050:ncRNA-E1;Parent=LmjF.02.SLRNA.0050:ncRNA;gene_id=LmjF.02.SLRNA.0050
+LmjF.02	VEuPathDB	ncRNA_gene	272106	272560	.	+	.	ID=LmjF.02.SLRNA.0060;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	272106	272560	.	+	.	ID=LmjF.02.SLRNA.0060:ncRNA;Parent=LmjF.02.SLRNA.0060;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	272106	272560	.	+	.	ID=exon_LmjF.02.SLRNA.0060:ncRNA-E1;Parent=LmjF.02.SLRNA.0060:ncRNA;gene_id=LmjF.02.SLRNA.0060
+LmjF.02	VEuPathDB	ncRNA_gene	272561	273009	.	+	.	ID=LmjF.02.SLRNA.0070;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	272561	273009	.	+	.	ID=LmjF.02.SLRNA.0070:ncRNA;Parent=LmjF.02.SLRNA.0070;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	272561	273009	.	+	.	ID=exon_LmjF.02.SLRNA.0070:ncRNA-E1;Parent=LmjF.02.SLRNA.0070:ncRNA;gene_id=LmjF.02.SLRNA.0070
+LmjF.02	VEuPathDB	ncRNA_gene	273010	273464	.	+	.	ID=LmjF.02.SLRNA.0080;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	273010	273464	.	+	.	ID=LmjF.02.SLRNA.0080:ncRNA;Parent=LmjF.02.SLRNA.0080;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	273010	273464	.	+	.	ID=exon_LmjF.02.SLRNA.0080:ncRNA-E1;Parent=LmjF.02.SLRNA.0080:ncRNA;gene_id=LmjF.02.SLRNA.0080
+LmjF.02	VEuPathDB	ncRNA_gene	273465	273910	.	+	.	ID=LmjF.02.SLRNA.0090;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	273465	273910	.	+	.	ID=LmjF.02.SLRNA.0090:ncRNA;Parent=LmjF.02.SLRNA.0090;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	273465	273910	.	+	.	ID=exon_LmjF.02.SLRNA.0090:ncRNA-E1;Parent=LmjF.02.SLRNA.0090:ncRNA;gene_id=LmjF.02.SLRNA.0090
+LmjF.02	VEuPathDB	ncRNA_gene	273911	274352	.	+	.	ID=LmjF.02.SLRNA.0100;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	273911	274352	.	+	.	ID=LmjF.02.SLRNA.0100:ncRNA;Parent=LmjF.02.SLRNA.0100;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	273911	274352	.	+	.	ID=exon_LmjF.02.SLRNA.0100:ncRNA-E1;Parent=LmjF.02.SLRNA.0100:ncRNA;gene_id=LmjF.02.SLRNA.0100
+LmjF.02	VEuPathDB	ncRNA_gene	274353	274798	.	+	.	ID=LmjF.02.SLRNA.0110;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	274353	274798	.	+	.	ID=LmjF.02.SLRNA.0110:ncRNA;Parent=LmjF.02.SLRNA.0110;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	274353	274798	.	+	.	ID=exon_LmjF.02.SLRNA.0110:ncRNA-E1;Parent=LmjF.02.SLRNA.0110:ncRNA;gene_id=LmjF.02.SLRNA.0110
+LmjF.02	VEuPathDB	ncRNA_gene	274799	275247	.	+	.	ID=LmjF.02.SLRNA.0120;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	274799	275247	.	+	.	ID=LmjF.02.SLRNA.0120:ncRNA;Parent=LmjF.02.SLRNA.0120;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	274799	275247	.	+	.	ID=exon_LmjF.02.SLRNA.0120:ncRNA-E1;Parent=LmjF.02.SLRNA.0120:ncRNA;gene_id=LmjF.02.SLRNA.0120
+LmjF.02	VEuPathDB	ncRNA_gene	275248	275702	.	+	.	ID=LmjF.02.SLRNA.0130;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	275248	275702	.	+	.	ID=LmjF.02.SLRNA.0130:ncRNA;Parent=LmjF.02.SLRNA.0130;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	275248	275702	.	+	.	ID=exon_LmjF.02.SLRNA.0130:ncRNA-E1;Parent=LmjF.02.SLRNA.0130:ncRNA;gene_id=LmjF.02.SLRNA.0130
+LmjF.02	VEuPathDB	ncRNA_gene	275703	276148	.	+	.	ID=LmjF.02.SLRNA.0140;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	275703	276148	.	+	.	ID=LmjF.02.SLRNA.0140:ncRNA;Parent=LmjF.02.SLRNA.0140;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	275703	276148	.	+	.	ID=exon_LmjF.02.SLRNA.0140:ncRNA-E1;Parent=LmjF.02.SLRNA.0140:ncRNA;gene_id=LmjF.02.SLRNA.0140
+LmjF.02	VEuPathDB	ncRNA_gene	276149	276594	.	+	.	ID=LmjF.02.SLRNA.0150;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	276149	276594	.	+	.	ID=LmjF.02.SLRNA.0150:ncRNA;Parent=LmjF.02.SLRNA.0150;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	276149	276594	.	+	.	ID=exon_LmjF.02.SLRNA.0150:ncRNA-E1;Parent=LmjF.02.SLRNA.0150:ncRNA;gene_id=LmjF.02.SLRNA.0150
+LmjF.02	VEuPathDB	ncRNA_gene	276595	277043	.	+	.	ID=LmjF.02.SLRNA.0160;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	276595	277043	.	+	.	ID=LmjF.02.SLRNA.0160:ncRNA;Parent=LmjF.02.SLRNA.0160;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	276595	277043	.	+	.	ID=exon_LmjF.02.SLRNA.0160:ncRNA-E1;Parent=LmjF.02.SLRNA.0160:ncRNA;gene_id=LmjF.02.SLRNA.0160
+LmjF.02	VEuPathDB	ncRNA_gene	277044	277489	.	+	.	ID=LmjF.02.SLRNA.0170;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	277044	277489	.	+	.	ID=LmjF.02.SLRNA.0170:ncRNA;Parent=LmjF.02.SLRNA.0170;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	277044	277489	.	+	.	ID=exon_LmjF.02.SLRNA.0170:ncRNA-E1;Parent=LmjF.02.SLRNA.0170:ncRNA;gene_id=LmjF.02.SLRNA.0170
+LmjF.02	VEuPathDB	ncRNA_gene	277490	277931	.	+	.	ID=LmjF.02.SLRNA.0180;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	277490	277931	.	+	.	ID=LmjF.02.SLRNA.0180:ncRNA;Parent=LmjF.02.SLRNA.0180;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	277490	277931	.	+	.	ID=exon_LmjF.02.SLRNA.0180:ncRNA-E1;Parent=LmjF.02.SLRNA.0180:ncRNA;gene_id=LmjF.02.SLRNA.0180
+LmjF.02	VEuPathDB	ncRNA_gene	278100	278547	.	+	.	ID=LmjF.02.SLRNA.0190;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	278100	278547	.	+	.	ID=LmjF.02.SLRNA.0190:ncRNA;Parent=LmjF.02.SLRNA.0190;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	278100	278547	.	+	.	ID=exon_LmjF.02.SLRNA.0190:ncRNA-E1;Parent=LmjF.02.SLRNA.0190:ncRNA;gene_id=LmjF.02.SLRNA.0190
+LmjF.02	VEuPathDB	ncRNA_gene	278548	278993	.	+	.	ID=LmjF.02.SLRNA.0200;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	278548	278993	.	+	.	ID=LmjF.02.SLRNA.0200:ncRNA;Parent=LmjF.02.SLRNA.0200;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	278548	278993	.	+	.	ID=exon_LmjF.02.SLRNA.0200:ncRNA-E1;Parent=LmjF.02.SLRNA.0200:ncRNA;gene_id=LmjF.02.SLRNA.0200
+LmjF.02	VEuPathDB	ncRNA_gene	278994	279435	.	+	.	ID=LmjF.02.SLRNA.0210;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	278994	279435	.	+	.	ID=LmjF.02.SLRNA.0210:ncRNA;Parent=LmjF.02.SLRNA.0210;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	278994	279435	.	+	.	ID=exon_LmjF.02.SLRNA.0210:ncRNA-E1;Parent=LmjF.02.SLRNA.0210:ncRNA;gene_id=LmjF.02.SLRNA.0210
+LmjF.02	VEuPathDB	ncRNA_gene	279436	279877	.	+	.	ID=LmjF.02.SLRNA.0220;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	279436	279877	.	+	.	ID=LmjF.02.SLRNA.0220:ncRNA;Parent=LmjF.02.SLRNA.0220;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	279436	279877	.	+	.	ID=exon_LmjF.02.SLRNA.0220:ncRNA-E1;Parent=LmjF.02.SLRNA.0220:ncRNA;gene_id=LmjF.02.SLRNA.0220
+LmjF.02	VEuPathDB	ncRNA_gene	279878	280323	.	+	.	ID=LmjF.02.SLRNA.0230;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	279878	280323	.	+	.	ID=LmjF.02.SLRNA.0230:ncRNA;Parent=LmjF.02.SLRNA.0230;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	279878	280323	.	+	.	ID=exon_LmjF.02.SLRNA.0230:ncRNA-E1;Parent=LmjF.02.SLRNA.0230:ncRNA;gene_id=LmjF.02.SLRNA.0230
+LmjF.02	VEuPathDB	ncRNA_gene	280324	280772	.	+	.	ID=LmjF.02.SLRNA.0240;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	280324	280772	.	+	.	ID=LmjF.02.SLRNA.0240:ncRNA;Parent=LmjF.02.SLRNA.0240;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	280324	280772	.	+	.	ID=exon_LmjF.02.SLRNA.0240:ncRNA-E1;Parent=LmjF.02.SLRNA.0240:ncRNA;gene_id=LmjF.02.SLRNA.0240
+LmjF.02	VEuPathDB	ncRNA_gene	280773	281218	.	+	.	ID=LmjF.02.SLRNA.0250;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	280773	281218	.	+	.	ID=LmjF.02.SLRNA.0250:ncRNA;Parent=LmjF.02.SLRNA.0250;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	280773	281218	.	+	.	ID=exon_LmjF.02.SLRNA.0250:ncRNA-E1;Parent=LmjF.02.SLRNA.0250:ncRNA;gene_id=LmjF.02.SLRNA.0250
+LmjF.02	VEuPathDB	ncRNA_gene	281219	281664	.	+	.	ID=LmjF.02.SLRNA.0260;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	281219	281664	.	+	.	ID=LmjF.02.SLRNA.0260:ncRNA;Parent=LmjF.02.SLRNA.0260;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	281219	281664	.	+	.	ID=exon_LmjF.02.SLRNA.0260:ncRNA-E1;Parent=LmjF.02.SLRNA.0260:ncRNA;gene_id=LmjF.02.SLRNA.0260
+LmjF.02	VEuPathDB	ncRNA_gene	281665	282113	.	+	.	ID=LmjF.02.SLRNA.0270;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	281665	282113	.	+	.	ID=LmjF.02.SLRNA.0270:ncRNA;Parent=LmjF.02.SLRNA.0270;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	281665	282113	.	+	.	ID=exon_LmjF.02.SLRNA.0270:ncRNA-E1;Parent=LmjF.02.SLRNA.0270:ncRNA;gene_id=LmjF.02.SLRNA.0270
+LmjF.02	VEuPathDB	ncRNA_gene	282114	282559	.	+	.	ID=LmjF.02.SLRNA.0280;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	282114	282559	.	+	.	ID=LmjF.02.SLRNA.0280:ncRNA;Parent=LmjF.02.SLRNA.0280;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	282114	282559	.	+	.	ID=exon_LmjF.02.SLRNA.0280:ncRNA-E1;Parent=LmjF.02.SLRNA.0280:ncRNA;gene_id=LmjF.02.SLRNA.0280
+LmjF.02	VEuPathDB	ncRNA_gene	282560	283001	.	+	.	ID=LmjF.02.SLRNA.0290;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	282560	283001	.	+	.	ID=LmjF.02.SLRNA.0290:ncRNA;Parent=LmjF.02.SLRNA.0290;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	282560	283001	.	+	.	ID=exon_LmjF.02.SLRNA.0290:ncRNA-E1;Parent=LmjF.02.SLRNA.0290:ncRNA;gene_id=LmjF.02.SLRNA.0290
+LmjF.02	VEuPathDB	ncRNA_gene	283002	283450	.	+	.	ID=LmjF.02.SLRNA.0300;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	283002	283450	.	+	.	ID=LmjF.02.SLRNA.0300:ncRNA;Parent=LmjF.02.SLRNA.0300;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	283002	283450	.	+	.	ID=exon_LmjF.02.SLRNA.0300:ncRNA-E1;Parent=LmjF.02.SLRNA.0300:ncRNA;gene_id=LmjF.02.SLRNA.0300
+LmjF.02	VEuPathDB	ncRNA_gene	283451	283896	.	+	.	ID=LmjF.02.SLRNA.0310;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	283451	283896	.	+	.	ID=LmjF.02.SLRNA.0310:ncRNA;Parent=LmjF.02.SLRNA.0310;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	283451	283896	.	+	.	ID=exon_LmjF.02.SLRNA.0310:ncRNA-E1;Parent=LmjF.02.SLRNA.0310:ncRNA;gene_id=LmjF.02.SLRNA.0310
+LmjF.02	VEuPathDB	ncRNA_gene	283897	284342	.	+	.	ID=LmjF.02.SLRNA.0320;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	283897	284342	.	+	.	ID=LmjF.02.SLRNA.0320:ncRNA;Parent=LmjF.02.SLRNA.0320;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	283897	284342	.	+	.	ID=exon_LmjF.02.SLRNA.0320:ncRNA-E1;Parent=LmjF.02.SLRNA.0320:ncRNA;gene_id=LmjF.02.SLRNA.0320
+LmjF.02	VEuPathDB	ncRNA_gene	284343	284797	.	+	.	ID=LmjF.02.SLRNA.0330;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	284343	284797	.	+	.	ID=LmjF.02.SLRNA.0330:ncRNA;Parent=LmjF.02.SLRNA.0330;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	284343	284797	.	+	.	ID=exon_LmjF.02.SLRNA.0330:ncRNA-E1;Parent=LmjF.02.SLRNA.0330:ncRNA;gene_id=LmjF.02.SLRNA.0330
+LmjF.02	VEuPathDB	ncRNA_gene	284798	285242	.	+	.	ID=LmjF.02.SLRNA.0340;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	284798	285242	.	+	.	ID=LmjF.02.SLRNA.0340:ncRNA;Parent=LmjF.02.SLRNA.0340;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	284798	285242	.	+	.	ID=exon_LmjF.02.SLRNA.0340:ncRNA-E1;Parent=LmjF.02.SLRNA.0340:ncRNA;gene_id=LmjF.02.SLRNA.0340
+LmjF.02	VEuPathDB	ncRNA_gene	285243	285694	.	+	.	ID=LmjF.02.SLRNA.0350;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	285243	285694	.	+	.	ID=LmjF.02.SLRNA.0350:ncRNA;Parent=LmjF.02.SLRNA.0350;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	285243	285694	.	+	.	ID=exon_LmjF.02.SLRNA.0350:ncRNA-E1;Parent=LmjF.02.SLRNA.0350:ncRNA;gene_id=LmjF.02.SLRNA.0350
+LmjF.02	VEuPathDB	ncRNA_gene	285695	286149	.	+	.	ID=LmjF.02.SLRNA.0360;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	285695	286149	.	+	.	ID=LmjF.02.SLRNA.0360:ncRNA;Parent=LmjF.02.SLRNA.0360;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	285695	286149	.	+	.	ID=exon_LmjF.02.SLRNA.0360:ncRNA-E1;Parent=LmjF.02.SLRNA.0360:ncRNA;gene_id=LmjF.02.SLRNA.0360
+LmjF.02	VEuPathDB	ncRNA_gene	286150	286604	.	+	.	ID=LmjF.02.SLRNA.0370;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	286150	286604	.	+	.	ID=LmjF.02.SLRNA.0370:ncRNA;Parent=LmjF.02.SLRNA.0370;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	286150	286604	.	+	.	ID=exon_LmjF.02.SLRNA.0370:ncRNA-E1;Parent=LmjF.02.SLRNA.0370:ncRNA;gene_id=LmjF.02.SLRNA.0370
+LmjF.02	VEuPathDB	ncRNA_gene	286605	287059	.	+	.	ID=LmjF.02.SLRNA.0380;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	286605	287059	.	+	.	ID=LmjF.02.SLRNA.0380:ncRNA;Parent=LmjF.02.SLRNA.0380;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	286605	287059	.	+	.	ID=exon_LmjF.02.SLRNA.0380:ncRNA-E1;Parent=LmjF.02.SLRNA.0380:ncRNA;gene_id=LmjF.02.SLRNA.0380
+LmjF.02	VEuPathDB	ncRNA_gene	287060	287517	.	+	.	ID=LmjF.02.SLRNA.0390;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	287060	287517	.	+	.	ID=LmjF.02.SLRNA.0390:ncRNA;Parent=LmjF.02.SLRNA.0390;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	287060	287517	.	+	.	ID=exon_LmjF.02.SLRNA.0390:ncRNA-E1;Parent=LmjF.02.SLRNA.0390:ncRNA;gene_id=LmjF.02.SLRNA.0390
+LmjF.02	VEuPathDB	ncRNA_gene	287518	287967	.	+	.	ID=LmjF.02.SLRNA.0400;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	287518	287967	.	+	.	ID=LmjF.02.SLRNA.0400:ncRNA;Parent=LmjF.02.SLRNA.0400;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	287518	287967	.	+	.	ID=exon_LmjF.02.SLRNA.0400:ncRNA-E1;Parent=LmjF.02.SLRNA.0400:ncRNA;gene_id=LmjF.02.SLRNA.0400
+LmjF.02	VEuPathDB	ncRNA_gene	287968	288416	.	+	.	ID=LmjF.02.SLRNA.0410;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	287968	288416	.	+	.	ID=LmjF.02.SLRNA.0410:ncRNA;Parent=LmjF.02.SLRNA.0410;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	287968	288416	.	+	.	ID=exon_LmjF.02.SLRNA.0410:ncRNA-E1;Parent=LmjF.02.SLRNA.0410:ncRNA;gene_id=LmjF.02.SLRNA.0410
+LmjF.02	VEuPathDB	ncRNA_gene	288417	288874	.	+	.	ID=LmjF.02.SLRNA.0420;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	288417	288874	.	+	.	ID=LmjF.02.SLRNA.0420:ncRNA;Parent=LmjF.02.SLRNA.0420;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	288417	288874	.	+	.	ID=exon_LmjF.02.SLRNA.0420:ncRNA-E1;Parent=LmjF.02.SLRNA.0420:ncRNA;gene_id=LmjF.02.SLRNA.0420
+LmjF.02	VEuPathDB	ncRNA_gene	288875	289323	.	+	.	ID=LmjF.02.SLRNA.0430;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	288875	289323	.	+	.	ID=LmjF.02.SLRNA.0430:ncRNA;Parent=LmjF.02.SLRNA.0430;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	288875	289323	.	+	.	ID=exon_LmjF.02.SLRNA.0430:ncRNA-E1;Parent=LmjF.02.SLRNA.0430:ncRNA;gene_id=LmjF.02.SLRNA.0430
+LmjF.02	VEuPathDB	ncRNA_gene	289324	289772	.	+	.	ID=LmjF.02.SLRNA.0440;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	289324	289772	.	+	.	ID=LmjF.02.SLRNA.0440:ncRNA;Parent=LmjF.02.SLRNA.0440;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	289324	289772	.	+	.	ID=exon_LmjF.02.SLRNA.0440:ncRNA-E1;Parent=LmjF.02.SLRNA.0440:ncRNA;gene_id=LmjF.02.SLRNA.0440
+LmjF.02	VEuPathDB	ncRNA_gene	289773	290227	.	+	.	ID=LmjF.02.SLRNA.0450;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	289773	290227	.	+	.	ID=LmjF.02.SLRNA.0450:ncRNA;Parent=LmjF.02.SLRNA.0450;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	289773	290227	.	+	.	ID=exon_LmjF.02.SLRNA.0450:ncRNA-E1;Parent=LmjF.02.SLRNA.0450:ncRNA;gene_id=LmjF.02.SLRNA.0450
+LmjF.02	VEuPathDB	ncRNA_gene	290228	290681	.	+	.	ID=LmjF.02.SLRNA.0460;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	290228	290681	.	+	.	ID=LmjF.02.SLRNA.0460:ncRNA;Parent=LmjF.02.SLRNA.0460;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	290228	290681	.	+	.	ID=exon_LmjF.02.SLRNA.0460:ncRNA-E1;Parent=LmjF.02.SLRNA.0460:ncRNA;gene_id=LmjF.02.SLRNA.0460
+LmjF.02	VEuPathDB	ncRNA_gene	290682	291129	.	+	.	ID=LmjF.02.SLRNA.0470;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	290682	291129	.	+	.	ID=LmjF.02.SLRNA.0470:ncRNA;Parent=LmjF.02.SLRNA.0470;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	290682	291129	.	+	.	ID=exon_LmjF.02.SLRNA.0470:ncRNA-E1;Parent=LmjF.02.SLRNA.0470:ncRNA;gene_id=LmjF.02.SLRNA.0470
+LmjF.02	VEuPathDB	ncRNA_gene	291130	291583	.	+	.	ID=LmjF.02.SLRNA.0480;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	291130	291583	.	+	.	ID=LmjF.02.SLRNA.0480:ncRNA;Parent=LmjF.02.SLRNA.0480;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	291130	291583	.	+	.	ID=exon_LmjF.02.SLRNA.0480:ncRNA-E1;Parent=LmjF.02.SLRNA.0480:ncRNA;gene_id=LmjF.02.SLRNA.0480
+LmjF.02	VEuPathDB	ncRNA_gene	291584	292032	.	+	.	ID=LmjF.02.SLRNA.0490;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	291584	292032	.	+	.	ID=LmjF.02.SLRNA.0490:ncRNA;Parent=LmjF.02.SLRNA.0490;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	291584	292032	.	+	.	ID=exon_LmjF.02.SLRNA.0490:ncRNA-E1;Parent=LmjF.02.SLRNA.0490:ncRNA;gene_id=LmjF.02.SLRNA.0490
+LmjF.02	VEuPathDB	ncRNA_gene	292033	292478	.	+	.	ID=LmjF.02.SLRNA.0500;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	292033	292478	.	+	.	ID=LmjF.02.SLRNA.0500:ncRNA;Parent=LmjF.02.SLRNA.0500;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	292033	292478	.	+	.	ID=exon_LmjF.02.SLRNA.0500:ncRNA-E1;Parent=LmjF.02.SLRNA.0500:ncRNA;gene_id=LmjF.02.SLRNA.0500
+LmjF.02	VEuPathDB	ncRNA_gene	292479	292936	.	+	.	ID=LmjF.02.SLRNA.0510;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	292479	292936	.	+	.	ID=LmjF.02.SLRNA.0510:ncRNA;Parent=LmjF.02.SLRNA.0510;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	292479	292936	.	+	.	ID=exon_LmjF.02.SLRNA.0510:ncRNA-E1;Parent=LmjF.02.SLRNA.0510:ncRNA;gene_id=LmjF.02.SLRNA.0510
+LmjF.02	VEuPathDB	ncRNA_gene	292937	293378	.	+	.	ID=LmjF.02.SLRNA.0520;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	292937	293378	.	+	.	ID=LmjF.02.SLRNA.0520:ncRNA;Parent=LmjF.02.SLRNA.0520;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	292937	293378	.	+	.	ID=exon_LmjF.02.SLRNA.0520:ncRNA-E1;Parent=LmjF.02.SLRNA.0520:ncRNA;gene_id=LmjF.02.SLRNA.0520
+LmjF.02	VEuPathDB	ncRNA_gene	293379	293833	.	+	.	ID=LmjF.02.SLRNA.0530;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	293379	293833	.	+	.	ID=LmjF.02.SLRNA.0530:ncRNA;Parent=LmjF.02.SLRNA.0530;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	293379	293833	.	+	.	ID=exon_LmjF.02.SLRNA.0530:ncRNA-E1;Parent=LmjF.02.SLRNA.0530:ncRNA;gene_id=LmjF.02.SLRNA.0530
+LmjF.02	VEuPathDB	ncRNA_gene	293834	294288	.	+	.	ID=LmjF.02.SLRNA.0540;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	293834	294288	.	+	.	ID=LmjF.02.SLRNA.0540:ncRNA;Parent=LmjF.02.SLRNA.0540;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	293834	294288	.	+	.	ID=exon_LmjF.02.SLRNA.0540:ncRNA-E1;Parent=LmjF.02.SLRNA.0540:ncRNA;gene_id=LmjF.02.SLRNA.0540
+LmjF.02	VEuPathDB	ncRNA_gene	294289	294737	.	+	.	ID=LmjF.02.SLRNA.0550;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	294289	294737	.	+	.	ID=LmjF.02.SLRNA.0550:ncRNA;Parent=LmjF.02.SLRNA.0550;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	294289	294737	.	+	.	ID=exon_LmjF.02.SLRNA.0550:ncRNA-E1;Parent=LmjF.02.SLRNA.0550:ncRNA;gene_id=LmjF.02.SLRNA.0550
+LmjF.02	VEuPathDB	ncRNA_gene	294738	295183	.	+	.	ID=LmjF.02.SLRNA.0560;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	294738	295183	.	+	.	ID=LmjF.02.SLRNA.0560:ncRNA;Parent=LmjF.02.SLRNA.0560;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	294738	295183	.	+	.	ID=exon_LmjF.02.SLRNA.0560:ncRNA-E1;Parent=LmjF.02.SLRNA.0560:ncRNA;gene_id=LmjF.02.SLRNA.0560
+LmjF.02	VEuPathDB	ncRNA_gene	295184	295625	.	+	.	ID=LmjF.02.SLRNA.0570;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	295184	295625	.	+	.	ID=LmjF.02.SLRNA.0570:ncRNA;Parent=LmjF.02.SLRNA.0570;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	295184	295625	.	+	.	ID=exon_LmjF.02.SLRNA.0570:ncRNA-E1;Parent=LmjF.02.SLRNA.0570:ncRNA;gene_id=LmjF.02.SLRNA.0570
+LmjF.02	VEuPathDB	ncRNA_gene	295626	296067	.	+	.	ID=LmjF.02.SLRNA.0580;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	295626	296067	.	+	.	ID=LmjF.02.SLRNA.0580:ncRNA;Parent=LmjF.02.SLRNA.0580;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	295626	296067	.	+	.	ID=exon_LmjF.02.SLRNA.0580:ncRNA-E1;Parent=LmjF.02.SLRNA.0580:ncRNA;gene_id=LmjF.02.SLRNA.0580
+LmjF.02	VEuPathDB	ncRNA_gene	296068	296516	.	+	.	ID=LmjF.02.SLRNA.0590;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	296068	296516	.	+	.	ID=LmjF.02.SLRNA.0590:ncRNA;Parent=LmjF.02.SLRNA.0590;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	296068	296516	.	+	.	ID=exon_LmjF.02.SLRNA.0590:ncRNA-E1;Parent=LmjF.02.SLRNA.0590:ncRNA;gene_id=LmjF.02.SLRNA.0590
+LmjF.02	VEuPathDB	ncRNA_gene	296517	296962	.	+	.	ID=LmjF.02.SLRNA.0600;description=spliced leader RNA;ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	ncRNA	296517	296962	.	+	.	ID=LmjF.02.SLRNA.0600:ncRNA;Parent=LmjF.02.SLRNA.0600;description=spliced leader RNA;gene_ebi_biotype=ncRNA
+LmjF.02	VEuPathDB	exon	296517	296962	.	+	.	ID=exon_LmjF.02.SLRNA.0600:ncRNA-E1;Parent=LmjF.02.SLRNA.0600:ncRNA;gene_id=LmjF.02.SLRNA.0600

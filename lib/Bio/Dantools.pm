@@ -12,14 +12,26 @@ use FileHandle;
 use File::Basename;
 use File::Path qw( rmtree );
 use Bio::SeqIO;
+use Bio::Seq;
+use Bio::Tools::CodonTable;
+use Bio::DB::Fasta;
 use Bio::DB::SeqFeature;
 use Bio::SeqFeature::Generic;
+use Bio::Matrix::IO;
 use Text::CSV_XS::TSV;
+use List::Util qw"max min sum";
 use File::Copy;
+use File::Path qw(make_path);
 use POSIX qw"floor ceil";
 use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
 use Parallel::ForkManager;
-use Data::Dumper;
+
+#Set up my interrupt trap
+BEGIN {
+    $SIG{'INT'} = sub {
+    exit(1);
+};
+}
 
 sub pseudogen {
     #This will serve as the main full pseudogen worker
@@ -68,7 +80,6 @@ sub pseudogen {
                                 overlap => "$overlap",
                                 min_length => "$min_length",
                                 logfile => "fragment_log.txt",
-                                output_name => "$output_name",
                                 threads => "$threads"
             );
         }
@@ -149,7 +160,7 @@ sub pseudogen {
         if ("$it" == 0) {
             Bio::Dantools::bin_maker(
                 input_fasta => "$og_base",
-                output => "it$it/bins.tsv",
+                output => "it0/bins.tsv",
                 bin_size => "$bin_size"
                 );
         } else {
@@ -393,12 +404,11 @@ sub pseudogen {
             );
     }
 
-    #Now I should have some important items like my genome, indexes,
-    #and alignment in the output directory. Now all I need to do is
-    #take all the files in needle_files/ and put them together in a
-    #comprehensive "combined_bases.tsv" file
-
     my $file_idx = 0;
+    if (-e 'needle_files/combined_bases.tsv') {
+        unlink('needle_files/combined_bases.tsv');
+    }
+    my $out = FileHandle->new(">> needle_files/combined_bases.tsv");
     while ("$file_idx" < scalar @contigs) {
         #Note in my original I use Bio::AlignIO, maybe this won't work
         my $raw = Bio::SeqIO->new(
@@ -412,7 +422,7 @@ sub pseudogen {
             if ($seq->id eq 'ref') {
                 $refseq = $seq->seq;
                 @refseq = split //, $refseq;
-            } elsif ($seq-> id eq 'alt') {
+            } elsif ($seq->id eq 'alt') {
                 $altseq = $seq->seq;
                 @altseq = split //, $altseq;
             }
@@ -420,7 +430,6 @@ sub pseudogen {
 
         my $idx = 0;
         my $lim = scalar @refseq;
-        my $out = FileHandle->new(">> needle_files/combined_bases.tsv");
 
         while ($idx < $lim) {
             print $out "$contigs[$file_idx]\t$refseq[$idx]\t$altseq[$idx]\n";
@@ -428,16 +437,18 @@ sub pseudogen {
         }
         $file_idx++;
     }
+    close($out);
 
-    #Now I have a list of every base from each needle alignment next
-    #to what it was in the alignment. I could and probably should make
-    #this more efficient by skipping the printing to a file and just
-    #building a hash of arrays.
+    # Now I have a list of every base from each needle alignment next
+    # to what it was in the alignment. I could and probably should make
+    # this more efficient by skipping the printing to a file and just
+    # building a hash of arrays.
     Bio::Dantools::vcf_maker(
         input => "needle_files/combined_bases.tsv",
         output => "output/$output_name.vcf",
         tmpdir => "output",
-        depths => "output/depth.tsv"
+        depths => "output/depth.tsv",
+        sample => "${output_name}"
         );
     if ("$keepers" ne "all") {
         rmtree(['ref', 'alt', 'needle_files', 'original_indexes'], 0, 0);
@@ -447,36 +458,25 @@ sub pseudogen {
                'fragment_log.txt'));
     }
 
-    #Now the second to last step, labeling the VCF file:
-    if ("$gff" ne '') {
-        Bio::Dantools::vcf_labeler(
-            gff => "$args{'gff'}",
-            vcf => "output/$output_name.vcf",
-            output => "output/labeled_variants.tsv",
-            add_flanks => "$args{'add_flanks'}",
-            flank_lengths => "$args{'flank_lengths'}",
-            feature_types => "$args{'feature_types'}",
-            feature_name => "$args{'feature_name'}"
-            );
-
-    #Ok so now I'm finally almost done. I just need one last step, and
-    #that is to take my original gff and my vcf file and modiy the
-    #former according to the latter
-    Bio::Dantools::gff_shifter(
-        input_gff => "$args{'gff'}",
-        input_vcf => "output/$args{'output_name'}.vcf",
-        output => "output/$args{'output_name'}.gff"
-        );
-    };
+    #This used to automatically generate a new GFF and label the vcf,
+    #but I don't feel that is necessary for the general pseudogen. If
+    #people want to, they can always call dantools label and dantools
+    #shift separately
 };
 
 
 #The below can break my genome into pieces
 sub fragment {
     my %args = @_;
+    my $seqio_out;
+    if ($args{'output'} ne 'NO_OUTPUT_PROVIDED') {
+        $seqio_out = Bio::SeqIO->new(-format => 'fasta', -file => "> $args{'output'}");
+    } else {
+        $seqio_out = Bio::SeqIO->new(-format => 'fasta', -fh => \*STDOUT);
+    };
 
     my $seqio_in = Bio::SeqIO->new(-format => 'fasta', -file => $args{'input'});
-    my $seqio_out = Bio::SeqIO->new(-format => 'fasta', -file => "> $args{'output'}");
+
     my @sizes = split(/\,/, $args{'lengths'});
     my $log = FileHandle->new("> $args{'logfile'}");
     my $num_written = 0;
@@ -554,7 +554,7 @@ sub bin_maker {
 sub bin_shifter {
     my %args = @_;
     my $vcf_fh = FileHandle->new("$args{'input_vcf'}");
-    my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
+    my @vcf;
     my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($vcf_fh, "<:encoding(utf8)", "$args{'input_vcf'}") or die "Can't open vcf_fh";
 
@@ -564,29 +564,25 @@ sub bin_shifter {
         next if $row->{'contig'} =~ /^#/;
         my $shift = length($row->{'alternate'}) - length($row->{'reference'});
         next if $shift == 0;
-        my $feat = Bio::SeqFeature::Generic->new(
-            -seq_id => $row->{'contig'},
-            -start => $row->{'position'},
-            -end => $row->{'position'},
-            -tag => { ref => $row->{'reference'},
-                      alt => $row->{'alernate'},
-                      shift => $shift
-            }
+        my %hash = (
+            seq_id => $row->{'contig'},
+            pos => $row->{'position'},
+            ref => $row->{'reference'},
+            alt => $row->{'alternate'},
+            shift => $shift
             );
-        $vcf->store($feat);
+        push(@vcf, \%hash);
     }
     close($vcf_fh);
 
-    my @db = $vcf->features;
-    @db = sort {
-        $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
-    } @db;
-
+    #Importantly I don't sort this. That's because if I do, it's going
+    #to sort it in a different way from my original. In dantools
+    #pseudogen, the vcf and bins should always be sorted the same anyway
     my $contig;
     my @contigs;
     my $shiftsum;
     my $vcf_index = 0;
-    my @shift = 0;
+    my $shift = 0;
     my $vcf_row;
     my $prev_row;
     my $vcf_contig;
@@ -595,31 +591,30 @@ sub bin_shifter {
     open($bins_fh, "<:encoding(utf8)", "$args{'input_bins'}") or die "Can't open bins_fh";
     $bins_tsv->column_names('contig', 'end');
     my $out = FileHandle->new("> $args{'output'}");
-
-    if(scalar @db == 0) {
+    my @bins_db;
+    if(scalar @vcf == 0) {
         copy("$args{'input_bins'}", "$args{'output'}");
     } else {
-      BINS: while(my $bin_row = $bins_tsv->getline_hr($bins_fh)) {
-          $contig = $bin_row->{'contig'};
+      BINS: while(my $entry = $bins_tsv->getline_hr($bins_fh)) {
+          $contig = $entry->{'contig'};
           if (! grep /$contig/, @contigs) {
               $shiftsum = 0;
               push @contigs, $contig;
-              @shift = 0;
           }
-          my $end = $bin_row->{'end'};
+          my $end = $entry->{'end'};
 
-        SHIFT: while ($vcf_row = $db["$vcf_index"]) {
-            $vcf_contig = $vcf_row->seq_id;
-            last SHIFT if(($end < $vcf_row->start) | ($contig ne $vcf_contig));
-            @shift = $vcf_row->get_tag_values('shift');
-            $shiftsum = $shiftsum + $shift[0];
+        SHIFT: while ($vcf_row = $vcf["$vcf_index"]) {
+            $vcf_contig = $vcf_row->{'seq_id'};
+            last SHIFT if(($end < $vcf_row->{'pos'}) | ($contig ne $vcf_contig));
+            $shift = $vcf_row->{'shift'};
+            $shiftsum = $shiftsum + $shift;
             $vcf_index++;
         }
           #Some logic to sheck if deletion covers the feature
-          $prev_row = $db["$vcf_index" - 1];
-          @shift = $prev_row->get_tag_values('shift');
-          if (($prev_row->start - $shift[0] > $end) & ($prev_row->seq_id eq $contig) & ($vcf_index != 0)) {
-              print $out "$contig" . "\t" . $prev_row->start . "\n";
+          $prev_row = $vcf["$vcf_index" - 1];
+          $shift = $prev_row->{'shift'};
+          if (($prev_row->{'pos'} - $shift > $end) & ($prev_row->{'seq_id'} eq $contig) & ($vcf_index != 0)) {
+              print $out "$contig" . "\t" . ($prev_row->{'pos'} + $shiftsum - $shift) . "\n";
           } else {
               my $new_out = $end + $shiftsum;
               print $out "$contig" . "\t" . "$new_out\n";
@@ -660,6 +655,11 @@ sub vcf_maker {
     my $output = $args{'output'};
     my $tmpdir = $args{'tmpdir'};
     my $depthfile = $args{'depths'};
+    my $sample = $args{'sample'};
+
+    if (! -d "$tmpdir") {
+        mkdir("$tmpdir");
+    };
 
     my $vcf = FileHandle->new("> $tmpdir/tmp_variants.vcf");
     my $headfile = FileHandle->new("> $output");
@@ -673,9 +673,8 @@ sub vcf_maker {
     open($depth_fh, "<:encoding(utf8)", "$depthfile");
     $depth_tsv->column_names('chromosome', 'pos', 'depth');
     while (my $row = $depth_tsv->getline_hr($depth_fh)) {
-      push(@depths, $row->{'depth'});
-  };
-
+        push(@depths, $row->{'depth'});
+    };
     #Note that I don't have any real metadata yet, but I may in the future
     my $header = "##fileformat=VCFv4.2\n";
     print $headfile $header;
@@ -688,7 +687,7 @@ sub vcf_maker {
     #The things I'll be building
     my $ref = ''; #String to build ref column of vcf
     my $alt = ''; #String to build alt column of vcf
-    my $chrom = '';
+    my $chrom = '_balrog_';
     my $relpos = 1; #track position on reference chromosome/contig
     #The below depthidx is how I track depth. Note it starts at -1
     #because when I print something I'm always "on the next
@@ -697,12 +696,11 @@ sub vcf_maker {
     my $string;
     my $pos;
     my $length;
-    my $depth;
-
   VARS: while(my $row = $raw_tsv->getline_hr($raw_fh)) {
       #Check if the chromosome has changed
-      if($chrom ne $row->{'chromosome'} | ! defined($chrom)){
-          if ($chrom ne '') {
+      next if(! defined($row->{'alt'}));
+      if($chrom ne $row->{'chromosome'}){
+          if ($chrom ne '_balrog_') {
               $length = $relpos - 1;
               print $headfile "##contig=<ID=" . "$chrom" . ",length=" . "$length" . ">\n";
           };
@@ -712,7 +710,6 @@ sub vcf_maker {
 
       my $rowref = $row->{'ref'};
       my $rowalt = $row->{'alt'};
-
       if($rowref eq $rowalt) {
           #I need to adjust using this catch-all
           if((length($ref) != 0) & ("$ref" ne "$alt")) {
@@ -721,8 +718,17 @@ sub vcf_maker {
               $alt =~ tr/-//d;
               #I need to double check after removing '-'
               if("$ref" ne "$alt") {
-                  $string = "$chrom\t" . "$pos\t" . ".\t" . "$ref\t" . "$alt\t" . ".\t" . ".\t" . "DP=$depths[$depthidx]\n";
-                  print $vcf $string;
+                  print $vcf
+                      $chrom, "\t",
+                      $pos, "\t",
+                      '.', "\t",
+                      $ref, "\t",
+                      $alt, "\t",
+                      '.', "\t",
+                      '.', "\t",
+                      "DP=" . $depths[$depthidx], "\t",
+                      "GT:DP", "\t",
+                      "1/1:" . $depths[$depthidx], "\n";
               }
           }
           $ref = "$rowref";
@@ -756,8 +762,17 @@ sub vcf_maker {
           $ref =~ tr/-//d;
           $alt =~ tr/-//d;
           if("$ref" ne "$alt") {
-              $string = "$chrom\t" . "$pos\t" . ".\t" . "$ref\t" . "$alt\t" . ".\t" . ".\t" . "DP=$depths[$depthidx]\n";
-              print $vcf $string;
+              print $vcf
+                      $chrom, "\t",
+                      $pos, "\t",
+                      '.', "\t",
+                      $ref, "\t",
+                      $alt, "\t",
+                      '.', "\t",
+                      '.', "\t",
+                      "DP=" . $depths[$depthidx], "\t",
+                      "GT:DP", "\t",
+                      "1/1:" . $depths[$depthidx], "\n";
           }
       }
       $ref = $rowref;
@@ -771,265 +786,18 @@ sub vcf_maker {
     $length = $relpos - 1;
     print $headfile "##contig=<ID=" . "$chrom" . ",length=" . "$length" . ">\n";
     print $headfile '##INFO=<ID=DP,Number=1,Type=Integer,Description="Read Depth">' . "\n";
+    print $headfile '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">', "\n";
+    print $headfile '##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">', "\n";
 
-    print $headfile "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n";
+    print $headfile "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t${sample}\n";
 
     #Put the things from my vcf file into my final product
-    $vcf = FileHandle->new("< $tmpdir/tmp_variants.vcf");
-    while (<$vcf>) {
+    my $tmp_vcf = FileHandle->new("< $tmpdir/tmp_variants.vcf");
+    while (<$tmp_vcf>) {
         print $headfile $_;
     };
-    close($vcf);
+    close($headfile);
     unlink("$tmpdir/tmp_variants.vcf");
-}
-
-#Now I want to take that vcf file and label it by whatever features I
-#want. I also have the option of adding utrs if people want
-
-sub vcf_labeler {
-    my %args = @_;
-    my $input_gff = $args{'gff'};
-    my $input_vcf = $args{'vcf'};
-    my $output = $args{'output'};
-    my $add_flanks = $args{'add_flanks'};
-    my $flank_lengths = $args{'flank_lengths'};
-    my $feature_type = $args{'feature_type'};
-    my $feature_name = $args{'feature_name'};
-
-    #Parse the flank lengths properly as "up,down"
-    my @flank_lengths = split(/\,/, $flank_lengths);
-
-    my $gff = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
-    my $gff_fh = FileHandle->new("$input_gff");
-    my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    open($gff_fh, "<:encoding(utf8)", "$input_gff");
-
-    $gff_tsv->column_names('seqid', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
-
-    my $feat;
-
-    while(my $row = $gff_tsv->getline_hr($gff_fh)) {
-        next if($row->{'seqid'} =~ /^#/);
-        my $type = $row->{'type'};
-        #Test if feature is in my array of acceptable features
-        my @feature_types = split(/,/, $args{'feature_types'});
-        my %feature_types = map { $_ => 1 } @feature_types;
-        next if(! exists($feature_types{"$type"}));
-
-        #Trying to extract gene ID based on the feature name I was given
-        my @tmp = split /;/, $row->{'attributes'};
-        my %attributes;
-        for my $item (@tmp) {
-            my ($key, $value) = split('=', $item);
-            $attributes{$key} = $value;
-        }
-        my $gene_id = $attributes{$feature_name} or die "Feature $feature_name not found in GFF";
-
-        $feat = Bio::SeqFeature::Generic->new(
-            -seq_id => $row->{'seqid'},
-            -start => $row->{'start'},
-            -end => $row->{'end'},
-            -strand => $row->{'strand'},
-            -primary_tag => $row->{'type'},
-            -display_name => $gene_id);
-
-        $gff->store($feat);
-
-        #Put in the UTRs as well, which are strand dependent
-        if($add_flanks eq 'yes') {
-            if($row->{'strand'} eq '+') {
-                $feat = Bio::SeqFeature::Generic->new(
-                    -seq_id => $row->{'seqid'},
-                    -start => ($row->{'start'} - $flank_lengths[0]),
-                    -end => ($row->{'start'} - 1),
-                    -strand => $row->{'strand'},
-                    -primary_tag => 'up_flank',
-                    -display_name => $gene_id);
-                $gff->store($feat);
-                $feat = Bio::SeqFeature::Generic->new(
-                    -seq_id => $row->{'seqid'},
-                    -start => ($row->{'end'} + 1),
-                    -end => ($row->{'end'} + $flank_lengths[1]),
-                    -strand => $row->{'strand'},
-                    -primary_tag => 'down_flank',
-                    -display_name => $gene_id);
-                $gff->store($feat);
-            } else {
-                $feat = Bio::SeqFeature::Generic->new(
-                    -seq_id => $row->{'seqid'},
-                    -start => ($row->{'start'} - $flank_lengths[1]),
-                    -end => ($row->{'start'} - 1),
-                    -strand => $row->{'strand'},
-                    -primary_tag => 'down_flank',
-                    -display_name => $gene_id);
-                $gff->store($feat);
-                $feat = Bio::SeqFeature::Generic->new(
-                    -seq_id => $row->{'seqid'},
-                    -start => ($row->{'end'} + 1),
-                    -end => ($row->{'end'} + $flank_lengths[0]),
-                    -strand => $row->{'strand'},
-                    -primary_tag => 'up_flank',
-                    -display_name => $gene_id);
-                $gff->store($feat);
-            }
-        }
-    };
-
-    my @gff_db = $gff->features();
-    @gff_db = sort {
-        $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
-    } @gff_db;
-
-    #I've manually checked the above and it works as intended
-
-    #Now that the gff is loaded, I need to load in my vcf file by pretty
-    #much the same method
-
-    my $vcf_fh = FileHandle->new("$input_vcf");
-    my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
-    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    $vcf_tsv->column_names('seq_id', 'pos', 'index', 'ref', 'alt', 'qual', 'filter', 'info');
-    open($vcf_fh, "<:encoding(utf8)", "$input_vcf") or die "Can't open vcf_fh";
-
-    while(my $row = $vcf_tsv->getline_hr($vcf_fh)) {
-        next if $row->{'seq_id'} =~ /^#/;
-        my @tmp = split /;/, $row->{'info'};
-        my %info;
-        for my $item (@tmp) {
-            my ($key, $value) = split('=', $item);
-            $info{$key} = $value;
-        };
-        my $feat = Bio::SeqFeature::Generic->new(
-            -seq_id => $row->{'seq_id'},
-            -start => $row->{'pos'},
-            -end => $row->{'pos'},
-            -strand => 1,
-            -primary_tag => 'variant',
-            -tag => {ref =>$row->{'ref'},
-                     alt => $row->{'alt'},
-                     depth => $info{'DP'}
-            }
-            );
-        my $ref = $row->{'ref'};
-        my $alt = $row->{'alt'};
-        if(length($ref) == 0) { $ref = 'N' };
-        if(length($alt) == 0) { $alt = 'N' };
-
-        $feat->add_tag_value('ref', $row->{'ref'});
-        $feat->add_tag_value('alt', $row->{'alt'});
-        $vcf->store($feat);
-    };
-
-    my @vcf_db = $vcf->features();
-    @vcf_db = sort {
-        $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
-    } @vcf_db;
-
-
-    if(scalar @vcf_db == 0) { die "Nothing in the VCF file" };
-
-    my $gff_index = 0;
-    my $vcf_index = 0;
-    my $gff_row;
-    my @chroms;
-    my $max = scalar(@gff_db);
-
-    my $out = FileHandle->new("> $output");
-    print $out "#" . "CHROM\t" . "POS\t" . "ID\t" . "REF\t" . "ALT\t" . "TYPE\t" . "FEATURE\t" . "NAME\t" . "STRAND\t" . "REL_START\t" . "REL_END\t" . "FRAG_DEPTH\n";
-
-  VARS: while(my $vcf_row = $vcf_db["$vcf_index"]) {
-      my $var_pos = $vcf_row->start;
-      my @ref = $vcf_row->get_tag_values('ref');
-      my $ref = $ref[0];
-      my @alt = $vcf_row->get_tag_values('alt');
-      my $alt = $alt[0];
-      my @depth = $vcf_row->get_tag_values('depth');
-      my $depth = $depth[0];
-      my $var_chrom = $vcf_row->seq_id;
-
-      #Determine the type of variant
-      my $type;
-      if(length($ref) == length($alt)) { $type = 'SNP' }
-      elsif(length($ref) > length($alt)) { $type = 'del' }
-      else { $type = 'ins' };
-
-      #The below should loop until I have the proper feature
-      my $feat_chrom;
-      my $featured = 'no'; #keep track of if it's in a feature
-    FEATS: while($gff_row = $gff_db["$gff_index"]) {
-        $featured = 'yes';
-        if($gff_index >= $max) {
-            $featured = 'no';
-            last FEATS;
-        }
-        $feat_chrom = $gff_row->seq_id;
-        if(! grep /$feat_chrom/, @chroms) {
-            push @chroms, $feat_chrom;
-        } #keep track of chromosomes my gff has seen
-
-        if($feat_chrom ne $var_chrom) {
-            #If my variant is on a previous chromosome
-            if(grep /$var_chrom/, @chroms) {
-                $featured = 'no';
-                last FEATS;
-                #If my variant is on a later chromosome:
-            } else {
-                $gff_index++;
-                next FEATS;
-            }
-        };
-        #The below will stop the loop once a feature contains the variant
-        if($gff_row->end < $var_pos) {
-            $featured = 'no';
-            $gff_index++;
-            next FEATS;
-        } elsif($gff_row->start > $var_pos) {
-            $featured = 'no';
-            last FEATS;
-        } else {
-            #This means the current gff_row contains the variant
-            last FEATS;
-        }
-    }; #end FEATS
-      #I should now have whichever feature I want stored in gff_row, so
-      #now I just need some logic to determine the things I care about.
-
-      #First, print a bunch of NA if it isn't in a feature
-      if( "$featured" eq 'no') {
-          print $out "$var_chrom\t" . "$var_pos\t" . ".\t" . "$ref\t" . "$alt\t" . "$type\t" . "NA\t" . "NA\t" . "NA\t" . "NA\t" . "NA\t" . "$depth\n";
-          $vcf_index++;
-          next VARS;
-      }
-      #Next, check the strandedness to determine metrics.
-
-      my $rel_start;
-      my $rel_end;
-      my $strand = $gff_row->strand;;
-      if ($strand == 1) {
-          $strand = '+';
-      } else {
-          $strand = '-';
-      }
-
-      if($strand eq '+') {
-          $rel_start = $var_pos - $gff_row->start + 1;
-          $rel_end = $var_pos - $gff_row->end - 1;
-      } else {
-          #The - strand stuff has additional logic: I need to take the
-          #complement of both strands, and I need to shift my
-          #variant position to the "end" of any deletions
-          $var_pos = $var_pos + length($ref) - 1; #Shouldn't change individual points
-          $ref =~ tr/ACGT/TGCA/;
-          $alt =~ tr/ACGT/TGCA/;
-          #Ok now that is all sorted out, time to figure out the relative position
-          $rel_start = $gff_row->end - $var_pos + 1;
-          $rel_end = $gff_row->start - $var_pos - 1;
-      }
-
-      #Now I should have all the data I need to print my output
-      print $out "$feat_chrom\t" . "$var_pos\t" . ".\t" . "$ref\t" . "$alt\t" . "$type\t" . $gff_row->primary_tag . "\t" . $gff_row->display_name . "\t" . $strand . "\t" . "$rel_start\t" . "$rel_end\t" . "$depth\n";
-      $vcf_index++;
-  }
 }
 
 
@@ -1042,9 +810,9 @@ sub vcf_labeler {
 sub gff_shifter {
     my %args = @_;
     my $starts = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
-    my $gff_fh = FileHandle->new("$args{'input_gff'}");
+    my $gff_fh = FileHandle->new("$args{'gff'}");
     my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    open($gff_fh, "<:encoding(utf8)", "$args{'input_gff'}");
+    open($gff_fh, "<:encoding(utf8)", "$args{'gff'}");
     $gff_tsv->column_names('contig', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
 
     my $feat;
@@ -1086,15 +854,16 @@ sub gff_shifter {
         $a->seq_id cmp $b->seq_id || $a->end <=> $b->end
     } @ends_db;
 
-    my $vcf_fh = FileHandle->new("$args{'input_vcf'}");
+    my $vcf_fh = FileHandle->new("$args{'vcf'}");
     my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
     my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    open($vcf_fh, "<:encoding(utf8)", "$args{'input_vcf'}") or die "Can't open VCF file";
-    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'metadata');
+    open($vcf_fh, "<:encoding(utf8)", "$args{'vcf'}") or die "Can't open VCF file";
+    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'info');
 
     #Load in my VCF features and add them to a DB:
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
-        next if $row->{'contig'} =~ /^#/;
+        next if ($row->{'contig'} =~ /^#/);
+        next if (! defined($row->{'alternate'}));
         my $shift = length($row->{'alternate'}) - length($row->{'reference'});
         next if $shift == 0;
         my $feat = Bio::SeqFeature::Generic->new(
@@ -1116,8 +885,19 @@ sub gff_shifter {
         $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
     } @vcf_db;
 
-    if (scalar @vcf_db == 0) {die "No indels in the VCF file!" };
-    my $gff_out = FileHandle->new("> $args{'output'}");
+    my $gff_out;
+    if ("$args{'output'}" eq 'NO_OUTPUT_PROVIDED') {
+        $gff_out = *STDOUT;
+    } else {
+        $gff_out = FileHandle->new("> $args{'output'}");
+    }
+
+    if (scalar @vcf_db == 0) {
+        print STDERR "No indels in the VCF file, copying\n";
+        $gff_fh = FileHandle->new("$args{'gff'}");
+        while (<$gff_fh>) { print $gff_out $_ };
+        exit(1);
+    };
 
     my $contig;
     my $idx = 0;
@@ -1295,6 +1075,828 @@ sub gff_shifter {
             $attributes . "\n";
         $idx++;
     }
+};
+
+#This next subroutine seeks to take a given VCF, Fasta, and GFF file
+#and from them assign amino acid changes I still corresponding to
+#them. I also hope to assign a functnaiol score to the mutation using
+#something like the BLOSUM index
+
+sub label {
+    my %args = @_;
+    my $input_gff = $args{'gff'};
+    my $input_vcf = $args{'vcf'};
+    my $input_fasta = $args{'fasta'};
+    my @feature_types = split(/\,/, $args{'features'}); #For example exon, gene, etc.
+    my $child_name = $args{'child_name'}; #For example ID
+    my $parent_name = $args{'parent_name'}; #Should just be "Parent", but I'm making sure
+    my $add_flanks = $args{'add_flanks'};
+    my @flank_lengths = split(/\,/, $args{'flank_lengths'});
+    my $flank_feature = $args{'flank_feature'};
+    my $flank_parent = $args{'flank_parent'};
+    my $threads = $args{'threads'};
+    my $output_nuc = $args{'output_nuc'};
+    my $translate = $args{'translate'};
+    my $coding_feature = $args{'coding_feature'};
+    my $codon_table = $args{'codon_table'};
+    my $score_matrix = $args{'score_matrix'};
+    my $output_aa = $args{'output_aa'};
+    my $tmpdir = $args{'tmpdir'};
+
+    chdir($args{'outdir'});
+
+    #Modify my features if flanks are added:
+    if ("$add_flanks" eq 'yes') {
+        push(@feature_types, ('up_flank', 'down_flank'));
+    };
+    #Develop method to determine which features to add
+    my %feature_types = map {$_ => 1 } @feature_types;
+    #Read in my GFF file:
+    my @gff;
+    my $gff_fh = FileHandle->new("$input_gff");
+    my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    open($gff_fh, "<:encoding(utf8)", "$input_gff");
+
+    $gff_tsv->column_names('seq_id', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
+
+    my $feat;
+    my $protpos = 1;
+    my $outnuc = FileHandle->new("> ${output_nuc}");
+    print $outnuc "#CHROM\tPOS\tREF\tALT\tPARENT\tCHILD\tTYPE\tSTRAND\tPOS_PARENT\tPOS_CHILD\tPOS_CODING\tDEPTH\n";
+    while(my $row = $gff_tsv->getline_hr($gff_fh)) {
+        next if($row->{'seq_id'} =~ /^#/);
+        my $feat_type = $row->{'type'};
+        #next if(! exists($feature_types{$feat_type}));
+        if (exists($feature_types{$feat_type})) {
+            my @tmp = split(/;/, $row->{'attributes'});
+            my %attributes;
+            for my $item (@tmp) {
+                my ($key, $value) = split('=', $item);
+                $attributes{$key} = $value;
+            };
+            my $parent = $attributes{$parent_name};
+            my $child = $attributes{$child_name};
+            my %feat = (seq_id => $row->{'seq_id'},
+                        start => $row->{'start'},
+                        end => $row->{'end'},
+                        strand => $row->{'strand'},
+                        type => $feat_type,
+                        parent => $parent,
+                        child => $child
+                );
+            if (%feat) {
+                push(@gff, \%feat);
+            };
+        };
+        #Now I need to figure out whether to add some flanks. This is
+        #separate because in some instances you may want to add flanks
+        #to the edges of the protein_coding_gene, and annotate
+        #variants by CDS
+
+        if (("$feat_type" eq "$flank_feature") & ("$add_flanks" eq 'yes')) {
+            my @tmp = split(/;/, $row->{'attributes'});
+            my %attributes;
+            for my $item (@tmp) {
+                my ($key, $value) = split('=', $item);
+                $attributes{$key} = $value;
+            };
+            my $parent = $attributes{$flank_parent};
+            my $child = $attributes{$child_name};
+            if ($row->{'strand'} eq '-') {
+                if ($flank_lengths[0] != 0) {
+                    my %down = (seq_id => $row->{'seq_id'},
+                             start => $row->{'start'} - $flank_lengths[1],
+                             end => $row->{'start'} - 1,
+                             strand => '-',
+                             type => 'down_flank',
+                             parent => $parent,
+                             child => "down_flank_" . $child
+                        );
+                    push(@gff, \%down);
+                }
+                if ($flank_lengths[1] != 0) {
+                 my %up = (seq_id => $row->{'seq_id'},
+                         start => $row->{'end'} + 1,
+                         end => $row->{'end'} + $flank_lengths[0],
+                         strand => '-',
+                         type => 'up_flank',
+                         parent => $parent,
+                         child => "up_flank_" . $child
+                     );
+                 push(@gff, \%up);
+                }
+            } else {
+                #I think any good gff has only + or - strands, but
+                #this is general so it will treat anything without "-"
+                #as a plus strand item
+                if ($flank_lengths[0] != 0) {
+                    my %up = (seq_id => $row->{'seq_id'},
+                             start => $row->{'start'} - $flank_lengths[0],
+                             end => $row->{'start'} - 1,
+                             strand => $row->{'strand'},
+                             type => 'up_flank',
+                             parent => $parent,
+                             child => "up_flank_" . $child
+                        );
+                    push(@gff, \%up);
+                }
+                if ($flank_lengths[1] != 0) {
+                 my %down = (seq_id => $row->{'seq_id'},
+                         start => $row->{'end'} + 1,
+                         end => $row->{'end'} + $flank_lengths[1],
+                         strand => $row->{'strand'},
+                         type => 'down_flank',
+                         parent => $parent,
+                         child => "down_flank_" . $child
+                     );
+                 push(@gff, \%down);
+                }
+            };
+        };
+    };
+
+    #I'm going to break this into two GFF files
+    my @plus_features = grep { $_->{'strand'} eq '+' } @gff;
+    my @minus_features = grep { $_->{'strand'} eq '-' } @gff;
+
+    #Now that I've loaded my GFF I want to load my VCF.
+    my $vcf_fh = FileHandle->new("$input_vcf");
+    #my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
+    my @vcf;
+    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $vcf_tsv->column_names('seq_id', 'pos', 'index', 'ref', 'alt', 'qual', 'filter', 'info');
+    open($vcf_fh, "<:encoding(utf8)", "$input_vcf") or die "Can't open vcf_fh";
+
+    while(my $row = $vcf_tsv->getline_hr($vcf_fh)) {
+        next if $row->{'seq_id'} =~ /^#/;
+        next if (! defined($row->{'info'}));
+        my @tmp = split /;/, $row->{'info'};
+        my %info;
+        for my $item (@tmp) {
+            my ($key, $value) = split('=', $item);
+            $info{$key} = $value;
+        };
+        my %var = (
+            seq_id => $row->{'seq_id'},
+            pos => $row->{'pos'},
+            strand => 1,
+            ref => $row->{'ref'},
+            alt => $row->{'alt'},
+            depth => $info{'DP'}
+            );
+        push(@vcf, \%var);
+    };
+
+    #Now I need to determine all of the unique contigs I have:
+    my @unique_contigs;
+    for my $feat (@vcf) {
+        push(@unique_contigs, $feat->{'seq_id'});
+    };
+    @unique_contigs = sort { $a cmp $b } @unique_contigs;
+    my $prev = 'FOOBAR';
+    @unique_contigs = grep($_ ne $prev && ($prev = $_), @unique_contigs);
+
+    my %positions; #use this to determine when I need to reset my variant position
+    #Then, I'm going to separate the GFF into a plus and minus strand
+    #using grep. I will then loop through these individually, keeping
+    #track of when I change "parent" gene, and produce a log of the
+    #amino acid changes
+    #I'm going to make this run in parallel to make it somewhat acceptable
+    my $pm = Parallel::ForkManager->new($threads);
+    my $death = 0; #Determines if I "die" or not
+  CONTIGS: for my $contig (@unique_contigs) {
+        my $pid = $pm->start and next CONTIGS;
+      my @plus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @plus_features;
+      my @variants = grep { $_->{'seq_id'} =~ /$contig/i } @vcf;
+      if (scalar(@variants) == 0) {
+          $pm->finish;
+      };
+      #I don't think I need to sort either group earlier, I should
+      #just sort them now for simplicity
+      @variants = sort {
+          $a->{'pos'} <=> $b->{'pos'}
+      } @variants;
+      @plus_sub_features = sort {
+          $a->{'parent'} cmp $b->{'parent'} ||
+              $a->{'start'} <=> $b->{'start'}
+          } @plus_sub_features;
+        #Set up features no minus strand:
+        my @minus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @minus_features;
+      @minus_sub_features = sort {
+          $b->{'parent'} cmp $a->{'parent'} ||
+              $b->{'start'} <=> $a->{'start'}
+          } @minus_sub_features;
+
+
+        #Now I need to iterate over each feature, keeping track of the parent
+        my @labels; #Instead of printing everytime, which can cause
+      #overlap in prints, save info to an array of hashes
+                  #and print at the end
+        if (scalar(@plus_sub_features) !=  0) {
+      my $parent = $plus_sub_features[0]->{'parent'}; #Start this up
+      my $parent_pos = 0; #track number of bases covered in parent
+      my $coding_pos = 0; #track number of bases covered in coding sequence
+      my $var_idx = 0;
+      my $feat_end = 0; #make sure it doesn't fail in first iteration
+      my $feat_start;
+      my $var = undef;
+    FEATURES: for my $feat (@plus_sub_features) {
+        if ($parent ne $feat->{'parent'}) {
+            $parent_pos = 0;
+            $coding_pos = 0;
+            $positions{$feat_end} = $var_idx;
+            $parent = $feat->{'parent'};
+            #Determine when I need to reset the variant search:
+            my @options = grep { $_ < ($feat->{'start'}) } (keys %positions);
+            if (scalar(@options) > 0) {
+                my $recent = max @options;
+                $var_idx = $positions{$recent};
+            } else {
+                $var_idx = 0;
+            };
+            last FEATURES if (! defined($var));
+        } elsif ($feat_end > $feat->{'start'}) {
+            #This means we are in the same parent and have overlap, not good
+                $death = 1;
+                print "ERROR: Features overlap within same parent\n";
+                last CONTIGS;
+        };
+        $feat_start = $feat->{'start'};
+        $feat_end = $feat->{'end'};
+      VARIANTS: while ($var = $variants[$var_idx]) {
+          my $var_pos = $var->{'pos'};
+          if ($var_pos < $feat_start ) {
+              $var_idx++;
+              next VARIANTS;
+          } elsif ($var_pos > $feat_end) {
+              $parent_pos = $parent_pos + $feat_end - $feat_start + 1;
+              if ($feat->{'type'} eq "$coding_feature") {
+                  $coding_pos = $coding_pos + $feat_end - $feat_start + 1;
+              }
+              next FEATURES;
+          };
+          my $relpos = $var_pos - $feat_start + 1;
+          my $cd;
+          if ($feat->{'type'} eq "$coding_feature") {
+              $cd = $relpos + $coding_pos;
+          } else {
+              $cd = 'NA';
+          };
+          my %hash = (
+              contig => $contig,
+              var_pos => $var_pos,
+              refn => $var->{'ref'},
+              altn => $var->{'alt'},
+              parent => $feat->{'parent'},
+              child => $feat->{'child'},
+              type => $feat->{'type'},
+              strand => '+',
+              parent_pos => ($relpos + $parent_pos),
+              child_pos => ($relpos),
+              coding_pos => $cd,
+              depth => $var->{'depth'}
+              );
+          push(@labels, \%hash);
+          $var_idx++;
+      };
+    };
+  }
+        if (scalar(@minus_sub_features) != 0) {
+
+      #Now I'm going to repeat this with a slightly modified pipeline
+      #for the minus strand variants
+      #I need to reload features because it differs by strand,
+      #variants don't
+
+        @variants = sort {
+          $b->{'pos'} <=> $a->{'pos'}
+      } @variants;
+      my %positions = ();
+      my $parent = $minus_sub_features[0]->{'parent'}; #Start this up
+      my $parent_pos = 0; #track number of bases covered in parent
+      my $coding_pos = 0;
+      my $var_idx = 0;
+      my $var = undef;
+        my $feat_start = 100000000; #make sure it doesn't fail on first iteration
+        my $feat_end;
+    FEATURES: for my $feat (@minus_sub_features) {
+        #For whatever reason, the above sorting can create an empty
+        #entry in my hash, so I need to add this caveat
+        next FEATURES if(! defined($feat->{'parent'}));
+        if ($parent ne $feat->{'parent'}) {
+            $parent_pos = 0;
+            $coding_pos = 0;
+            $positions{$feat_start} = $var_idx; #feat_start b/c minus strand
+            $parent = $feat->{'parent'};
+            #Determine when I need to reset the variant search:
+            #Unlike with plus strand, I am going in reverse
+            #order. This means I am checking relative to the ends of
+            #features
+            my @options = grep { $_ > ($feat->{'end'}) } (keys %positions);
+            if (scalar(@options) > 0) {
+                my $recent = min @options;
+                $var_idx = $positions{$recent};
+            } else {
+                $var_idx = 0;
+            };
+            last FEATURES if (! defined($var));
+        } elsif ($feat_start < $feat->{'end'}) {
+            print "ERROR: Features overlap within same parent\n";
+                $death = 1;
+                last CONTIGS;
+        };
+        $feat_start = $feat->{'start'};
+        $feat_end = $feat->{'end'};
+      VARIANTS: while ($var = $variants[$var_idx]) {
+          my $var_pos = $var->{'pos'}; #Some extra logic for - strand
+          my $refn = $var->{'ref'};
+          $var_pos = $var_pos + length($refn) - 1; #Change position for deletions
+          if ($var_pos > $feat_end) {
+              $var_idx++;
+              next VARIANTS;
+          } elsif ($var_pos < $feat_start) {
+              $parent_pos = $parent_pos + $feat_end - $feat_start + 1;
+              if ($feat->{'type'} eq "$coding_feature") {
+                  $coding_pos = $coding_pos + $feat_end - $feat_start + 1;
+              };
+              next FEATURES;
+          };
+          $refn =~ tr/ACGT/TGCA/;
+          my $altn = $var->{'alt'};
+          $altn =~ tr/ACGT/TGCA/;
+          my $relpos = $feat_end - $var_pos + 1;
+          my $cd;
+          if ($feat->{'type'} eq "$coding_feature") {
+              $cd = $relpos + $coding_pos;
+          } else {
+              $cd = 'NA';
+          };
+          my %hash = (
+              contig => $contig,
+              var_pos => $var_pos,
+              refn => $refn,
+              altn => $altn,
+              parent => $feat->{'parent'},
+              child => $feat->{'child'},
+              type => $feat->{'type'},
+              strand => '-',
+              parent_pos => ($relpos + $parent_pos),
+              child_pos => ($relpos),
+              coding_pos => $cd,
+              depth => $var->{'depth'}
+              );
+          push(@labels, \%hash);
+          $var_idx++;
+      };
+    };
+    }
+        #Now I've built up my @labels and need to print it
+        if (scalar(@labels) != 0) {
+      @labels = sort { $a->{'var_pos'} <=> $b->{'var_pos'} } @labels;
+      my $tmp_fh = FileHandle->new("> ${tmpdir}/$contig");
+      for my $feat (@labels) {
+          print $tmp_fh
+              $feat->{'contig'}, "\t",
+              $feat->{'var_pos'}, "\t",
+              $feat->{'refn'}, "\t",
+              $feat->{'altn'}, "\t",
+              $feat->{'parent'}, "\t",
+              $feat->{'child'}, "\t",
+              $feat->{'type'}, "\t",
+              $feat->{'strand'}, "\t",
+              $feat->{'parent_pos'}, "\t",
+              $feat->{'child_pos'}, "\t",
+              $feat->{'coding_pos'}, "\t",
+              $feat->{'depth'}, "\n";
+      };
+      close($tmp_fh);
+  }
+      $pm->finish;
+  };
+    if ("$death" == 1) { return };
+    $pm->wait_all_children;
+    #Combine all of the temporary files:
+    for my $contig (@unique_contigs) {
+        if (-e "${tmpdir}/${contig}") {
+            my $fh = FileHandle->new("< ${tmpdir}/${contig}");
+        while (<$fh>) {
+            print $outnuc "$_";
+        };
+            close($fh);
+    };
+    };
+    close($outnuc);
+    rmtree("$tmpdir");
+
+    if ("$translate" ne 'yes') { exit 0 };
+    my $fasta = Bio::DB::Fasta->new("$input_fasta");
+    my $parser = Bio::Matrix::IO->new(-format => 'scoring', -file => "$FindBin::Bin/../share/matrices/${score_matrix}");
+    my $matrix = $parser->next_matrix;
+    #Ok now I've generated the labeled variants file, which I've
+    #decided is most effective to read from and do later
+    #analysis. Yes, I could just save the info from the last half, but
+    #that isn't compatible with the parallelization
+
+    #I think the first thing I want to do is load in the sequence of
+    #each feature into a hash:
+    my %feature_seqs;
+    my $sequence = '';
+    my $parent;
+    @plus_features = sort {
+        $a->{'parent'} cmp $b->{'parent'} ||
+            $a->{'start'} <=> $b->{'start'}
+    } @plus_features;
+    $parent = $plus_features[0]->{'parent'};
+    for my $feat (@plus_features) {
+        next if ($feat->{'type'} ne "$coding_feature");
+        if ($feat->{'parent'} ne $parent) {
+            $feature_seqs{$parent} = $sequence;
+            $parent = $feat->{'parent'};
+            $sequence = $fasta->seq($feat->{'seq_id'}, $feat->{'start'}, $feat->{'end'});
+        } else {
+            $sequence = ($sequence) . ($fasta->seq($feat->{'seq_id'}, $feat->{'start'}, $feat->{'end'}));
+        };
+    };
+    #Catch the final feature (the above won't catch it):
+    $feature_seqs{$parent} = $sequence;
+    #Repeat for minus features
+    @minus_features = sort {
+        $a->{'parent'} cmp $b->{'parent'} ||
+            $a->{'start'} <=> $b->{'start'}
+    } @minus_features;
+    $parent = $minus_features[0]->{'parent'};
+    for my $feat (@minus_features) {
+        next if ($feat->{'type'} ne "$coding_feature");
+        if ($feat->{'parent'} ne $parent) {
+            $sequence =~ tr/ACGT/TGCA/;
+            $sequence = reverse($sequence);
+            $feature_seqs{$parent} = $sequence;
+            $parent = $feat->{'parent'};
+            $sequence = $fasta->seq($feat->{'seq_id'}, $feat->{'start'}, $feat->{'end'});
+        } else {
+            $sequence = $sequence . $fasta->seq($feat->{'seq_id'}, $feat->{'start'}, $feat->{'end'});
+        };
+    };
+    #Now I need to catch the output final feature
+    $feature_seqs{$parent} = $sequence;
+
+    #Now I only need to read in this file labeled by CDS
+    my @labeled_vars;
+    my $labeled_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    my $labeled_fh = FileHandle->new("${output_nuc}");
+    $labeled_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'parent', 'child', 'type', 'strand', 'rel_parent', 'rel_child', 'rel_coding', 'depth');
+    while (my $row = $labeled_tsv->getline_hr($labeled_fh)) {
+        next if($row->{'seq_id'} =~ /^#/);
+        next if($row->{'type'} ne "$coding_feature"); #Catch potentially empty line
+        my $codon = int(($row->{'rel_coding'} - 1) / 3) + 1;
+        my $codon_pos = (($row->{'rel_coding'} - 1) % 3) + 1;
+        my %hash = (seq_id => $row->{'seq_id'},
+                    ref => $row->{'ref'},
+                    alt => $row->{'alt'},
+                    parent => $row->{'parent'},
+                    rel_parent => $row->{'rel_parent'},
+                    rel_coding => $row->{'rel_coding'},
+                    codon => $codon,
+                    codon_pos => $codon_pos
+            );
+        push(@labeled_vars, \%hash);
+    };
+    @labeled_vars = sort {
+        $a->{'parent'} cmp $b->{'parent'} ||
+            $a->{'rel_coding'} <=> $b->{'rel_coding'}
+    } @labeled_vars;
+    my $var_idx = 0;
+    my $ref_codon = '';
+    my $alt_codon;
+    my $codon_num = 'FOOBAR';
+    my @nvar;
+    $parent = 'FOOBAR';
+    my $complex_vars = 0;
+
+    #Define my codon table, I need to implement an option separate for
+    #all the different ID values.
+    $codon_table = Bio::Tools::CodonTable->new( -id => "$codon_table");
+
+    my $outaa = FileHandle->new("> ${output_aa}");
+    print $outaa "#CHROM\tPARENT\tCODON\tREF\tALT\tVARS\tTYPE\tFRAME\tSCORE\tSCALED_SCORE\n";
+  CODONS: while (my $var = $labeled_vars[$var_idx]) {
+      #If I'm still on the same codon:
+        if (($codon_num eq $var->{'codon'}) & ($parent eq $var->{'parent'})) {
+            substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
+            @nvar = (@nvar, $var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+            $var_idx++;
+            next CODONS;
+        }
+        #This means I'm on a new codon and should print info from the last one
+        if (($var_idx != 0) & (index(lc($ref_codon), 'n') == -1)) {
+            if ((length($ref_codon) % 3 == 0) & (length($alt_codon) == 3)) {
+                my $ref_aa = '';
+                my $idx = 0;
+                my $score = 0;
+                my $scaled_score = 0;
+                my $alt_aa = $codon_table->translate($alt_codon);
+                while ($idx < length($ref_codon)) {
+                    my $tmp = $codon_table->translate(substr($ref_codon, $idx, 3));
+                    $ref_aa = $ref_aa . $tmp;
+                    $score = $score + $matrix->entry($tmp, $alt_aa);
+                    $scaled_score = $scaled_score + $matrix->entry($tmp, $alt_aa) - $matrix->entry($tmp, $tmp);
+                    $idx = $idx + 3;
+                };
+                my $type = 'point';
+                if (length($ref_aa) != 1) {
+                    $type = 'del';
+                };
+                print $outaa
+                    $var->{'seq_id'}, "\t",
+                    $var->{'parent'}, "\t",
+                    $codon_num, "\t",
+                    $ref_aa, "\t",
+                    $alt_aa, "\t",
+                    join(',', @nvar), "\t",
+                    $type, "\t",
+                    "in", "\t",
+                    $score, "\t",
+                    $scaled_score, "\n";
+
+            } elsif ((length($alt_codon) % 3 == 0) & (length($ref_codon) == 3)) {
+                my $idx = 0;
+                my $alt_aa = '';
+                my $score = 0;
+                my $scaled_score = 0;
+                my $ref_aa = $codon_table->translate($ref_codon);
+                while ($idx < length($alt_codon)) {
+                    my $tmp = $codon_table->translate(substr($alt_codon, $idx, 3));
+                    $alt_aa = $alt_aa . $tmp;
+                    $score = $score + $matrix->entry($ref_aa, $tmp);
+                    $scaled_score = $scaled_score + $matrix->entry($ref_aa, $tmp) - $matrix->entry($ref_aa, $ref_aa);
+                    $idx = $idx + 3;
+                }
+                my $type = 'point';
+                if (length($alt_aa) != 1) {
+                    $type = 'ins'
+                };
+                print $outaa
+                    $var->{'seq_id'}, "\t",
+                    $var->{'parent'}, "\t",
+                    $codon_num, "\t",
+                    $ref_aa, "\t",
+                    $alt_aa, "\t",
+                    join(',', @nvar), "\t",
+                    $type, "\t",
+                    "in", "\t",
+                    $score, "\t",
+                    $scaled_score, "\n";
+            } else {
+                #Implies a frameshift
+                my $ref_aa = $codon_table->translate(substr($ref_codon, 0, 3));
+                my $alt_aa = $codon_table->translate(substr($alt_codon, 0, 3));
+                if (length($ref_codon) > length($alt_codon)) {
+                    print $outaa
+                        $var->{'seq_id'}, "\t",
+                        $var->{'parent'}, "\t",
+                        $codon_num, "\t",
+                        $ref_aa . '@', "\t",
+                        $alt_aa, "\t",
+                        join(',', @nvar), "\t",
+                        'del', "\t",
+                        'out', "\t",
+                        "NA", "\t",
+                        "NA", "\n";
+                } elsif(length($ref_codon) < length($alt_codon)) {
+                    print $outaa
+                        $var->{'seq_id'}, "\t",
+                        $parent, "\t",
+                        $codon_num, "\t",
+                        $ref_aa, "\t",
+                        $alt_aa . '@', "\t",
+                        join(',', @nvar), "\t",
+                        'ins', "\t",
+                        'out', "\t",
+                        "NA", "\t",
+                        "NA", "\n";
+                } else {
+                    $complex_vars++;
+                };
+            };
+        };
+        $codon_num = $var->{'codon'};
+        $parent = $var->{'parent'};
+        $ref_codon = substr($feature_seqs{$parent}, (($codon_num * 3) - 3), 3);
+        $alt_codon = $ref_codon;
+        substr($ref_codon, $var->{'codon_pos'} - 1, 1) = $var->{'ref'}; #necessary for complex
+        substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
+        @nvar = ($var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+
+        $var_idx++;
+  };
+    if ($complex_vars != 0) {
+        print "WARNING: ${complex_vars} complex variants encountered, omitted\n";
+    };
+};
+
+#Ok and now for what might be the final tool of dantools before
+#publication, dantools summary. This will take either the nucleotide
+#or amino acid input from dantools translate's output and create a
+#summary about it. This includes things like total mutations, change
+#in length, number of frameshifts (if any), etc.
+
+sub summarize_aa {
+    my %args = @_;
+    my $input_gff = $args{'input_gff'};
+    my $input_depth = $args{'input_depth'};
+    my $input_vars = $args{'input_vars'};
+    my $input_vars_fh = FileHandle->new("$input_vars");
+    my $output;
+    my $parent_name = $args{'parent'};
+    my $feature_type = $args{'feature'};
+    my $outscore = $args{'outscore'};
+    if ($args{'output'} ne 'NO_OUTPUT_PROVIDED') {
+        $output = FileHandle->new("> $args{'output'}");
+    } else {
+        $output = *STDOUT;
+    };
+
+    my @vars_db;
+    my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $vars_tsv->column_names('seq_id', 'parent', 'codon', 'ref', 'alt', 'vars', 'type', 'frame', 'score', 'scaled_score');
+    while (my $row = $vars_tsv->getline_hr($input_vars_fh)) {
+        next if $row->{'seq_id'} =~ /^#/;
+        my %hash = (
+            seq_id => $row->{'seq_id'},
+            parent => $row->{'parent'},
+            ref => $row->{'ref'},
+            alt => $row->{'alt'},
+            type => $row->{'type'},
+            frame => $row->{'frame'},
+            score => $row->{'score'},
+            scaled_score => $row->{'scaled_score'}
+        );
+        push (@vars_db, \%hash);
+    };
+    my $total_score = 0;
+    my $total_sscore = 0;
+    my $num_vars = 0;
+    my $num_indels = 0;
+    my $num_outframe = 0;
+    my $parent = $vars_db[0]->{'parent'};
+    my @feat_vars;
+
+    print $output "#PARENT\tNUM_VARS\tSCORE\tSCALED_SCORE\tINDELS\tNUM_INFRAME\tNUM_OUTFRAME\n";
+
+    VARS: for my $entry (@vars_db) {
+        if ("$parent" ne $entry->{'parent'}) {
+            print $output
+                "$parent", "\t",
+                "$num_vars", "\t",
+                "$total_score", "\t",
+                "$total_sscore", "\t",
+                "$num_indels", "\t",
+                ($num_indels - $num_outframe), "\t",
+                "$num_outframe", "\n";
+
+        $total_score = 0;
+        $total_sscore = 0;
+        $num_vars = 0;
+        $num_indels = 0;
+        $num_outframe = 0;
+        $parent = $entry->{'parent'};
+    };
+    $num_vars++;
+        if ($entry->{'type'} ne 'point') {
+            $num_indels++;
+            if ($entry->{'frame'} eq 'out') {
+                $num_outframe++;
+                $total_score = $total_score + $outscore;
+                $total_sscore = $total_sscore + $outscore;
+                next VARS;
+            };
+        }
+        $total_score = $total_score + $entry->{'score'};
+        $total_sscore = $total_sscore + $entry->{'scaled_score'};
+    };
+}
+
+sub summarize_depth {
+    my %args = @_;
+    my $input_gff = $args{'input_gff'};
+    my $input_depth = $args{'input_depth'};
+    my $output;
+    my $parent_name = $args{'parent'};
+    my $feature_type = $args{'feature'};
+    if ($args{'output'} ne 'NO_OUTPUT_PROVIDED') {
+        $output = FileHandle->new("> $args{'output'}");
+    } else {
+        $output = *STDOUT;
+    };
+
+    my @gff_db;
+    my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $gff_tsv->column_names('seq_id', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
+    my $gff_fh = FileHandle->new("$input_gff");
+    open ($gff_fh, "<:encoding(utf8)", "$input_gff");
+    while (my $row = $gff_tsv->getline_hr($gff_fh)) {
+        next if ($row->{'seq_id'} =~ /^#/);
+        next if ($row->{'type'} ne "$feature_type");
+        my @tmp = split(/;/, $row->{'attributes'});
+        my %attributes;
+        for my $item (@tmp) {
+            my ($key, $value) = split('=', $item);
+            $attributes{$key} = $value;
+        };
+        my %hash = (
+            seq_id => $row->{'seq_id'},
+            start => $row->{'start'},
+            end => $row->{'end'},
+            parent => $attributes{$parent_name}
+            );
+        push (@gff_db, \%hash);
+    };
+    if (scalar(@gff_db) == 0) { die "Nothing in GFF!\n" };
+    #Now that the gff is loaded in, I will begin reading in the depth
+    #file.
+    my $parent = '_balrog_'; #something that can't be matched
+    my $contig = '_balrog_';
+    my $depth_fh = FileHandle->new("$input_depth");
+    open ($depth_fh, "<:encoding(utf8)", "$input_depth");
+    my $depth_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $depth_tsv->column_names('seq_id', 'pos', 'depth');
+    my @sub_features;
+    my @sub_depth;
+    #This probably isn't the best way of doing this but oh well. I've
+    #realize that every index of the depth array corresponds to the
+    #nucleotide position (minus 1), because the depth file samtools
+    #depth produces is always sorted. That should make this much
+    #faster
+    print $output "#PARENT\tMIN_DEPTH\tMAX_DEPTH\tMEAN_DEPTH\n";
+  DEPTH: while (my $row = $depth_tsv->getline_hr($depth_fh)) {
+        if ($contig ne $row->{'seq_id'}) {
+            #This means I've gotten to the end of a "section" on my
+            #depth file
+            if ("$contig" eq '_balrog_') {
+                $contig = $row->{'seq_id'};
+                redo DEPTH;
+            } else {
+                if (scalar(@sub_depth) != 0) {
+                    @sub_features = grep { $_->{'seq_id'} eq $contig } @gff_db;
+                    if (scalar(@sub_features) == 0) {
+                        $contig = $row->{'seq_id'};
+                        next DEPTH;
+                    };
+                    @sub_features = sort { $a->{'parent'} cmp $b->{'parent'} } @sub_features;
+                    my $parent = $sub_features[0]->{'parent'};
+                    my @feature_depths;
+
+                    for my $feat (@sub_features) {
+                        if ("$parent" ne $feat->{'parent'}) {
+                            print $output "$parent", "\t",
+                                min(@feature_depths), "\t",
+                                max(@feature_depths), "\t",
+                                (sum(@feature_depths) / scalar(@feature_depths)), "\n";
+                            $parent = $feat->{'parent'};
+                            @feature_depths = ();
+                        };
+                        @feature_depths = (@feature_depths, @sub_depth[$feat->{'start'} - 1 .. $feat->{'end'} - 1]);
+                    };
+                    #Catch the final feature which won't be caught by
+                    #the above print statement
+                    print $output "$parent", "\t",
+                        min(@feature_depths), "\t",
+                        max(@feature_depths), "\t",
+                        (sum(@feature_depths) / scalar(@feature_depths)), "\n";
+                    $contig = $row->{'seq_id'};
+                };
+            }
+        } else {
+            push (@sub_depth, $row->{'depth'});
+        };
+    };
+
+    #Now I need to catch the final contig
+    if (scalar(@sub_depth) != 0) {
+        @sub_features = grep { $_->{'seq_id'} eq $contig } @gff_db;
+        if (scalar(@sub_features) == 0) {
+            exit;
+        };
+        @sub_features = sort { $a->{'parent'} cmp $b->{'parent'} } @sub_features;
+        my $parent = $sub_features[0]->{'parent'};
+        my @feature_depths;
+
+        for my $feat (@sub_features) {
+            if ("$parent" ne $feat->{'parent'}) {
+                print $output "$parent", "\t",
+                    min(@feature_depths), "\t",
+                    max(@feature_depths), "\t",
+                    (sum(@feature_depths) / scalar(@feature_depths)), "\n";
+                $parent = $feat->{'parent'};
+                @feature_depths = ();
+            };
+            @feature_depths = (@feature_depths, @sub_depth[$feat->{'start'} - 1 .. $feat->{'end'} - 1]);
+        };
+        print $output "$parent", "\t",
+            min(@feature_depths), "\t",
+            max(@feature_depths), "\t",
+            (sum(@feature_depths) / scalar(@feature_depths)), "\n";
+    };
 };
 
 1;

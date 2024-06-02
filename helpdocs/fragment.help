@@ -1,0 +1,11 @@
+Usage: dantools fragment [options] input
+Fragment an input FASTA file into small subsequences
+
+Options:
+  -l, --lengths      A comma-separated string of desired fragment
+                     lengths (default: 200,10000)
+  -o, --output       A file to output the fragmented FASTA to
+  --log              File to write log information to (default:
+                     fragment_log.txt)
+  -t, --threads      Number of threads to use in parallel
+  -h, --help         Display this help message

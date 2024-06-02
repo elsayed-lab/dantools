@@ -58,30 +58,55 @@ makefile to perform some of its tasks:
 - [bcftools](https://github.com/samtools/bcftools)
 
 ## Usage
-All invocations of dantools pseudogen require a base genome as input
-and recommend a GFF for functional annotation. The function invocation
-does change, however, with the source input type:
+Comparisons begin with the dantools pseudogenome command, which
+generates the pseudogenome and, more importantly, a VCF file that
+describes the variants in the source genome relative to the
+base. Invocations differ by source data format:
 
 Source is a genome in fasta format:
 ```
-dantools pseudogen -b base.fasta -f base.gff -s source.fasta
+dantools pseudogen -b base.fasta -s source.fasta
 ```
 
 Source is an already fragmented genome in fasta format:
 ```
-dantools pseudogen -b base.fasta -f base.gff -s source.fasta --fragment no
+dantools pseudogen -b base.fasta -s source.fasta --fragment no
 ```
 
 Source is unpaired RNA-Seq reads in fastq format:
 ```
-dantools pseudogen -b base.fasta -f base.gff --reads-u source.fastq
+dantools pseudogen -b base.fasta --reads-u source.fastq
 ```
 
 Source is paired-end RNA-Seq reads in fastq format:
 ```
-dantools pseudogen -b base.fasta -f base.gff -1 mate1.fastq -2 mate2.fastq
+dantools pseudogen -b base.fasta -1 mate1.fastq -2 mate2.fastq
 ```
-    
+
+Because many indels were applied during the pseudogenome creation
+process, the base genome features need to be shifted in their relative
+positions:
+
+```
+dantools shift -v variants.vcf -f base.gff
+```
+
+Now, RNA-Seq data aligned against the pseudogenome can be counted with
+the shifted GFF file.
+
+If one wants to label the variants according to a GFF file:
+
+```
+dantools label -v variants.vcf -f base.gff --features five_prime_UTR,CDS,three_prime_UTR
+```
+
+These variants can optionally be translated into amino acid changes
+and scored by a mutation scoring matrix.
+
+Additional functionalities exist and are listed with the simple command:
+```
+dantools
+```
 
 ## License
 [GPL-3.0](https://github.com/elsayed-lab/dantools/blob/master/LICENSE)
