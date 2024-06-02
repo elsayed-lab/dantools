@@ -1,0 +1,9 @@
+Usage: dantools shift [options]
+Shift GFF annotations according to indels in a VCF file
+
+Required:
+  -v, --vcf      The VCF file including shifting indels
+  -f, --gff      The GFF file to have its features shifted
+
+Optional:
+  -o, --output   A file to write the new GFF to

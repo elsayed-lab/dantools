@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+trap "exit" SIGINT
+
 #This script will finish much of the post-processing I have to do
 #after the iterations are technically done
 
@@ -79,13 +81,13 @@ if [ "$input_type" == 'fasta' ]; then
            2>output/strict_aln.stderr
 elif [ "$input_type" == 'fastq_u' ]; then
     hisat2 -x output/indexes/"$output_name" \
-           -q -p "$threads" --no-softclip --no-spliced-alignment \
-           -k 1 --no-unal -U "$readsu" -S output/strict_aln.sam --norc \
+           -q -p "$threads" --no-softclip \
+           -k 1 --no-unal -U "$readsu" -S output/strict_aln.sam \
            2>output/strict_aln.stderr
 elif [ "$input_type" == 'fastq_p' ]; then
     hisat2 -x output/indexes/"$output_name" \
-           -q -p "$threads" --no-softclip --no-spliced-alignment \
-           -k 1 --no-unal -1 "$reads1" -2 "$reads2" -S output/strict_aln.sam --norc \
+           -q -p "$threads" --no-softclip \
+           -k 1 --no-unal -1 "$reads1" -2 "$reads2" -S output/strict_aln.sam \
            2>output/strict_aln.stderr
 fi
 
@@ -99,16 +101,19 @@ fi
 samtools index output/strict_aln.bam
 rm output/strict_aln.sam
 
-samtools depth -a -@ "$threads" -o output/depth.tsv output/strict_aln.bam
+samtools depth -aa -@ "$threads" -o output/depth.tsv output/strict_aln.bam
 
-lim=${#ref_ends[@]}
-lim=$((lim - 1)) #because the above extracts length, but I use 0 indexed
+#I am commenting the below because I want to try a full chromosome
+#stretcher instead of my weird bin stuff which requires extra annoying
+#logic. This is possible now because stretcher is cool
 
 #I used to use the needle function, but I think the stretcher program
 #is just better. It seems to take much less RAM, it can even align
 #whole Leishmania chromosomes. I think I'll still run it in parallel
 #using my bin technique, since this will be almost mandatory on larger
 #genomes, but my bin size can be whatever I set it to
+lim=${#ref_ends[@]}
+lim=$((lim - 1)) #because the above extracts length, but I use 0 indexed
 mkdir needle_files
 >needle_files/errors.txt
 seq 0 "$lim" | while read idx; do
@@ -121,7 +126,7 @@ seq 0 "$lim" | while read idx; do
                    -sbegin2 1 -send2 "${ref_ends[$idx]}" \
                    -aformat3 fasta -sid1 alt -sid2 ref \
                    -outfile needle_files/"$idx" \
-                   -gapopen 16 -gapextend 4 \
+                   -gapopen 50 -gapextend 15 \
                    2>>needle_files/errors.txt
         else
             stretcher -asequence alt/"${contigs[$idx]}" \
@@ -132,7 +137,7 @@ seq 0 "$lim" | while read idx; do
                    -send2 "${ref_ends[$idx]}" \
                    -aformat3 fasta -sid1 alt -sid2 ref \
                    -outfile needle_files/"$idx" \
-                   -gapopen 16 -gapextend 4 \
+                   -gapopen 50 -gapextend 15 \
                    2>>needle_files/errors.txt
         fi
     ) &

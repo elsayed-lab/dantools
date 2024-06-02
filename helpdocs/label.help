@@ -1,0 +1,53 @@
+Usage: dantools pseudogen [options]
+Labels a VCF file (as output by dantools pseudogen)
+
+Required options:
+  -v, --vcf            Input VCF file to be labeled
+  -f, --gff            GFF with features to label VCF according to
+  --features           The feature type to label variants relative to.
+                       Separate multiple features by comma, e.g. UTR,CDS
+
+Nucleotide labeling options:
+  --child              The GFF label denoting the child feature's name
+                       (default: ID)
+  --parent             The GFF label denoting the child's parent feature
+                       (default: Parent)
+  --output-nuc         The file to output labeled nucleotides to (default:
+                       nucleotide_vars.tsv)
+
+Flank labeling options (nucleotide only):
+  --add-flanks         A yes/no option determining whether to label variants
+                       in regions adjacent to certain features
+  --flank-feature      The feature type to add flanks to, i.e. around which
+                       feature should variants be labeled (default: input of
+                       --features if only 1 argument provided)
+  --flank-parent       The GFF label denoting the flank-feature's parent
+                       feature (default: the --parent input)
+  --flank-lengths      Two comma-separted numbers giving up and downstream
+                       lengths of flank regions as first and second number
+                       respectively (default: 200,200)
+
+Amino acid labeling opions:
+  --translate          A yes/no option determining whether translate
+                       nucleotide variants to corresponding amino
+                       acid changes (default: no)
+  -b, --fasta          The FASTA to which the VCF and GFF correspond to
+  --coding-feature     Which feature corresponds to coding sequences
+                       (default: CDS)
+  --codon-table        A numerical index for the codon table to use.
+                       See ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi?mode=c
+                       (default: 1)
+  --score-matrix       The scoring matrix used to score the
+                       amino acid mutations. To add  a personal
+                       matrix, place it in share/matrices (default: blosum62)
+  --output-aa          The file to output labeled amino acid mutations to
+
+Miscellaneous
+  -t, --threads        The number of threads to use for parallel processing.
+                       Only parallelizes nucleotide labeling (default: 1)
+  --outdir             A directory to be created for the outputs to be placed
+                       into (default: current working directory)
+  --tmpdir             Labeling creates a temporary directory removed once it
+                       is done. This is the name of the directory they are
+                       placed in (default: <outdir>/tmp_danfiles)
+  -h, --help           Display this help message

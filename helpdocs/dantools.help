@@ -4,5 +4,17 @@ Tools for the Comparison of Disparate Genomes
 Usage: dantools <command> [options]
 
 Commands:
-    pseudogen - produces a pseudogenome from two input fasta files
-    help - print this help message
+    pseudogen         produces a pseudogenome from two input FASTA files
+
+    fragment          produce fragments in FASTA formta from FASTA file
+
+    label             label a VCF file according to a GFF. Optionally translate nucleotide
+                      variants to amino acid mutations
+
+    shift             shift GFF annotations given a VCF file
+
+    summarize-aa      summarize amino acid mutations for each feature
+
+    summarize-depth   summarize the depth for features
+
+    help              print this help message

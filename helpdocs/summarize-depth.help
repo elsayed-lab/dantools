@@ -1,0 +1,16 @@
+Usage: dantools summarize-depth [options]
+Summarizes depth by feature given a GFF and depth.tsv (output of
+samtools depth).
+
+Required:
+  -f, --gff      The GFF file corresponding to positions listed in the
+                 depth file
+  -d, --depth    A tsv depth file sorted by position within each contig
+                 (this is the default output of samtools depth)
+
+Optional:
+  --feature      The feature type to measure depth relative to
+                 (default: CDS)
+  --parent       The GFF label for the parent feature (default: Parent)
+  -o, --output   A file to output the depth to
+  -h, --help     Display this help message

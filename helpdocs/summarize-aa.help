@@ -1,0 +1,9 @@
+Usage: dantools summarize-aa [options] labeled_aa.tsv
+Summarize the amino acid mutations of dantools label --translate yes
+
+Options:
+  -v, --vcf            An alternative way to input the labeled tsv, as
+                       opposed to the command input
+  -o, --output         A file to write the output to
+  --outframe-score     The score penalty for out-of-frame indels (default: 0)
+  -h, --help           Print this help message

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#I need to make this module adding stuff smarter before export
+trap "exit" SIGINT
 
 #Parse my arguments
 base=''
