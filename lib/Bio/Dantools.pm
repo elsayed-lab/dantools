@@ -1,8 +1,3 @@
-
-#Until I have added more functions to this package, I'll keep
-#everything here which should make the "use ..." setup much more
-#simple.
-
 package Bio::Dantools;
 use strict;
 use autodie;
