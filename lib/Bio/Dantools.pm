@@ -1,38 +1,140 @@
 package Bio::Dantools;
 use strict;
 use autodie;
+use diagnostics;
+use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
 use warnings;
-use FindBin;
+
 use FileHandle;
 use File::Basename;
-use File::Path qw( rmtree );
-use Bio::SeqIO;
-use Bio::Seq;
-use Bio::Tools::CodonTable;
+use File::Copy;
+use File::Path qw"make_path rmtree";
+use FindBin;
+use List::Util qw"max min sum";
+use Parallel::ForkManager;
+use POSIX qw"floor ceil";
+use Text::CSV_XS::TSV;
+
 use Bio::DB::Fasta;
 use Bio::DB::SeqFeature;
-use Bio::SeqFeature::Generic;
 use Bio::Matrix::IO;
-use Text::CSV_XS::TSV;
-use List::Util qw"max min sum";
-use File::Copy;
-use File::Path qw(make_path);
-use POSIX qw"floor ceil";
-use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
-use Parallel::ForkManager;
+use Bio::Seq;
+use Bio::SeqFeature::Generic;
+use Bio::SeqIO;
+use Bio::Tools::CodonTable;
 
-#Set up my interrupt trap
+## The Makefile.PL has a version_from stanza saying the version is in this file.
+## I do not see it, so decided to make an executive decision:
+$VERSION = '202406';
+
+# Set up my interrupt trap
 BEGIN {
     $SIG{'INT'} = sub {
-    exit(1);
-};
+        exit(1);
+    };
 }
 
+=head1 NAME
+
+    Bio::Dantools - Tools to compare disparate genomes.
+
+=head1 SYNOPSIS
+
+    Bio::Dantools.pm provides functions which accept disparate inputs (high-throughput
+    sequencing data, fasta genomes, gff annotations), ensure that they are ready for
+    alignment, and passes them to hisat2 and freebayes for an iterative alignment
+    process which results in new genome/gff files that rephrases the source genome
+    in terms of the query input data.
+
+    Each of the following commands produces a new pseudogenome rephrased by the base genome and
+    a vcf file describing the differences between source and base:
+
+    1.  If you have 2 fasta genomes:
+
+    > dantools pseudogen -b base.fasta -s source.fasta
+
+    2.  If you have a base fastq genome and an already fragmented fastq genome:
+
+    > dantools pseudogen -b base.fasta -s source.fasta --fragment no
+
+    3.  If you have unpaired RNA/DNA sequencing reads:
+
+    > dantools pseudogen -b base.fasta --reads-u source.fastq.gz
+
+    (note to self, make sure this will work with gz/bz2/xz compressed input)
+
+    4.  Paired-end sequencing data:
+
+    > dantools pseudogen -b base.fasta -1 r1.fastq.gz -2 r2.fastq.gz
+
+    (note to self, make sure this can happily handle different sequence orientations
+     and pass the args along to hisat)
+
+    Upon completion, a new gff file may be created which includes new positions for the features
+    that represent any indels introduced in the pseudogen process:
+
+    > dantools shift -v variants.vcf -f base.gff
+
+    (note to self, make sure this has sane defaults for the -v and -f args; I think in most
+     cases dantools should be able to correctly guess them and/or figure them out from the
+     pseudogen results)
+
+    In addition, one may label observed variants via the input gff:
+
+    > dantools label -v variants.vcf -f base.gff --features five_prime_UTR,CDS
+
+=head1 METHODS
+
+=head2 C<pseudogen>
+
+    This serves as the main pseudogen worker.  It uses the aligner
+    and postprocess scripts to iterate the (re)creation of the
+    pseudogenome until the variants observed by freebayes fall below the
+    threshold defined by 'min_variants'.
+
+=over
+
+=item C<Arguments>
+
+  Note to Daniel: I am totally bs-ing some of these based on my
+  likely incorrect assumptions.
+
+  min_variants: Threshold for falling out of the iterator loop --
+    I am a little confused why it is used as '$var_count' in one
+    place and directly in another; I need to look a little
+    carefully there and see what I am missing.
+  fai: Input fasta index file.
+  base_idx: hisat2 index of the base genome; e.g. what we are moving
+    this species/sample toward or what we are changing to reflect
+    this species/sample, depending on how you think.
+  base: Current working directory of the aligner over each iteration.
+  gff: Genome Feature File describing the base genome.
+  keepers: Set of file types to keep upon completion.
+  output_name: I think basename of the output, I need to reread to be sure.
+  threads: passed to hisat2, number of CPUs to dedicate to the aligner and/or freebayes.
+  var_fraction: passed to the min-alternate-fraction argument of freebayes.
+  outdir: Output directory for the toys.
+  scoremin: Passed along to hisat2.
+  bin_size: Passed along to Dantools::bin_maker()
+  source: Used for input fasta data by hisat2.
+  readsu: Used for input unpaired fastq reads by hisat2.
+  reads1: Used for paired fastq reads by hisat2, R1.
+  reads2: Ibid, R2.
+  input_type: single word describing the various inputs one might use:
+    fasta, fastq_u, fastq_p.
+  fragment: Used to decide whether to invoke Bio::Dantools::fragment()
+    on a large set of assembled chromosomes/contigs. (e.g. a
+    genome fasta file).
+  lengths: String representing the various lengths to fragment an
+    input genome into.
+  overlap: Define desired input fasta fragment overlap percentage.
+  min_length: Passed along to the fragmenter.
+
+=cut
 sub pseudogen {
-    #This will serve as the main full pseudogen worker
     my %args = @_;
-    my $aligner = "$FindBin::Bin/../lib/aligner.sh";
-    my $postprocessor = "$FindBin::Bin/../lib/postprocess.sh";
+    my $aligner = "$FindBin::Bin/../bin/aligner.sh";
+    my $postprocessor = "$FindBin::Bin/../bin/postprocess.sh";
     chdir($args{'outdir'});
 
     my $it = 0;

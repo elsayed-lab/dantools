@@ -1,0 +1,465 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use FindBin;
+use File::Basename;
+use File::Path qw(make_path);
+use File::Spec;
+use File::Which;
+use lib "$FindBin::Bin/../lib";
+use Bio::Dantools;
+use autodie;
+use Cwd qw"abs_path cwd getcwd";
+use Getopt::Long;
+
+#Set up my interrupt trap
+BEGIN {
+    $SIG{'INT'} = sub {
+        exit(1);
+    };
+}
+
+
+#Figure out which method was passed
+my $method = shift;
+
+if (! defined($method)) {
+    my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/dantools.help");
+    while (<$helpdoc>) { print $_ };
+    exit;
+} elsif ("$method" eq 'help') {
+    my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/dantools.help");
+    while (<$helpdoc>) { print $_ };
+    exit;
+};
+
+
+#Now I need to figure out given the method what I need to run
+
+#This is the whole pseudogenome worker
+if ($method eq 'pseudogen') {
+
+    my $gff = '';
+    my $base; #The genome I'll be aligning against
+    my $base_fai = ''; #.fai indexes for my reference, not required
+    my $base_idx = ''; #.ht2 reference indexes, not required
+    my $source = ''; #The input genome
+    my $readsu = ''; #input unpaired reads
+    my $reads1 = ''; #mate 1 input reads
+    my $reads2 = ''; #mate 2 input reads
+    my $input_type;
+    my $fragment = 'yes';
+    my $lengths = '200,10000';
+    my $min_length = 20;
+    my $overlap = 75;
+    my $min_variants = 100; #The threshold of variant # to repeat an iteration
+    my $output_name = '';
+    my $keepers = 'all';
+    my $outdir = '';
+    my $threads = 1;
+    my $bin_size = 10000;
+    my $var_fraction = 0.501;
+    my $help = 0;
+    my $scoremin = 'L,0,-1.50';
+    GetOptions(
+        "base|b=s" => \$base,
+        "fai=s" => \$base_fai,
+        "base-idx=s" => \$base_idx,
+        "source|s=s" => \$source,
+        "reads-u|u=s" => \$readsu,
+        "reads-1|1=s" => \$reads1,
+        "reads-2|2=s" => \$reads2,
+        "lengths|l=s" => \$lengths,
+        "min-length=s" => \$min_length,
+        "overlap=f" => \$overlap,
+        "min-var=i" => \$min_variants,
+        "output-name=s" => \$output_name,
+        "keep|k=s" => \$keepers,
+        "outdir=s" => \$outdir,
+        "threads|t=i" => \$threads,
+        "bin-size=i" => \$bin_size,
+        "var-fraction=f" => \$var_fraction,
+        "score-min=s" => \$scoremin,
+        "fragment=s" => \$fragment,
+        "help|h" => \$help
+        ) or die "Error in Parsing Arguments";
+
+    #Checking input arguments and setting them manually for some
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+
+    #The first thing I need to do is check to make sure all of my
+    #required binaries like hisat2 are loaded
+    my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
+    for my $bin (@needed) {
+        die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
+    };
+
+    if ("$outdir" eq '') {
+        $outdir = getcwd;
+    } elsif ( ! -d "$outdir" ) {
+        make_path("$outdir");
+    }
+
+    if (! grep /^$keepers/, ('all', 'variants', 'alignments', 'genomes', 'none')) {
+        die "ERROR: The keepers argument \"$keepers\" is not supported, supported arguments:\nall, variants, alignments, genomes, none\n"
+    }
+    if (! -e "$base") {
+        die "ERROR: input base file does not exist\n";
+    }
+    $base = File::Spec->rel2abs($base);
+
+    $lengths =~ tr/ //d;
+
+    #Figure out what "source_type" was brought in, which should make
+    #downstream tools not always have to check this:
+    if ("$source" ne '') {
+        die "Error reading input source file $source" if (! -e "$source");
+        $input_type = 'fasta';
+        $source = File::Spec->rel2abs($source);
+        if ("$output_name" eq '') {
+            $output_name = basename($source, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+        }
+    } elsif ("$readsu" ne '') {
+        die "Error reading input reads $readsu" if (! -e "$readsu");
+        $input_type = 'fastq_u'; #unpaired fastq
+        $readsu = File::Spec->rel2abs($readsu);
+        if ("$output_name" eq '') {
+            $output_name = basename($readsu, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+        }
+    } elsif (("$reads1" ne '') & ("$reads2" ne '')) {
+        die "Error reading input reads $reads1" if (! -e "$reads1");
+        die "Error reading input reads $reads2" if (! -e "$reads2");
+        $input_type = 'fastq_p'; #paired fastq
+        $reads1 = File::Spec->rel2abs($reads1);
+        $reads2 = File::Spec->rel2abs($reads2);
+        if ("$output_name" eq '') {
+            $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+        }
+    }
+    Bio::Dantools::pseudogen(base => "$base",
+                             fai => "$base_fai",
+                             base_idx => "$base_idx",
+                             source => "$source",
+                             readsu => "$readsu",
+                             reads1 => "$reads1",
+                             reads2 => "$reads2",
+                             input_type => "$input_type",
+                             fragment => "$fragment",
+                             lengths => "$lengths",
+                             min_length => "$min_length",
+                             overlap => "$overlap",
+                             min_variants => "$min_variants",
+                             keepers => "$keepers",
+                             output_name => "$output_name",
+                             outdir => "$outdir",
+                             threads => "$threads",
+                             bin_size => "$bin_size",
+                             var_fraction => "$var_fraction",
+                             scoremin => "$scoremin"
+        );
+} elsif ("$method" eq 'fragment') {
+    my $lengths = '200,10000';
+    my $overlap = 75;
+    my $min_length = 20;
+    my $output = 'NO_OUTPUT_PROVIDED';
+    my $log = 'fragment_log.txt';
+    my $threads = 1;
+    my $help = 0;
+
+    GetOptions(
+        "lengths|l=s" => \$lengths,
+        "output|o=s" => \$output,
+        "log=s" => \$log,
+        "threads|t=i" => \$threads,
+        "help|h" => \$help
+        );
+    my $input = $ARGV[0];
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/fragment.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+    if (! -r "$input") {
+        die "ERROR: couldn't read $input";
+    }
+
+    Bio::Dantools::fragment(input => "$input",
+                            output => "$output",
+                            lengths => "$lengths",
+                            overlap => "$overlap",
+                            min_length => "$min_length",
+                            logfile => "$log",
+                            threads => "$threads"
+        );
+
+
+} elsif ("$method" eq 'phylo') {
+    die "Sorry, this method is still in development\n";
+
+} elsif ("$method" eq 'label') {
+    my $vcf;
+    my $gff;
+    my $fasta;
+    my $features = '';
+    my $child_name = 'ID';
+    my $parent_name = 'Parent';
+    my $threads = 1;
+    my $output_nuc = 'nucleotide_vars.tsv';
+    my $add_flanks = 'no';
+    my $flank_lengths = '200,200';
+    my $flank_feature = '';
+    my $flank_parent = '';
+    #If they want it translated, they need the following:
+    my $translate = 'no';
+    my $coding_feature = 'CDS';
+    my $output_aa = 'amino_vars.tsv';
+    my $codon_table = 1; #determine the codon table to use
+    my $score_matrix = 'blosum62';
+    my $outdir = '';
+    my $tmpdir = '';
+    my $help = 0;
+    GetOptions(
+        "vcf|v=s" => \$vcf,
+        "gff|f=s" => \$gff,
+        "fasta|b=s" => \$fasta,
+        "features=s" => \$features,
+        "child=s" => \$child_name,
+        "parent=s" => \$parent_name,
+        "add-flanks=s" => \$add_flanks,
+        "flank-lengths=s" => \$flank_lengths,
+        "flank-feature=s" => \$flank_feature,
+        "flank-parent=s" => \$flank_parent,
+        "threads|t=i" => \$threads,
+        "outdir=s" => \$outdir,
+        "output-nuc=s" => \$output_nuc,
+        "output-aa=s" => \$output_aa,
+        "translate=s" => \$translate,
+        "coding-feature=s" => \$coding_feature,
+        "codon-table=i" => \$codon_table,
+        "score_matrix=s" => \$score_matrix,
+        "tmpdir=s" => \$tmpdir,
+        "help|h" => \$help
+        );
+    if (! defined($vcf)) { $help = 1 };
+    if (! defined($gff)) { $help = 1 };
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/label.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+    $vcf = File::Spec->rel2abs($vcf);
+    $gff = File::Spec->rel2abs($gff);
+    $fasta = File::Spec->rel2abs($fasta);
+    $features =~ tr/ //d;
+    if (! -r "$vcf") { die "ERROR: couldn't read $vcf" }
+    elsif (! -r "$gff") { die "ERROR: couldn't read $gff" }
+    elsif ((! -r "$fasta") & ("$translate" eq 'yes')) { die "ERROR: couldn't read $fasta" };
+
+    if ("$outdir" eq '') {
+        $outdir = getcwd;
+    } elsif ( ! -d "$outdir" ) {
+        make_path("$outdir");
+    }
+    if ("$tmpdir" eq '') {
+        $tmpdir = "${outdir}/tmp_danfiles";
+    }
+    if (! -d "$tmpdir") {
+        make_path("$tmpdir")
+    };
+
+    #Try to make sure the coding feature is included in the features:
+    if ((index($features, $coding_feature) == -1) & ("$translate" eq 'yes')) {
+        die "Coding feature not included in features";
+    }
+
+    #Parse the flank_lengths stuff
+    if ("$add_flanks" eq 'yes') {
+        $flank_lengths =~ tr/ //d;
+        my @tmp = split(/\,/, "$flank_lengths");
+        if (scalar(@tmp) == 1) {
+            $flank_lengths = "$tmp[0],$tmp[0]";
+        } elsif (scalar(@tmp) > 2) {
+            die "Only two flank lengths are supported, e.g. 200,200";
+        }
+    };
+
+    #If someone doesn't tell me what to add flanks to, I will try to
+    #figure it out if they pass only a single feature to annotate
+    if (("$add_flanks" eq 'yes') & ("$flank_feature" eq '')) {
+        if (scalar(split(/\,/, "$features")) == 1) {
+            $flank_feature = "$features";
+        } else {
+            die "ERROR: add-flanks specified but no flank feature provided\n";
+        };
+    };
+
+    if (! defined($flank_parent)) {
+        $flank_parent = $parent_name
+    };
+
+    Bio::Dantools::label(vcf => "$vcf",
+                         gff => "$gff",
+                         fasta => "$fasta",
+                         features => "$features",
+                         child_name => "$child_name",
+                         parent_name => "$parent_name",
+                         flank_lengths => "$flank_lengths",
+                         add_flanks => "$add_flanks",
+                         flank_feature => "$flank_feature",
+                         flank_parent => "$flank_parent",
+                         threads => "$threads",
+                         output_nuc => "$output_nuc",
+                         translate => "$translate",
+                         coding_feature => "$coding_feature",
+                         codon_table => "$codon_table",
+                         score_matrix => "$score_matrix",
+                         output_aa => "$output_aa",
+                         outdir => "$outdir",
+                         tmpdir => "$tmpdir"
+        );
+
+} elsif ("$method" eq 'transloc') {
+    print "Sorry, this method is still in development";
+} elsif ("$method" eq 'make-vcf') {
+    #Just a function for me when I mess up. Uses a combined bases file
+    #to generate a vcf file
+    my $input;
+    my $output;
+    my $tmpdir = 'tmp_danfiles';
+    my $depths;
+    GetOptions(
+        "input|i=s" => \$input,
+        "output|o=s" => \$output,
+        "tmpdir=s" => \$tmpdir,
+        "depths|d=s" => \$depths
+    );
+
+    Bio::Dantools::vcf_maker(
+        input => "$input",
+        output => "$output",
+        tmpdir => "$tmpdir",
+        depths => "$depths"
+    );
+
+
+} elsif ("$method" eq 'shift') {
+    my $gff;
+    my $vcf;
+    my $output = 'NO_OUTPUT_PROVIDED';
+    my $help = 0;
+    GetOptions(
+        "vcf|v=s" => \$vcf,
+        "gff|f=s" => \$gff,
+        "output|o=s" => \$output,
+        "help|h" => \$help
+        );
+    if (! defined($vcf)) { $help = 1 };
+    if (! defined($gff)) { $help = 1 };
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/shift.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+
+    $vcf = File::Spec->rel2abs($vcf);
+    $gff = File::Spec->rel2abs($gff);
+
+    if (! -e "$vcf") { die "ERROR: couldn't read $vcf" }
+    elsif (! -r "$gff") { die "ERROR: couldn't read $gff" }
+
+    Bio::Dantools::gff_shifter(
+        gff => "$gff",
+        vcf => "$vcf",
+        output => "$output"
+    );
+
+} elsif ("$method" eq 'summarize-aa') {
+    my $input_vars;
+    my $input_depth;
+    my $input_gff;
+    my $feature = 'CDS';
+    my $parent = 'Parent';
+    my $output = 'NO_OUTPUT_PROVIDED';
+    my $outscore = 0; #score assigned to out of frame mutations
+    my $help;
+    GetOptions(
+        "vars|v=s" => \$input_vars,
+        "output|o=s" => \$output,
+        "outframe-score=s" => \$outscore,
+        "help|h=s" => \$help
+    );
+    if (! defined($input_vars)) {
+        $input_vars = $ARGV[0];
+    };
+    if (! defined($input_vars)) {
+        $help = 1;
+    }
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/summarize-aa.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+    if (! -e "$input_vars") {
+        die "Input variant file does not exist\n";
+    } elsif (! -r "$input_vars") {
+        die "Input variant file is read-protected\n";
+    };
+
+    Bio::Dantools::summarize_aa(
+        input_vars => "$input_vars",
+        output => "$output",
+        outscore => "$outscore"
+        );
+} elsif ("$method" eq 'summarize-depth') {
+    my $input_depth;
+    my $input_gff;
+    my $feature = 'CDS';
+    my $parent = 'Parent';
+    my $output = 'NO_OUTPUT_PROVIDED';
+    my $help = 0;
+    GetOptions(
+        "gff|f=s" => \$input_gff,
+        "output|o=s" => \$output,
+        "depth|d=s" => \$input_depth,
+        "feature=s" => \$feature,
+        "parent=s" => \$parent,
+        "help" => \$help
+        );
+    if (! defined($input_depth)) { $help = 1 };
+    if (! defined($input_gff)) { $help = 1 };
+
+    if ("$help" == 1) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/summarize-depth.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+
+
+    if (! -e "$input_depth") {
+        die "Input depth file does not exit\n";
+    } elsif (! -r "$input_depth") {
+        die "Input depth file is read protected\n";
+    }
+
+    if (! -e "$input_gff") {
+        die "Input GFF does not exit\n";
+    } elsif (! -r "$input_gff") {
+        die "Input GFF is read protected\n";
+    }
+
+    Bio::Dantools::summarize_depth(
+        input_gff => "$input_gff",
+        input_depth => "$input_depth",
+        output => "$output",
+        parent => "$parent",
+        feature => "$feature"
+        );
+} else {
+    die "Method $method not found\n";
+}
+;
