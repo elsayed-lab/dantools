@@ -29,13 +29,17 @@ WriteMakefile(
         'File::Basename' => '0',
         'File::Copy' => '0',
         'File::Path' => '0',
+	'File::ShareDir' => '0',
+	'File::Slurp' => '0',
         'File::Spec' => '0',
         'File::Which' => '0',
         'Getopt::Long' => '0',
         'List::Util' => '0',
         'Parallel::ForkManager' => '0',
         'POSIX' => '0',
-        'Text::CSV_XS::TSV' => '0',
+	'String::Diff' => '0',
+	'Test::More' => '0',
+        'Text::CSV_XS::TSV' => '0'
 
     }
     )

@@ -38,11 +38,13 @@ Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
                          min_length => 20,
                          overlap => 50,
                          min_variants => 1000,
+                         nocap => 1,
                          keepers => 'all',
                          output_name => 'test',
                          threads => 1,
                          bin_size => 10000,
                          var_fraction => 0.501,
+                         var_depth => 2,
                          outdir => "$start/test_output",
                          input_type => "fasta",
                          fragment => 'yes',
@@ -89,4 +91,4 @@ unless (ok($exp_depth eq $act_depth, 'Expected depth file produced')) {
 };
 
 chdir($start);
-rmtree("test_output");
+#rmtree("test_output");
