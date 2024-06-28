@@ -134,8 +134,8 @@ BEGIN {
 
 sub pseudogen {
     my %args = @_;
-    my $aligner = "$FindBin::Bin/../share/aligner.sh";
-    my $postprocessor = "$FindBin::Bin/../share/postprocess.sh";
+    my $aligner = "$FindBin::Bin/../script/aligner.sh";
+    my $postprocessor = "$FindBin::Bin/../script/postprocess.sh";
     chdir($args{'outdir'});
 
     my $it = 0;
