@@ -7,3 +7,4 @@ blib
 MANIFEST
 .Rhistory
 README.html
+.Makefile.PL.swp
