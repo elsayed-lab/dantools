@@ -39,6 +39,11 @@ if (! defined($method)) {
 
 #This is the whole pseudogenome worker
 if ($method eq 'pseudogen') {
+<<<<<<< HEAD
+
+    my $gff = '';
+=======
+>>>>>>> upstream/dklimes-master
     my $base; #The genome I'll be aligning against
     my $base_fai = ''; #.fai indexes for my reference, not required
     my $base_idx = ''; #.ht2 reference indexes, not required
@@ -54,14 +59,22 @@ if ($method eq 'pseudogen') {
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
     my $output_name = '';
     my $keepers = 'all';
+<<<<<<< HEAD
+=======
     my $nocap = 0;
+>>>>>>> upstream/dklimes-master
     my $outdir = '';
     my $threads = 1;
     my $bin_size = 10000;
     my $var_fraction = 0.501;
+<<<<<<< HEAD
+    my $help = 0;
+    my $scoremin = 'L,0,-1.50';
+=======
     my $var_depth = 2;
     my $help = 0;
     my $scoremin = 'L,0,-1.0';
+>>>>>>> upstream/dklimes-master
     GetOptions(
         "base|b=s" => \$base,
         "fai=s" => \$base_fai,
@@ -74,21 +87,32 @@ if ($method eq 'pseudogen') {
         "min-length=s" => \$min_length,
         "overlap=f" => \$overlap,
         "min-var=i" => \$min_variants,
+<<<<<<< HEAD
+=======
         "no-cap" => \$nocap,
+>>>>>>> upstream/dklimes-master
         "output-name=s" => \$output_name,
         "keep|k=s" => \$keepers,
         "outdir=s" => \$outdir,
         "threads|t=i" => \$threads,
         "bin-size=i" => \$bin_size,
         "var-fraction=f" => \$var_fraction,
+<<<<<<< HEAD
+=======
         "var-depth=i" => \$var_depth,
+>>>>>>> upstream/dklimes-master
         "score-min=s" => \$scoremin,
         "fragment=s" => \$fragment,
         "help|h" => \$help
         ) or die "Error in Parsing Arguments";
+<<<<<<< HEAD
+
+    #Checking input arguments and setting them manually for some
+=======
     #Checking input arguments and setting them manually for some
     if (! defined($base)) { $help = 1 };
 
+>>>>>>> upstream/dklimes-master
     if ("$help" == 1) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
         while (<$helpdoc>) { print $_ };
@@ -144,11 +168,14 @@ if ($method eq 'pseudogen') {
             $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
         }
     }
+<<<<<<< HEAD
+=======
 
     if (("$nocap" == 1) & ("$input_type" ne 'fasta')) {
         print STDERR "WARNING: Argument 'no-cap' only applies to FASTA inputs\n";
     };
 
+>>>>>>> upstream/dklimes-master
     Bio::Dantools::pseudogen(base => "$base",
                              fai => "$base_fai",
                              base_idx => "$base_idx",
@@ -162,14 +189,20 @@ if ($method eq 'pseudogen') {
                              min_length => "$min_length",
                              overlap => "$overlap",
                              min_variants => "$min_variants",
+<<<<<<< HEAD
+=======
                              nocap => "$nocap",
+>>>>>>> upstream/dklimes-master
                              keepers => "$keepers",
                              output_name => "$output_name",
                              outdir => "$outdir",
                              threads => "$threads",
                              bin_size => "$bin_size",
                              var_fraction => "$var_fraction",
+<<<<<<< HEAD
+=======
                              var_depth => "$var_depth",
+>>>>>>> upstream/dklimes-master
                              scoremin => "$scoremin"
         );
 } elsif ("$method" eq 'fragment') {
