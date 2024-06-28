@@ -25,10 +25,6 @@ $SIG{'INT'} = sub {
     exit;
 };
 
-my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
-for my $bin (@needed) {
-    die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
-};
 
 Bio::Dantools::summarize_aa(
         input_vars => "${start_dir}/exp_aa.tsv",

@@ -144,7 +144,7 @@ rm it"$it"/raw.sam
 #Process substitution doesn't work in shell, so I need to create my
 #regions file separately
 fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
-freebayes-parallel it"$it"/freebayes_regions.tmp 8 -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
+freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
 rm it"$it"/freebayes_regions.tmp
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf

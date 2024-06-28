@@ -25,12 +25,6 @@ $SIG{'INT'} = sub {
     exit;
 };
 
-my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
-for my $bin (@needed) {
-    die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
-};
-
-
 Bio::Dantools::summarize_depth(
     input_gff => "${start_dir}/exp_shift.gff",
     input_depth => "${start_dir}/exp_depth.tsv",

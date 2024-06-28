@@ -25,11 +25,6 @@ $SIG{'INT'} = sub {
     exit;
 };
 
-my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
-for my $bin (@needed) {
-    die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
-};
-
 Bio::Dantools::fragment(input => "${start_dir}/source.fasta",
                         output => "fragments.fasta",
                         lengths => '100,200',

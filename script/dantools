@@ -396,7 +396,7 @@ if ($method eq 'pseudogen') {
     my $parent = 'Parent';
     my $output = 'NO_OUTPUT_PROVIDED';
     my $outscore = 0; #score assigned to out of frame mutations
-    my $help = 0;
+    my $help;
     GetOptions(
         "vars|v=s" => \$input_vars,
         "output|o=s" => \$output,

@@ -1,39 +1,145 @@
 package Bio::Dantools;
 use strict;
 use autodie;
+use diagnostics;
+use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
 use warnings;
-use FindBin;
+
 use FileHandle;
 use File::Basename;
-use File::Path qw( rmtree );
-use Bio::SeqIO;
-use Bio::Seq;
-use Bio::Tools::CodonTable;
+use File::Copy;
+use File::Path qw"make_path rmtree";
+use FindBin;
+use List::Util qw"max min sum";
+use Parallel::ForkManager;
+use POSIX qw"floor ceil";
+use Text::CSV_XS::TSV;
+
 use Bio::DB::Fasta;
 use Bio::DB::SeqFeature;
-use Bio::SeqFeature::Generic;
 use Bio::Matrix::IO;
-use Text::CSV_XS::TSV;
-use List::Util qw"max min sum";
-use File::Copy;
-use File::Path qw(make_path);
-use POSIX qw"floor ceil";
-use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
-use Parallel::ForkManager;
+use Bio::Seq;
+use Bio::SeqFeature::Generic;
+use Bio::SeqIO;
+use Bio::Tools::CodonTable;
 
-#Set up my interrupt trap
+## The Makefile.PL has a version_from stanza saying the version is in this file.
+## I do not see it, so decided to make an executive decision:
+my $VERSION = '202406';
+
+# Set up my interrupt trap
 BEGIN {
     $SIG{'INT'} = sub {
-    die;
-};
+        exit(1);
+    };
 }
+
+=head1 NAME
+
+    Bio::Dantools - Tools to compare disparate genomes.
+
+=head1 SYNOPSIS
+
+    Bio::Dantools.pm provides functions which accept disparate inputs (high-throughput
+    sequencing data, fasta genomes, gff annotations), ensure that they are ready for
+    alignment, and passes them to hisat2 and freebayes for an iterative alignment
+    process which results in new genome/gff files that rephrases the source genome
+    in terms of the query input data.
+
+    Each of the following commands produces a new pseudogenome rephrased by the base genome and
+    a vcf file describing the differences between source and base:
+
+    1.  If you have 2 fasta genomes:
+
+    > dantools pseudogen -b base.fasta -s source.fasta
+
+    2.  If you have a base fastq genome and an already fragmented fastq genome:
+
+    > dantools pseudogen -b base.fasta -s source.fasta --fragment no
+
+    3.  If you have unpaired RNA/DNA sequencing reads:
+
+    > dantools pseudogen -b base.fasta --reads-u source.fastq.gz
+
+    (note to self, make sure this will work with gz/bz2/xz compressed input)
+
+    4.  Paired-end sequencing data:
+
+    > dantools pseudogen -b base.fasta -1 r1.fastq.gz -2 r2.fastq.gz
+
+    (note to self, make sure this can happily handle different sequence orientations
+     and pass the args along to hisat)
+
+    Upon completion, a new gff file may be created which includes new positions for the features
+    that represent any indels introduced in the pseudogen process:
+
+    > dantools shift -v variants.vcf -f base.gff
+
+    (note to self, make sure this has sane defaults for the -v and -f args; I think in most
+     cases dantools should be able to correctly guess them and/or figure them out from the
+     pseudogen results)
+
+    In addition, one may label observed variants via the input gff:
+
+    > dantools label -v variants.vcf -f base.gff --features five_prime_UTR,CDS
+
+=head1 METHODS
+
+=head2 C<pseudogen>
+
+    This serves as the main pseudogen worker.  It uses the aligner
+    and postprocess scripts to iterate the (re)creation of the
+    pseudogenome until the variants observed by freebayes fall below the
+    threshold defined by 'min_variants'.
+
+=over
+
+=item C<Arguments>
+
+  Note to Daniel: I am totally bs-ing some of these based on my
+  likely incorrect assumptions.
+
+  min_variants: Threshold for falling out of the iterator loop --
+    I am a little confused why it is used as '$var_count' in one
+    place and directly in another; I need to look a little
+    carefully there and see what I am missing.
+  fai: Input fasta index file.
+  base_idx: hisat2 index of the base genome; e.g. what we are moving
+    this species/sample toward or what we are changing to reflect
+    this species/sample, depending on how you think.
+  base: Current working directory of the aligner over each iteration.
+  gff: Genome Feature File describing the base genome.
+  keepers: Set of file types to keep upon completion.
+  output_name: I think basename of the output, I need to reread to be sure.
+  threads: passed to hisat2, number of CPUs to dedicate to the aligner and/or freebayes.
+  var_fraction: passed to the min-alternate-fraction argument of freebayes.
+  outdir: Output directory for the toys.
+  scoremin: Passed along to hisat2.
+  bin_size: Passed along to Dantools::bin_maker()
+  source: Used for input fasta data by hisat2.
+  readsu: Used for input unpaired fastq reads by hisat2.
+  reads1: Used for paired fastq reads by hisat2, R1.
+  reads2: Ibid, R2.
+  input_type: single word describing the various inputs one might use:
+    fasta, fastq_u, fastq_p.
+  fragment: Used to decide whether to invoke Bio::Dantools::fragment()
+    on a large set of assembled chromosomes/contigs. (e.g. a
+    genome fasta file).
+  lengths: String representing the various lengths to fragment an
+    input genome into.
+  overlap: Define desired input fasta fragment overlap percentage.
+  min_length: Passed along to the fragmenter.
+
+=back
+
+=cut
 
 sub pseudogen {
     $SIG{'INT'} = sub { exit(1) };
     #This will serve as the main full pseudogen worker
     my %args = @_;
-    my $aligner = "$FindBin::Bin/../lib/aligner.sh";
-    my $postprocessor = "$FindBin::Bin/../lib/postprocess.sh";
+    my $aligner = "$FindBin::Bin/../share/aligner.sh";
+    my $postprocessor = "$FindBin::Bin/../share/postprocess.sh";
     chdir($args{'outdir'});
 
     my $it = 0;
@@ -721,6 +827,51 @@ sub gff_shifter {
     my %args = @_;
     my @starts;
     my $gff_fh = FileHandle->new("$args{'gff'}");
+    #Read in my VCF file:
+    my $vcf_fh = FileHandle->new("$args{'vcf'}");
+    my @vcf;
+    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    open($vcf_fh, "<:encoding(utf8)", "$args{'vcf'}") or die "Can't open VCF file";
+    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'info');
+
+    #Load in my VCF features and add them to a DB:
+    while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
+        next if ($row->{'contig'} =~ /^#/);
+        next if (! defined($row->{'info'}));
+        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        next if $shift == 0;
+        my %hash = (
+            seq_id => $row->{'contig'},
+            pos => $row->{'position'},
+            strand => $row->{'strand'},
+            ref => $row->{'ref'},
+            alt => $row->{'alt'},
+            shift => $shift
+            );
+
+        push(@vcf, \%hash);
+    }
+    close($vcf_fh);
+
+    #Establish output and check if VCF is empty:
+    my $gff_out;
+    if ("$args{'output'}" eq 'NO_OUTPUT_PROVIDED') {
+        $gff_out = *STDOUT;
+    } else {
+        $gff_out = FileHandle->new("> $args{'output'}");
+    }
+
+    if (scalar @vcf == 0) {
+        print STDERR "WARNING: No indels in the VCF file, copying\n";
+        $gff_fh = FileHandle->new("$args{'gff'}");
+        while (<$gff_fh>) { print $gff_out $_ };
+        exit(1);
+    };
+
+    @vcf = sort {
+        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'pos'} <=> $b->{'pos'}
+    } @vcf;
+
     my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($gff_fh, "<:encoding(utf8)", "$args{'gff'}");
     $gff_tsv->column_names('contig', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
@@ -759,49 +910,6 @@ sub gff_shifter {
     @ends = sort {
         $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'end'} <=> $b->{'end'}
     } @ends;
-
-    my $vcf_fh = FileHandle->new("$args{'vcf'}");
-    my @vcf;
-    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    open($vcf_fh, "<:encoding(utf8)", "$args{'vcf'}") or die "Can't open VCF file";
-    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'info');
-
-    #Load in my VCF features and add them to a DB:
-    while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
-        next if ($row->{'contig'} =~ /^#/);
-        next if (! defined($row->{'info'}));
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
-        next if $shift == 0;
-        my %hash = (
-            seq_id => $row->{'contig'},
-            pos => $row->{'position'},
-            strand => $row->{'strand'},
-            ref => $row->{'ref'},
-            alt => $row->{'alt'},
-            shift => $shift
-            );
-
-        push(@vcf, \%hash);
-    }
-    close($vcf_fh);
-
-    @vcf = sort {
-        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'pos'} <=> $b->{'pos'}
-    } @vcf;
-
-    my $gff_out;
-    if ("$args{'output'}" eq 'NO_OUTPUT_PROVIDED') {
-        $gff_out = *STDOUT;
-    } else {
-        $gff_out = FileHandle->new("> $args{'output'}");
-    }
-
-    if (scalar @vcf == 0) {
-        print STDERR "No indels in the VCF file, copying\n";
-        $gff_fh = FileHandle->new("$args{'gff'}");
-        while (<$gff_fh>) { print $gff_out $_ };
-        exit(1);
-    };
 
     my $contig;
     my $idx = 0;
@@ -1026,6 +1134,7 @@ sub label {
                 push(@gff, \%feat);
             };
         };
+
         #Now I need to figure out whether to add some flanks. This is
         #separate because in some instances you may want to add flanks
         #to the edges of the protein_coding_gene, and annotate
@@ -1042,41 +1151,53 @@ sub label {
             my $child = $attributes{$child_name};
             if ($row->{'strand'} eq '-') {
                 if ($flank_lengths[0] != 0) {
-                    my %down = (seq_id => $row->{'seq_id'},
-                             start => $row->{'start'} - $flank_lengths[1],
-                             end => $row->{'start'} - 1,
-                             strand => '-',
-                             type => 'down_flank',
-                             parent => $parent,
-                             child => "down_flank_" . $child
-                        );
-                    push(@gff, \%down);
+                        my %up = (seq_id => $row->{'seq_id'},
+                                  start => $row->{'end'} + 1,
+                                  end => $row->{'end'} + $flank_lengths[0],
+                                  strand => '-',
+                                  type => 'up_flank',
+                                  parent => $parent,
+                                  child => "up_flank_" . $child
+                              );
+                        push(@gff, \%up);
                 }
                 if ($flank_lengths[1] != 0) {
-                 my %up = (seq_id => $row->{'seq_id'},
-                         start => $row->{'end'} + 1,
-                         end => $row->{'end'} + $flank_lengths[0],
-                         strand => '-',
-                         type => 'up_flank',
-                         parent => $parent,
-                         child => "up_flank_" . $child
-                     );
-                 push(@gff, \%up);
+                    #Need to make sure the downstream flank doesn't go below zero
+                    my $tmp_start = $row->{'start'} - $flank_lengths[1];
+                    if ($tmp_start < 1) { $tmp_start = 1 };
+                    my $tmp_end = $row->{'start'} - 1;
+                    unless ($tmp_start >  $tmp_end) {
+                        my %down = (seq_id => $row->{'seq_id'},
+                                start => $tmp_start,
+                                end => $tmp_end,
+                                strand => '-',
+                                type => 'down_flank',
+                                parent => $parent,
+                                child => "down_flank_" . $child
+                            );
+                    push(@gff, \%down);
+                }
                 }
             } else {
                 #I think any good gff has only + or - strands, but
                 #this is general so it will treat anything without "-"
                 #as a plus strand item
                 if ($flank_lengths[0] != 0) {
-                    my %up = (seq_id => $row->{'seq_id'},
-                             start => $row->{'start'} - $flank_lengths[0],
-                             end => $row->{'start'} - 1,
-                             strand => $row->{'strand'},
-                             type => 'up_flank',
-                             parent => $parent,
-                             child => "up_flank_" . $child
-                        );
+                    #Need to make sure upstream flank doesn't go below zero
+                    my $tmp_start = $row->{'start'} - $flank_lengths[0];
+                    if ($tmp_start < 1) { $tmp_start = 1 };
+                    my $tmp_end = $row->{'start'} - 1;
+                    unless ($tmp_start > $tmp_end) {
+                        my %up = (seq_id => $row->{'seq_id'},
+                              start => $tmp_start,
+                              end => $tmp_end,
+                              strand => $row->{'strand'},
+                              type => 'up_flank',
+                              parent => $parent,
+                              child => "up_flank_" . $child
+                          );
                     push(@gff, \%up);
+                    }
                 }
                 if ($flank_lengths[1] != 0) {
                  my %down = (seq_id => $row->{'seq_id'},
@@ -1092,6 +1213,7 @@ sub label {
             };
         };
     };
+    if (scalar(@gff) == 0) { die "GFF file (${input_gff}) has no features\n" };
 
     #I'm going to break this into two GFF files
     my @plus_features = grep { $_->{'strand'} eq '+' } @gff;
@@ -1177,7 +1299,9 @@ sub label {
       my $feat_end = 0; #make sure it doesn't fail in first iteration
       my $feat_start;
       my $var = undef;
+      my $skipper = '_balrog_'; #if I have overlap, this determines which parent to skip
     FEATURES: for my $feat (@plus_sub_features) {
+          next FEATURES if ($feat->{'parent'} eq $skipper);
         if ($parent ne $feat->{'parent'}) {
             $parent_pos = 0;
             $coding_pos = 0;
@@ -1194,9 +1318,9 @@ sub label {
             last FEATURES if (! defined($var));
         } elsif ($feat_end > $feat->{'start'}) {
             #This means we are in the same parent and have overlap, not good
-                $death = 1;
-                print "ERROR: Features overlap within same parent\n";
-                last CONTIGS;
+                $skipper = $feat->{'parent'};
+                print "WARNING: Features overlap within same parent, skipping $feat->{'parent'}\n";
+                next FEATURES;
         };
         $feat_start = $feat->{'start'};
         $feat_end = $feat->{'end'};
@@ -1256,10 +1380,11 @@ sub label {
       my $var = undef;
         my $feat_start = 100000000; #make sure it doesn't fail on first iteration
         my $feat_end;
+         my $skipper = '_balrog_';
     FEATURES: for my $feat (@minus_sub_features) {
         #For whatever reason, the above sorting can create an empty
         #entry in my hash, so I need to add this caveat
-        next FEATURES if(! defined($feat->{'parent'}));
+        next FEATURES if($feat->{'parent'} eq $skipper);
         if ($parent ne $feat->{'parent'}) {
             $parent_pos = 0;
             $coding_pos = 0;
@@ -1278,9 +1403,9 @@ sub label {
             };
             last FEATURES if (! defined($var));
         } elsif ($feat_start < $feat->{'end'}) {
-            print "ERROR: Features overlap within same parent\n";
-                $death = 1;
-                last CONTIGS;
+            $skipper = $feat->{'parent'};
+            print "WARNING: Features overlap within the same parent, skipping $feat->{'parent'}\n";
+            next FEATURES;
         };
         $feat_start = $feat->{'start'};
         $feat_end = $feat->{'end'};
