@@ -14,18 +14,9 @@ use inc::Module::Install;
 use ExtUtils::AutoInstall(
     -core => [
         'autodie' => '',
-<<<<<<< HEAD
         'Bio::SeqIO' => '',
         'Bio::Seq' => '',
         'Bio::DB::Fasta' => '',
-=======
-        'Bio::DB::SeqFeature' => '',
-        'Bio::SeqIO' => '',
-        'Bio::Seq' => '',
-        'Bio::SeqFeature::Generic' => '',
-        'Bio::DB::Fasta' => '',
-        'Bio::DB::SeqFeature' => '',
->>>>>>> upstream/dklimes-master
         'Bio::Tools::CodonTable' => '',
         'Bio::Matrix::IO' => '',
         'Cwd' => '',
@@ -56,58 +47,18 @@ WriteMakefile(
     AUTHOR => 'Daniel Klimes <daniel.s.klimes@gmail.com>',
     VERSION_FROM => 'lib/Bio/Dantools.pm',
     ABSTRACT => 'dantools: Utilities to compare disparate genomes',
-<<<<<<< HEAD
-<<<<<<< HEAD
     EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl', 'script/aligner.sh', 'script/postprocess.sh'],
-=======
-    EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl', 'share/aligner.sh', 'share/postprocess.sh'],
->>>>>>> upstream/dklimes-master
     META_MERGE => {
         'meta-spec' => { version => 2 },
         resources => {
             repository => {
                 type => 'git',
-                url => 'https://github.com/dklimes/dantools.git',
+                url => 'https://github.com/elsayed-lab/dantools.git',
             },
             bugtracker => {
-                web => 'https://github.com/dklimes/dantools/issues',
+                web => 'https://github.com/elsayed-lab/dantools/issues',
             },
-            homepage => 'https://github.com/dklimes/dantools.git',
+            homepage => 'https://github.com/elsayed-lab/dantools.git',
         },
     },
 );
-<<<<<<< HEAD
-=======
-    PREREQ_PM => {
-        'autodie' => '0',
-        'Bio::DB::SeqFeature' => '0',
-        'Bio::SeqIO' => '0',
-        'Bio::Seq' => '0',
-        'Bio::SeqFeature::Generic' => '0',
-        'Bio::DB::Fasta' => '0',
-        'Bio::DB::SeqFeature' => '0',
-        'Bio::Tools::CodonTable' => '0',
-        'Bio::Matrix::IO' => '0',
-        'Cwd' => '0',
-        'FileHandle' => '0',
-        'FindBin' => '0',
-        'File::Basename' => '0',
-        'File::Copy' => '0',
-        'File::Path' => '0',
-	'File::ShareDir' => '0',
-	'File::Slurp' => '0',
-        'File::Spec' => '0',
-        'File::Which' => '0',
-        'Getopt::Long' => '0',
-        'List::Util' => '0',
-        'Parallel::ForkManager' => '0',
-        'POSIX' => '0',
-	'String::Diff' => '0',
-	'Test::More' => '0',
-        'Text::CSV_XS::TSV' => '0'
-
-    }
-    )
->>>>>>> upstream/master
-=======
->>>>>>> upstream/dklimes-master
