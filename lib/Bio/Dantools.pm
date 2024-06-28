@@ -16,10 +16,8 @@ use POSIX qw"floor ceil";
 use Text::CSV_XS::TSV;
 
 use Bio::DB::Fasta;
-use Bio::DB::SeqFeature;
 use Bio::Matrix::IO;
 use Bio::Seq;
-use Bio::SeqFeature::Generic;
 use Bio::SeqIO;
 use Bio::Tools::CodonTable;
 
