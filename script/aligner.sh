@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trap "exit" SIGINT
+trap "exit 2" 2
 
 #Parse my arguments
 base=''
@@ -57,6 +57,10 @@ while [ -n "$1" ]; do
             var_fraction="$2"
             shift 1
             ;;
+        --var_depth)
+            var_depth="$2"
+            shift 1
+            ;;
         -t)
             threads="$2"
             shift 1
@@ -80,9 +84,9 @@ mkdir it"$it"
 
 if [ ! "$it" -eq 0 ]; then
     error=$(bcftools consensus -f "$base" -o it"$it"/"$output_name"_it"$it".fasta it"$itp"/variants.bcf 2>&1)
-    error=$(echo "$error" | grep -v 'Applied' | grep -v 'Note: the --sample')
+    error=$(echo "$error" | grep -v 'Applied' | grep -v 'Note: the --sample' | grep -v 'overlaps')
     if [ -n "$error" ]; then
-        echo "$error"
+         "$error" 1>&2
     fi
 
     base=it"$it"/"$output_name"_it"$it".fasta
@@ -130,7 +134,7 @@ fi
 error=$(samtools sort -l 9 -O BAM -@ "$threads" -o it"$it"/sorted.bam it"$it"/raw.sam 2>&1)
 error=$(echo "$error" | grep -v 'merging from')
 if [ -n "$error" ]; then
-    echo "$error"
+    echo "$error" 1>&2
 fi
 
 samtools index it"$it"/sorted.bam
@@ -140,7 +144,7 @@ rm it"$it"/raw.sam
 #Process substitution doesn't work in shell, so I need to create my
 #regions file separately
 fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
-freebayes-parallel it"$it"/freebayes_regions.tmp 8 -f "$base" --min-alternate-fraction "$var_fraction" it"$it"/sorted.bam > it"$it"/variants.vcf
+freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
 rm it"$it"/freebayes_regions.tmp
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf
