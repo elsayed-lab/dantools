@@ -25,10 +25,6 @@ $SIG{'INT'} = sub {
     exit;
 };
 
-my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
-for my $bin (@needed) {
-    die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
-};
 my $outdir = getcwd();
 mkdir('tmp_danfiles');
 #The purpose of this test is to examine the output of my dantools

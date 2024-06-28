@@ -1,17 +1,17 @@
 #!/usr/bin/env perl
-
+use lib "$FindBin::Bin/../lib";
 use strict;
 use warnings;
-use FindBin;
-use File::Basename;
-use File::Path qw(make_path);
-use File::Spec;
-use File::Which;
-use lib "$FindBin::Bin/../lib";
-use Bio::Dantools;
+
 use autodie;
 use Cwd qw"abs_path cwd getcwd";
+use File::Basename;
+use File::Path qw"make_path";
+use File::Spec;
+use File::Which;
+use FindBin;
 use Getopt::Long;
+use Bio::Dantools;
 
 #Set up my interrupt trap
 BEGIN {
@@ -19,7 +19,6 @@ BEGIN {
         exit(1);
     };
 }
-
 
 #Figure out which method was passed
 my $method = shift;
@@ -39,8 +38,6 @@ if (! defined($method)) {
 
 #This is the whole pseudogenome worker
 if ($method eq 'pseudogen') {
-
-    my $gff = '';
     my $base; #The genome I'll be aligning against
     my $base_fai = ''; #.fai indexes for my reference, not required
     my $base_idx = ''; #.ht2 reference indexes, not required
@@ -56,12 +53,14 @@ if ($method eq 'pseudogen') {
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
     my $output_name = '';
     my $keepers = 'all';
+    my $nocap = 0;
     my $outdir = '';
     my $threads = 1;
     my $bin_size = 10000;
     my $var_fraction = 0.501;
+    my $var_depth = 2;
     my $help = 0;
-    my $scoremin = 'L,0,-1.50';
+    my $scoremin = 'L,0,-1.0';
     GetOptions(
         "base|b=s" => \$base,
         "fai=s" => \$base_fai,
@@ -74,30 +73,35 @@ if ($method eq 'pseudogen') {
         "min-length=s" => \$min_length,
         "overlap=f" => \$overlap,
         "min-var=i" => \$min_variants,
+        "no-cap" => \$nocap,
         "output-name=s" => \$output_name,
         "keep|k=s" => \$keepers,
         "outdir=s" => \$outdir,
         "threads|t=i" => \$threads,
         "bin-size=i" => \$bin_size,
         "var-fraction=f" => \$var_fraction,
+        "var-depth=i" => \$var_depth,
         "score-min=s" => \$scoremin,
         "fragment=s" => \$fragment,
         "help|h" => \$help
         ) or die "Error in Parsing Arguments";
 
     #Checking input arguments and setting them manually for some
-    if ("$help" == 1) {
+    $help = 1 if (! defined($base));
+
+    if ($help == 1) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
         while (<$helpdoc>) { print $_ };
         exit;
-    };
+    }
 
     #The first thing I need to do is check to make sure all of my
     #required binaries like hisat2 are loaded
-    my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
+    my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools',
+                  'freebayes-parallel', 'stretcher');
     for my $bin (@needed) {
         die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
-    };
+    }
 
     if ("$outdir" eq '') {
         $outdir = getcwd;
@@ -118,22 +122,22 @@ if ($method eq 'pseudogen') {
     #Figure out what "source_type" was brought in, which should make
     #downstream tools not always have to check this:
     if ("$source" ne '') {
-        die "Error reading input source file $source" if (! -e "$source");
+        die "Error reading input source file $source" if (! -e $source);
         $input_type = 'fasta';
         $source = File::Spec->rel2abs($source);
         if ("$output_name" eq '') {
             $output_name = basename($source, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
         }
     } elsif ("$readsu" ne '') {
-        die "Error reading input reads $readsu" if (! -e "$readsu");
+        die "Error reading input reads $readsu" if (! -e $readsu);
         $input_type = 'fastq_u'; #unpaired fastq
         $readsu = File::Spec->rel2abs($readsu);
         if ("$output_name" eq '') {
             $output_name = basename($readsu, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
         }
-    } elsif (("$reads1" ne '') & ("$reads2" ne '')) {
-        die "Error reading input reads $reads1" if (! -e "$reads1");
-        die "Error reading input reads $reads2" if (! -e "$reads2");
+    } elsif (($reads1 ne '') && ($reads2 ne '')) {
+        die "Error reading input reads $reads1" if (! -e $reads1);
+        die "Error reading input reads $reads2" if (! -e $reads2);
         $input_type = 'fastq_p'; #paired fastq
         $reads1 = File::Spec->rel2abs($reads1);
         $reads2 = File::Spec->rel2abs($reads2);
@@ -141,6 +145,11 @@ if ($method eq 'pseudogen') {
             $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
         }
     }
+
+    if (("$nocap" == 1) & ("$input_type" ne 'fasta')) {
+        print STDERR "WARNING: Argument 'no-cap' only applies to FASTA inputs\n";
+    };
+
     Bio::Dantools::pseudogen(base => "$base",
                              fai => "$base_fai",
                              base_idx => "$base_idx",
@@ -154,12 +163,14 @@ if ($method eq 'pseudogen') {
                              min_length => "$min_length",
                              overlap => "$overlap",
                              min_variants => "$min_variants",
+                             nocap => "$nocap",
                              keepers => "$keepers",
                              output_name => "$output_name",
                              outdir => "$outdir",
                              threads => "$threads",
                              bin_size => "$bin_size",
                              var_fraction => "$var_fraction",
+                             var_depth => "$var_depth",
                              scoremin => "$scoremin"
         );
 } elsif ("$method" eq 'fragment') {
@@ -183,7 +194,7 @@ if ($method eq 'pseudogen') {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/fragment.help");
         while (<$helpdoc>) { print $_ };
         exit;
-    };
+    }
     if (! -r "$input") {
         die "ERROR: couldn't read $input";
     }
@@ -194,8 +205,8 @@ if ($method eq 'pseudogen') {
                             overlap => "$overlap",
                             min_length => "$min_length",
                             logfile => "$log",
-                            threads => "$threads"
-        );
+                            threads => "$threads",
+                        );
 
 
 } elsif ("$method" eq 'phylo') {
@@ -286,7 +297,7 @@ if ($method eq 'pseudogen') {
         } elsif (scalar(@tmp) > 2) {
             die "Only two flank lengths are supported, e.g. 200,200";
         }
-    };
+    }
 
     #If someone doesn't tell me what to add flanks to, I will try to
     #figure it out if they pass only a single feature to annotate
@@ -296,11 +307,11 @@ if ($method eq 'pseudogen') {
         } else {
             die "ERROR: add-flanks specified but no flank feature provided\n";
         };
-    };
+    }
 
     if (! defined($flank_parent)) {
         $flank_parent = $parent_name
-    };
+    }
 
     Bio::Dantools::label(vcf => "$vcf",
                          gff => "$gff",
@@ -320,8 +331,8 @@ if ($method eq 'pseudogen') {
                          score_matrix => "$score_matrix",
                          output_aa => "$output_aa",
                          outdir => "$outdir",
-                         tmpdir => "$tmpdir"
-        );
+                         tmpdir => "$tmpdir",
+                     );
 
 } elsif ("$method" eq 'transloc') {
     print "Sorry, this method is still in development";
@@ -336,14 +347,14 @@ if ($method eq 'pseudogen') {
         "input|i=s" => \$input,
         "output|o=s" => \$output,
         "tmpdir=s" => \$tmpdir,
-        "depths|d=s" => \$depths
+        "depths|d=s" => \$depths,
     );
 
     Bio::Dantools::vcf_maker(
         input => "$input",
         output => "$output",
         tmpdir => "$tmpdir",
-        depths => "$depths"
+        depths => "$depths",
     );
 
 
@@ -356,7 +367,7 @@ if ($method eq 'pseudogen') {
         "vcf|v=s" => \$vcf,
         "gff|f=s" => \$gff,
         "output|o=s" => \$output,
-        "help|h" => \$help
+        "help|h" => \$help,
         );
     if (! defined($vcf)) { $help = 1 };
     if (! defined($gff)) { $help = 1 };
@@ -375,7 +386,7 @@ if ($method eq 'pseudogen') {
     Bio::Dantools::gff_shifter(
         gff => "$gff",
         vcf => "$vcf",
-        output => "$output"
+        output => "$output",
     );
 
 } elsif ("$method" eq 'summarize-aa') {
@@ -391,7 +402,7 @@ if ($method eq 'pseudogen') {
         "vars|v=s" => \$input_vars,
         "output|o=s" => \$output,
         "outframe-score=s" => \$outscore,
-        "help|h=s" => \$help
+        "help|h=s" => \$help,
     );
     if (! defined($input_vars)) {
         $input_vars = $ARGV[0];
@@ -413,7 +424,7 @@ if ($method eq 'pseudogen') {
     Bio::Dantools::summarize_aa(
         input_vars => "$input_vars",
         output => "$output",
-        outscore => "$outscore"
+        outscore => "$outscore",
         );
 } elsif ("$method" eq 'summarize-depth') {
     my $input_depth;
@@ -428,7 +439,7 @@ if ($method eq 'pseudogen') {
         "depth|d=s" => \$input_depth,
         "feature=s" => \$feature,
         "parent=s" => \$parent,
-        "help" => \$help
+        "help" => \$help,
         );
     if (! defined($input_depth)) { $help = 1 };
     if (! defined($input_gff)) { $help = 1 };
@@ -457,9 +468,8 @@ if ($method eq 'pseudogen') {
         input_depth => "$input_depth",
         output => "$output",
         parent => "$parent",
-        feature => "$feature"
+        feature => "$feature",
         );
 } else {
     die "Method $method not found\n";
 }
-;

@@ -14,9 +14,18 @@ use inc::Module::Install;
 use ExtUtils::AutoInstall(
     -core => [
         'autodie' => '',
+<<<<<<< HEAD
         'Bio::SeqIO' => '',
         'Bio::Seq' => '',
         'Bio::DB::Fasta' => '',
+=======
+        'Bio::DB::SeqFeature' => '',
+        'Bio::SeqIO' => '',
+        'Bio::Seq' => '',
+        'Bio::SeqFeature::Generic' => '',
+        'Bio::DB::Fasta' => '',
+        'Bio::DB::SeqFeature' => '',
+>>>>>>> upstream/dklimes-master
         'Bio::Tools::CodonTable' => '',
         'Bio::Matrix::IO' => '',
         'Cwd' => '',
@@ -48,7 +57,11 @@ WriteMakefile(
     VERSION_FROM => 'lib/Bio/Dantools.pm',
     ABSTRACT => 'dantools: Utilities to compare disparate genomes',
 <<<<<<< HEAD
+<<<<<<< HEAD
     EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl', 'script/aligner.sh', 'script/postprocess.sh'],
+=======
+    EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl', 'share/aligner.sh', 'share/postprocess.sh'],
+>>>>>>> upstream/dklimes-master
     META_MERGE => {
         'meta-spec' => { version => 2 },
         resources => {
@@ -63,6 +76,7 @@ WriteMakefile(
         },
     },
 );
+<<<<<<< HEAD
 =======
     PREREQ_PM => {
         'autodie' => '0',
@@ -95,3 +109,5 @@ WriteMakefile(
     }
     )
 >>>>>>> upstream/master
+=======
+>>>>>>> upstream/dklimes-master
