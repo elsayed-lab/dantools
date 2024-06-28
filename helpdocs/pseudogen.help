@@ -23,21 +23,25 @@ Output options:
 
 Fragmentation options (only with FASTA inputs):
   -l, --lengths   a comma-separated list of fragment lengths to employ
-                  (default: 200,10000)
+                  (default: 200,1000,10000)
   --fragment      whether to fragment input fasta file, yes or no (default:
                   "yes")
   --min-length    minimum base length of fragment to be used (default: 20)
   --overlap       integer indicating percent overlap of adjacent fragments
-                  (default: 75)
+                  (default: 90)
 
 Alignment/Variant options:
   --score-min     the input to the HISAT2 score-min function, which governs
                   minimum the
-                  alignment score for a successful alignment (default: L,0,-1.50)
+                  alignment score for a successful alignment (default: L,0,-1.0)
   --var-fraction  the fraction of alleles that must agree to call a variant
                   (default: 0.501)
+  --var-depth     minimum number of alignments that need to agree with
+                  alternate allele to be considered (default: 2)
   --min-var       the minimum number of variants an iteration needs to call to
                   justify another iteration (default: 100)
+  --no-cap        do not terminate alignment of FASTA fragments after a scaled
+                  alignment of 100%
 
 Other options:
   -t, --threads   the number of parallel threads to run (default: 1)

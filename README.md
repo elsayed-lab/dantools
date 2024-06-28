@@ -81,6 +81,7 @@ makefile to perform some of its tasks:
 - [Freebayes](https://github.com/freebayes/freebayes)
 - [samtools](https://github.com/samtools/samtools)
 - [bcftools](https://github.com/samtools/bcftools)
+- [emboss](http://emboss.open-bio.org/html/use/ch02s07.html)
 
 ## Usage
 

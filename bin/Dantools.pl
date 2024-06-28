@@ -39,8 +39,6 @@ if (! defined($method)) {
 
 #This is the whole pseudogenome worker
 if ($method eq 'pseudogen') {
-
-    my $gff = '';
     my $base; #The genome I'll be aligning against
     my $base_fai = ''; #.fai indexes for my reference, not required
     my $base_idx = ''; #.ht2 reference indexes, not required
@@ -56,12 +54,14 @@ if ($method eq 'pseudogen') {
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
     my $output_name = '';
     my $keepers = 'all';
+    my $nocap = 0;
     my $outdir = '';
     my $threads = 1;
     my $bin_size = 10000;
     my $var_fraction = 0.501;
+    my $var_depth = 2;
     my $help = 0;
-    my $scoremin = 'L,0,-1.50';
+    my $scoremin = 'L,0,-1.0';
     GetOptions(
         "base|b=s" => \$base,
         "fai=s" => \$base_fai,
@@ -74,18 +74,21 @@ if ($method eq 'pseudogen') {
         "min-length=s" => \$min_length,
         "overlap=f" => \$overlap,
         "min-var=i" => \$min_variants,
+        "no-cap" => \$nocap,
         "output-name=s" => \$output_name,
         "keep|k=s" => \$keepers,
         "outdir=s" => \$outdir,
         "threads|t=i" => \$threads,
         "bin-size=i" => \$bin_size,
         "var-fraction=f" => \$var_fraction,
+        "var-depth=i" => \$var_depth,
         "score-min=s" => \$scoremin,
         "fragment=s" => \$fragment,
         "help|h" => \$help
         ) or die "Error in Parsing Arguments";
-
     #Checking input arguments and setting them manually for some
+    if (! defined($base)) { $help = 1 };
+
     if ("$help" == 1) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
         while (<$helpdoc>) { print $_ };
@@ -141,6 +144,11 @@ if ($method eq 'pseudogen') {
             $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
         }
     }
+
+    if (("$nocap" == 1) & ("$input_type" ne 'fasta')) {
+        print STDERR "WARNING: Argument 'no-cap' only applies to FASTA inputs\n";
+    };
+
     Bio::Dantools::pseudogen(base => "$base",
                              fai => "$base_fai",
                              base_idx => "$base_idx",
@@ -154,12 +162,14 @@ if ($method eq 'pseudogen') {
                              min_length => "$min_length",
                              overlap => "$overlap",
                              min_variants => "$min_variants",
+                             nocap => "$nocap",
                              keepers => "$keepers",
                              output_name => "$output_name",
                              outdir => "$outdir",
                              threads => "$threads",
                              bin_size => "$bin_size",
                              var_fraction => "$var_fraction",
+                             var_depth => "$var_depth",
                              scoremin => "$scoremin"
         );
 } elsif ("$method" eq 'fragment') {

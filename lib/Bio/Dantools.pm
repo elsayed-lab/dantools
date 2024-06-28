@@ -32,7 +32,7 @@ BEGIN {
     $SIG{'INT'} = sub {
         exit(1);
     };
-}
+};
 
 =head1 NAME
 
@@ -151,8 +151,10 @@ sub pseudogen {
     my $output_name = $args{'output_name'};
     my $threads = $args{'threads'};
     my $var_fraction = $args{'var_fraction'};
+    my $var_depth = $args{'var_depth'};
     my $outdir = $args{'outdir'};
     my $min_variants = $args{'min_variants'};
+    my $nocap = $args{'nocap'};
     my $scoremin = $args{'scoremin'};
     my $bin_size = $args{'bin_size'};
     my $source = $args{'source'};
@@ -183,71 +185,31 @@ sub pseudogen {
 
     #Creating my metadata file
     my $meta = FileHandle->new("> metadata.tsv");
+    my $aln_scaled = 0;
     if (("$input_type" eq 'fasta')) {
         print $meta "Base\tSource\tIteration\tAlignment\tScale_Alignment\tVariants\n";
     } else {
         print $meta "Base\tSource\tIteration\tAlignment\tVariants\n";
     }
 
-    until (("$var_count" < "$min_variants") & ("$it" != 0)) {
+    until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
         #Determine which aligner scheme to run based on input type
         if (("$input_type" eq 'fasta') & ("$fragment" eq 'yes')) {
-            system("bash", "$aligner",
-                   '-b', "$base",
-                   '--fai', "$fai",
-                   '--indexes', "$base_idx",
-                   '-i', "$it",
-                   '--output_name', "$output_name",
-                   '--source', "fragments.fasta",
-                   '-t', "$threads",
-                   '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type",
-                   '--scoremin', "$scoremin"
-                );
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$source", ('.fasta'));
+
         } elsif (("$input_type" eq 'fasta') & ("$fragment" eq 'no')) {
-            system("bash", "$aligner",
-                   '-b', "$base",
-                   '--fai', "$fai",
-                   '--indexes', "$base_idx",
-                   '-i', "$it",
-                   '--output_name', "$output_name",
-                   '--source', "$source",
-                   '-t', "$threads",
-                   '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type",
-                   '--scoremin', "$scoremin"
-                );
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$source", ('.fasta.'));
+
         } elsif (("$input_type" eq 'fastq_u')) {
-            system("bash", "$aligner",
-                   '-b', "$base",
-                   '--fai', "$fai",
-                   '--indexes', "$base_idx",
-                   '-i', "$it",
-                   '--output_name', "$output_name",
-                   '--readsu', "$readsu",
-                   '-t', "$threads",
-                   '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type",
-                   '--scoremin', "$scoremin"
-                );
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$readsu", ('.fastq'));
+
         } elsif (("$input_type" eq 'fastq_p')) {
-            system("bash", "$aligner",
-                   '-b', "$base",
-                   '--fai', "$fai",
-                   '--indexes', "$base_idx",
-                   '-i', "$it",
-                   '--output_name', "$output_name",
-                   '--reads1', "$reads1",
-                   '--reads2', "$reads2",
-                   '-t', "$threads",
-                   '--var_fraction', "$var_fraction",
-                   '--input_type', "$input_type",
-                   '--scoremin', "$scoremin"
-                );
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$reads1", ('.fastq'));
+
         }
 
         #The above should have just produced everything I need to
@@ -281,7 +243,6 @@ sub pseudogen {
                 $aln =~ tr /%//d;
             }
       }
-        my $aln_scaled = $aln * 2;
 
         my $vcf = FileHandle->new("< it$it/variants.vcf");
         $var_count = 0;
@@ -290,9 +251,12 @@ sub pseudogen {
           $var_count++;
       }
         if (("$input_type" eq 'fasta')) {
+            $aln_scaled = $aln * 2;
             print $meta basename($og_base, ('.fasta')) . "\t" . "$input_name\t" . "$it\t" . "$aln\t" . "$aln_scaled\t" . "$var_count\n";
+            if ("$nocap" == 1) { $aln_scaled = 0 };
       } else {
           print $meta basename($og_base, ('.fasta')) . "\t" . "$input_name\t" . "$it\t" . "$aln\t" . "$var_count\n";
+          $aln_scaled = 0;
       }
 
         $base_idx = "it$it/indexes/$output_name" . "_it$it";
@@ -438,67 +402,12 @@ sub pseudogen {
     my $alt_ends = join(',', @alt_ends);
     my $breaks = join(',', @breaks);
 
-    if (("$input_type" eq 'fasta') & ("$fragment" eq 'yes')) {
-        system("bash", "$postprocessor",
-               "--ref", "$og_base",
-               "--alt", "output/$output_name.fasta",
-               "--outdir", "$outdir",
-               "--output_name", "$output_name",
-               "--contigs", "$contigs",
-               "--ref_ends", "$ref_ends",
-               "--alt_ends", "$alt_ends",
-               "--breaks", "$breaks",
-               "--aln", "it$it/alignment.bam",
-               "--threads", "$threads",
-               "--source", "fragments.fasta",
-               "--input_type", "$input_type"
-            );
-    } elsif (("$input_type" eq 'fasta') & ("$fragment" eq 'no')) {
-        system("bash", "$postprocessor",
-               "--ref", "$og_base",
-               "--alt", "output/$output_name.fasta",
-               "--outdir", "$outdir",
-               "--output_name", "$output_name",
-               "--contigs", "$contigs",
-               "--ref_ends", "$ref_ends",
-               "--alt_ends", "$alt_ends",
-               "--breaks", "$breaks",
-               "--aln", "it$it/alignment.bam",
-               "--threads", "$threads",
-               "--source", "$source",
-               "--input_type", "$input_type"
-            );
+    if (("$input_type" eq 'fasta')) {
+        my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --source fragments.fasta --input_type $input_type";
     } elsif (("$input_type" eq 'fastq_u')) {
-        system("bash", "$postprocessor",
-               "--ref", "$og_base",
-               "--alt", "output/$output_name.fasta",
-               "--outdir", "$outdir",
-               "--output_name", "$output_name",
-               "--contigs", "$contigs",
-               "--ref_ends", "$ref_ends",
-               "--alt_ends", "$alt_ends",
-               "--breaks", "$breaks",
-               "--aln", "it$it/alignment.bam",
-               "--threads", "$threads",
-               "--readsu", "$readsu",
-               "--input_type", "$input_type"
-            );
+               my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --readsu $readsu --input_type $input_type";
     } elsif (("$input_type" eq 'fastq_p')) {
-        system("bash", "$postprocessor",
-               "--ref", "$og_base",
-               "--alt", "output/$output_name.fasta",
-               "--outdir", "$outdir",
-               "--output_name", "$output_name",
-               "--contigs", "$contigs",
-               "--ref_ends", "$ref_ends",
-               "--alt_ends", "$alt_ends",
-               "--breaks", "$breaks",
-               "--aln", "it$it/alignment.bam",
-               "--threads", "$threads",
-               "--reads1", "$reads1",
-               "--reads2", "$reads2",
-               "--input_type", "$input_type"
-            );
+        my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --reads1 $reads1 --reads2 $reads2 --input_type $input_type";
     }
 
     my $file_idx = 0;
@@ -552,7 +461,12 @@ sub pseudogen {
         unlink(('original_bins.tsv',
                 'original_base.fasta.fai',
                 'fragments.fasta',
-               'fragment_log.txt'));
+                'fragment_log.txt'));
+        for my $file (('original_bins.tsv', 'original_base.fasta.fai', 'fragments.fasta', 'fragment_log.txt')) {
+            if (-e "$file") {
+                unlink("$file");
+            }
+        };
     }
 
     #This used to automatically generate a new GFF and label the vcf,
@@ -673,7 +587,7 @@ sub bin_shifter {
     close($vcf_fh);
 
     #Importantly I don't sort this. That's because if I do, it's going
-    #to sort it in a different way from my original. In dantools
+    #to sort it in a nnnndifferent way from my original. In dantools
     #pseudogen, the vcf and bins should always be sorted the same anyway
     my $contig;
     my @contigs;
@@ -906,7 +820,7 @@ sub vcf_maker {
 
 sub gff_shifter {
     my %args = @_;
-    my $starts = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
+    my @starts;
     my $gff_fh = FileHandle->new("$args{'gff'}");
     my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($gff_fh, "<:encoding(utf8)", "$args{'gff'}");
@@ -920,39 +834,35 @@ sub gff_shifter {
           push @heading, $row->{'contig'};
           next READ_GFF;
       };
-      my $score;
-      if($row->{'score'} eq '.') {
-          $score = 123456;
-      };
+
       #For shifting logic, I will create two structures and sort them independently
-      $feat = Bio::SeqFeature::Generic->new(
-          -seq_id => $row->{'contig'},
-          -start => $row->{'start'},
-          -end => $row->{'end'},
-          -strand => $row->{'strand'},
-          -primary_tag => $row->{'type'},
-          -score => $score,
-          -source_tag => $row->{'source'},
-          -tag => {phase => $row->{'phase'},
-                   attributes => $row->{'attributes'},
-                   gff_id => $gff_id
-          });
-      $starts->store($feat);
+      my %hash = (
+          seq_id => $row->{'contig'},
+          start => $row->{'start'},
+          end => $row->{'end'},
+          strand => $row->{'strand'},
+          type => $row->{'type'},
+          score => $row->{'score'},
+          source => $row->{'source'},
+          phase => $row->{'phase'},
+          attributes => $row->{'attributes'},
+          gff_id => $gff_id
+ );
+      push(@starts, \%hash);
       $gff_id++;
   }
     close($gff_fh);
     #Sorting each DB
-    my @starts_db = $starts->features;
-    my @ends_db = @starts_db; #These are identical until I sort them:
-    @starts_db = sort {
-        $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
-    } @starts_db;
-    @ends_db = sort {
-        $a->seq_id cmp $b->seq_id || $a->end <=> $b->end
-    } @ends_db;
+    my @ends = @starts; #These are identical until I sort them:
+    @starts = sort {
+        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'start'} <=> $b->{'start'}
+    } @starts;
+    @ends = sort {
+        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'end'} <=> $b->{'end'}
+    } @ends;
 
     my $vcf_fh = FileHandle->new("$args{'vcf'}");
-    my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
+    my @vcf;
     my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($vcf_fh, "<:encoding(utf8)", "$args{'vcf'}") or die "Can't open VCF file";
     $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'info');
@@ -960,27 +870,25 @@ sub gff_shifter {
     #Load in my VCF features and add them to a DB:
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if ($row->{'contig'} =~ /^#/);
-        next if (! defined($row->{'alternate'}));
+        next if (! defined($row->{'info'}));
         my $shift = length($row->{'alternate'}) - length($row->{'reference'});
         next if $shift == 0;
-        my $feat = Bio::SeqFeature::Generic->new(
-            -seq_id => $row->{'contig'},
-            -start => $row->{'position'},
-            -end => $row->{'position'},
-            -strand => 1,
-            -tag => { ref => $row->{'reference'},
-                      alt => $row->{'alernate'},
-                      shift => $shift
-            }
+        my %hash = (
+            seq_id => $row->{'contig'},
+            pos => $row->{'position'},
+            strand => $row->{'strand'},
+            ref => $row->{'ref'},
+            alt => $row->{'alt'},
+            shift => $shift
             );
-        $vcf->store($feat);
+
+        push(@vcf, \%hash);
     }
     close($vcf_fh);
 
-    my @vcf_db = $vcf->features;
-    @vcf_db = sort {
-        $a->seq_id cmp $b->seq_id || $a->start <=> $b->start
-    } @vcf_db;
+    @vcf = sort {
+        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'pos'} <=> $b->{'pos'}
+    } @vcf;
 
     my $gff_out;
     if ("$args{'output'}" eq 'NO_OUTPUT_PROVIDED') {
@@ -989,7 +897,7 @@ sub gff_shifter {
         $gff_out = FileHandle->new("> $args{'output'}");
     }
 
-    if (scalar @vcf_db == 0) {
+    if (scalar @vcf == 0) {
         print STDERR "No indels in the VCF file, copying\n";
         $gff_fh = FileHandle->new("$args{'gff'}");
         while (<$gff_fh>) { print $gff_out $_ };
@@ -999,7 +907,6 @@ sub gff_shifter {
     my $contig;
     my $idx = 0;
   HEADER: foreach my $line (@heading) {
-      my @shift;
       if (index($line, 'sequence-region') == -1) {
           print $gff_out $line, "\n";
           next HEADER;
@@ -1008,10 +915,9 @@ sub gff_shifter {
           my @line = split / /, $line;
           my $length = $line[3];
           $contig = $line[1];
-          while (my $row = $vcf_db["$idx"]) {
-              last if ($contig ne $row->seq_id);
-              @shift = $row->get_tag_values('shift');
-              $length = $length + $shift[0];
+          while (my $row = $vcf["$idx"]) {
+              last if ($contig ne $row->{'seq_id'});
+              $length = $length + $row->{'shift'};
               $idx++;
           };
           print $gff_out "##sequence-region " . "$contig " . "1 " . "$length\n";
@@ -1020,27 +926,27 @@ sub gff_shifter {
 
     my $gff_row;
     my $gff_index = 0;
-    my $shifted_starts = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
-    my $shifted_ends = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
+    my @shifted_starts;
+    my @shifted_ends;
 
     my $shiftsum = 0;
-    my @shift = 0;
+    my $shift = 0;
     my $varpos = 0;
     my $var_contig = '';
     my @seen_contigs = '';
     my $vcf_row;
     my $feat_start;
     $idx = 0;
-  STARTS: while ($gff_row = $starts_db["$gff_index"]) {
-      $contig = $gff_row->seq_id;
-      $feat_start = $gff_row->start;
+  STARTS: while ($gff_row = $starts["$gff_index"]) {
+      $contig = $gff_row->{'seq_id'};
+      $feat_start = $gff_row->{'start'};
       if (! grep /$contig/, @seen_contigs) {
           $shiftsum = 0;
           push @seen_contigs, $contig;
-          @shift = 0;
+          $shift = 0;
       };
-    START_SHIFT: while ($vcf_row = $vcf_db["$idx"]) {
-        my $tmp_contig = $vcf_row->seq_id;
+    START_SHIFT: while ($vcf_row = $vcf["$idx"]) {
+        my $tmp_contig = $vcf_row->{'seq_id'};
         if ($contig ne $tmp_contig) {
             if (! grep /$tmp_contig/, @seen_contigs) {
                 #Means this variant is on the next contig
@@ -1051,47 +957,47 @@ sub gff_shifter {
                 next START_SHIFT;
             }
         }
-        if ($feat_start < $vcf_row->start) {
+        if ($feat_start < $vcf_row->{'pos'}) {
             last START_SHIFT;
         }
         #If we get here, it means the variant is on the right
         #chromosome and upstream of our feature
-        @shift = $vcf_row->get_tag_values('shift');
-        $varpos = $vcf_row->start; #kept for later logic
-        $shiftsum = $shiftsum + $shift[0];
-        $var_contig = $vcf_row->seq_id;
+        $shift = $vcf_row->{'shift'};
+        $varpos = $vcf_row->{'pos'}; #kept for later logic
+        $shiftsum = $shiftsum + $shift;
+        $var_contig = $vcf_row->{'seq_id'};
         $idx++;
     };
       #Now I should have collected the proper shiftsum:
-      if (($varpos - $shift[0] > $feat_start) & ($var_contig eq $contig) & ($idx != 0)) {
-          $gff_row->start($varpos + $shiftsum - $shift[0]);
+      if (($varpos - $shift > $feat_start) & ($var_contig eq $contig) & ($idx != 0)) {
+          $gff_row->{'start'} = $varpos + $shiftsum - $shift;
       } else {
-          $gff_row->start($feat_start + $shiftsum);
+          $gff_row->{'start'} = $shiftsum + $feat_start;
       };
-      $shifted_starts->store($gff_row);
+      push(@shifted_starts, $gff_row);
       $gff_index++;
   };
 
     #Now I need to repeat this with my end positions, which requires
     #resetting my variables:
     $shiftsum = 0;
-    @shift = 0;
+    $shift = 0;
     $varpos = 0;
     $var_contig = '';
     @seen_contigs = '';
     $gff_index = 0;
     $idx = 0;
     my $feat_end;
-  ENDS: while ($gff_row = $ends_db["$gff_index"]) {
-      $contig = $gff_row->seq_id;
-      $feat_end = $gff_row->end;
+  ENDS: while ($gff_row = $ends["$gff_index"]) {
+      $contig = $gff_row->{'seq_id'};
+      $feat_end = $gff_row->{'end'};
       if (! grep /$contig/, @seen_contigs) {
           $shiftsum = 0;
           push @seen_contigs, $contig;
-          @shift = 0;
+          $shift = 0;
       };
-    END_SHIFT: while ($vcf_row = $vcf_db["$idx"]) {
-        my $tmp_contig = $vcf_row->seq_id;
+    END_SHIFT: while ($vcf_row = $vcf["$idx"]) {
+        my $tmp_contig = $vcf_row->{'seq_id'};
         if ($contig ne $tmp_contig) {
             if (! grep /$tmp_contig/, @seen_contigs) {
                 #Means this variant is on the next contig
@@ -1102,74 +1008,50 @@ sub gff_shifter {
                 next END_SHIFT;
             }
         }
-        if ($feat_end < $vcf_row->start) {
+        if ($feat_end < $vcf_row->{'pos'}) {
             last END_SHIFT;
         }
         #If we get here, it means the variant is on the right
         #chromosome and upstream of our feature
-        @shift = $vcf_row->get_tag_values('shift');
-        $varpos = $vcf_row->start; #kept for later logic
-        $shiftsum = $shiftsum + $shift[0];
-        $var_contig = $vcf_row->seq_id;
+        $shift = $vcf_row->{'shift'};
+        $varpos = $vcf_row->{'pos'}; #kept for later logic
+        $shiftsum = $shiftsum + $shift;
+        $var_contig = $vcf_row->{'seq_id'};
         $idx++;
     };
       #Now I should have collected the proper shiftsum:
-      if (($varpos - $shift[0] > $feat_end) & ($var_contig eq $contig) & ($idx != 0)) {
-          $gff_row->end($varpos + $shiftsum - $shift[0]);
+      if (($varpos - $shift > $feat_end) & ($var_contig eq $contig) & ($idx != 0)) {
+          $gff_row->{'end'} = $varpos + $shiftsum - $shift;
       } else {
-          $gff_row->end($feat_end + $shiftsum);
+          $gff_row->{'end'} = $feat_end + $shiftsum;
       };
-      $shifted_ends->store($gff_row);
+      push(@shifted_ends, $gff_row);
       $gff_index++;
   };
 
     #Now I need to sort each database according to its tag value
     #"gff_id":
-    @starts_db = sort {
-        my @pos1 = $a->get_tag_values('gff_id');
-        my @pos2 = $b->get_tag_values('gff_id');
-        if ($pos1[0] < $pos2[0]) { return -1; }
-        elsif ($pos1[0] == $pos2[0]) { return 0; }
-        else { return 1; };
-    } @starts_db;
-    @ends_db = sort {
-        my @pos1 = $a->get_tag_values('gff_id');
-        my @pos2 = $b->get_tag_values('gff_id');
-        if ($pos1[0] < $pos2[0]) { return -1; }
-        elsif ($pos1[0] == $pos2[0]) { return 0; }
-        else { return 1; };
-    } @ends_db;
+    @shifted_starts = sort {
+        $a->{'gff_id'} <=> $b->{'gff_id'}
+    } @shifted_starts;
+    @shifted_ends = sort {
+        $a->{'gff_id'} <=> $b->{'gff_id'}
+    } @shifted_ends;
+
 
     #Now these should each be back to their original sorting and
     #identical in all but positions:
     $idx = 0;
-    while ($gff_row = $starts_db["$idx"]) {
-        my @phase = $gff_row->get_tag_values('phase');
-        my $phase = $phase[0];
-        my @attributes = $gff_row->get_tag_values('attributes');
-        my $attributes = $attributes[0];
-        my $strand = $gff_row->strand;
-        my $score = $gff_row->score;
-        my $tmp_row = $ends_db["$idx"];
-        if ($strand == 1) {
-            $strand = '+';
-        } else {
-            $strand = '-';
-        }
-        if ($score == 123456) {
-            $score = '.';
-        }
-        my $start = $gff_row->start;
-        my $end = $ends_db["$idx"]->end;
-        print $gff_out $gff_row->seq_id . "\t" .
-            $gff_row->source_tag . "\t" .
-            $gff_row->primary_tag . "\t" .
-            $start . "\t" .
-            $end . "\t" .
-            $score . "\t" .
-            $strand . "\t" .
-            $phase . "\t" .
-            $attributes . "\n";
+    while ($gff_row = $shifted_starts["$idx"]) {
+        print $gff_out $gff_row->{'seq_id'} . "\t" .
+            $gff_row->{'source'} . "\t" .
+            $gff_row->{'type'} . "\t" .
+            $gff_row->{'start'} . "\t" .
+            $shifted_ends[$idx]->{'end'} . "\t" .
+            $gff_row->{'score'} . "\t" .
+            $gff_row->{'strand'} . "\t" .
+            $gff_row->{'phase'} . "\t" .
+            $gff_row->{'attributes'} . "\n";
         $idx++;
     }
 };
@@ -1318,7 +1200,6 @@ sub label {
 
     #Now that I've loaded my GFF I want to load my VCF.
     my $vcf_fh = FileHandle->new("$input_vcf");
-    #my $vcf = Bio::DB::SeqFeature::Store->new(-adaptor => 'memory');
     my @vcf;
     my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     $vcf_tsv->column_names('seq_id', 'pos', 'index', 'ref', 'alt', 'qual', 'filter', 'info');

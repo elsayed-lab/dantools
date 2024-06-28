@@ -142,3 +142,4 @@ seq 0 "$lim" | while read idx; do
         fi
     ) &
 done
+wait
