@@ -223,7 +223,7 @@ if ($method eq 'pseudogen') {
     my $add_flanks = 'no';
     my $flank_lengths = '200,200';
     my $flank_feature = '';
-    my $flank_parent = '';
+    my $flank_parent;
     #If they want it translated, they need the following:
     my $translate = 'no';
     my $coding_feature = 'CDS';
