@@ -15,6 +15,8 @@ Commands:
 
     summarize-aa      summarize amino acid mutations for each feature
 
+    summarize-nuc     summarize nucleotide mutations for each feature
+
     summarize-depth   summarize the depth for features
 
     help              print this help message

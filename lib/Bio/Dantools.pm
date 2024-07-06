@@ -14,6 +14,7 @@ use List::Util qw"max min sum";
 use Parallel::ForkManager;
 use POSIX qw"floor ceil";
 use Text::CSV_XS::TSV;
+use Data::Dumper;
 
 use Bio::DB::Fasta;
 use Bio::Matrix::IO;
@@ -1790,13 +1791,9 @@ sub label {
 
 sub summarize_aa {
     my %args = @_;
-    my $input_gff = $args{'input_gff'};
-    my $input_depth = $args{'input_depth'};
     my $input_vars = $args{'input_vars'};
     my $input_vars_fh = FileHandle->new("$input_vars");
     my $output;
-    my $parent_name = $args{'parent'};
-    my $feature_type = $args{'feature'};
     my $outscore = $args{'outscore'};
     if ($args{'output'} ne 'NO_OUTPUT_PROVIDED') {
         $output = FileHandle->new("> $args{'output'}");
@@ -1805,65 +1802,143 @@ sub summarize_aa {
         $output = *STDOUT;
     }
 
-    my @vars_db;
-    my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
-    $vars_tsv->column_names('seq_id', 'parent', 'codon', 'ref', 'alt', 'vars', 'type', 'frame', 'score', 'scaled_score');
-    while (my $row = $vars_tsv->getline_hr($input_vars_fh)) {
-        next if $row->{'seq_id'} =~ /^#/;
-        my %hash = (
-            seq_id => $row->{'seq_id'},
-            parent => $row->{'parent'},
-            ref => $row->{'ref'},
-            alt => $row->{'alt'},
-            type => $row->{'type'},
-            frame => $row->{'frame'},
-            score => $row->{'score'},
-            scaled_score => $row->{'scaled_score'}
-        );
-        push (@vars_db, \%hash);
-    }
     my $total_score = 0;
     my $total_sscore = 0;
     my $num_vars = 0;
     my $num_indels = 0;
     my $num_outframe = 0;
-    my $parent = $vars_db[0]->{'parent'};
-    my @feat_vars;
+    my $parent = '';
+    my %all_data;
+    my @parent_keys;
 
     print $output "#PARENT\tNUM_VARS\tSCORE\tSCALED_SCORE\tINDELS\tNUM_INFRAME\tNUM_OUTFRAME\n";
 
-  VARS: for my $entry (@vars_db) {
-        if ("$parent" ne $entry->{'parent'}) {
-            print $output
-                "$parent", "\t",
-                "$num_vars", "\t",
-                "$total_score", "\t",
-                "$total_sscore", "\t",
-                "$num_indels", "\t",
-                ($num_indels - $num_outframe), "\t",
-                "$num_outframe", "\n";
+    my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $vars_tsv->column_names('seq_id', 'parent', 'codon', 'ref', 'alt', 'vars', 'type', 'frame', 'score', 'scaled_score');
+  VARS: while (my $entry = $vars_tsv->getline_hr($input_vars_fh)) {
+          next if $entry->{'seq_id'} =~ /^#/;
 
-            $total_score = 0;
-            $total_sscore = 0;
-            $num_vars = 0;
-            $num_indels = 0;
-            $num_outframe = 0;
-            $parent = $entry->{'parent'};
+          if ("$parent" ne $entry->{'parent'}) {
+              $parent = $entry->{'parent'};
+              if (! exists($all_data{"$parent"})) {
+                  $all_data{"$parent"} = {
+                      num_vars => 0,
+                      total_score => 0,
+                      total_sscore => 0,
+                      num_indels => 0,
+                      num_outframe => 0
+                  };
+                  push (@parent_keys, $parent);
+              }
         }
-        ;
-        $num_vars++;
-        if ($entry->{'type'} ne 'point') {
-            $num_indels++;
+          $all_data{"$parent"}{'num_vars'}++;
+          if ($entry->{'type'} ne 'point') {
+            $all_data{"$parent"}{'num_indels'}++;
             if ($entry->{'frame'} eq 'out') {
-                $num_outframe++;
-                $total_score = $total_score + $outscore;
-                $total_sscore = $total_sscore + $outscore;
-                next VARS;
+                $all_data{"$parent"}{'num_outframe'}++;
+                $all_data{"$parent"}{'total_score'} += $outscore;
+                $all_data{"$parent"}{'total_sscore'} += $outscore;
+                next VARS; #need to move because score of @ is NA
             }
         }
-        $total_score = $total_score + $entry->{'score'};
-        $total_sscore = $total_sscore + $entry->{'scaled_score'};
+          $all_data{"$parent"}{'total_score'} += $entry->{'score'};
+          $all_data{"$parent"}{'total_sscore'} += $entry->{'scaled_score'};
+      }
+
+    for my $i (@parent_keys) {
+        print $output
+            $i, "\t",
+            $all_data{"$i"}{'num_vars'}, "\t",
+            $all_data{"$i"}{'total_score'}, "\t",
+            $all_data{"$i"}{'total_sscore'}, "\t",
+            $all_data{"$i"}{'num_indels'}, "\t",
+            $all_data{"$i"}{'num_indels'} - $all_data{"$i"}{'num_outframe'}, "\t",
+            $all_data{"$i"}{'num_outframe'}, "\n";
     }
+}
+
+#The amino acid summarize is great, but especially for flank sequences
+#I think it would be good to have a summarize-nuc function. This will
+#be very similar, almost identical to the summarize_aa function
+
+sub summarize_nuc {
+    my %args = @_;
+    my $input_vars = $args{'input_vars'};
+    my $input_vars_fh = FileHandle->new("$input_vars");
+    my $output;
+    if ($args{'output'} ne 'NO_OUTPUT_PROVIDED') {
+        $output = FileHandle->new("> $args{'output'}");
+    } else {
+        $output = *STDOUT;
+    }
+
+    my $feat_vars = 0;
+    my $up_flank_vars = 0;
+    my $down_flank_vars = 0;
+    my $feat_indels = 0;
+    my $up_flank_indels = 0;
+    my $down_flank_indels = 0;
+    my $parent = ''; #can't be matched
+    my @parent_keys; #keep track of the order of my keys
+
+    my %all_data;
+    my %single_data = (
+        feat_vars => 0,
+        up_flank_vars => 0,
+        down_flank_vars => 0,
+        feat_indels => 0,
+        up_flank_indels => 0,
+        down_flank_indels =>  0
+        );
+
+    print $output "#PARENT\tFEAT_VARS\tUP_FLANK_VARS\tDOWN_FLANK_VARS\tFEAT_INDELS\tUP_FLANK_INDELS\tDOWN_FLANK_INDELS\n";
+
+    my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    $vars_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'parent', 'child', 'type', 'strand', 'pos_parent', 'pos_child', 'pos_coding', 'depth');
+
+  VARS: while (my $entry = $vars_tsv->getline_hr($input_vars_fh)) {
+        next if $entry->{'seq_id'} =~ /^#/;
+
+        if ("$parent" ne $entry->{'parent'}) {
+            $parent = $entry->{'parent'};
+            if (! exists($all_data{"$parent"})) {
+                $all_data{"$parent"} = {
+                    feat_vars => 0,
+                    up_flank_vars => 0,
+                    down_flank_vars => 0,
+                    feat_indels => 0,
+                    up_flank_indels => 0,
+                    down_flank_indels =>  0
+                };
+                push(@parent_keys, $parent);
+            }
+
+        }
+
+        if ($entry->{'type'} eq 'up_flank') {
+            $all_data{"$parent"}{'up_flank_vars'}++;
+            $all_data{"$parent"}{'up_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+        } elsif ($entry->{'type'} eq 'down_flank') {
+            $all_data{"$parent"}{'down_flank_vars'}++;
+            $all_data{"$parent"}{'down_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+        } else {
+            $all_data{"$parent"}{'feat_vars'}++;
+            $all_data{"$parent"}{'feat_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+        }
+    }
+
+    #Now to print out the output I've built up
+    for my $i (@parent_keys) {
+        print $output
+            $i, "\t",
+            $all_data{"$i"}{'feat_vars'}, "\t",
+            $all_data{"$i"}{'up_flank_vars'}, "\t",
+            $all_data{"$i"}{'down_flank_vars'}, "\t",
+            $all_data{"$i"}{'feat_indels'}, "\t",
+            $all_data{"$i"}{'up_flank_indels'}, "\t",
+            $all_data{"$i"}{'down_flank_indels'}, "\n",
+    }
+
 }
 
 sub summarize_depth {
