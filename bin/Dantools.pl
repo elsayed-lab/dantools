@@ -89,7 +89,7 @@ if ($method eq 'pseudogen') {
     #Checking input arguments and setting them manually for some
     if (! defined($base)) { $help = 1 };
 
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
         while (<$helpdoc>) { print $_ };
         exit;
@@ -189,7 +189,7 @@ if ($method eq 'pseudogen') {
         "help|h" => \$help
         );
     my $input = $ARGV[0];
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/fragment.help");
         while (<$helpdoc>) { print $_ };
         exit;
@@ -257,7 +257,7 @@ if ($method eq 'pseudogen') {
         );
     if (! defined($vcf)) { $help = 1 };
     if (! defined($gff)) { $help = 1 };
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/label.help");
         while (<$helpdoc>) { print $_ };
         exit;
@@ -370,7 +370,7 @@ if ($method eq 'pseudogen') {
         );
     if (! defined($vcf)) { $help = 1 };
     if (! defined($gff)) { $help = 1 };
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/shift.help");
         while (<$helpdoc>) { print $_ };
         exit;
@@ -390,10 +390,6 @@ if ($method eq 'pseudogen') {
 
 } elsif ("$method" eq 'summarize-aa') {
     my $input_vars;
-    my $input_depth;
-    my $input_gff;
-    my $feature = 'CDS';
-    my $parent = 'Parent';
     my $output = 'NO_OUTPUT_PROVIDED';
     my $outscore = 0; #score assigned to out of frame mutations
     my $help = 0;
@@ -401,7 +397,7 @@ if ($method eq 'pseudogen') {
         "vars|v=s" => \$input_vars,
         "output|o=s" => \$output,
         "outframe-score=s" => \$outscore,
-        "help|h=s" => \$help
+        "help|h" => \$help
     );
     if (! defined($input_vars)) {
         $input_vars = $ARGV[0];
@@ -409,7 +405,7 @@ if ($method eq 'pseudogen') {
     if (! defined($input_vars)) {
         $help = 1;
     }
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/summarize-aa.help");
         while (<$helpdoc>) { print $_ };
         exit;
@@ -425,6 +421,40 @@ if ($method eq 'pseudogen') {
         output => "$output",
         outscore => "$outscore"
         );
+} elsif ("$method" eq 'summarize-nuc') {
+    my $input_vars;
+    my $output = 'NO_OUTPUT_PROVIDED';
+    my $help = 0;
+    GetOptions(
+        "vars|v=s" => \$input_vars,
+        "output|o=s" => \$output,
+        "help|h" => \$help
+    );
+    if (! defined($input_vars)) {
+        $input_vars = $ARGV[0]
+    }
+    if (! defined($input_vars)) {
+        $help = 1;
+    }
+
+    if ($help) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/summarize-nuc.help");
+        while (<$helpdoc>) { print$_ };
+        exit;
+    }
+
+    if (! -e $input_vars) {
+        die "Input variant file does not exit\n";
+    }  elsif (! -r $input_vars) {
+        die "Input variant file is read-protected\n"
+    }
+
+    Bio::Dantools::summarize_nuc(
+        input_vars => "$input_vars",
+        output => "$output"
+        );
+
+
 } elsif ("$method" eq 'summarize-depth') {
     my $input_depth;
     my $input_gff;
@@ -443,7 +473,7 @@ if ($method eq 'pseudogen') {
     if (! defined($input_depth)) { $help = 1 };
     if (! defined($input_gff)) { $help = 1 };
 
-    if ("$help" == 1) {
+    if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/summarize-depth.help");
         while (<$helpdoc>) { print $_ };
         exit;

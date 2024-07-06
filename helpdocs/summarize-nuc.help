@@ -1,0 +1,8 @@
+Usage: dantools summarize-nuc [options] labeled_nuc.tsv
+Summarize the nucleotide  mutations of dantools label
+
+Options:
+  -v, --vcf            An alternative way to input the labeled tsv, as
+                       opposed to the command input
+  -o, --output         A file to write the output to
+  -h, --help           Print this help message
