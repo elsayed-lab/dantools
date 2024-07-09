@@ -1632,7 +1632,7 @@ sub label {
     $labeled_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'parent', 'child', 'type', 'strand', 'rel_parent', 'rel_child', 'rel_coding', 'depth');
     while (my $row = $labeled_tsv->getline_hr($labeled_fh)) {
         next if($row->{'seq_id'} =~ /^#/);
-        next if($row->{'type'} ne "$coding_feature"); #Catch potentially empty line
+        next if($row->{'type'} ne "$coding_feature");
         my $codon = int(($row->{'rel_coding'} - 1) / 3) + 1;
         my $codon_pos = (($row->{'rel_coding'} - 1) % 3) + 1;
         my %hash = (seq_id => $row->{'seq_id'},
@@ -1650,6 +1650,15 @@ sub label {
         $a->{'parent'} cmp $b->{'parent'} ||
             $a->{'rel_coding'} <=> $b->{'rel_coding'}
         } @labeled_vars;
+
+    #Important (but weird). The way the below code works is by
+    #accumulating data and only printing when its onto the next
+    #variant. This means the last variant isn't printed. As such, I
+    #will add a dumby variable to the end of my @labeled_vars that
+    #will not get printed
+    my %hash = (seq_id => 'foobar', ref => 'foobar', alt => 'foobar', parent => $labeled_vars[0]->{'parent'}, rel_parent => 0, rel_coding => 0, codon => 1, codon_pos => 1);
+    push (@labeled_vars, \%hash);
+
     my $var_idx = 0;
     my $ref_codon = '';
     my $alt_codon;
@@ -1665,6 +1674,7 @@ sub label {
 
     my $outaa = FileHandle->new("> ${output_aa}");
     print $outaa "#CHROM\tPARENT\tCODON\tREF\tALT\tVARS\tTYPE\tFRAME\tSCORE\tSCALED_SCORE\n";
+
   CODONS: while (my $var = $labeled_vars[$var_idx]) {
         #If I'm still on the same codon:
         if (($codon_num eq $var->{'codon'}) & ($parent eq $var->{'parent'})) {
