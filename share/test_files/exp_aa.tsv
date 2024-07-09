@@ -40,7 +40,7 @@ LmjF.01	LmjF.01.0010:mRNA	307	H	R	A920G	point	in	0	-8
 LmjF.01	LmjF.01.0010:mRNA	315	M	I	G945A	point	in	1	-4
 LmjF.01	LmjF.01.0010:mRNA	318	S	SI	C954CATC	ins	in	2	-6
 LmjF.01	LmjF.01.0010:mRNA	321	T	S	A961T	point	in	1	-4
-LmjF.01	LmjF.01.0020:mRNA	329	S	S	T987C	point	in	4	0
+LmjF.01	LmjF.01.0010:mRNA	329	S	S	T987C	point	in	4	0
 LmjF.01	LmjF.01.0020:mRNA	7	V	A	T20C	point	in	0	-4
 LmjF.01	LmjF.01.0020:mRNA	8	L	L	A24G	point	in	4	0
 LmjF.01	LmjF.01.0020:mRNA	21	V	L	G61C	point	in	1	-3
@@ -108,7 +108,7 @@ LmjF.01	LmjF.01.0020:mRNA	516	L	L	C1548T	point	in	4	0
 LmjF.01	LmjF.01.0020:mRNA	521	K	K	G1563A	point	in	5	0
 LmjF.01	LmjF.01.0020:mRNA	524	S	S	C1572T	point	in	4	0
 LmjF.01	LmjF.01.0020:mRNA	527	L	L	T1581C	point	in	4	0
-LmjF.01	LmjF.01.0030:mRNA	549	E	D	A1647C	point	in	2	-3
+LmjF.01	LmjF.01.0020:mRNA	549	E	D	A1647C	point	in	2	-3
 LmjF.01	LmjF.01.0030:mRNA	27	C	S	T79A	point	in	-1	-10
 LmjF.01	LmjF.01.0030:mRNA	28	A	S	G82T	point	in	1	-3
 LmjF.01	LmjF.01.0030:mRNA	43	P	P	A129G	point	in	7	0
@@ -170,7 +170,7 @@ LmjF.01	LmjF.01.0030:mRNA	634	K	K	A1902G	point	in	5	0
 LmjF.01	LmjF.01.0030:mRNA	646	E	D	G1938C	point	in	2	-3
 LmjF.01	LmjF.01.0030:mRNA	649	D	D	C1947T	point	in	6	0
 LmjF.01	LmjF.01.0030:mRNA	657	D	S	G1969A,A1970G	point	in	0	-6
-LmjF.01	LmjF.01.0040:mRNA	669	*	Q	T2005C	point	in	-4	-5
+LmjF.01	LmjF.01.0030:mRNA	669	*	Q	T2005C	point	in	-4	-5
 LmjF.01	LmjF.01.0040:mRNA	9	A	A	G27C	point	in	4	0
 LmjF.01	LmjF.01.0040:mRNA	16	S	S	A48G	point	in	4	0
 LmjF.01	LmjF.01.0040:mRNA	18	P	P	A54T	point	in	7	0
@@ -192,7 +192,7 @@ LmjF.01	LmjF.01.0040:mRNA	136	A	D	C407A	point	in	-2	-6
 LmjF.01	LmjF.01.0040:mRNA	146	T	A	A436G	point	in	0	-5
 LmjF.01	LmjF.01.0040:mRNA	170	N	N	C510T	point	in	6	0
 LmjF.01	LmjF.01.0040:mRNA	183	A	V	C548T	point	in	0	-4
-LmjF.01	LmjF.01.0050:mRNA	187	C	*	C561A	point	in	-4	-13
+LmjF.01	LmjF.01.0040:mRNA	187	C	*	C561A	point	in	-4	-13
 LmjF.01	LmjF.01.0050:mRNA	12	A	A	C36T	point	in	4	0
 LmjF.01	LmjF.01.0050:mRNA	19	C	C	T57C	point	in	9	0
 LmjF.01	LmjF.01.0050:mRNA	34	A	A	T102C	point	in	4	0
@@ -259,7 +259,7 @@ LmjF.01	LmjF.01.0050:mRNA	654	T	T	T1962C	point	in	5	0
 LmjF.01	LmjF.01.0050:mRNA	657	D	D	T1971C	point	in	6	0
 LmjF.01	LmjF.01.0050:mRNA	658	S	S	C1974T	point	in	4	0
 LmjF.01	LmjF.01.0050:mRNA	659	E	E	G1977A	point	in	5	0
-LmjF.01	LmjF.01.0060:mRNA	661	L	L	G1983A	point	in	4	0
+LmjF.01	LmjF.01.0050:mRNA	661	L	L	G1983A	point	in	4	0
 LmjF.01	LmjF.01.0060:mRNA	2	R	R	G6C	point	in	5	0
 LmjF.01	LmjF.01.0060:mRNA	3	R	R	A9G	point	in	5	0
 LmjF.01	LmjF.01.0060:mRNA	5	P	P	A15G	point	in	7	0
@@ -299,7 +299,7 @@ LmjF.01	LmjF.01.0060:mRNA	223	G	G	G669A	point	in	6	0
 LmjF.01	LmjF.01.0060:mRNA	225	A	A	A675G	point	in	4	0
 LmjF.01	LmjF.01.0060:mRNA	245	N	K	C735A	point	in	0	-6
 LmjF.01	LmjF.01.0060:mRNA	249	A	A	G747C	point	in	4	0
-LmjF.01	LmjF.01.0070:mRNA	250	*	*	G750A	point	in	1	0
+LmjF.01	LmjF.01.0060:mRNA	250	*	*	G750A	point	in	1	0
 LmjF.01	LmjF.01.0070:mRNA	2	S	S	T6C	point	in	4	0
 LmjF.01	LmjF.01.0070:mRNA	7	L	V	C19G	point	in	1	-3
 LmjF.01	LmjF.01.0070:mRNA	10	V	V	A30G	point	in	4	0
@@ -417,7 +417,7 @@ LmjF.01	LmjF.01.0070:mRNA	574	D	G	A1721G	point	in	-1	-7
 LmjF.01	LmjF.01.0070:mRNA	586	A	A	G1758A	point	in	4	0
 LmjF.01	LmjF.01.0070:mRNA	588	M	V	A1762G	point	in	1	-4
 LmjF.01	LmjF.01.0070:mRNA	593	E	E	G1779A	point	in	5	0
-LmjF.01	LmjF.01.0080:mRNA	598	V	V	A1794G	point	in	4	0
+LmjF.01	LmjF.01.0070:mRNA	598	V	V	A1794G	point	in	4	0
 LmjF.01	LmjF.01.0080:mRNA	8	T	A	A22G	point	in	0	-5
 LmjF.01	LmjF.01.0080:mRNA	10	V	V	G30A	point	in	4	0
 LmjF.01	LmjF.01.0080:mRNA	15	A	S	G43T	point	in	1	-3
@@ -443,7 +443,7 @@ LmjF.01	LmjF.01.0080:mRNA	181	I	V	A541G	point	in	3	-1
 LmjF.01	LmjF.01.0080:mRNA	183	R	R	G549C	point	in	5	0
 LmjF.01	LmjF.01.0080:mRNA	211	L	L	C633T	point	in	4	0
 LmjF.01	LmjF.01.0080:mRNA	217	S	S	A651G	point	in	4	0
-LmjF.01	LmjF.01.0090:mRNA	230	N	S	A689G	point	in	1	-5
+LmjF.01	LmjF.01.0080:mRNA	230	N	S	A689G	point	in	1	-5
 LmjF.01	LmjF.01.0090:mRNA	2	T	P	A4C	point	in	-1	-6
 LmjF.01	LmjF.01.0090:mRNA	3	T	S	A7T	point	in	1	-4
 LmjF.01	LmjF.01.0090:mRNA	15	A	T	G43A,A45C	point	in	0	-4
@@ -484,7 +484,7 @@ LmjF.01	LmjF.01.0090:mRNA	240	Y	Y	C720T	point	in	7	0
 LmjF.01	LmjF.01.0090:mRNA	252	P	S	C754T	point	in	-1	-8
 LmjF.01	LmjF.01.0090:mRNA	257	T	A	A769G	point	in	0	-5
 LmjF.01	LmjF.01.0090:mRNA	259	C	G	T775G	point	in	-3	-12
-LmjF.01	LmjF.01.0100:mRNA	264	T	A	A790G	point	in	0	-5
+LmjF.01	LmjF.01.0090:mRNA	264	T	A	A790G	point	in	0	-5
 LmjF.01	LmjF.01.0100:mRNA	2	R	R	A6G	point	in	5	0
 LmjF.01	LmjF.01.0100:mRNA	4	S	S	T12C	point	in	4	0
 LmjF.01	LmjF.01.0100:mRNA	7	M	I	G21T	point	in	1	-4
@@ -521,7 +521,7 @@ LmjF.01	LmjF.01.0100:mRNA	277	S	S	A831G	point	in	4	0
 LmjF.01	LmjF.01.0100:mRNA	289	L	L	C867G	point	in	4	0
 LmjF.01	LmjF.01.0100:mRNA	306	T	T	T918C	point	in	5	0
 LmjF.01	LmjF.01.0100:mRNA	329	F	F	T987C	point	in	6	0
-LmjF.01	LmjF.01.0110:mRNA	336	A	A	A1008G	point	in	4	0
+LmjF.01	LmjF.01.0100:mRNA	336	A	A	A1008G	point	in	4	0
 LmjF.01	LmjF.01.0110:mRNA	4	F	F	C12T	point	in	6	0
 LmjF.01	LmjF.01.0110:mRNA	7	R	R	C21A	point	in	5	0
 LmjF.01	LmjF.01.0110:mRNA	13	V	V	G39A	point	in	4	0
@@ -546,7 +546,7 @@ LmjF.01	LmjF.01.0110:mRNA	116	S	S	A348G	point	in	4	0
 LmjF.01	LmjF.01.0110:mRNA	157	L	L	C469T	point	in	4	0
 LmjF.01	LmjF.01.0110:mRNA	176	S	G	A526G	point	in	0	-4
 LmjF.01	LmjF.01.0110:mRNA	187	S	G	A559G	point	in	0	-4
-LmjF.01	LmjF.01.0120:mRNA	192	D	D	C576T	point	in	6	0
+LmjF.01	LmjF.01.0110:mRNA	192	D	D	C576T	point	in	6	0
 LmjF.01	LmjF.01.0120:mRNA	4	A	D	C11A	point	in	-2	-6
 LmjF.01	LmjF.01.0120:mRNA	5	S	P	T13C	point	in	-1	-5
 LmjF.01	LmjF.01.0120:mRNA	6	G	G	G18A	point	in	6	0
@@ -709,7 +709,7 @@ LmjF.01	LmjF.01.0120:mRNA	642	V	S	G1924T,T1925C	point	in	-2	-6
 LmjF.01	LmjF.01.0120:mRNA	643	G	R	G1927A	point	in	-2	-8
 LmjF.01	LmjF.01.0120:mRNA	647	F	L	T1939C	point	in	0	-6
 LmjF.01	LmjF.01.0120:mRNA	654	N	D	A1960G	point	in	1	-5
-LmjF.01	LmjF.01.0130:mRNA	657	C	W	C1971G	point	in	-2	-11
+LmjF.01	LmjF.01.0120:mRNA	657	C	W	C1971G	point	in	-2	-11
 LmjF.01	LmjF.01.0130:mRNA	4	R	R	A12G	point	in	5	0
 LmjF.01	LmjF.01.0130:mRNA	5	G	E	G14A	point	in	-2	-8
 LmjF.01	LmjF.01.0130:mRNA	6	S	S	C18T	point	in	4	0
@@ -779,12 +779,12 @@ LmjF.01	LmjF.01.0130:mRNA	377	P	P	G1131T	point	in	7	0
 LmjF.01	LmjF.01.0130:mRNA	379	W	R	T1135A	point	in	-3	-14
 LmjF.01	LmjF.01.0130:mRNA	387	V	V	G1161A	point	in	4	0
 LmjF.01	LmjF.01.0130:mRNA	396	S	S	T1188G	point	in	4	0
-LmjF.01	LmjF.01.0140:mRNA	397	R	R	C1191T	point	in	5	0
+LmjF.01	LmjF.01.0130:mRNA	397	R	R	C1191T	point	in	5	0
 LmjF.01	LmjF.01.0140:mRNA	50	K	K	G150A	point	in	5	0
 LmjF.01	LmjF.01.0140:mRNA	72	V	V	C216A	point	in	4	0
 LmjF.01	LmjF.01.0140:mRNA	75	T	T	T225C	point	in	5	0
 LmjF.01	LmjF.01.0140:mRNA	80	R	R	A240G	point	in	5	0
-LmjF.01	LmjF.01.0150:mRNA	83	*	*	G248A	point	in	1	0
+LmjF.01	LmjF.01.0140:mRNA	83	*	*	G248A	point	in	1	0
 LmjF.01	LmjF.01.0150:mRNA	2	V	A	T5C	point	in	0	-4
 LmjF.01	LmjF.01.0150:mRNA	12	M	L	A34C	point	in	2	-3
 LmjF.01	LmjF.01.0150:mRNA	18	I	I	C54T	point	in	4	0
@@ -796,14 +796,14 @@ LmjF.01	LmjF.01.0150:mRNA	75	E	E	G225A	point	in	5	0
 LmjF.01	LmjF.01.0150:mRNA	98	L	L	A294G	point	in	4	0
 LmjF.01	LmjF.01.0150:mRNA	101	D	D	C303T	point	in	6	0
 LmjF.01	LmjF.01.0150:mRNA	105	R	R	C315A	point	in	5	0
-LmjF.01	LmjF.01.0160:mRNA	109	E	K	G325A	point	in	1	-4
+LmjF.01	LmjF.01.0150:mRNA	109	E	K	G325A	point	in	1	-4
 LmjF.01	LmjF.01.0160:mRNA	4	V	A	T11C	point	in	0	-4
 LmjF.01	LmjF.01.0160:mRNA	34	F	F	T102C	point	in	6	0
 LmjF.01	LmjF.01.0160:mRNA	36	V	V	A108G	point	in	4	0
 LmjF.01	LmjF.01.0160:mRNA	44	S	S	T132C	point	in	4	0
 LmjF.01	LmjF.01.0160:mRNA	49	K	R	A146G	point	in	2	-3
 LmjF.01	LmjF.01.0160:mRNA	50	Q	Q	A150G	point	in	5	0
-LmjF.01	LmjF.01.0170:mRNA	74	G	S	G220A	point	in	0	-6
+LmjF.01	LmjF.01.0160:mRNA	74	G	S	G220A	point	in	0	-6
 LmjF.01	LmjF.01.0170:mRNA	15	S	S	C45G	point	in	4	0
 LmjF.01	LmjF.01.0170:mRNA	16	S	Y	A46T,G47A	point	in	-2	-6
 LmjF.01	LmjF.01.0170:mRNA	17	N	N	T51C	point	in	6	0
@@ -902,7 +902,7 @@ LmjF.01	LmjF.01.0170:mRNA	429	E	V	A1286T	point	in	-2	-7
 LmjF.01	LmjF.01.0170:mRNA	432	Q	K	C1294A	point	in	1	-4
 LmjF.01	LmjF.01.0170:mRNA	443	S	G	A1327G	point	in	0	-4
 LmjF.01	LmjF.01.0170:mRNA	445	L	F	C1333T	point	in	0	-4
-LmjF.01	LmjF.01.0180:mRNA	458	L	L	T1372C	point	in	4	0
+LmjF.01	LmjF.01.0170:mRNA	458	L	L	T1372C	point	in	4	0
 LmjF.01	LmjF.01.0180:mRNA	11	T	M	C32T	point	in	-1	-6
 LmjF.01	LmjF.01.0180:mRNA	19	EAG	G	GAGGCGG55G	del	in	4	-11
 LmjF.01	LmjF.01.0180:mRNA	22	A	A	T66G	point	in	4	0
@@ -981,7 +981,7 @@ LmjF.01	LmjF.01.0180:mRNA	739	D	D	C2217T	point	in	6	0
 LmjF.01	LmjF.01.0180:mRNA	746	R	C	C2236T	point	in	-3	-8
 LmjF.01	LmjF.01.0180:mRNA	747	E	E	G2241A	point	in	5	0
 LmjF.01	LmjF.01.0180:mRNA	750	Q	R	A2249G,G2250T	point	in	1	-4
-LmjF.01	LmjF.01.0190:mRNA	752	G	E	G2255A	point	in	-2	-8
+LmjF.01	LmjF.01.0180:mRNA	752	G	E	G2255A	point	in	-2	-8
 LmjF.01	LmjF.01.0190:mRNA	16	S	S	C48T	point	in	4	0
 LmjF.01	LmjF.01.0190:mRNA	28	A	A	A84G	point	in	4	0
 LmjF.01	LmjF.01.0190:mRNA	40	V	A	T119C	point	in	0	-4
@@ -1004,7 +1004,7 @@ LmjF.01	LmjF.01.0190:mRNA	150	G	G	C450T	point	in	6	0
 LmjF.01	LmjF.01.0190:mRNA	185	R	R	C555T	point	in	5	0
 LmjF.01	LmjF.01.0190:mRNA	190	G@	G	GTAGCGGTC569G	del	out	NA	NA
 LmjF.01	LmjF.01.0190:mRNA	194	G	A	G581C	point	in	0	-6
-LmjF.01	LmjF.01.0200:mRNA	195	A	T	G583A	point	in	0	-4
+LmjF.01	LmjF.01.0190:mRNA	195	A	T	G583A	point	in	0	-4
 LmjF.01	LmjF.01.0200:mRNA	23	A	A	A69G	point	in	4	0
 LmjF.01	LmjF.01.0200:mRNA	50	A	A	G150C	point	in	4	0
 LmjF.01	LmjF.01.0200:mRNA	51	V	V	A153G	point	in	4	0
@@ -1028,7 +1028,7 @@ LmjF.01	LmjF.01.0200:mRNA	236	V	A	T707C	point	in	0	-4
 LmjF.01	LmjF.01.0200:mRNA	237	L	L	T711C	point	in	4	0
 LmjF.01	LmjF.01.0200:mRNA	254	A	T	G760A	point	in	0	-4
 LmjF.01	LmjF.01.0200:mRNA	265	E	R	G793A,A794G	point	in	0	-5
-LmjF.01	LmjF.01.0210:mRNA	267	*	G	T799G,A801G	point	in	-4	-5
+LmjF.01	LmjF.01.0200:mRNA	267	*	G	T799G,A801G	point	in	-4	-5
 LmjF.01	LmjF.01.0210:mRNA	9	Q	Q	A27G	point	in	5	0
 LmjF.01	LmjF.01.0210:mRNA	13	A	A	C39G	point	in	4	0
 LmjF.01	LmjF.01.0210:mRNA	17	A	A	G51A	point	in	4	0
@@ -1158,7 +1158,7 @@ LmjF.01	LmjF.01.0210:mRNA	852	R	R	A2556G	point	in	5	0
 LmjF.01	LmjF.01.0210:mRNA	870	T	A	A2608G	point	in	0	-5
 LmjF.01	LmjF.01.0210:mRNA	883	A	A	T2649C	point	in	4	0
 LmjF.01	LmjF.01.0210:mRNA	894	A	N	G2680A,C2681A	point	in	-2	-6
-LmjF.01	LmjF.01.0220:mRNA	896	E	G	A2687G	point	in	-2	-7
+LmjF.01	LmjF.01.0210:mRNA	896	E	G	A2687G	point	in	-2	-7
 LmjF.01	LmjF.01.0220:mRNA	3	G	G	A9C	point	in	6	0
 LmjF.01	LmjF.01.0220:mRNA	11	G	G	G33A	point	in	6	0
 LmjF.01	LmjF.01.0220:mRNA	14	P	T	C40A	point	in	-1	-8
@@ -1200,7 +1200,7 @@ LmjF.01	LmjF.01.0220:mRNA	286	S	S	A858C	point	in	4	0
 LmjF.01	LmjF.01.0220:mRNA	313	A	V	C938T	point	in	0	-4
 LmjF.01	LmjF.01.0220:mRNA	323	I	I	C969T	point	in	4	0
 LmjF.01	LmjF.01.0220:mRNA	328	C	C	C984T	point	in	9	0
-LmjF.01	LmjF.01.0230:mRNA	329	D	E	C987A	point	in	2	-4
+LmjF.01	LmjF.01.0220:mRNA	329	D	E	C987A	point	in	2	-4
 LmjF.01	LmjF.01.0230:mRNA	29	V	A	T86C	point	in	0	-4
 LmjF.01	LmjF.01.0230:mRNA	30	F	F	T90C	point	in	6	0
 LmjF.01	LmjF.01.0230:mRNA	38	H	H	C114T	point	in	8	0
@@ -1220,7 +1220,7 @@ LmjF.01	LmjF.01.0230:mRNA	107	L	L	T321C	point	in	4	0
 LmjF.01	LmjF.01.0230:mRNA	109	M	V	A325G	point	in	1	-4
 LmjF.01	LmjF.01.0230:mRNA	123	L	L	T367C,A369G	point	in	4	0
 LmjF.01	LmjF.01.0230:mRNA	136	H	N	C406A	point	in	1	-7
-LmjF.01	LmjF.01.0240:mRNA	138	A	A	C414A	point	in	4	0
+LmjF.01	LmjF.01.0230:mRNA	138	A	A	C414A	point	in	4	0
 LmjF.01	LmjF.01.0240:mRNA	27	S	C	C80G	point	in	-1	-5
 LmjF.01	LmjF.01.0240:mRNA	31	T	A	A91G	point	in	0	-5
 LmjF.01	LmjF.01.0240:mRNA	39	S	P	T115C	point	in	-1	-5
@@ -1365,7 +1365,7 @@ LmjF.01	LmjF.01.0240:mRNA	902	A	V	C2705T,A2706G	point	in	0	-4
 LmjF.01	LmjF.01.0240:mRNA	905	A	A	G2715A	point	in	4	0
 LmjF.01	LmjF.01.0240:mRNA	912	D	G	A2735G	point	in	-1	-7
 LmjF.01	LmjF.01.0240:mRNA	920	S	S	G2760C	point	in	4	0
-LmjF.01	LmjF.01.0250:mRNA	925	F	F	C2775T	point	in	6	0
+LmjF.01	LmjF.01.0240:mRNA	925	F	F	C2775T	point	in	6	0
 LmjF.01	LmjF.01.0250:mRNA	8	V	A	T23C	point	in	0	-4
 LmjF.01	LmjF.01.0250:mRNA	16	P	P	G48A	point	in	7	0
 LmjF.01	LmjF.01.0250:mRNA	20	N	K	C60G	point	in	0	-6
@@ -1509,7 +1509,7 @@ LmjF.01	LmjF.01.0250:mRNA	789	L	L	C2365T,A2367G	point	in	4	0
 LmjF.01	LmjF.01.0250:mRNA	790	N	N	T2370C	point	in	6	0
 LmjF.01	LmjF.01.0250:mRNA	803	L	L	C2407T	point	in	4	0
 LmjF.01	LmjF.01.0250:mRNA	814	G	G	T2442C	point	in	6	0
-LmjF.01	LmjF.01.0260:mRNA	816	L	L	T2446C	point	in	4	0
+LmjF.01	LmjF.01.0250:mRNA	816	L	L	T2446C	point	in	4	0
 LmjF.01	LmjF.01.0260:mRNA	7	R	Q	G20A	point	in	1	-4
 LmjF.01	LmjF.01.0260:mRNA	39	R	R	A117G	point	in	5	0
 LmjF.01	LmjF.01.0260:mRNA	43	A	A	A129C	point	in	4	0
@@ -1544,7 +1544,7 @@ LmjF.01	LmjF.01.0260:mRNA	231	R	Q	G692A	point	in	1	-4
 LmjF.01	LmjF.01.0260:mRNA	239	R	R	G717C	point	in	5	0
 LmjF.01	LmjF.01.0260:mRNA	245	D	D	T735C	point	in	6	0
 LmjF.01	LmjF.01.0260:mRNA	248	S	S	A744G	point	in	4	0
-LmjF.01	LmjF.01.0270:mRNA	271	S	N	G812A	point	in	1	-3
+LmjF.01	LmjF.01.0260:mRNA	271	S	N	G812A	point	in	1	-3
 LmjF.01	LmjF.01.0270:mRNA	32	G	G	T96C	point	in	6	0
 LmjF.01	LmjF.01.0270:mRNA	50	S	N	G149A	point	in	1	-3
 LmjF.01	LmjF.01.0270:mRNA	53	F	F	C159T	point	in	6	0
@@ -1553,7 +1553,7 @@ LmjF.01	LmjF.01.0270:mRNA	69	R	R	T207C	point	in	5	0
 LmjF.01	LmjF.01.0270:mRNA	80	R	R	C238A	point	in	5	0
 LmjF.01	LmjF.01.0270:mRNA	89	I	I	T267C	point	in	4	0
 LmjF.01	LmjF.01.0270:mRNA	99	K	K	A297G	point	in	5	0
-LmjF.01	LmjF.01.0280:mRNA	101	R	R	C303A	point	in	5	0
+LmjF.01	LmjF.01.0270:mRNA	101	R	R	C303A	point	in	5	0
 LmjF.01	LmjF.01.0280:mRNA	5	F	F	T15C	point	in	6	0
 LmjF.01	LmjF.01.0280:mRNA	12	P	P	G36A	point	in	7	0
 LmjF.01	LmjF.01.0280:mRNA	15	A	V	C44T	point	in	0	-4
@@ -1587,7 +1587,7 @@ LmjF.01	LmjF.01.0280:mRNA	352	S	S	A1056G	point	in	4	0
 LmjF.01	LmjF.01.0280:mRNA	358	A	A	T1074C	point	in	4	0
 LmjF.01	LmjF.01.0280:mRNA	380	G	G	C1140T	point	in	6	0
 LmjF.01	LmjF.01.0280:mRNA	398	K	K	A1194G	point	in	5	0
-LmjF.01	LmjF.01.0290:mRNA	403	P	P	G1209A	point	in	7	0
+LmjF.01	LmjF.01.0280:mRNA	403	P	P	G1209A	point	in	7	0
 LmjF.01	LmjF.01.0290:mRNA	2	S	S	T6C	point	in	4	0
 LmjF.01	LmjF.01.0290:mRNA	3	T	T	G9A	point	in	5	0
 LmjF.01	LmjF.01.0290:mRNA	4	Y	Y	T12C	point	in	7	0
@@ -1623,7 +1623,7 @@ LmjF.01	LmjF.01.0300:mRNA	20	E	Q	G58C	point	in	2	-3
 LmjF.01	LmjF.01.0300:mRNA	22	N	N	T66C	point	in	6	0
 LmjF.01	LmjF.01.0300:mRNA	24	G	G	C72T	point	in	6	0
 LmjF.01	LmjF.01.0300:mRNA	45	L	L	T133C	point	in	4	0
-LmjF.01	LmjF.01.0310:mRNA	55	A	A	C165T	point	in	4	0
+LmjF.01	LmjF.01.0300:mRNA	55	A	A	C165T	point	in	4	0
 LmjF.01	LmjF.01.0310:mRNA	22	P	P	A66G	point	in	7	0
 LmjF.01	LmjF.01.0310:mRNA	32	G	G	T96C	point	in	6	0
 LmjF.01	LmjF.01.0310:mRNA	47	F	F	T141C	point	in	6	0
@@ -1691,7 +1691,7 @@ LmjF.01	LmjF.01.0315:mRNA	129	S	F	C386T	point	in	-2	-6
 LmjF.01	LmjF.01.0315:mRNA	130	R	S	A390C	point	in	-1	-6
 LmjF.01	LmjF.01.0315:mRNA	134	M	R	T401G	point	in	-1	-6
 LmjF.01	LmjF.01.0315:mRNA	137	D	G	A410G,C411T	point	in	-1	-7
-LmjF.01	LmjF.01.0320:mRNA	138	S	C	C413G	point	in	-1	-5
+LmjF.01	LmjF.01.0315:mRNA	138	S	C	C413G	point	in	-1	-5
 LmjF.01	LmjF.01.0320:mRNA	2	T	A	A4G,G6A	point	in	0	-5
 LmjF.01	LmjF.01.0320:mRNA	7	I	I	T21C	point	in	4	0
 LmjF.01	LmjF.01.0320:mRNA	11	H	H	T33C	point	in	8	0
@@ -1730,13 +1730,13 @@ LmjF.01	LmjF.01.0320:mRNA	292	V	V	G876A	point	in	4	0
 LmjF.01	LmjF.01.0320:mRNA	308	G	G	T924G	point	in	6	0
 LmjF.01	LmjF.01.0320:mRNA	317	Y	Y	C951T	point	in	7	0
 LmjF.01	LmjF.01.0320:mRNA	336	R	R	A1008G	point	in	5	0
-LmjF.01	LmjF.01.0330.1:mRNA	339	S	L	C1016T	point	in	-2	-6
+LmjF.01	LmjF.01.0320:mRNA	339	S	L	C1016T	point	in	-2	-6
 LmjF.01	LmjF.01.0330.1:mRNA	7	K	K	G21A	point	in	5	0
 LmjF.01	LmjF.01.0330.1:mRNA	25	Y	Y	C75T	point	in	7	0
 LmjF.01	LmjF.01.0330.1:mRNA	31	S	T	T91A	point	in	1	-3
 LmjF.01	LmjF.01.0330.1:mRNA	32	V	V	A96T	point	in	4	0
 LmjF.01	LmjF.01.0330.1:mRNA	45	F	F	C135T	point	in	6	0
-LmjF.01	LmjF.01.0330.2:mRNA	53	V	I	G157A	point	in	3	-1
+LmjF.01	LmjF.01.0330.1:mRNA	53	V	I	G157A	point	in	3	-1
 LmjF.01	LmjF.01.0330.2:mRNA	5	L	V	C13G	point	in	1	-3
 LmjF.01	LmjF.01.0330.2:mRNA	15	K	K	A45G	point	in	5	0
 LmjF.01	LmjF.01.0330.2:mRNA	28	V	V	G84A	point	in	4	0
@@ -1761,7 +1761,7 @@ LmjF.01	LmjF.01.0330.2:mRNA	168	Y	Y	C504T	point	in	7	0
 LmjF.01	LmjF.01.0330.2:mRNA	174	S	T	T520A	point	in	1	-3
 LmjF.01	LmjF.01.0330.2:mRNA	175	V	V	A525T	point	in	4	0
 LmjF.01	LmjF.01.0330.2:mRNA	188	F	F	C564T	point	in	6	0
-LmjF.01	LmjF.01.0335:mRNA	196	V	I	G586A	point	in	3	-1
+LmjF.01	LmjF.01.0330.2:mRNA	196	V	I	G586A	point	in	3	-1
 LmjF.01	LmjF.01.0335:mRNA	6	F	F	T18C	point	in	6	0
 LmjF.01	LmjF.01.0335:mRNA	11	G	G	C33G	point	in	6	0
 LmjF.01	LmjF.01.0335:mRNA	13	A	A	T39C	point	in	4	0
@@ -1775,7 +1775,7 @@ LmjF.01	LmjF.01.0335:mRNA	66	L	L	A198G	point	in	4	0
 LmjF.01	LmjF.01.0335:mRNA	79	V	V	G237C	point	in	4	0
 LmjF.01	LmjF.01.0335:mRNA	91	K	Q	A271C	point	in	1	-4
 LmjF.01	LmjF.01.0335:mRNA	95	A	V	C284T,A285G	point	in	0	-4
-LmjF.01	LmjF.01.0340:mRNA	97	P	A	C289G	point	in	-1	-8
+LmjF.01	LmjF.01.0335:mRNA	97	P	A	C289G	point	in	-1	-8
 LmjF.01	LmjF.01.0340:mRNA	6	A	A	T18G	point	in	4	0
 LmjF.01	LmjF.01.0340:mRNA	17	A	A	G51A	point	in	4	0
 LmjF.01	LmjF.01.0340:mRNA	26	A	A	G78C	point	in	4	0
@@ -1817,7 +1817,7 @@ LmjF.01	LmjF.01.0340:mRNA	231	S	S	A693G	point	in	4	0
 LmjF.01	LmjF.01.0340:mRNA	235	D	D	T705C	point	in	6	0
 LmjF.01	LmjF.01.0340:mRNA	244	T	T	G732A	point	in	5	0
 LmjF.01	LmjF.01.0340:mRNA	249	C	Y	G746A	point	in	-2	-11
-LmjF.01	LmjF.01.0350:mRNA	256	F	F	T768C	point	in	6	0
+LmjF.01	LmjF.01.0340:mRNA	256	F	F	T768C	point	in	6	0
 LmjF.01	LmjF.01.0350:mRNA	21	I	I	C63T	point	in	4	0
 LmjF.01	LmjF.01.0350:mRNA	27	R	R	T81G	point	in	5	0
 LmjF.01	LmjF.01.0350:mRNA	33	L	L	G99T	point	in	4	0
@@ -1910,7 +1910,7 @@ LmjF.01	LmjF.01.0350:mRNA	695	V	L	G2083C,G2085T	point	in	1	-3
 LmjF.01	LmjF.01.0350:mRNA	710	A	AG	C2129CCGG	ins	in	4	-4
 LmjF.01	LmjF.01.0350:mRNA	713	T	S	C2138G,T2139C	point	in	1	-4
 LmjF.01	LmjF.01.0350:mRNA	729	K	K	A2187G	point	in	5	0
-LmjF.01	LmjF.01.0360:mRNA	735	*	Q	T2203C	point	in	-4	-5
+LmjF.01	LmjF.01.0350:mRNA	735	*	Q	T2203C	point	in	-4	-5
 LmjF.01	LmjF.01.0360:mRNA	2	A	A	A6G	point	in	4	0
 LmjF.01	LmjF.01.0360:mRNA	3	P	P	T9C	point	in	7	0
 LmjF.01	LmjF.01.0360:mRNA	5	V	I	G13A	point	in	3	-1
@@ -1935,7 +1935,7 @@ LmjF.01	LmjF.01.0360:mRNA	169	N	R	A505C,A506G	point	in	0	-6
 LmjF.01	LmjF.01.0360:mRNA	170	N	S	A509G	point	in	1	-5
 LmjF.01	LmjF.01.0360:mRNA	172	S	G	A514G	point	in	0	-4
 LmjF.01	LmjF.01.0360:mRNA	176	R	R	A528G	point	in	5	0
-LmjF.01	LmjF.01.0370:mRNA	179	E	E	A537G	point	in	5	0
+LmjF.01	LmjF.01.0360:mRNA	179	E	E	A537G	point	in	5	0
 LmjF.01	LmjF.01.0370:mRNA	3	K	K	G9A	point	in	5	0
 LmjF.01	LmjF.01.0370:mRNA	10	R	L	G29T	point	in	-2	-7
 LmjF.01	LmjF.01.0370:mRNA	14	S	N	G41A	point	in	1	-3
@@ -1950,7 +1950,7 @@ LmjF.01	LmjF.01.0370:mRNA	150	A	V	C449T	point	in	0	-4
 LmjF.01	LmjF.01.0370:mRNA	152	A	T	G454A	point	in	0	-4
 LmjF.01	LmjF.01.0370:mRNA	154	A	A	A462G	point	in	4	0
 LmjF.01	LmjF.01.0370:mRNA	160	H	H	T480C	point	in	8	0
-LmjF.01	LmjF.01.0380:mRNA	180	T	M	C539T	point	in	-1	-6
+LmjF.01	LmjF.01.0370:mRNA	180	T	M	C539T	point	in	-1	-6
 LmjF.01	LmjF.01.0380:mRNA	3	A	A	C9A	point	in	4	0
 LmjF.01	LmjF.01.0380:mRNA	50	M	V	A148G	point	in	1	-4
 LmjF.01	LmjF.01.0380:mRNA	67	R	S	C199A	point	in	-1	-6
@@ -2068,7 +2068,7 @@ LmjF.01	LmjF.01.0380:mRNA	775	S	S	T2325C	point	in	4	0
 LmjF.01	LmjF.01.0380:mRNA	800	L	L	T2398C,G2400A	point	in	4	0
 LmjF.01	LmjF.01.0380:mRNA	809	Q	R	A2426G,G2427C	point	in	1	-4
 LmjF.01	LmjF.01.0380:mRNA	813	L	L	T2439C	point	in	4	0
-LmjF.01	LmjF.01.0390:mRNA	816	F	F	C2448T	point	in	6	0
+LmjF.01	LmjF.01.0380:mRNA	816	F	F	C2448T	point	in	6	0
 LmjF.01	LmjF.01.0390:mRNA	14	P	P	C42G	point	in	7	0
 LmjF.01	LmjF.01.0390:mRNA	22	S	S	T66C	point	in	4	0
 LmjF.01	LmjF.01.0390:mRNA	29	V	A	T86C	point	in	0	-4
@@ -2201,7 +2201,7 @@ LmjF.01	LmjF.01.0390:mRNA	796	A	A	C2388G	point	in	4	0
 LmjF.01	LmjF.01.0390:mRNA	809	D	D	C2427T	point	in	6	0
 LmjF.01	LmjF.01.0390:mRNA	813	A	A	C2439G	point	in	4	0
 LmjF.01	LmjF.01.0390:mRNA	819	L	L	T2455C	point	in	4	0
-LmjF.01	LmjF.01.0400:mRNA	821	A	A	A2463G	point	in	4	0
+LmjF.01	LmjF.01.0390:mRNA	821	A	A	A2463G	point	in	4	0
 LmjF.01	LmjF.01.0400:mRNA	15	V	V	G45C	point	in	4	0
 LmjF.01	LmjF.01.0400:mRNA	20	L	L	T60C	point	in	4	0
 LmjF.01	LmjF.01.0400:mRNA	23	A	A	A69G	point	in	4	0
@@ -2305,7 +2305,7 @@ LmjF.01	LmjF.01.0400:mRNA	540	A	A	A1620G	point	in	4	0
 LmjF.01	LmjF.01.0400:mRNA	545	I	V	A1633G	point	in	3	-1
 LmjF.01	LmjF.01.0400:mRNA	547	P	P	C1641G	point	in	7	0
 LmjF.01	LmjF.01.0400:mRNA	550	R	R	C1650T	point	in	5	0
-LmjF.01	LmjF.01.0410:mRNA	556	Q	K	C1666A	point	in	1	-4
+LmjF.01	LmjF.01.0400:mRNA	556	Q	K	C1666A	point	in	1	-4
 LmjF.01	LmjF.01.0410:mRNA	4	H	Y	C10T	point	in	2	-6
 LmjF.01	LmjF.01.0410:mRNA	16	P	P	G48C	point	in	7	0
 LmjF.01	LmjF.01.0410:mRNA	30	L	L	T90C	point	in	4	0
@@ -2320,7 +2320,7 @@ LmjF.01	LmjF.01.0410:mRNA	101	Q	K	C301A	point	in	1	-4
 LmjF.01	LmjF.01.0410:mRNA	127	N	N	C381T	point	in	6	0
 LmjF.01	LmjF.01.0410:mRNA	165	I	V	A493G	point	in	3	-1
 LmjF.01	LmjF.01.0410:mRNA	188	F	F	T564C	point	in	6	0
-LmjF.01	LmjF.01.0420:mRNA	201	*	*	A603G	point	in	1	0
+LmjF.01	LmjF.01.0410:mRNA	201	*	*	A603G	point	in	1	0
 LmjF.01	LmjF.01.0420:mRNA	4	H	Y	C10T	point	in	2	-6
 LmjF.01	LmjF.01.0420:mRNA	16	P	P	G48C	point	in	7	0
 LmjF.01	LmjF.01.0420:mRNA	30	L	L	T90C	point	in	4	0
@@ -2334,7 +2334,7 @@ LmjF.01	LmjF.01.0420:mRNA	101	Q	K	C301A	point	in	1	-4
 LmjF.01	LmjF.01.0420:mRNA	127	N	N	C381T	point	in	6	0
 LmjF.01	LmjF.01.0420:mRNA	165	I	V	A493G	point	in	3	-1
 LmjF.01	LmjF.01.0420:mRNA	188	F	F	T564C	point	in	6	0
-LmjF.01	LmjF.01.0430:mRNA	201	*	*	A603G	point	in	1	0
+LmjF.01	LmjF.01.0420:mRNA	201	*	*	A603G	point	in	1	0
 LmjF.01	LmjF.01.0430:mRNA	2	E	E	G6A	point	in	5	0
 LmjF.01	LmjF.01.0430:mRNA	15	N	N	T45C	point	in	6	0
 LmjF.01	LmjF.01.0430:mRNA	21	L	L	T61C	point	in	4	0
@@ -2460,7 +2460,7 @@ LmjF.01	LmjF.01.0430:mRNA	702	A	A	G2106A	point	in	4	0
 LmjF.01	LmjF.01.0430:mRNA	707	V	V	G2121A	point	in	4	0
 LmjF.01	LmjF.01.0430:mRNA	718	G	G	T2154C	point	in	6	0
 LmjF.01	LmjF.01.0430:mRNA	719	A	E	C2156A	point	in	-1	-5
-LmjF.01	LmjF.01.0440:mRNA	736	V	V	G2208T	point	in	4	0
+LmjF.01	LmjF.01.0430:mRNA	736	V	V	G2208T	point	in	4	0
 LmjF.01	LmjF.01.0440:mRNA	2	E	E	G6A	point	in	5	0
 LmjF.01	LmjF.01.0440:mRNA	3	V	A	T8C	point	in	0	-4
 LmjF.01	LmjF.01.0440:mRNA	11	P	P	C33G	point	in	7	0
@@ -2557,7 +2557,7 @@ LmjF.01	LmjF.01.0440:mRNA	572	D	D	T1716C	point	in	6	0
 LmjF.01	LmjF.01.0440:mRNA	573	I	M	A1719G	point	in	1	-3
 LmjF.01	LmjF.01.0440:mRNA	581	D	G	A1742G	point	in	-1	-7
 LmjF.01	LmjF.01.0440:mRNA	582	V	A	T1745C	point	in	0	-4
-LmjF.01	LmjF.01.0450:mRNA	587	L	M	C1759A	point	in	2	-2
+LmjF.01	LmjF.01.0440:mRNA	587	L	M	C1759A	point	in	2	-2
 LmjF.01	LmjF.01.0450:mRNA	8	D	D	C24T	point	in	6	0
 LmjF.01	LmjF.01.0450:mRNA	9	L	P	T26C	point	in	-3	-7
 LmjF.01	LmjF.01.0450:mRNA	12	T	P	A34C	point	in	-1	-6
@@ -2601,7 +2601,7 @@ LmjF.01	LmjF.01.0450:mRNA	200	E	D	G600C	point	in	2	-3
 LmjF.01	LmjF.01.0450:mRNA	203	V	V	T609C	point	in	4	0
 LmjF.01	LmjF.01.0450:mRNA	207	S	K	G620A,C621G	point	in	0	-4
 LmjF.01	LmjF.01.0450:mRNA	209	S	S	C627T	point	in	4	0
-LmjF.01	LmjF.01.0460:mRNA	217	E	Q	G649C	point	in	2	-3
+LmjF.01	LmjF.01.0450:mRNA	217	E	Q	G649C	point	in	2	-3
 LmjF.01	LmjF.01.0460:mRNA	4	P	L	C11T	point	in	-3	-10
 LmjF.01	LmjF.01.0460:mRNA	18	P	S	C52T	point	in	-1	-8
 LmjF.01	LmjF.01.0460:mRNA	19	S	S	C57A	point	in	4	0
@@ -2807,7 +2807,7 @@ LmjF.01	LmjF.01.0460:mRNA	1496	A	V	C4487T	point	in	0	-4
 LmjF.01	LmjF.01.0460:mRNA	1515	A	T	G4543A	point	in	0	-4
 LmjF.01	LmjF.01.0460:mRNA	1516	M	T	T4547C	point	in	-1	-6
 LmjF.01	LmjF.01.0460:mRNA	1517	A	S	G4549T,G4551A	point	in	1	-3
-LmjF.01	LmjF.01.0470:mRNA	1525	K	R	A4574G	point	in	2	-3
+LmjF.01	LmjF.01.0460:mRNA	1525	K	R	A4574G	point	in	2	-3
 LmjF.01	LmjF.01.0470:mRNA	2	G	G	C6T	point	in	6	0
 LmjF.01	LmjF.01.0470:mRNA	8	L	L	C22T,C24G	point	in	4	0
 LmjF.01	LmjF.01.0470:mRNA	17	L	L	T51C	point	in	4	0
@@ -2895,7 +2895,7 @@ LmjF.01	LmjF.01.0470:mRNA	681	V	A	T2042C	point	in	0	-4
 LmjF.01	LmjF.01.0470:mRNA	684	T	K	C2051A	point	in	-1	-6
 LmjF.01	LmjF.01.0470:mRNA	688	D	G	A2063G	point	in	-1	-7
 LmjF.01	LmjF.01.0470:mRNA	693	L	L	G2079C	point	in	4	0
-LmjF.01	LmjF.01.0480:mRNA	695	A	A	C2085A	point	in	4	0
+LmjF.01	LmjF.01.0470:mRNA	695	A	A	C2085A	point	in	4	0
 LmjF.01	LmjF.01.0480:mRNA	8	A	T	G22A	point	in	0	-4
 LmjF.01	LmjF.01.0480:mRNA	25	G	G	T75C	point	in	6	0
 LmjF.01	LmjF.01.0480:mRNA	31	L	L	A93G	point	in	4	0
@@ -2943,7 +2943,7 @@ LmjF.01	LmjF.01.0480:mRNA	325	K	K	A975G	point	in	5	0
 LmjF.01	LmjF.01.0480:mRNA	326	D	D	T978C	point	in	6	0
 LmjF.01	LmjF.01.0480:mRNA	327	G	N	G979A,G980A	point	in	0	-6
 LmjF.01	LmjF.01.0480:mRNA	345	H	H	T1035C	point	in	8	0
-LmjF.01	LmjF.01.0490:mRNA	350	V	L	G1048C	point	in	1	-3
+LmjF.01	LmjF.01.0480:mRNA	350	V	L	G1048C	point	in	1	-3
 LmjF.01	LmjF.01.0490:mRNA	7	S	S	A21G	point	in	4	0
 LmjF.01	LmjF.01.0490:mRNA	16	N	D	A46G,T48C	point	in	1	-5
 LmjF.01	LmjF.01.0490:mRNA	22	L	F	C64T	point	in	0	-4
@@ -3030,7 +3030,7 @@ LmjF.01	LmjF.01.0490:mRNA	681	R	R	A2043C	point	in	5	0
 LmjF.01	LmjF.01.0490:mRNA	684	I	V	A2050G	point	in	3	-1
 LmjF.01	LmjF.01.0490:mRNA	686	K	K	A2058G	point	in	5	0
 LmjF.01	LmjF.01.0490:mRNA	690	K	K	G2070A	point	in	5	0
-LmjF.01	LmjF.01.0500:mRNA	693	T	A	A2077G	point	in	0	-5
+LmjF.01	LmjF.01.0490:mRNA	693	T	A	A2077G	point	in	0	-5
 LmjF.01	LmjF.01.0500:mRNA	12	A	A	A36G	point	in	4	0
 LmjF.01	LmjF.01.0500:mRNA	32	A	A	A96G	point	in	4	0
 LmjF.01	LmjF.01.0500:mRNA	38	L	I	C112A	point	in	2	-2
@@ -3088,7 +3088,7 @@ LmjF.01	LmjF.01.0500:mRNA	682	L	L	C2046G	point	in	4	0
 LmjF.01	LmjF.01.0500:mRNA	684	A	A	G2052A	point	in	4	0
 LmjF.01	LmjF.01.0500:mRNA	692	A	A	A2076G	point	in	4	0
 LmjF.01	LmjF.01.0500:mRNA	693	V	V	C2079G	point	in	4	0
-LmjF.01	LmjF.01.0510:mRNA	703	S	S	C2109T	point	in	4	0
+LmjF.01	LmjF.01.0500:mRNA	703	S	S	C2109T	point	in	4	0
 LmjF.01	LmjF.01.0510:mRNA	3	S	N	G8A	point	in	1	-3
 LmjF.01	LmjF.01.0510:mRNA	9	A	A	A27G	point	in	4	0
 LmjF.01	LmjF.01.0510:mRNA	25	S	A	T73G	point	in	1	-3
@@ -3148,7 +3148,7 @@ LmjF.01	LmjF.01.0510:mRNA	177	Y	C	A530G	point	in	-2	-9
 LmjF.01	LmjF.01.0510:mRNA	178	G	G	T534C	point	in	6	0
 LmjF.01	LmjF.01.0510:mRNA	183	S	R	A547C	point	in	-1	-5
 LmjF.01	LmjF.01.0510:mRNA	187	S	S	T561C	point	in	4	0
-LmjF.01	LmjF.01.0520:mRNA	190	S	R	A568C	point	in	-1	-5
+LmjF.01	LmjF.01.0510:mRNA	190	S	R	A568C	point	in	-1	-5
 LmjF.01	LmjF.01.0520:mRNA	3	G	A	G8C	point	in	0	-6
 LmjF.01	LmjF.01.0520:mRNA	16	Q	Q	A48G	point	in	5	0
 LmjF.01	LmjF.01.0520:mRNA	25	A	E	C74A	point	in	-1	-5
@@ -3221,7 +3221,7 @@ LmjF.01	LmjF.01.0520:mRNA	677	V	V	G2031C	point	in	4	0
 LmjF.01	LmjF.01.0520:mRNA	683	T	T	C2049T	point	in	5	0
 LmjF.01	LmjF.01.0520:mRNA	687	E	E	G2061A	point	in	5	0
 LmjF.01	LmjF.01.0520:mRNA	690	T	T	A2070G	point	in	5	0
-LmjF.01	LmjF.01.0530:mRNA	713	A	T	G2137A	point	in	0	-4
+LmjF.01	LmjF.01.0520:mRNA	713	A	T	G2137A	point	in	0	-4
 LmjF.01	LmjF.01.0530:mRNA	3	A	A	G9A	point	in	4	0
 LmjF.01	LmjF.01.0530:mRNA	17	L	L	T51C	point	in	4	0
 LmjF.01	LmjF.01.0530:mRNA	23	A	A	C69T	point	in	4	0
@@ -3473,7 +3473,7 @@ LmjF.01	LmjF.01.0530:mRNA	1576	A	A	G4728T	point	in	4	0
 LmjF.01	LmjF.01.0530:mRNA	1582	A	A	A4746G	point	in	4	0
 LmjF.01	LmjF.01.0530:mRNA	1588	R	R	C4764T	point	in	5	0
 LmjF.01	LmjF.01.0530:mRNA	1596	S	R	C4788A	point	in	-1	-5
-LmjF.01	LmjF.01.0540:mRNA	1605	E	D	A4815C	point	in	2	-3
+LmjF.01	LmjF.01.0530:mRNA	1605	E	D	A4815C	point	in	2	-3
 LmjF.01	LmjF.01.0540:mRNA	2	T	T	A6G	point	in	5	0
 LmjF.01	LmjF.01.0540:mRNA	20	V	V	G60C	point	in	4	0
 LmjF.01	LmjF.01.0540:mRNA	23	R	R	G69A	point	in	5	0
@@ -3573,7 +3573,7 @@ LmjF.01	LmjF.01.0540:mRNA	625	Q	R	A1874G	point	in	1	-4
 LmjF.01	LmjF.01.0540:mRNA	634	P	A	C1900G	point	in	-1	-8
 LmjF.01	LmjF.01.0540:mRNA	643	L	P	T1928C	point	in	-3	-7
 LmjF.01	LmjF.01.0540:mRNA	651	L	L	A1953G	point	in	4	0
-LmjF.01	LmjF.01.0550:mRNA	658	N	D	A1972G	point	in	1	-5
+LmjF.01	LmjF.01.0540:mRNA	658	N	D	A1972G	point	in	1	-5
 LmjF.01	LmjF.01.0550:mRNA	2	G	A	G5C	point	in	0	-6
 LmjF.01	LmjF.01.0550:mRNA	3	Q	K	C7A	point	in	1	-4
 LmjF.01	LmjF.01.0550:mRNA	6	L	R	T17G	point	in	-2	-6
@@ -3624,7 +3624,7 @@ LmjF.01	LmjF.01.0550:mRNA	265	L	A	C793G,T794C	point	in	-1	-5
 LmjF.01	LmjF.01.0550:mRNA	266	M	V	A796G	point	in	1	-4
 LmjF.01	LmjF.01.0550:mRNA	269	D	R	G805C,A806G,C807T	point	in	-2	-8
 LmjF.01	LmjF.01.0550:mRNA	270	D	R	G808C,A809G	point	in	-2	-8
-LmjF.01	LmjF.01.0560:mRNA	279	T	A	A835G	point	in	0	-5
+LmjF.01	LmjF.01.0550:mRNA	279	T	A	A835G	point	in	0	-5
 LmjF.01	LmjF.01.0560:mRNA	17	Q	Q	G51A	point	in	5	0
 LmjF.01	LmjF.01.0560:mRNA	18	S	P	T52C,A54G	point	in	-1	-5
 LmjF.01	LmjF.01.0560:mRNA	19	P	R	C56G	point	in	-2	-9
@@ -3708,7 +3708,7 @@ LmjF.01	LmjF.01.0560:mRNA	567	A	A	A1701G	point	in	4	0
 LmjF.01	LmjF.01.0560:mRNA	609	R	H	G1826A	point	in	0	-5
 LmjF.01	LmjF.01.0560:mRNA	611	G	G	G1833A	point	in	6	0
 LmjF.01	LmjF.01.0560:mRNA	614	L	P	T1841C	point	in	-3	-7
-LmjF.01	LmjF.01.0570:mRNA	617	G	R	G1849C	point	in	-2	-8
+LmjF.01	LmjF.01.0560:mRNA	617	G	R	G1849C	point	in	-2	-8
 LmjF.01	LmjF.01.0570:mRNA	21	R	R	T63C	point	in	5	0
 LmjF.01	LmjF.01.0570:mRNA	36	E	E	G108A	point	in	5	0
 LmjF.01	LmjF.01.0570:mRNA	49	D	D	C147T	point	in	6	0
@@ -3739,7 +3739,7 @@ LmjF.01	LmjF.01.0570:mRNA	299	V	A	T896C	point	in	0	-4
 LmjF.01	LmjF.01.0570:mRNA	311	Q	R	A932G	point	in	1	-4
 LmjF.01	LmjF.01.0570:mRNA	319	T	T	G957A	point	in	5	0
 LmjF.01	LmjF.01.0570:mRNA	321	R	K	G962A	point	in	2	-3
-LmjF.01	LmjF.01.0580:mRNA	325	G	G	T975G	point	in	6	0
+LmjF.01	LmjF.01.0570:mRNA	325	G	G	T975G	point	in	6	0
 LmjF.01	LmjF.01.0580:mRNA	7	P	S	C19T	point	in	-1	-8
 LmjF.01	LmjF.01.0580:mRNA	8	R	A	A22G,G23C	point	in	-1	-6
 LmjF.01	LmjF.01.0580:mRNA	10	A	A	T30C	point	in	4	0
@@ -3888,7 +3888,7 @@ LmjF.01	LmjF.01.0580:mRNA	938	V	I	G2812A	point	in	3	-1
 LmjF.01	LmjF.01.0580:mRNA	943	A	A	T2829C	point	in	4	0
 LmjF.01	LmjF.01.0580:mRNA	954	V	V	A2862G	point	in	4	0
 LmjF.01	LmjF.01.0580:mRNA	960	V	L	G2878C,C2880A	point	in	1	-3
-LmjF.01	LmjF.01.0590.1:mRNA	965	V	V	G2895C	point	in	4	0
+LmjF.01	LmjF.01.0580:mRNA	965	V	V	G2895C	point	in	4	0
 LmjF.01	LmjF.01.0590.1:mRNA	7	R	R	T21C	point	in	5	0
 LmjF.01	LmjF.01.0590.1:mRNA	9	A	A	G27A	point	in	4	0
 LmjF.01	LmjF.01.0590.1:mRNA	23	G	S	G67A	point	in	0	-6
@@ -3946,7 +3946,7 @@ LmjF.01	LmjF.01.0590.1:mRNA	434	P	P	A1302G	point	in	7	0
 LmjF.01	LmjF.01.0590.1:mRNA	470	L	L	T1408C,G1410A	point	in	4	0
 LmjF.01	LmjF.01.0590.1:mRNA	475	A	T	G1423A	point	in	0	-4
 LmjF.01	LmjF.01.0590.1:mRNA	480	A	A	A1440G	point	in	4	0
-LmjF.01	LmjF.01.0590.2:mRNA	481	A	I	G1441A,C1442T	point	in	-1	-5
+LmjF.01	LmjF.01.0590.1:mRNA	481	A	I	G1441A,C1442T	point	in	-1	-5
 LmjF.01	LmjF.01.0590.2:mRNA	2	P	P	A6G	point	in	7	0
 LmjF.01	LmjF.01.0590.2:mRNA	5	R	Q	G14A	point	in	1	-4
 LmjF.01	LmjF.01.0590.2:mRNA	14	T	A	A40G	point	in	0	-5
@@ -3973,7 +3973,7 @@ LmjF.01	LmjF.01.0590.2:mRNA	368	P	P	A1104G	point	in	7	0
 LmjF.01	LmjF.01.0590.2:mRNA	404	L	L	T1210C,G1212A	point	in	4	0
 LmjF.01	LmjF.01.0590.2:mRNA	409	A	T	G1225A	point	in	0	-4
 LmjF.01	LmjF.01.0590.2:mRNA	414	A	A	A1242G	point	in	4	0
-LmjF.01	LmjF.01.0600:mRNA	415	A	I	G1243A,C1244T	point	in	-1	-5
+LmjF.01	LmjF.01.0590.2:mRNA	415	A	I	G1243A,C1244T	point	in	-1	-5
 LmjF.01	LmjF.01.0600:mRNA	20	C	R	T58C	point	in	-3	-12
 LmjF.01	LmjF.01.0600:mRNA	24	R	G	C70G	point	in	-2	-7
 LmjF.01	LmjF.01.0600:mRNA	26	T	P	A76C	point	in	-1	-6
@@ -4286,7 +4286,7 @@ LmjF.01	LmjF.01.0600:mRNA	1751	P	P	T5253G	point	in	7	0
 LmjF.01	LmjF.01.0600:mRNA	1768	L	L	G5304A	point	in	4	0
 LmjF.01	LmjF.01.0600:mRNA	1770	S	S	C5310T	point	in	4	0
 LmjF.01	LmjF.01.0600:mRNA	1786	V	V	C5358G	point	in	4	0
-LmjF.01	LmjF.01.0610:mRNA	1814	V	V	A5442G	point	in	4	0
+LmjF.01	LmjF.01.0600:mRNA	1814	V	V	A5442G	point	in	4	0
 LmjF.01	LmjF.01.0610:mRNA	7	N	T	A20C	point	in	0	-6
 LmjF.01	LmjF.01.0610:mRNA	10	R	R	G30A	point	in	5	0
 LmjF.01	LmjF.01.0610:mRNA	12	V	A	T35C,G36A	point	in	0	-4
@@ -4340,7 +4340,7 @@ LmjF.01	LmjF.01.0610:mRNA	371	E	E	G1113A	point	in	5	0
 LmjF.01	LmjF.01.0610:mRNA	374	E	E	A1122G	point	in	5	0
 LmjF.01	LmjF.01.0610:mRNA	379	N	D	A1135G	point	in	1	-5
 LmjF.01	LmjF.01.0610:mRNA	384	A	A	A1152G	point	in	4	0
-LmjF.01	LmjF.01.0620:mRNA	391	*	*	A1172G	point	in	1	0
+LmjF.01	LmjF.01.0610:mRNA	391	*	*	A1172G	point	in	1	0
 LmjF.01	LmjF.01.0620:mRNA	3	S	S	T9C	point	in	4	0
 LmjF.01	LmjF.01.0620:mRNA	13	V	A	T38C	point	in	0	-4
 LmjF.01	LmjF.01.0620:mRNA	17	ATTPIA	A	CCACCACCCCCATCGC50C	del	in	6	-23
@@ -4453,7 +4453,7 @@ LmjF.01	LmjF.01.0620:mRNA	602	A	A	C1806G	point	in	4	0
 LmjF.01	LmjF.01.0620:mRNA	611	G	G	T1833C	point	in	6	0
 LmjF.01	LmjF.01.0620:mRNA	613	M	T	T1838C	point	in	-1	-6
 LmjF.01	LmjF.01.0620:mRNA	618	S	S	C1854T	point	in	4	0
-LmjF.01	LmjF.01.0630:mRNA	624	T	M	C1871T,A1872G	point	in	-1	-6
+LmjF.01	LmjF.01.0620:mRNA	624	T	M	C1871T,A1872G	point	in	-1	-6
 LmjF.01	LmjF.01.0630:mRNA	2	E	E	A6G	point	in	5	0
 LmjF.01	LmjF.01.0630:mRNA	4	T	A	A10G	point	in	0	-5
 LmjF.01	LmjF.01.0630:mRNA	6	H	C	C16T,A17G	point	in	-3	-11
@@ -4619,7 +4619,7 @@ LmjF.01	LmjF.01.0630:mRNA	804	S	P	T2410C	point	in	-1	-5
 LmjF.01	LmjF.01.0630:mRNA	807	R	L	G2420T	point	in	-2	-7
 LmjF.01	LmjF.01.0630:mRNA	811	T	T	A2433G	point	in	5	0
 LmjF.01	LmjF.01.0630:mRNA	813	R	R	C2437A	point	in	5	0
-LmjF.01	LmjF.01.0640:mRNA	818	*	R	T2452C	point	in	-4	-5
+LmjF.01	LmjF.01.0630:mRNA	818	*	R	T2452C	point	in	-4	-5
 LmjF.01	LmjF.01.0640:mRNA	4	T	A	A10G	point	in	0	-5
 LmjF.01	LmjF.01.0640:mRNA	5	S	S	T15G	point	in	4	0
 LmjF.01	LmjF.01.0640:mRNA	6	H	H	T18C	point	in	8	0
@@ -4812,7 +4812,7 @@ LmjF.01	LmjF.01.0640:mRNA	1068	L	R	T3203G	point	in	-2	-6
 LmjF.01	LmjF.01.0640:mRNA	1084	D	N	G3250A	point	in	1	-5
 LmjF.01	LmjF.01.0640:mRNA	1085	V	F	G3253T	point	in	-1	-5
 LmjF.01	LmjF.01.0640:mRNA	1094	L	L	G3282T	point	in	4	0
-LmjF.01	LmjF.01.0650:mRNA	1102	A	S	G3304T	point	in	1	-3
+LmjF.01	LmjF.01.0640:mRNA	1102	A	S	G3304T	point	in	1	-3
 LmjF.01	LmjF.01.0650:mRNA	2	L	M	C4A	point	in	2	-2
 LmjF.01	LmjF.01.0650:mRNA	6	S	G	A16G	point	in	0	-4
 LmjF.01	LmjF.01.0650:mRNA	10	A	A	A30G	point	in	4	0
@@ -4861,7 +4861,7 @@ LmjF.01	LmjF.01.0650:mRNA	467	D	S	G1399A,A1400G	point	in	0	-6
 LmjF.01	LmjF.01.0650:mRNA	473	S	S	G1419A	point	in	4	0
 LmjF.01	LmjF.01.0650:mRNA	482	P	S	C1444T	point	in	-1	-8
 LmjF.01	LmjF.01.0650:mRNA	485	F	F	T1455C	point	in	6	0
-LmjF.01	LmjF.01.0660:mRNA	493	P	L	C1478T	point	in	-3	-10
+LmjF.01	LmjF.01.0650:mRNA	493	P	L	C1478T	point	in	-3	-10
 LmjF.01	LmjF.01.0660:mRNA	6	V	A	T17C	point	in	0	-4
 LmjF.01	LmjF.01.0660:mRNA	10	E	E	G30A	point	in	5	0
 LmjF.01	LmjF.01.0660:mRNA	18	D	D	C54T	point	in	6	0
@@ -5119,7 +5119,7 @@ LmjF.01	LmjF.01.0660:mRNA	1521	A	A	T4563C	point	in	4	0
 LmjF.01	LmjF.01.0660:mRNA	1530	G	G	G4590T	point	in	6	0
 LmjF.01	LmjF.01.0660:mRNA	1531	P	A	C4591G	point	in	-1	-8
 LmjF.01	LmjF.01.0660:mRNA	1533	I	A	A4597G,T4598C	point	in	-1	-5
-LmjF.01	LmjF.01.0670:mRNA	1536	P	A	C4606G	point	in	-1	-8
+LmjF.01	LmjF.01.0660:mRNA	1536	P	A	C4606G	point	in	-1	-8
 LmjF.01	LmjF.01.0670:mRNA	9	A	A	A27C	point	in	4	0
 LmjF.01	LmjF.01.0670:mRNA	24	T	T	G72A	point	in	5	0
 LmjF.01	LmjF.01.0670:mRNA	27	E	D	G81C	point	in	2	-3
@@ -5157,7 +5157,7 @@ LmjF.01	LmjF.01.0670:mRNA	284	R	Q	G851A	point	in	1	-4
 LmjF.01	LmjF.01.0670:mRNA	285	S	N	G854A	point	in	1	-3
 LmjF.01	LmjF.01.0670:mRNA	287	N	S	A860G,T861C	point	in	1	-5
 LmjF.01	LmjF.01.0670:mRNA	288	G	V	G863T	point	in	-3	-9
-LmjF.01	LmjF.01.0680:mRNA	291	S	G	A871G	point	in	0	-4
+LmjF.01	LmjF.01.0670:mRNA	291	S	G	A871G	point	in	0	-4
 LmjF.01	LmjF.01.0680:mRNA	1	M	R	T2G	point	in	-1	-6
 LmjF.01	LmjF.01.0680:mRNA	2	G	G	C6A	point	in	6	0
 LmjF.01	LmjF.01.0680:mRNA	3	S	G	T7G,C8G,A9G	point	in	0	-4
@@ -5321,7 +5321,7 @@ LmjF.01	LmjF.01.0680:mRNA	754	V	A	T2261C	point	in	0	-4
 LmjF.01	LmjF.01.0680:mRNA	758	S	S	T2274A	point	in	4	0
 LmjF.01	LmjF.01.0680:mRNA	764	D	E	C2292A	point	in	2	-4
 LmjF.01	LmjF.01.0680:mRNA	794	H	H	C2382T	point	in	8	0
-LmjF.01	LmjF.01.0690:mRNA	799	D	D	C2397T	point	in	6	0
+LmjF.01	LmjF.01.0680:mRNA	799	D	D	C2397T	point	in	6	0
 LmjF.01	LmjF.01.0690:mRNA	7	F	A	T19G,T20C	point	in	-2	-8
 LmjF.01	LmjF.01.0690:mRNA	36	T	A	A106G	point	in	0	-5
 LmjF.01	LmjF.01.0690:mRNA	38	D	E	C114A	point	in	2	-4
@@ -5356,7 +5356,7 @@ LmjF.01	LmjF.01.0690:mRNA	190	C	W	C570G	point	in	-2	-11
 LmjF.01	LmjF.01.0690:mRNA	197	I	V	A589G	point	in	3	-1
 LmjF.01	LmjF.01.0690:mRNA	218	R	R	C654T	point	in	5	0
 LmjF.01	LmjF.01.0690:mRNA	223	T	A	A667G	point	in	0	-5
-LmjF.01	LmjF.01.0700:mRNA	230	I	V	A688G	point	in	3	-1
+LmjF.01	LmjF.01.0690:mRNA	230	I	V	A688G	point	in	3	-1
 LmjF.01	LmjF.01.0700:mRNA	2	T	A	A4G	point	in	0	-5
 LmjF.01	LmjF.01.0700:mRNA	14	P	S	C40T	point	in	-1	-8
 LmjF.01	LmjF.01.0700:mRNA	23	P	P	G69T	point	in	7	0
@@ -5393,7 +5393,7 @@ LmjF.01	LmjF.01.0700:mRNA	224	A	V	C671T	point	in	0	-4
 LmjF.01	LmjF.01.0700:mRNA	242	A	A@	C725CG	ins	out	NA	NA
 LmjF.01	LmjF.01.0700:mRNA	249	C	P	T745C,G746C	point	in	-3	-12
 LmjF.01	LmjF.01.0700:mRNA	251	G	G	G753T	point	in	6	0
-LmjF.01	LmjF.01.0710:mRNA	252	L	I	C754A	point	in	2	-2
+LmjF.01	LmjF.01.0700:mRNA	252	L	I	C754A	point	in	2	-2
 LmjF.01	LmjF.01.0710:mRNA	4	R	Q	G11A,G12A	point	in	1	-4
 LmjF.01	LmjF.01.0710:mRNA	19	A	A	G57A	point	in	4	0
 LmjF.01	LmjF.01.0710:mRNA	22	V	T	G64A,T65C	point	in	0	-4
@@ -5448,7 +5448,7 @@ LmjF.01	LmjF.01.0710:mRNA	471	K	R	A1412G	point	in	2	-3
 LmjF.01	LmjF.01.0710:mRNA	485	G	E	G1454A	point	in	-2	-8
 LmjF.01	LmjF.01.0710:mRNA	506	K	T	A1517C	point	in	-1	-6
 LmjF.01	LmjF.01.0710:mRNA	535	Q	R	A1604G	point	in	1	-4
-LmjF.01	LmjF.01.0720:mRNA	540	W	*	G1620A	point	in	-4	-15
+LmjF.01	LmjF.01.0710:mRNA	540	W	*	G1620A	point	in	-4	-15
 LmjF.01	LmjF.01.0720:mRNA	6	A	T	G16A	point	in	0	-4
 LmjF.01	LmjF.01.0720:mRNA	15	A	S	G43T	point	in	1	-3
 LmjF.01	LmjF.01.0720:mRNA	23	R	C	C67T	point	in	-3	-8
@@ -5747,7 +5747,7 @@ LmjF.01	LmjF.01.0720:mRNA	1591	A	D	C4772A	point	in	-2	-6
 LmjF.01	LmjF.01.0720:mRNA	1602	E	Q	G4804C	point	in	2	-3
 LmjF.01	LmjF.01.0720:mRNA	1610	M	L	A4828C	point	in	2	-3
 LmjF.01	LmjF.01.0720:mRNA	1612	P	P	G4836A	point	in	7	0
-LmjF.01	LmjF.01.0730:mRNA	1613	E	K	G4837A	point	in	1	-4
+LmjF.01	LmjF.01.0720:mRNA	1613	E	K	G4837A	point	in	1	-4
 LmjF.01	LmjF.01.0730:mRNA	6	A	E	C17A	point	in	-1	-5
 LmjF.01	LmjF.01.0730:mRNA	20	A	A	A60C	point	in	4	0
 LmjF.01	LmjF.01.0730:mRNA	27	T	T	A81G	point	in	5	0
@@ -6074,7 +6074,7 @@ LmjF.01	LmjF.01.0730:mRNA	2189	C	S	G6566C	point	in	-1	-10
 LmjF.01	LmjF.01.0730:mRNA	2218	G	G	C6654T	point	in	6	0
 LmjF.01	LmjF.01.0730:mRNA	2227	D	D	T6681C	point	in	6	0
 LmjF.01	LmjF.01.0730:mRNA	2232	S	S	G6696A	point	in	4	0
-LmjF.01	LmjF.01.0740:mRNA	2235	L	L	C6705T	point	in	4	0
+LmjF.01	LmjF.01.0730:mRNA	2235	L	L	C6705T	point	in	4	0
 LmjF.01	LmjF.01.0740:mRNA	5	A	A	T15C	point	in	4	0
 LmjF.01	LmjF.01.0740:mRNA	6	A	A	T18C	point	in	4	0
 LmjF.01	LmjF.01.0740:mRNA	21	T	T	C63G	point	in	5	0
@@ -6170,7 +6170,7 @@ LmjF.01	LmjF.01.0740:mRNA	723	R	S	G2169C	point	in	-1	-6
 LmjF.01	LmjF.01.0740:mRNA	729	D	N	G2185A	point	in	1	-5
 LmjF.01	LmjF.01.0740:mRNA	743	A	E	C2228A	point	in	-1	-5
 LmjF.01	LmjF.01.0740:mRNA	749	G	R	G2245A	point	in	-2	-8
-LmjF.01	LmjF.01.0750:mRNA	752	*	*	G2255A	point	in	1	0
+LmjF.01	LmjF.01.0740:mRNA	752	*	*	G2255A	point	in	1	0
 LmjF.01	LmjF.01.0750:mRNA	8	M	L	A22C	point	in	2	-3
 LmjF.01	LmjF.01.0750:mRNA	20	L	L	G60A	point	in	4	0
 LmjF.01	LmjF.01.0750:mRNA	31	S	S	T93C	point	in	4	0
@@ -6414,7 +6414,7 @@ LmjF.01	LmjF.01.0750:mRNA	1363	L	R	T4088G	point	in	-2	-6
 LmjF.01	LmjF.01.0750:mRNA	1369	D	D	C4107T	point	in	6	0
 LmjF.01	LmjF.01.0750:mRNA	1399	D	D	T4197C	point	in	6	0
 LmjF.01	LmjF.01.0750:mRNA	1414	V	E	T4241A	point	in	-2	-6
-LmjF.01	LmjF.01.0760:mRNA	1418	*	*	G4254A	point	in	1	0
+LmjF.01	LmjF.01.0750:mRNA	1418	*	*	G4254A	point	in	1	0
 LmjF.01	LmjF.01.0760:mRNA	1	M	I	G3A	point	in	1	-4
 LmjF.01	LmjF.01.0760:mRNA	5	R	G	A13G	point	in	-2	-7
 LmjF.01	LmjF.01.0760:mRNA	6	A	A	A18G	point	in	4	0
@@ -6472,7 +6472,7 @@ LmjF.01	LmjF.01.0760:mRNA	281	P	A	C841G,A843G	point	in	-1	-8
 LmjF.01	LmjF.01.0760:mRNA	288	T	R	C863G	point	in	-1	-6
 LmjF.01	LmjF.01.0760:mRNA	301	P	P	G903A	point	in	7	0
 LmjF.01	LmjF.01.0760:mRNA	332	L	L	A996G	point	in	4	0
-LmjF.01	LmjF.01.0770:mRNA	337	V	A	T1010C	point	in	0	-4
+LmjF.01	LmjF.01.0760:mRNA	337	V	A	T1010C	point	in	0	-4
 LmjF.01	LmjF.01.0770:mRNA	39	R	R	T117C	point	in	5	0
 LmjF.01	LmjF.01.0770:mRNA	164	R	R	T492C	point	in	5	0
 LmjF.01	LmjF.01.0770:mRNA	169	T	T	A507G	point	in	5	0
@@ -6480,7 +6480,7 @@ LmjF.01	LmjF.01.0770:mRNA	216	V	V	A648G	point	in	4	0
 LmjF.01	LmjF.01.0770:mRNA	229	R	R	T687C	point	in	5	0
 LmjF.01	LmjF.01.0770:mRNA	332	D	D	T996C	point	in	6	0
 LmjF.01	LmjF.01.0770:mRNA	356	G	G	T1068C	point	in	6	0
-LmjF.01	LmjF.01.0780:mRNA	378	L	L	A1134G	point	in	4	0
+LmjF.01	LmjF.01.0770:mRNA	378	L	L	A1134G	point	in	4	0
 LmjF.01	LmjF.01.0780:mRNA	39	R	R	T117C	point	in	5	0
 LmjF.01	LmjF.01.0780:mRNA	164	R	R	T492C	point	in	5	0
 LmjF.01	LmjF.01.0780:mRNA	169	T	T	A507G	point	in	5	0
@@ -6488,7 +6488,7 @@ LmjF.01	LmjF.01.0780:mRNA	216	V	V	A648G	point	in	4	0
 LmjF.01	LmjF.01.0780:mRNA	229	R	R	T687C	point	in	5	0
 LmjF.01	LmjF.01.0780:mRNA	332	D	D	T996C	point	in	6	0
 LmjF.01	LmjF.01.0780:mRNA	356	G	G	T1068C	point	in	6	0
-LmjF.01	LmjF.01.0790:mRNA	378	L	L	A1134G	point	in	4	0
+LmjF.01	LmjF.01.0780:mRNA	378	L	L	A1134G	point	in	4	0
 LmjF.01	LmjF.01.0790:mRNA	2	F	F	C6T	point	in	6	0
 LmjF.01	LmjF.01.0790:mRNA	9	R	L	G26T	point	in	-2	-7
 LmjF.01	LmjF.01.0790:mRNA	12	A	A	G36A	point	in	4	0
@@ -6569,7 +6569,7 @@ LmjF.01	LmjF.01.0790:mRNA	478	A	A	A1434G	point	in	4	0
 LmjF.01	LmjF.01.0790:mRNA	497	L	L	G1491A	point	in	4	0
 LmjF.01	LmjF.01.0790:mRNA	512	I	I	C1536T	point	in	4	0
 LmjF.01	LmjF.01.0790:mRNA	520	A	S	G1558T	point	in	1	-3
-LmjF.01	LmjF.01.0800:mRNA	522	S	G	A1564G	point	in	0	-4
+LmjF.01	LmjF.01.0790:mRNA	522	S	G	A1564G	point	in	0	-4
 LmjF.01	LmjF.01.0800:mRNA	1	M	T	T2C	point	in	-1	-6
 LmjF.01	LmjF.01.0800:mRNA	5	P	P	A15G	point	in	7	0
 LmjF.01	LmjF.01.0800:mRNA	6	P	H	C17A	point	in	-2	-9
@@ -6647,7 +6647,7 @@ LmjF.01	LmjF.01.0800:mRNA	498	L	R	C1492A,T1493G	point	in	-2	-6
 LmjF.01	LmjF.01.0800:mRNA	502	A	S	G1504T	point	in	1	-3
 LmjF.01	LmjF.01.0800:mRNA	505	Q	K	C1513A	point	in	1	-4
 LmjF.01	LmjF.01.0800:mRNA	506	H	P	A1517C,C1518G	point	in	-2	-10
-LmjF.01	LmjF.01.0810:mRNA	508	P	A	C1522G	point	in	-1	-8
+LmjF.01	LmjF.01.0800:mRNA	508	P	A	C1522G	point	in	-1	-8
 LmjF.01	LmjF.01.0810:mRNA	7	L	L	T19C	point	in	4	0
 LmjF.01	LmjF.01.0810:mRNA	20	R	R	A60G	point	in	5	0
 LmjF.01	LmjF.01.0810:mRNA	22	Q	P	A65C	point	in	-1	-6
@@ -6731,7 +6731,7 @@ LmjF.01	LmjF.01.0810:mRNA	954	A	T	G2860A	point	in	0	-4
 LmjF.01	LmjF.01.0810:mRNA	966	C	C	T2898C	point	in	9	0
 LmjF.01	LmjF.01.0810:mRNA	969	F	F	T2907C	point	in	6	0
 LmjF.01	LmjF.01.0810:mRNA	971	Y	Y	C2913T	point	in	7	0
-LmjF.01	LmjF.01.0820:mRNA	989	N	D	A2965G	point	in	1	-5
+LmjF.01	LmjF.01.0810:mRNA	989	N	D	A2965G	point	in	1	-5
 LmjF.01	LmjF.01.0820:mRNA	17	S	P	T49C	point	in	-1	-5
 LmjF.01	LmjF.01.0820:mRNA	18	P	T	C52A	point	in	-1	-8
 LmjF.01	LmjF.01.0820:mRNA	30	T	N	C89A	point	in	0	-5
@@ -6821,7 +6821,7 @@ LmjF.01	LmjF.01.0820:mRNA	1038	A	T	G3112A	point	in	0	-4
 LmjF.01	LmjF.01.0820:mRNA	1075	L	L	A3225C	point	in	4	0
 LmjF.01	LmjF.01.0820:mRNA	1083	S	S	G3249T	point	in	4	0
 LmjF.01	LmjF.01.0820:mRNA	1108	I	V	A3322G	point	in	3	-1
-LmjF.01	LmjF.01.0830:mRNA	1110	S	N	G3329A	point	in	1	-3
+LmjF.01	LmjF.01.0820:mRNA	1110	S	N	G3329A	point	in	1	-3
 LmjF.01	LmjF.01.0830:mRNA	80	S	P	T238C,T240C	point	in	-1	-5
 LmjF.01	LmjF.01.0830:mRNA	82	H	D	C244G	point	in	-1	-9
 LmjF.01	LmjF.01.0830:mRNA	83	T	A	A247G,G249A	point	in	0	-5
@@ -6867,7 +6867,7 @@ LmjF.01	LmjF.01.0830:mRNA	440	Y	H	T1318C	point	in	2	-5
 LmjF.01	LmjF.01.0830:mRNA	441	N	I	A1322T	point	in	-3	-9
 LmjF.01	LmjF.01.0830:mRNA	442	V	V	G1326A	point	in	4	0
 LmjF.01	LmjF.01.0830:mRNA	443	L	L	C1329A	point	in	4	0
-LmjF.02	LmjF.02.0010:mRNA	445	I	V	A1333G	point	in	3	-1
+LmjF.01	LmjF.01.0830:mRNA	445	I	V	A1333G	point	in	3	-1
 LmjF.02	LmjF.02.0010:mRNA	2	Q	R	A5G	point	in	1	-4
 LmjF.02	LmjF.02.0010:mRNA	7	V	A	T20C	point	in	0	-4
 LmjF.02	LmjF.02.0010:mRNA	9	A	P	G25C	point	in	-1	-5
@@ -7058,11 +7058,11 @@ LmjF.02	LmjF.02.0010:mRNA	625	N	N	T1875C	point	in	6	0
 LmjF.02	LmjF.02.0010:mRNA	626	A	D	C1877A	point	in	-2	-6
 LmjF.02	LmjF.02.0010:mRNA	628	L	L	C1882T	point	in	4	0
 LmjF.02	LmjF.02.0010:mRNA	629	M	L	A1885C	point	in	2	-3
-LmjF.02	LmjF.02.0020:mRNA	630	K	M	A1889T	point	in	-1	-6
+LmjF.02	LmjF.02.0010:mRNA	630	K	M	A1889T	point	in	-1	-6
 LmjF.02	LmjF.02.0020:mRNA	8	T	A	A22G	point	in	0	-5
 LmjF.02	LmjF.02.0020:mRNA	40	G	G	C120T	point	in	6	0
 LmjF.02	LmjF.02.0020:mRNA	79	T	T	C237G	point	in	5	0
-LmjF.02	LmjF.02.0030:mRNA	87	T	N	C260A	point	in	0	-5
+LmjF.02	LmjF.02.0020:mRNA	87	T	N	C260A	point	in	0	-5
 LmjF.02	LmjF.02.0030:mRNA	9	I	V	A25G	point	in	3	-1
 LmjF.02	LmjF.02.0030:mRNA	20	A	T	G58A	point	in	0	-4
 LmjF.02	LmjF.02.0030:mRNA	21	L	F	C61T	point	in	0	-4
@@ -7119,7 +7119,7 @@ LmjF.02	LmjF.02.0030:mRNA	315	G	R	G943A	point	in	-2	-8
 LmjF.02	LmjF.02.0030:mRNA	316	S	*	C947G	point	in	-4	-8
 LmjF.02	LmjF.02.0030:mRNA	323	SN	S	CAAC969C	del	in	5	-5
 LmjF.02	LmjF.02.0030:mRNA	327	A	A	C981A	point	in	4	0
-LmjF.02	LmjF.02.0040:mRNA	328	*	*	A983G,G984A	point	in	1	0
+LmjF.02	LmjF.02.0030:mRNA	328	*	*	A983G,G984A	point	in	1	0
 LmjF.02	LmjF.02.0040:mRNA	8	A	A	C24T	point	in	4	0
 LmjF.02	LmjF.02.0040:mRNA	19	Q	Q	A57G	point	in	5	0
 LmjF.02	LmjF.02.0040:mRNA	24	A	A	T72C	point	in	4	0
@@ -7189,7 +7189,7 @@ LmjF.02	LmjF.02.0040:mRNA	599	R	Q	G1796A	point	in	1	-4
 LmjF.02	LmjF.02.0040:mRNA	602	F	C	T1805G	point	in	-2	-8
 LmjF.02	LmjF.02.0040:mRNA	612	S	S	T1836C	point	in	4	0
 LmjF.02	LmjF.02.0040:mRNA	617	G	G	G1851T	point	in	6	0
-LmjF.02	LmjF.02.0050:mRNA	618	A	A	G1854T	point	in	4	0
+LmjF.02	LmjF.02.0040:mRNA	618	A	A	G1854T	point	in	4	0
 LmjF.02	LmjF.02.0050:mRNA	4	F	V	T10G	point	in	-1	-7
 LmjF.02	LmjF.02.0050:mRNA	15	K	S	A44G,G45C	point	in	0	-5
 LmjF.02	LmjF.02.0050:mRNA	17	K	E	A49G	point	in	1	-4
@@ -7229,7 +7229,7 @@ LmjF.02	LmjF.02.0050:mRNA	192	L	L	T576C	point	in	4	0
 LmjF.02	LmjF.02.0050:mRNA	194	A	L	G580C,C581T	point	in	-1	-5
 LmjF.02	LmjF.02.0050:mRNA	197	Q	Q	A591G	point	in	5	0
 LmjF.02	LmjF.02.0050:mRNA	201	K	R	A602G	point	in	2	-3
-LmjF.02	LmjF.02.0060:mRNA	207	A	A	G621A	point	in	4	0
+LmjF.02	LmjF.02.0050:mRNA	207	A	A	G621A	point	in	4	0
 LmjF.02	LmjF.02.0060:mRNA	9	V	V	C27G	point	in	4	0
 LmjF.02	LmjF.02.0060:mRNA	16	T	K	C47A	point	in	-1	-6
 LmjF.02	LmjF.02.0060:mRNA	18	S	S	T54C	point	in	4	0
@@ -7264,7 +7264,7 @@ LmjF.02	LmjF.02.0060:mRNA	154	P	P	A462G	point	in	7	0
 LmjF.02	LmjF.02.0060:mRNA	163	G	G	T489C	point	in	6	0
 LmjF.02	LmjF.02.0060:mRNA	186	C	C	T558C	point	in	9	0
 LmjF.02	LmjF.02.0060:mRNA	188	C	C	T564C	point	in	9	0
-LmjF.02	LmjF.02.0070:mRNA	191	V	GV	G571GGGG	ins	in	1	-7
+LmjF.02	LmjF.02.0060:mRNA	191	V	GV	G571GGGG	ins	in	1	-7
 LmjF.02	LmjF.02.0070:mRNA	7	K	K	A21G	point	in	5	0
 LmjF.02	LmjF.02.0070:mRNA	13	G	S	G37A	point	in	0	-6
 LmjF.02	LmjF.02.0070:mRNA	38	V	E	T113A	point	in	-2	-6
@@ -7316,7 +7316,7 @@ LmjF.02	LmjF.02.0070:mRNA	377	S	F	C1130T	point	in	-2	-6
 LmjF.02	LmjF.02.0070:mRNA	387	G	G	G1161A	point	in	6	0
 LmjF.02	LmjF.02.0070:mRNA	388	T	T	T1164C	point	in	5	0
 LmjF.02	LmjF.02.0070:mRNA	393	P	P	A1179G	point	in	7	0
-LmjF.02	LmjF.02.0080:mRNA	397	R	R	C1189A	point	in	5	0
+LmjF.02	LmjF.02.0070:mRNA	397	R	R	C1189A	point	in	5	0
 LmjF.02	LmjF.02.0080:mRNA	6	R	C	C16T	point	in	-3	-8
 LmjF.02	LmjF.02.0080:mRNA	11	R	P	G32C,C33A	point	in	-2	-7
 LmjF.02	LmjF.02.0080:mRNA	15	V	L	G43C	point	in	1	-3
@@ -7503,7 +7503,7 @@ LmjF.02	LmjF.02.0080:mRNA	1085	S	S	G3255T	point	in	4	0
 LmjF.02	LmjF.02.0080:mRNA	1086	C	G	T3256G	point	in	-3	-12
 LmjF.02	LmjF.02.0080:mRNA	1087	V	V	A3261G	point	in	4	0
 LmjF.02	LmjF.02.0080:mRNA	1091	L	L	T3271C,G3273C	point	in	4	0
-LmjF.02	LmjF.02.0085:mRNA	1093	R	R	A3279G	point	in	5	0
+LmjF.02	LmjF.02.0080:mRNA	1093	R	R	A3279G	point	in	5	0
 LmjF.02	LmjF.02.0085:mRNA	2	I	T	T5C	point	in	-1	-5
 LmjF.02	LmjF.02.0085:mRNA	4	P	R	C11G	point	in	-2	-9
 LmjF.02	LmjF.02.0085:mRNA	7	R	H	G20A	point	in	0	-5
@@ -7562,7 +7562,7 @@ LmjF.02	LmjF.02.0085:mRNA	285	V	L	G853T	point	in	1	-3
 LmjF.02	LmjF.02.0085:mRNA	288	L	R	T863G	point	in	-2	-6
 LmjF.02	LmjF.02.0085:mRNA	293	A	A	T879C	point	in	4	0
 LmjF.02	LmjF.02.0085:mRNA	301	A	E	C902A	point	in	-1	-5
-LmjF.02	LmjF.02.0090:mRNA	305	R	P	G914C	point	in	-2	-7
+LmjF.02	LmjF.02.0085:mRNA	305	R	P	G914C	point	in	-2	-7
 LmjF.02	LmjF.02.0090:mRNA	6	S	G	A16G	point	in	0	-4
 LmjF.02	LmjF.02.0090:mRNA	8	L	F	C22T	point	in	0	-4
 LmjF.02	LmjF.02.0090:mRNA	16	T	A	A46G	point	in	0	-5
@@ -7638,7 +7638,7 @@ LmjF.02	LmjF.02.0090:mRNA	339	A	A	A1017T	point	in	4	0
 LmjF.02	LmjF.02.0090:mRNA	345	S	N	G1034A	point	in	1	-3
 LmjF.02	LmjF.02.0090:mRNA	346	S	G	A1036G	point	in	0	-4
 LmjF.02	LmjF.02.0090:mRNA	347	K	K	G1041A	point	in	5	0
-LmjF.02	LmjF.02.0110:mRNA	349	R	K	G1046A	point	in	2	-3
+LmjF.02	LmjF.02.0090:mRNA	349	R	K	G1046A	point	in	2	-3
 LmjF.02	LmjF.02.0110:mRNA	2	P	P	A6G	point	in	7	0
 LmjF.02	LmjF.02.0110:mRNA	19	P	A	C55G	point	in	-1	-8
 LmjF.02	LmjF.02.0110:mRNA	20	S	S	C60T	point	in	4	0
@@ -7806,7 +7806,7 @@ LmjF.02	LmjF.02.0110:mRNA	1121	G	G	T3363C	point	in	6	0
 LmjF.02	LmjF.02.0110:mRNA	1123	A	A	G3369C	point	in	4	0
 LmjF.02	LmjF.02.0110:mRNA	1156	Y	S	A3467C	point	in	-2	-9
 LmjF.02	LmjF.02.0110:mRNA	1164	R	P	G3491C	point	in	-2	-7
-LmjF.02	LmjF.02.0120:mRNA	1166	S	T	T3496A,G3498A	point	in	1	-3
+LmjF.02	LmjF.02.0110:mRNA	1166	S	T	T3496A,G3498A	point	in	1	-3
 LmjF.02	LmjF.02.0120:mRNA	5	L	L	T15C	point	in	4	0
 LmjF.02	LmjF.02.0120:mRNA	11	A	A	G33T	point	in	4	0
 LmjF.02	LmjF.02.0120:mRNA	16	R	R	A48G	point	in	5	0
@@ -8725,7 +8725,7 @@ LmjF.02	LmjF.02.0120:mRNA	4833	D	A	A14498C	point	in	-2	-8
 LmjF.02	LmjF.02.0120:mRNA	4834	M	V	A14500G	point	in	1	-4
 LmjF.02	LmjF.02.0120:mRNA	4851	S	S	T14553C	point	in	4	0
 LmjF.02	LmjF.02.0120:mRNA	4856	A	A	T14568C	point	in	4	0
-LmjF.02	LmjF.02.0130:mRNA	4883	K	K	G14649A	point	in	5	0
+LmjF.02	LmjF.02.0120:mRNA	4883	K	K	G14649A	point	in	5	0
 LmjF.02	LmjF.02.0130:mRNA	4	G	G	G12C	point	in	6	0
 LmjF.02	LmjF.02.0130:mRNA	6	N	N	T18C	point	in	6	0
 LmjF.02	LmjF.02.0130:mRNA	7	N	S	A20G	point	in	1	-5
@@ -8754,7 +8754,7 @@ LmjF.02	LmjF.02.0130:mRNA	192	V	I	G574A	point	in	3	-1
 LmjF.02	LmjF.02.0130:mRNA	223	S	S	T669C	point	in	4	0
 LmjF.02	LmjF.02.0130:mRNA	230	V	V	C690T	point	in	4	0
 LmjF.02	LmjF.02.0130:mRNA	236	A	V	C707T	point	in	0	-4
-LmjF.02	LmjF.02.0140:mRNA	239	R	R	C717T	point	in	5	0
+LmjF.02	LmjF.02.0130:mRNA	239	R	R	C717T	point	in	5	0
 LmjF.02	LmjF.02.0140:mRNA	7	A	A	G21A	point	in	4	0
 LmjF.02	LmjF.02.0140:mRNA	11	T	T	A33G	point	in	5	0
 LmjF.02	LmjF.02.0140:mRNA	12	E	E	A36G	point	in	5	0
@@ -8920,7 +8920,7 @@ LmjF.02	LmjF.02.0140:mRNA	843	V	A	T2528C	point	in	0	-4
 LmjF.02	LmjF.02.0140:mRNA	855	P	P	A2565G	point	in	7	0
 LmjF.02	LmjF.02.0140:mRNA	873	C	C	C2619T	point	in	9	0
 LmjF.02	LmjF.02.0140:mRNA	877	V	V	G2631A	point	in	4	0
-LmjF.02	LmjF.02.0150:mRNA	885	G	G	C2655T	point	in	6	0
+LmjF.02	LmjF.02.0140:mRNA	885	G	G	C2655T	point	in	6	0
 LmjF.02	LmjF.02.0150:mRNA	12	R	R	C36G	point	in	5	0
 LmjF.02	LmjF.02.0150:mRNA	20	E	G	A59G,G60A	point	in	-2	-7
 LmjF.02	LmjF.02.0150:mRNA	23	L	L	C69G	point	in	4	0
@@ -9334,7 +9334,7 @@ LmjF.02	LmjF.02.0150:mRNA	1912	E	A	A5735C	point	in	-1	-6
 LmjF.02	LmjF.02.0150:mRNA	1919	I	V	A5755G	point	in	3	-1
 LmjF.02	LmjF.02.0150:mRNA	1931	S	A	T5791G	point	in	1	-3
 LmjF.02	LmjF.02.0150:mRNA	1935	G	D	G5804A	point	in	-1	-7
-LmjF.02	LmjF.02.0155:mRNA	1938	S	SR	G5814GCGG	ins	in	3	-5
+LmjF.02	LmjF.02.0150:mRNA	1938	S	SR	G5814GCGG	ins	in	3	-5
 LmjF.02	LmjF.02.0155:mRNA	6	R	H	G17A	point	in	0	-5
 LmjF.02	LmjF.02.0155:mRNA	10	C	R	T28C	point	in	-3	-12
 LmjF.02	LmjF.02.0155:mRNA	11	E	K	G31A	point	in	1	-4
@@ -9359,7 +9359,7 @@ LmjF.02	LmjF.02.0155:mRNA	90	P	R	C269G	point	in	-2	-9
 LmjF.02	LmjF.02.0155:mRNA	93	T	A	A277G	point	in	0	-5
 LmjF.02	LmjF.02.0155:mRNA	94	I	V	A280G,T282G	point	in	3	-1
 LmjF.02	LmjF.02.0155:mRNA	95	F	L	T283C	point	in	0	-6
-LmjF.02	LmjF.02.0160:mRNA	96	L	V	C286G	point	in	1	-3
+LmjF.02	LmjF.02.0155:mRNA	96	L	V	C286G	point	in	1	-3
 LmjF.02	LmjF.02.0160:mRNA	17	F	S	T50C	point	in	-2	-8
 LmjF.02	LmjF.02.0160:mRNA	22	V	A	T65C,C66T	point	in	0	-4
 LmjF.02	LmjF.02.0160:mRNA	27	N	N	T81C	point	in	6	0
@@ -9510,7 +9510,7 @@ LmjF.02	LmjF.02.0160:mRNA	803	P	R	C2408G,T2409C	point	in	-2	-9
 LmjF.02	LmjF.02.0160:mRNA	804	A	T	G2410A	point	in	0	-4
 LmjF.02	LmjF.02.0160:mRNA	805	T	T	G2415A	point	in	5	0
 LmjF.02	LmjF.02.0160:mRNA	810	G	G	C2430T	point	in	6	0
-LmjF.02	LmjF.02.0170:mRNA	812	C	R	T2434C	point	in	-3	-12
+LmjF.02	LmjF.02.0160:mRNA	812	C	R	T2434C	point	in	-3	-12
 LmjF.02	LmjF.02.0170:mRNA	249	G	A	G746C,G747C	point	in	0	-6
 LmjF.02	LmjF.02.0170:mRNA	251	R	Q	G752A	point	in	1	-4
 LmjF.02	LmjF.02.0170:mRNA	268	R	R	T804C	point	in	5	0
@@ -9601,7 +9601,7 @@ LmjF.02	LmjF.02.0170:mRNA	828	Y	C	A2483G	point	in	-2	-9
 LmjF.02	LmjF.02.0170:mRNA	830	S	H	T2488C,C2489A	point	in	-1	-5
 LmjF.02	LmjF.02.0170:mRNA	838	G	G	G2514C	point	in	6	0
 LmjF.02	LmjF.02.0170:mRNA	839	I	V	A2515G	point	in	3	-1
-LmjF.02	LmjF.02.0180:mRNA	842	L	V	T2524G	point	in	1	-3
+LmjF.02	LmjF.02.0170:mRNA	842	L	V	T2524G	point	in	1	-3
 LmjF.02	LmjF.02.0180:mRNA	5	I	S	T14G	point	in	-2	-6
 LmjF.02	LmjF.02.0180:mRNA	9	F	L	T25C	point	in	0	-6
 LmjF.02	LmjF.02.0180:mRNA	12	T	T	A36G	point	in	5	0
@@ -9702,7 +9702,7 @@ LmjF.02	LmjF.02.0180:mRNA	713	L	V	C2137G	point	in	1	-3
 LmjF.02	LmjF.02.0180:mRNA	816	A	S	G2446T	point	in	1	-3
 LmjF.02	LmjF.02.0180:mRNA	829	T	K	C2486A	point	in	-1	-6
 LmjF.02	LmjF.02.0180:mRNA	831	L	F	A2493C	point	in	0	-4
-LmjF.02	LmjF.02.0190:mRNA	832	Y	F	A2495T	point	in	3	-4
+LmjF.02	LmjF.02.0180:mRNA	832	Y	F	A2495T	point	in	3	-4
 LmjF.02	LmjF.02.0190:mRNA	325	R	H	G974A	point	in	0	-5
 LmjF.02	LmjF.02.0190:mRNA	326	M	V	A976G	point	in	1	-4
 LmjF.02	LmjF.02.0190:mRNA	338	Q	R	A1013G	point	in	1	-4
@@ -9802,7 +9802,7 @@ LmjF.02	LmjF.02.0190:mRNA	1149	N	N	T3447C	point	in	6	0
 LmjF.02	LmjF.02.0190:mRNA	1153	R	W	C3457T	point	in	-3	-8
 LmjF.02	LmjF.02.0190:mRNA	1155	P	P	G3465C	point	in	7	0
 LmjF.02	LmjF.02.0190:mRNA	1168	L	F	G3504T	point	in	0	-4
-LmjF.02	LmjF.02.0200:mRNA	1170	L	V	C3508G,A3510G	point	in	1	-3
+LmjF.02	LmjF.02.0190:mRNA	1170	L	V	C3508G,A3510G	point	in	1	-3
 LmjF.02	LmjF.02.0200:mRNA	6	Y	C	A17G	point	in	-2	-9
 LmjF.02	LmjF.02.0200:mRNA	29	V	A	T86C	point	in	0	-4
 LmjF.02	LmjF.02.0200:mRNA	33	P	L	C98T,T99C	point	in	-3	-10
@@ -9954,7 +9954,7 @@ LmjF.02	LmjF.02.0200:mRNA	821	V	M	G2461A	point	in	1	-3
 LmjF.02	LmjF.02.0200:mRNA	822	Y	Y	T2466C	point	in	7	0
 LmjF.02	LmjF.02.0200:mRNA	830	T	T	T2490G	point	in	5	0
 LmjF.02	LmjF.02.0200:mRNA	834	T	T	A2502G	point	in	5	0
-LmjF.02	LmjF.02.0210:mRNA	843	L	L	G2529T	point	in	4	0
+LmjF.02	LmjF.02.0200:mRNA	843	L	L	G2529T	point	in	4	0
 LmjF.02	LmjF.02.0210:mRNA	306	V	A	T917C	point	in	0	-4
 LmjF.02	LmjF.02.0210:mRNA	307	G	G	T921C	point	in	6	0
 LmjF.02	LmjF.02.0210:mRNA	318	R	T	G953C	point	in	-1	-6
@@ -10022,7 +10022,7 @@ LmjF.02	LmjF.02.0210:mRNA	851	N	S	A2552G	point	in	1	-5
 LmjF.02	LmjF.02.0210:mRNA	854	F	F	C2562T	point	in	6	0
 LmjF.02	LmjF.02.0210:mRNA	855	V	V	G2565T	point	in	4	0
 LmjF.02	LmjF.02.0210:mRNA	860	R	R	G2580A	point	in	5	0
-LmjF.02	LmjF.02.0220:mRNA	862	S	S	C2586T	point	in	4	0
+LmjF.02	LmjF.02.0210:mRNA	862	S	S	C2586T	point	in	4	0
 LmjF.02	LmjF.02.0220:mRNA	240	L	L	G720A	point	in	4	0
 LmjF.02	LmjF.02.0220:mRNA	259	I	V	A775G	point	in	3	-1
 LmjF.02	LmjF.02.0220:mRNA	267	V	A	T800C	point	in	0	-4
@@ -10088,7 +10088,7 @@ LmjF.02	LmjF.02.0220:mRNA	768	M	T	T2303C,G2304T	point	in	-1	-6
 LmjF.02	LmjF.02.0220:mRNA	782	L	F	C2344T	point	in	0	-4
 LmjF.02	LmjF.02.0220:mRNA	791	E	G	A2372G	point	in	-2	-7
 LmjF.02	LmjF.02.0220:mRNA	797	I	V	A2389G	point	in	3	-1
-LmjF.02	LmjF.02.0230:mRNA	816	A	S	G2446T	point	in	1	-3
+LmjF.02	LmjF.02.0220:mRNA	816	A	S	G2446T	point	in	1	-3
 LmjF.02	LmjF.02.0230:mRNA	51	A	A	A153G	point	in	4	0
 LmjF.02	LmjF.02.0230:mRNA	53	A	T	G157A	point	in	0	-4
 LmjF.02	LmjF.02.0230:mRNA	58	V	G	T173G,C174T	point	in	-3	-7
@@ -10151,7 +10151,7 @@ LmjF.02	LmjF.02.0230:mRNA	911	K	T	A2732C	point	in	-1	-6
 LmjF.02	LmjF.02.0230:mRNA	979	L	F	G2937T	point	in	0	-4
 LmjF.02	LmjF.02.0230:mRNA	981	L	V	C2941G,A2943G	point	in	1	-3
 LmjF.02	LmjF.02.0230:mRNA	985	V	V	C2955G	point	in	4	0
-LmjF.02	LmjF.02.0240:mRNA	992	F	F	C2976T	point	in	6	0
+LmjF.02	LmjF.02.0230:mRNA	992	F	F	C2976T	point	in	6	0
 LmjF.02	LmjF.02.0240:mRNA	6	T	T	C18T	point	in	5	0
 LmjF.02	LmjF.02.0240:mRNA	7	T	A	A19G	point	in	0	-5
 LmjF.02	LmjF.02.0240:mRNA	9	V	L	G25C,A27T	point	in	1	-3
@@ -10325,7 +10325,7 @@ LmjF.02	LmjF.02.0240:mRNA	965	T	T	A2895C	point	in	5	0
 LmjF.02	LmjF.02.0240:mRNA	989	D	E	C2967G	point	in	2	-4
 LmjF.02	LmjF.02.0240:mRNA	991	A	A	G2973C	point	in	4	0
 LmjF.02	LmjF.02.0240:mRNA	995	P	P	T2985C	point	in	7	0
-LmjF.02	LmjF.02.0250:mRNA	997	K	K	G2991A	point	in	5	0
+LmjF.02	LmjF.02.0240:mRNA	997	K	K	G2991A	point	in	5	0
 LmjF.02	LmjF.02.0250:mRNA	2	P	R	C5G	point	in	-2	-9
 LmjF.02	LmjF.02.0250:mRNA	3	V	P	G7C,T8C	point	in	-2	-6
 LmjF.02	LmjF.02.0250:mRNA	17	V	A	T50C	point	in	0	-4
@@ -10528,7 +10528,7 @@ LmjF.02	LmjF.02.0250:mRNA	1134	Q	Q	G3402A	point	in	5	0
 LmjF.02	LmjF.02.0250:mRNA	1135	L	L	T3403C	point	in	4	0
 LmjF.02	LmjF.02.0250:mRNA	1142	L	L	G3426A	point	in	4	0
 LmjF.02	LmjF.02.0250:mRNA	1145	P	P	G3435C	point	in	7	0
-LmjF.02	LmjF.02.0260:mRNA	1146	*	*	A3437G	point	in	1	0
+LmjF.02	LmjF.02.0250:mRNA	1146	*	*	A3437G	point	in	1	0
 LmjF.02	LmjF.02.0260:mRNA	7	G	G	T21C	point	in	6	0
 LmjF.02	LmjF.02.0260:mRNA	10	A	N	G28A,C29A	point	in	-2	-6
 LmjF.02	LmjF.02.0260:mRNA	13	A	T	G37A	point	in	0	-4
@@ -10564,7 +10564,7 @@ LmjF.02	LmjF.02.0260:mRNA	233	I	V	A697G	point	in	3	-1
 LmjF.02	LmjF.02.0260:mRNA	247	A	V	C740T	point	in	0	-4
 LmjF.02	LmjF.02.0260:mRNA	254	G	G	T762C	point	in	6	0
 LmjF.02	LmjF.02.0260:mRNA	262	N	S	A785G	point	in	1	-5
-LmjF.02	LmjF.02.0270:mRNA	263	P	S	C787T	point	in	-1	-8
+LmjF.02	LmjF.02.0260:mRNA	263	P	S	C787T	point	in	-1	-8
 LmjF.02	LmjF.02.0270:mRNA	2	W	R	T4C	point	in	-3	-14
 LmjF.02	LmjF.02.0270:mRNA	4	Y	C	A11G	point	in	-2	-9
 LmjF.02	LmjF.02.0270:mRNA	11	G	G	G33A	point	in	6	0
@@ -10598,7 +10598,7 @@ LmjF.02	LmjF.02.0270:mRNA	126	V	V	C378G	point	in	4	0
 LmjF.02	LmjF.02.0270:mRNA	131	D	D	T393C	point	in	6	0
 LmjF.02	LmjF.02.0270:mRNA	134	R	R	A402G	point	in	5	0
 LmjF.02	LmjF.02.0270:mRNA	139	E	E	G417A	point	in	5	0
-LmjF.02	LmjF.02.0280:mRNA	160	R	Q	A478C,G479A	point	in	1	-4
+LmjF.02	LmjF.02.0270:mRNA	160	R	Q	A478C,G479A	point	in	1	-4
 LmjF.02	LmjF.02.0280:mRNA	12	T	T	C36T	point	in	5	0
 LmjF.02	LmjF.02.0280:mRNA	23	R	K	G68A	point	in	2	-3
 LmjF.02	LmjF.02.0280:mRNA	31	L	L	C91T	point	in	4	0
@@ -10621,7 +10621,7 @@ LmjF.02	LmjF.02.0280:mRNA	154	S	S	C462T	point	in	4	0
 LmjF.02	LmjF.02.0280:mRNA	157	A	T	G469A	point	in	0	-4
 LmjF.02	LmjF.02.0280:mRNA	159	R	R	A477G	point	in	5	0
 LmjF.02	LmjF.02.0280:mRNA	162	K	R	A485G	point	in	2	-3
-LmjF.02	LmjF.02.0290:mRNA	165	K	K	G495A	point	in	5	0
+LmjF.02	LmjF.02.0280:mRNA	165	K	K	G495A	point	in	5	0
 LmjF.02	LmjF.02.0290:mRNA	3	E	E	A9G	point	in	5	0
 LmjF.02	LmjF.02.0290:mRNA	4	R	R	T12C	point	in	5	0
 LmjF.02	LmjF.02.0290:mRNA	5	F	F	T15C	point	in	6	0
@@ -10704,7 +10704,7 @@ LmjF.02	LmjF.02.0290:mRNA	502	L	L	C1504T	point	in	4	0
 LmjF.02	LmjF.02.0290:mRNA	503	F	F	C1509T	point	in	6	0
 LmjF.02	LmjF.02.0290:mRNA	509	G	E	G1526A	point	in	-2	-8
 LmjF.02	LmjF.02.0290:mRNA	521	H	Y	C1561T	point	in	2	-6
-LmjF.02	LmjF.02.0300:mRNA	527	V	V	T1581C	point	in	4	0
+LmjF.02	LmjF.02.0290:mRNA	527	V	V	T1581C	point	in	4	0
 LmjF.02	LmjF.02.0300:mRNA	2	D	N	G4A	point	in	1	-5
 LmjF.02	LmjF.02.0300:mRNA	7	L	P	T20C	point	in	-3	-7
 LmjF.02	LmjF.02.0300:mRNA	13	C	G	T37G,T39C	point	in	-3	-12
@@ -11106,7 +11106,7 @@ LmjF.02	LmjF.02.0300:mRNA	2614	R	L	G7841T	point	in	-2	-7
 LmjF.02	LmjF.02.0300:mRNA	2617	E	E	G7851A	point	in	5	0
 LmjF.02	LmjF.02.0300:mRNA	2619	L	M	C7855A	point	in	2	-2
 LmjF.02	LmjF.02.0300:mRNA	2623	R	G	A7867G	point	in	-2	-7
-LmjF.02	LmjF.02.0310:mRNA	2629	G	E	G7886A	point	in	-2	-8
+LmjF.02	LmjF.02.0300:mRNA	2629	G	E	G7886A	point	in	-2	-8
 LmjF.02	LmjF.02.0310:mRNA	17	L	P	T50C,G51A	point	in	-3	-7
 LmjF.02	LmjF.02.0310:mRNA	19	R	P	G56C	point	in	-2	-7
 LmjF.02	LmjF.02.0310:mRNA	24	Q	Q	A72G	point	in	5	0
@@ -11223,7 +11223,7 @@ LmjF.02	LmjF.02.0310:mRNA	648	N	N	T1944C	point	in	6	0
 LmjF.02	LmjF.02.0310:mRNA	649	R	R	A1947G	point	in	5	0
 LmjF.02	LmjF.02.0310:mRNA	650	A	A	G1950A	point	in	4	0
 LmjF.02	LmjF.02.0310:mRNA	661	R	R	C1983T	point	in	5	0
-LmjF.02	LmjF.02.0320:mRNA	678	L	L	T2032C	point	in	4	0
+LmjF.02	LmjF.02.0310:mRNA	678	L	L	T2032C	point	in	4	0
 LmjF.02	LmjF.02.0320:mRNA	1	M	V	A1G	point	in	1	-4
 LmjF.02	LmjF.02.0320:mRNA	10	S	S	C30T	point	in	4	0
 LmjF.02	LmjF.02.0320:mRNA	11	S	S	T33C	point	in	4	0
@@ -11273,7 +11273,7 @@ LmjF.02	LmjF.02.0320:mRNA	289	G	G	C867A	point	in	6	0
 LmjF.02	LmjF.02.0320:mRNA	306	E	G	A917G	point	in	-2	-7
 LmjF.02	LmjF.02.0320:mRNA	308	C	R	T922C	point	in	-3	-12
 LmjF.02	LmjF.02.0320:mRNA	313	S	P	T937C	point	in	-1	-5
-LmjF.02	LmjF.02.0330:mRNA	335	F	F	C1005T	point	in	6	0
+LmjF.02	LmjF.02.0320:mRNA	335	F	F	C1005T	point	in	6	0
 LmjF.02	LmjF.02.0330:mRNA	3	D	G	A8G	point	in	-1	-7
 LmjF.02	LmjF.02.0330:mRNA	4	N	N	T12C	point	in	6	0
 LmjF.02	LmjF.02.0330:mRNA	6	Y	*	C18G	point	in	-4	-11
@@ -11604,7 +11604,7 @@ LmjF.02	LmjF.02.0330:mRNA	1601	S	L	T4801C,C4802T,A4803T	point	in	-2	-6
 LmjF.02	LmjF.02.0330:mRNA	1602	G	Q	G4804C,G4805A	point	in	-2	-8
 LmjF.02	LmjF.02.0330:mRNA	1603	G	R	G4807C,C4809G	point	in	-2	-8
 LmjF.02	LmjF.02.0330:mRNA	1604	A	R	G4810C,C4811G	point	in	-1	-5
-LmjF.02	LmjF.02.0340:mRNA	1605	*	L	T4813C,A4814T	point	in	-4	-5
+LmjF.02	LmjF.02.0330:mRNA	1605	*	L	T4813C,A4814T	point	in	-4	-5
 LmjF.02	LmjF.02.0340:mRNA	7	L	V	C19G	point	in	1	-3
 LmjF.02	LmjF.02.0340:mRNA	8	F	S	T23C	point	in	-2	-8
 LmjF.02	LmjF.02.0340:mRNA	11	V	A	T32C	point	in	0	-4
@@ -11817,7 +11817,7 @@ LmjF.02	LmjF.02.0340:mRNA	931	A	A	A2793G	point	in	4	0
 LmjF.02	LmjF.02.0340:mRNA	946	S	T	G2837C	point	in	1	-3
 LmjF.02	LmjF.02.0340:mRNA	949	H	H	T2847C	point	in	8	0
 LmjF.02	LmjF.02.0340:mRNA	969	R	R	A2907G	point	in	5	0
-LmjF.02	LmjF.02.0350:mRNA	971	C	C	T2913C	point	in	9	0
+LmjF.02	LmjF.02.0340:mRNA	971	C	C	T2913C	point	in	9	0
 LmjF.02	LmjF.02.0350:mRNA	3	R	R	T9C	point	in	5	0
 LmjF.02	LmjF.02.0350:mRNA	4	T	R	C11G	point	in	-1	-6
 LmjF.02	LmjF.02.0350:mRNA	7	F	V	T19G	point	in	-1	-7
@@ -12017,7 +12017,7 @@ LmjF.02	LmjF.02.0350:mRNA	1031	R	R	T3093C	point	in	5	0
 LmjF.02	LmjF.02.0350:mRNA	1033	A	A	G3099A	point	in	4	0
 LmjF.02	LmjF.02.0350:mRNA	1037	S	S	T3111C	point	in	4	0
 LmjF.02	LmjF.02.0350:mRNA	1050	E	E	G3150A	point	in	5	0
-LmjF.02	LmjF.02.0360:mRNA	1051	A	T	G3151A	point	in	0	-4
+LmjF.02	LmjF.02.0350:mRNA	1051	A	T	G3151A	point	in	0	-4
 LmjF.02	LmjF.02.0360:mRNA	10	S	R	A28C	point	in	-1	-5
 LmjF.02	LmjF.02.0360:mRNA	48	R	R	C144T	point	in	5	0
 LmjF.02	LmjF.02.0360:mRNA	56	K	K	G168A	point	in	5	0
@@ -12047,7 +12047,7 @@ LmjF.02	LmjF.02.0360:mRNA	368	L	L	T1102C	point	in	4	0
 LmjF.02	LmjF.02.0360:mRNA	369	A	A	G1107A	point	in	4	0
 LmjF.02	LmjF.02.0360:mRNA	370	R	K	G1109A	point	in	2	-3
 LmjF.02	LmjF.02.0360:mRNA	379	A	A	A1137G	point	in	4	0
-LmjF.02	LmjF.02.0370:mRNA	381	R	H	G1142A	point	in	0	-5
+LmjF.02	LmjF.02.0360:mRNA	381	R	H	G1142A	point	in	0	-5
 LmjF.02	LmjF.02.0370:mRNA	3	S	P	T7C,C9T	point	in	-1	-5
 LmjF.02	LmjF.02.0370:mRNA	15	E	V	A44T	point	in	-2	-7
 LmjF.02	LmjF.02.0370:mRNA	26	A	S	G76T	point	in	1	-3
@@ -12091,7 +12091,7 @@ LmjF.02	LmjF.02.0370:mRNA	493	T	K	C1478A	point	in	-1	-6
 LmjF.02	LmjF.02.0370:mRNA	499	V	I	G1495A	point	in	3	-1
 LmjF.02	LmjF.02.0370:mRNA	502	G	V	G1505T	point	in	-3	-9
 LmjF.02	LmjF.02.0370:mRNA	506	A	V	C1517T	point	in	0	-4
-LmjF.02	LmjF.02.0380:mRNA	510	G	G	C1530T	point	in	6	0
+LmjF.02	LmjF.02.0370:mRNA	510	G	G	C1530T	point	in	6	0
 LmjF.02	LmjF.02.0380:mRNA	3	R	R	T9C	point	in	5	0
 LmjF.02	LmjF.02.0380:mRNA	5	S	S	T15C	point	in	4	0
 LmjF.02	LmjF.02.0380:mRNA	7	D	D	C21T	point	in	6	0
@@ -12141,7 +12141,7 @@ LmjF.02	LmjF.02.0380:mRNA	405	Q	Q	G1215A	point	in	5	0
 LmjF.02	LmjF.02.0380:mRNA	421	G	E	G1262A	point	in	-2	-8
 LmjF.02	LmjF.02.0380:mRNA	422	V	V	C1266T	point	in	4	0
 LmjF.02	LmjF.02.0380:mRNA	425	G	G	T1275C	point	in	6	0
-LmjF.02	LmjF.02.0390:mRNA	446	I	T	T1337C,A1338C	point	in	-1	-5
+LmjF.02	LmjF.02.0380:mRNA	446	I	T	T1337C,A1338C	point	in	-1	-5
 LmjF.02	LmjF.02.0390:mRNA	2	T	T	T6C	point	in	5	0
 LmjF.02	LmjF.02.0390:mRNA	7	S	N	G20A	point	in	1	-3
 LmjF.02	LmjF.02.0390:mRNA	15	T	A	A43G	point	in	0	-5
@@ -12153,7 +12153,7 @@ LmjF.02	LmjF.02.0390:mRNA	55	L	L	G165C	point	in	4	0
 LmjF.02	LmjF.02.0390:mRNA	71	T	T	A213G	point	in	5	0
 LmjF.02	LmjF.02.0390:mRNA	72	P	P	A216G	point	in	7	0
 LmjF.02	LmjF.02.0390:mRNA	81	P	P	A243G	point	in	7	0
-LmjF.02	LmjF.02.0400:mRNA	137	Y	Y	T411C	point	in	7	0
+LmjF.02	LmjF.02.0390:mRNA	137	Y	Y	T411C	point	in	7	0
 LmjF.02	LmjF.02.0400:mRNA	2	C	H	T4C,G5A	point	in	-3	-12
 LmjF.02	LmjF.02.0400:mRNA	5	A	A	C15T	point	in	4	0
 LmjF.02	LmjF.02.0400:mRNA	8	Y@	Y	TTGTCGTAGGTC24T	del	out	NA	NA
@@ -12165,7 +12165,7 @@ LmjF.02	LmjF.02.0400:mRNA	32	S	I	G95T	point	in	-2	-6
 LmjF.02	LmjF.02.0400:mRNA	35	C	R	T103C	point	in	-3	-12
 LmjF.02	LmjF.02.0400:mRNA	40	I	F	A118T	point	in	0	-4
 LmjF.02	LmjF.02.0400:mRNA	45	N	K	C135G	point	in	0	-6
-LmjF.02	LmjF.02.0410:mRNA	56	*	*	A167G	point	in	1	0
+LmjF.02	LmjF.02.0400:mRNA	56	*	*	A167G	point	in	1	0
 LmjF.02	LmjF.02.0410:mRNA	16	P	P	C48G	point	in	7	0
 LmjF.02	LmjF.02.0410:mRNA	24	V	G	T71G	point	in	-3	-7
 LmjF.02	LmjF.02.0410:mRNA	28	V	V	T84C	point	in	4	0
@@ -12329,7 +12329,7 @@ LmjF.02	LmjF.02.0410:mRNA	948	D	E	C2844A	point	in	2	-4
 LmjF.02	LmjF.02.0410:mRNA	976	A	V	C2927T,C2928T	point	in	0	-4
 LmjF.02	LmjF.02.0410:mRNA	989	R	R	T2967G	point	in	5	0
 LmjF.02	LmjF.02.0410:mRNA	994	V	V	C2982T	point	in	4	0
-LmjF.02	LmjF.02.0420:mRNA	1002	H	H	T3006C	point	in	8	0
+LmjF.02	LmjF.02.0410:mRNA	1002	H	H	T3006C	point	in	8	0
 LmjF.02	LmjF.02.0420:mRNA	2	G	G	G6A	point	in	6	0
 LmjF.02	LmjF.02.0420:mRNA	4	A	V	C11T	point	in	0	-4
 LmjF.02	LmjF.02.0420:mRNA	5	S	P	T13C	point	in	-1	-5
@@ -12491,7 +12491,7 @@ LmjF.02	LmjF.02.0420:mRNA	993	V	A	T2978C	point	in	0	-4
 LmjF.02	LmjF.02.0420:mRNA	994	S	S	G2982A	point	in	4	0
 LmjF.02	LmjF.02.0420:mRNA	996	I	T	T2987C	point	in	-1	-5
 LmjF.02	LmjF.02.0420:mRNA	1000	M	I	G3000A	point	in	1	-4
-LmjF.02	LmjF.02.0430:mRNA	1001	*	W	A3003G	point	in	-4	-5
+LmjF.02	LmjF.02.0420:mRNA	1001	*	W	A3003G	point	in	-4	-5
 LmjF.02	LmjF.02.0430:mRNA	4	V	A	T11C	point	in	0	-4
 LmjF.02	LmjF.02.0430:mRNA	9	A	T	G25A	point	in	0	-4
 LmjF.02	LmjF.02.0430:mRNA	14	S	A	T40G	point	in	1	-3
@@ -12563,7 +12563,7 @@ LmjF.02	LmjF.02.0430:mRNA	352	A	A	C1056T	point	in	4	0
 LmjF.02	LmjF.02.0430:mRNA	353	P	Q	C1058A	point	in	-1	-8
 LmjF.02	LmjF.02.0430:mRNA	360	L	M	C1078A,A1080G	point	in	2	-2
 LmjF.02	LmjF.02.0430:mRNA	363	H	Y	C1087T,C1089T	point	in	2	-6
-LmjF.02	LmjF.02.0450:mRNA	365	Y	H	T1093C	point	in	2	-5
+LmjF.02	LmjF.02.0430:mRNA	365	Y	H	T1093C	point	in	2	-5
 LmjF.02	LmjF.02.0450:mRNA	9	T	N	C26A	point	in	0	-5
 LmjF.02	LmjF.02.0450:mRNA	12	S	T	G35C	point	in	1	-3
 LmjF.02	LmjF.02.0450:mRNA	13	N	T	A38C,T39C	point	in	0	-6
@@ -12602,7 +12602,7 @@ LmjF.02	LmjF.02.0450:mRNA	230	V	V	G690T	point	in	4	0
 LmjF.02	LmjF.02.0450:mRNA	255	R	R	C765T	point	in	5	0
 LmjF.02	LmjF.02.0450:mRNA	263	S	S	G789A	point	in	4	0
 LmjF.02	LmjF.02.0450:mRNA	270	T	A	A808G	point	in	0	-5
-LmjF.02	LmjF.02.0460:mRNA	272	L	L	C816G	point	in	4	0
+LmjF.02	LmjF.02.0450:mRNA	272	L	L	C816G	point	in	4	0
 LmjF.02	LmjF.02.0460:mRNA	2	S	P	T4C	point	in	-1	-5
 LmjF.02	LmjF.02.0460:mRNA	4	S	L	C11T	point	in	-2	-6
 LmjF.02	LmjF.02.0460:mRNA	6	S	S	T18C	point	in	4	0
@@ -12634,7 +12634,7 @@ LmjF.02	LmjF.02.0460:mRNA	274	A	A	G822A	point	in	4	0
 LmjF.02	LmjF.02.0460:mRNA	278	L	L	C832T	point	in	4	0
 LmjF.02	LmjF.02.0460:mRNA	285	G	G	T855C	point	in	6	0
 LmjF.02	LmjF.02.0460:mRNA	289	T	T	C867G	point	in	5	0
-LmjF.02	LmjF.02.0470:mRNA	291	S	S	G873T	point	in	4	0
+LmjF.02	LmjF.02.0460:mRNA	291	S	S	G873T	point	in	4	0
 LmjF.02	LmjF.02.0470:mRNA	5	T	N	C14A	point	in	0	-5
 LmjF.02	LmjF.02.0470:mRNA	8	A	A	T24C	point	in	4	0
 LmjF.02	LmjF.02.0470:mRNA	9	ACRRHG	A	CTGTCGGCGGCACGGC27C	del	in	0	-37
@@ -13315,7 +13315,7 @@ LmjF.02	LmjF.02.0470:mRNA	3143	R	A	C9427G,G9428C,C9429T	point	in	-1	-6
 LmjF.02	LmjF.02.0470:mRNA	3144	T	A	A9430G	point	in	0	-5
 LmjF.02	LmjF.02.0470:mRNA	3145	L	L	A9435G	point	in	4	0
 LmjF.02	LmjF.02.0470:mRNA	3148	A	T	G9442A,T9444C	point	in	0	-4
-LmjF.02	LmjF.02.0480:mRNA	3151	E	E	G9453A	point	in	5	0
+LmjF.02	LmjF.02.0470:mRNA	3151	E	E	G9453A	point	in	5	0
 LmjF.02	LmjF.02.0480:mRNA	2	A	A	C6T	point	in	4	0
 LmjF.02	LmjF.02.0480:mRNA	4	D	G	A11G	point	in	-1	-7
 LmjF.02	LmjF.02.0480:mRNA	7	S	S	C21G	point	in	4	0
@@ -13351,7 +13351,7 @@ LmjF.02	LmjF.02.0480:mRNA	182	Q	Q	G546A	point	in	5	0
 LmjF.02	LmjF.02.0480:mRNA	183	P	P	G549A	point	in	7	0
 LmjF.02	LmjF.02.0480:mRNA	190	M	I	G570T	point	in	1	-4
 LmjF.02	LmjF.02.0480:mRNA	192	E	A	A575C	point	in	-1	-6
-LmjF.02	LmjF.02.0490:mRNA	202	*	*	A605G	point	in	1	0
+LmjF.02	LmjF.02.0480:mRNA	202	*	*	A605G	point	in	1	0
 LmjF.02	LmjF.02.0490:mRNA	7	LL	F	TACT20T	del	in	0	-8
 LmjF.02	LmjF.02.0490:mRNA	11	T	A	A31G	point	in	0	-5
 LmjF.02	LmjF.02.0490:mRNA	13	H	R	A38G	point	in	0	-8
@@ -13571,7 +13571,7 @@ LmjF.02	LmjF.02.0490:mRNA	1098	V	A	T3293C	point	in	0	-4
 LmjF.02	LmjF.02.0490:mRNA	1104	V	V	G3312A	point	in	4	0
 LmjF.02	LmjF.02.0490:mRNA	1116	S	S	T3348C	point	in	4	0
 LmjF.02	LmjF.02.0490:mRNA	1122	A	A	A3366G	point	in	4	0
-LmjF.02	LmjF.02.0500:mRNA	1125	V	V	C3375G	point	in	4	0
+LmjF.02	LmjF.02.0490:mRNA	1125	V	V	C3375G	point	in	4	0
 LmjF.02	LmjF.02.0500:mRNA	3	A	T	G7A	point	in	0	-4
 LmjF.02	LmjF.02.0500:mRNA	5	S	C	A13T	point	in	-1	-5
 LmjF.02	LmjF.02.0500:mRNA	10	S	S	C30A	point	in	4	0
@@ -13707,7 +13707,7 @@ LmjF.02	LmjF.02.0500:mRNA	934	M	V	A2800G	point	in	1	-4
 LmjF.02	LmjF.02.0500:mRNA	941	G	S	G2821A	point	in	0	-6
 LmjF.02	LmjF.02.0500:mRNA	943	G	D	G2828A	point	in	-1	-7
 LmjF.02	LmjF.02.0500:mRNA	950	Q	R	A2849G	point	in	1	-4
-LmjF.02	LmjF.02.0510:mRNA	951	G	S	G2851A	point	in	0	-6
+LmjF.02	LmjF.02.0500:mRNA	951	G	S	G2851A	point	in	0	-6
 LmjF.02	LmjF.02.0510:mRNA	6	L	V	C16G	point	in	1	-3
 LmjF.02	LmjF.02.0510:mRNA	7	R	R	T21C	point	in	5	0
 LmjF.02	LmjF.02.0510:mRNA	10	T	T	A30G	point	in	5	0
@@ -13734,7 +13734,7 @@ LmjF.02	LmjF.02.0510:mRNA	154	G	R	G460C	point	in	-2	-8
 LmjF.02	LmjF.02.0510:mRNA	157	S	K	G470A,T471G	point	in	0	-4
 LmjF.02	LmjF.02.0510:mRNA	158	I	I	C474A	point	in	4	0
 LmjF.02	LmjF.02.0510:mRNA	162	A	A	T486C	point	in	4	0
-LmjF.02	LmjF.02.0520:mRNA	163	T	T	A489G	point	in	5	0
+LmjF.02	LmjF.02.0510:mRNA	163	T	T	A489G	point	in	5	0
 LmjF.02	LmjF.02.0520:mRNA	5	T	T	G15C	point	in	5	0
 LmjF.02	LmjF.02.0520:mRNA	10	L	I	C28A	point	in	2	-2
 LmjF.02	LmjF.02.0520:mRNA	14	A	V	C41T	point	in	0	-4
@@ -14122,7 +14122,7 @@ LmjF.02	LmjF.02.0520:mRNA	2048	G	S	G6142A	point	in	0	-6
 LmjF.02	LmjF.02.0520:mRNA	2059	I	M	C6177G	point	in	1	-3
 LmjF.02	LmjF.02.0520:mRNA	2060	S	P	T6178C	point	in	-1	-5
 LmjF.02	LmjF.02.0520:mRNA	2079	V	A	T6236C	point	in	0	-4
-LmjF.02	LmjF.02.0530:mRNA	2081	G	G	C6243A	point	in	6	0
+LmjF.02	LmjF.02.0520:mRNA	2081	G	G	C6243A	point	in	6	0
 LmjF.02	LmjF.02.0530:mRNA	12	A	T	G34A	point	in	0	-4
 LmjF.02	LmjF.02.0530:mRNA	13	Q	P	A38C,G39A	point	in	-1	-6
 LmjF.02	LmjF.02.0530:mRNA	22	S	S	A66C	point	in	4	0
@@ -14261,7 +14261,7 @@ LmjF.02	LmjF.02.0530:mRNA	822	A	A	C2466T	point	in	4	0
 LmjF.02	LmjF.02.0530:mRNA	834	R	S	C2500A	point	in	-1	-6
 LmjF.02	LmjF.02.0530:mRNA	842	S	G	A2524G	point	in	0	-4
 LmjF.02	LmjF.02.0530:mRNA	844	S	S	T2532C	point	in	4	0
-LmjF.02	LmjF.02.0540:mRNA	861	R	Q	G2582A	point	in	1	-4
+LmjF.02	LmjF.02.0530:mRNA	861	R	Q	G2582A	point	in	1	-4
 LmjF.02	LmjF.02.0540:mRNA	14	A	T	G40A	point	in	0	-4
 LmjF.02	LmjF.02.0540:mRNA	18	D	G	A53G	point	in	-1	-7
 LmjF.02	LmjF.02.0540:mRNA	20	R	C	C58T	point	in	-3	-8
@@ -14330,7 +14330,7 @@ LmjF.02	LmjF.02.0540:mRNA	463	F	F	C1389T	point	in	6	0
 LmjF.02	LmjF.02.0540:mRNA	483	S	S	C1449T	point	in	4	0
 LmjF.02	LmjF.02.0540:mRNA	488	G	V	G1463T	point	in	-3	-9
 LmjF.02	LmjF.02.0540:mRNA	492	I	I	A1476C	point	in	4	0
-LmjF.02	LmjF.02.0550:mRNA	495	E	E	G1485A	point	in	5	0
+LmjF.02	LmjF.02.0540:mRNA	495	E	E	G1485A	point	in	5	0
 LmjF.02	LmjF.02.0550:mRNA	8	C	C	C24T	point	in	9	0
 LmjF.02	LmjF.02.0550:mRNA	18	Q	H	G54T	point	in	0	-5
 LmjF.02	LmjF.02.0550:mRNA	24	Q	Q	G72A	point	in	5	0
@@ -14348,7 +14348,7 @@ LmjF.02	LmjF.02.0550:mRNA	102	G	G	T306C	point	in	6	0
 LmjF.02	LmjF.02.0550:mRNA	103	A	A	G309C	point	in	4	0
 LmjF.02	LmjF.02.0550:mRNA	121	T	M	C362T	point	in	-1	-6
 LmjF.02	LmjF.02.0550:mRNA	155	A	T	G463A	point	in	0	-4
-LmjF.02	LmjF.02.0560:mRNA	162	R	R	T486C	point	in	5	0
+LmjF.02	LmjF.02.0550:mRNA	162	R	R	T486C	point	in	5	0
 LmjF.02	LmjF.02.0560:mRNA	2	R	L	G5T	point	in	-2	-7
 LmjF.02	LmjF.02.0560:mRNA	5	A	A	C15A	point	in	4	0
 LmjF.02	LmjF.02.0560:mRNA	8	A	T	G22A	point	in	0	-4
@@ -14468,7 +14468,7 @@ LmjF.02	LmjF.02.0560:mRNA	800	S	P	T2398C,C2400T	point	in	-1	-5
 LmjF.02	LmjF.02.0560:mRNA	833	S	S	T2499C	point	in	4	0
 LmjF.02	LmjF.02.0560:mRNA	842	F	F	C2526T	point	in	6	0
 LmjF.02	LmjF.02.0560:mRNA	846	G	G	A2538C	point	in	6	0
-LmjF.02	LmjF.02.0570:mRNA	848	T	T	T2544C	point	in	5	0
+LmjF.02	LmjF.02.0560:mRNA	848	T	T	T2544C	point	in	5	0
 LmjF.02	LmjF.02.0570:mRNA	6	R	R	G18T	point	in	5	0
 LmjF.02	LmjF.02.0570:mRNA	9	Q	R	A26G	point	in	1	-4
 LmjF.02	LmjF.02.0570:mRNA	10	W	*	G29A	point	in	-4	-15
@@ -14683,7 +14683,7 @@ LmjF.02	LmjF.02.0570:mRNA	1395	V	M	G4183A	point	in	1	-3
 LmjF.02	LmjF.02.0570:mRNA	1398	V	I	G4192A	point	in	3	-1
 LmjF.02	LmjF.02.0570:mRNA	1410	A	A	C4230T	point	in	4	0
 LmjF.02	LmjF.02.0570:mRNA	1415	F	F	C4245T	point	in	6	0
-LmjF.02	LmjF.02.0580:mRNA	1423	S	R	T4269G	point	in	-1	-5
+LmjF.02	LmjF.02.0570:mRNA	1423	S	R	T4269G	point	in	-1	-5
 LmjF.02	LmjF.02.0580:mRNA	2	L	L	A6C	point	in	4	0
 LmjF.02	LmjF.02.0580:mRNA	35	L	L	T103C	point	in	4	0
 LmjF.02	LmjF.02.0580:mRNA	51	R	H	G152A	point	in	0	-5
@@ -15181,7 +15181,7 @@ LmjF.02	LmjF.02.0580:mRNA	3728	V	V	C11184T	point	in	4	0
 LmjF.02	LmjF.02.0580:mRNA	3729	S	S	A11187G	point	in	4	0
 LmjF.02	LmjF.02.0580:mRNA	3747	A	T	G11239A	point	in	0	-4
 LmjF.02	LmjF.02.0580:mRNA	3752	Q	K	C11254A	point	in	1	-4
-LmjF.02	LmjF.02.0590:mRNA	3757	G	G	A11271G	point	in	6	0
+LmjF.02	LmjF.02.0580:mRNA	3757	G	G	A11271G	point	in	6	0
 LmjF.02	LmjF.02.0590:mRNA	22	T	S	C65G	point	in	1	-4
 LmjF.02	LmjF.02.0590:mRNA	31	M	I	G93C	point	in	1	-4
 LmjF.02	LmjF.02.0590:mRNA	36	T	T	T108C	point	in	5	0
@@ -15236,7 +15236,7 @@ LmjF.02	LmjF.02.0590:mRNA	476	A	T	G1426A	point	in	0	-4
 LmjF.02	LmjF.02.0590:mRNA	479	G	E	G1436A	point	in	-2	-8
 LmjF.02	LmjF.02.0590:mRNA	480	P	P	C1440T	point	in	7	0
 LmjF.02	LmjF.02.0590:mRNA	485	R	R	G1455C	point	in	5	0
-LmjF.02	LmjF.02.0600:mRNA	506	E	A	A1517C	point	in	-1	-6
+LmjF.02	LmjF.02.0590:mRNA	506	E	A	A1517C	point	in	-1	-6
 LmjF.02	LmjF.02.0600:mRNA	2	T	A	A4G	point	in	0	-5
 LmjF.02	LmjF.02.0600:mRNA	3	V	L	G7T	point	in	1	-3
 LmjF.02	LmjF.02.0600:mRNA	18	V	A	T53C	point	in	0	-4
@@ -15280,7 +15280,7 @@ LmjF.02	LmjF.02.0600:mRNA	180	A	V	C539T	point	in	0	-4
 LmjF.02	LmjF.02.0600:mRNA	189	S	N	G566A	point	in	1	-3
 LmjF.02	LmjF.02.0600:mRNA	190	L	V	T568G	point	in	1	-3
 LmjF.02	LmjF.02.0600:mRNA	202	A	A	G606T	point	in	4	0
-LmjF.02	LmjF.02.0610:mRNA	210	A	E	C629A	point	in	-1	-5
+LmjF.02	LmjF.02.0600:mRNA	210	A	E	C629A	point	in	-1	-5
 LmjF.02	LmjF.02.0610:mRNA	5	L	L	C15T	point	in	4	0
 LmjF.02	LmjF.02.0610:mRNA	20	L	L	C60T	point	in	4	0
 LmjF.02	LmjF.02.0610:mRNA	33	Q	K	C97A	point	in	1	-4
@@ -15316,7 +15316,7 @@ LmjF.02	LmjF.02.0610:mRNA	259	V	V	G777A	point	in	4	0
 LmjF.02	LmjF.02.0610:mRNA	275	G	G	C825T	point	in	6	0
 LmjF.02	LmjF.02.0610:mRNA	281	V	V	C843T	point	in	4	0
 LmjF.02	LmjF.02.0610:mRNA	298	Y	Y	T894C	point	in	7	0
-LmjF.02	LmjF.02.0620:mRNA	307	G	G	A921C	point	in	6	0
+LmjF.02	LmjF.02.0610:mRNA	307	G	G	A921C	point	in	6	0
 LmjF.02	LmjF.02.0620:mRNA	13	M	V	A37G	point	in	1	-4
 LmjF.02	LmjF.02.0620:mRNA	17	G	S	G49A,C51T	point	in	0	-6
 LmjF.02	LmjF.02.0620:mRNA	18	C	C	T54C	point	in	9	0
@@ -15410,7 +15410,7 @@ LmjF.02	LmjF.02.0620:mRNA	541	R	L	A1621C,G1622T	point	in	-2	-7
 LmjF.02	LmjF.02.0620:mRNA	542	S	S	G1626C	point	in	4	0
 LmjF.02	LmjF.02.0620:mRNA	543	A	A	T1629C	point	in	4	0
 LmjF.02	LmjF.02.0620:mRNA	563	T	A	A1687G	point	in	0	-5
-LmjF.02	LmjF.02.0630:mRNA	565	*	Q	T1693C	point	in	-4	-5
+LmjF.02	LmjF.02.0620:mRNA	565	*	Q	T1693C	point	in	-4	-5
 LmjF.02	LmjF.02.0630:mRNA	8	R	R	T24C	point	in	5	0
 LmjF.02	LmjF.02.0630:mRNA	10	S	S	A30G	point	in	4	0
 LmjF.02	LmjF.02.0630:mRNA	11	A	V	C32T,G33A	point	in	0	-4
@@ -15498,7 +15498,7 @@ LmjF.02	LmjF.02.0630:mRNA	600	T	T	C1800G	point	in	5	0
 LmjF.02	LmjF.02.0630:mRNA	609	T	T	G1827A	point	in	5	0
 LmjF.02	LmjF.02.0630:mRNA	623	F	F	C1869T	point	in	6	0
 LmjF.02	LmjF.02.0630:mRNA	634	G	G	T1902C	point	in	6	0
-LmjF.02	LmjF.02.0640:mRNA	643	T	T	G1929A	point	in	5	0
+LmjF.02	LmjF.02.0630:mRNA	643	T	T	G1929A	point	in	5	0
 LmjF.02	LmjF.02.0640:mRNA	2	S	P	T4C	point	in	-1	-5
 LmjF.02	LmjF.02.0640:mRNA	6	S	G	A16G	point	in	0	-4
 LmjF.02	LmjF.02.0640:mRNA	21	H	R	A62G	point	in	0	-8
@@ -15730,7 +15730,7 @@ LmjF.02	LmjF.02.0640:mRNA	1387	S	S	T4161C	point	in	4	0
 LmjF.02	LmjF.02.0640:mRNA	1393	K	K	A4179G	point	in	5	0
 LmjF.02	LmjF.02.0640:mRNA	1398	A	A	C4194G	point	in	4	0
 LmjF.02	LmjF.02.0640:mRNA	1399	L	L	C4197T	point	in	4	0
-LmjF.02	LmjF.02.0650:mRNA	1410	*	*CGACL	A4229AATGTGGGGCGTGTCT	ins	in	-19	-25
+LmjF.02	LmjF.02.0640:mRNA	1410	*	*CGACL	A4229AATGTGGGGCGTGTCT	ins	in	-19	-25
 LmjF.02	LmjF.02.0650:mRNA	11	T	M	C32T	point	in	-1	-6
 LmjF.02	LmjF.02.0650:mRNA	14	S	P	T40C	point	in	-1	-5
 LmjF.02	LmjF.02.0650:mRNA	25	P	P	C75T	point	in	7	0
@@ -15773,7 +15773,7 @@ LmjF.02	LmjF.02.0650:mRNA	281	T	A	A841G	point	in	0	-5
 LmjF.02	LmjF.02.0650:mRNA	295	R	Q	G884A	point	in	1	-4
 LmjF.02	LmjF.02.0650:mRNA	299	V	T	G895A,T896C	point	in	0	-4
 LmjF.02	LmjF.02.0650:mRNA	313	E	K	G937A	point	in	1	-4
-LmjF.02	LmjF.02.0660:mRNA	314	A	V	C941T	point	in	0	-4
+LmjF.02	LmjF.02.0650:mRNA	314	A	V	C941T	point	in	0	-4
 LmjF.02	LmjF.02.0660:mRNA	11	K	K	A33G	point	in	5	0
 LmjF.02	LmjF.02.0660:mRNA	15	H	R	A44G	point	in	0	-8
 LmjF.02	LmjF.02.0660:mRNA	18	R	R	A52C	point	in	5	0
@@ -15909,7 +15909,7 @@ LmjF.02	LmjF.02.0660:mRNA	896	S	S	A2688G	point	in	4	0
 LmjF.02	LmjF.02.0660:mRNA	901	E	D	G2703T	point	in	2	-3
 LmjF.02	LmjF.02.0660:mRNA	924	P	S	C2770T	point	in	-1	-8
 LmjF.02	LmjF.02.0660:mRNA	925	A	T	G2773A	point	in	0	-4
-LmjF.02	LmjF.02.0670:mRNA	928	G	D	G2783A	point	in	-1	-7
+LmjF.02	LmjF.02.0660:mRNA	928	G	D	G2783A	point	in	-1	-7
 LmjF.02	LmjF.02.0670:mRNA	8	A	A	C24T	point	in	4	0
 LmjF.02	LmjF.02.0670:mRNA	17	R	R	A51G	point	in	5	0
 LmjF.02	LmjF.02.0670:mRNA	19	V	L	G55T	point	in	1	-3
@@ -15947,7 +15947,7 @@ LmjF.02	LmjF.02.0670:mRNA	264	A	T	G790A	point	in	0	-4
 LmjF.02	LmjF.02.0670:mRNA	275	M	V	A823G	point	in	1	-4
 LmjF.02	LmjF.02.0670:mRNA	302	F	Y	T905A	point	in	3	-3
 LmjF.02	LmjF.02.0670:mRNA	310	S	S	T930C	point	in	4	0
-LmjF.02	LmjF.02.0680:mRNA	313	H	R	A938G,C939T	point	in	0	-8
+LmjF.02	LmjF.02.0670:mRNA	313	H	R	A938G,C939T	point	in	0	-8
 LmjF.02	LmjF.02.0680:mRNA	2	G	A	G5C,C6T	point	in	0	-6
 LmjF.02	LmjF.02.0680:mRNA	3	A	P	G7C	point	in	-1	-5
 LmjF.02	LmjF.02.0680:mRNA	7	V	M	G19A	point	in	1	-3
@@ -16026,7 +16026,7 @@ LmjF.02	LmjF.02.0680:mRNA	470	H	R	A1409G	point	in	0	-8
 LmjF.02	LmjF.02.0680:mRNA	474	G	R	G1420C	point	in	-2	-8
 LmjF.02	LmjF.02.0680:mRNA	489	S	C	C1466G	point	in	-1	-5
 LmjF.02	LmjF.02.0680:mRNA	499	R	C	C1495T	point	in	-3	-8
-LmjF.02	LmjF.02.0690:mRNA	500	G	C	G1498T	point	in	-3	-9
+LmjF.02	LmjF.02.0680:mRNA	500	G	C	G1498T	point	in	-3	-9
 LmjF.02	LmjF.02.0690:mRNA	2	Q	H	G6C	point	in	0	-5
 LmjF.02	LmjF.02.0690:mRNA	3	R	R	T9C	point	in	5	0
 LmjF.02	LmjF.02.0690:mRNA	4	L	S	T11C	point	in	-2	-6
@@ -16093,7 +16093,7 @@ LmjF.02	LmjF.02.0690:mRNA	403	S	A	T1207G	point	in	1	-3
 LmjF.02	LmjF.02.0690:mRNA	414	H	R	A1241G	point	in	0	-8
 LmjF.02	LmjF.02.0690:mRNA	433	D	P	G1297C,A1298C	point	in	-1	-7
 LmjF.02	LmjF.02.0690:mRNA	434	A	T	G1300A,A1302G	point	in	0	-4
-LmjF.02	LmjF.02.0700:mRNA	435	L	L	T1305A	point	in	4	0
+LmjF.02	LmjF.02.0690:mRNA	435	L	L	T1305A	point	in	4	0
 LmjF.02	LmjF.02.0700:mRNA	10	G	G	T30C	point	in	6	0
 LmjF.02	LmjF.02.0700:mRNA	12	A	A	G36C	point	in	4	0
 LmjF.02	LmjF.02.0700:mRNA	18	Q	R	A53G	point	in	1	-4
@@ -16189,7 +16189,7 @@ LmjF.02	LmjF.02.0700:mRNA	921	N	S	A2762G	point	in	1	-5
 LmjF.02	LmjF.02.0700:mRNA	923	A	A	T2769C	point	in	4	0
 LmjF.02	LmjF.02.0700:mRNA	924	A	T	G2770A	point	in	0	-4
 LmjF.02	LmjF.02.0700:mRNA	927	A	A	G2781A	point	in	4	0
-LmjF.02	LmjF.02.0710:mRNA	928	L	S	T2783C	point	in	-2	-6
+LmjF.02	LmjF.02.0700:mRNA	928	L	S	T2783C	point	in	-2	-6
 LmjF.02	LmjF.02.0710:mRNA	5	C	R	T13C	point	in	-3	-12
 LmjF.02	LmjF.02.0710:mRNA	7	A	V	C20T	point	in	0	-4
 LmjF.02	LmjF.02.0710:mRNA	20	A	A	G60C	point	in	4	0
@@ -16245,7 +16245,7 @@ LmjF.02	LmjF.02.0710:mRNA	775	L	L	C2323T	point	in	4	0
 LmjF.02	LmjF.02.0710:mRNA	780	V	I	G2338A	point	in	3	-1
 LmjF.02	LmjF.02.0710:mRNA	781	R	R	C2343T	point	in	5	0
 LmjF.02	LmjF.02.0710:mRNA	785	H	L	A2354T	point	in	-3	-11
-LmjF.02	LmjF.02.0720:mRNA	812	E	A	A2435C	point	in	-1	-6
+LmjF.02	LmjF.02.0710:mRNA	812	E	A	A2435C	point	in	-1	-6
 LmjF.02	LmjF.02.0720:mRNA	11	P	P	T33C	point	in	7	0
 LmjF.02	LmjF.02.0720:mRNA	15	I	V	A43G	point	in	3	-1
 LmjF.02	LmjF.02.0720:mRNA	17	V	A	T50C,G51A	point	in	0	-4
@@ -16260,7 +16260,7 @@ LmjF.02	LmjF.02.0720:mRNA	69	A	G	C206G	point	in	0	-4
 LmjF.02	LmjF.02.0720:mRNA	70	R	G	C208G	point	in	-2	-7
 LmjF.02	LmjF.02.0720:mRNA	72	L	S	T215C	point	in	-2	-6
 LmjF.02	LmjF.02.0720:mRNA	79	L	F	C235T	point	in	0	-4
-LmjF.02	LmjF.02.0730:mRNA	80	C	R	T238C	point	in	-3	-12
+LmjF.02	LmjF.02.0720:mRNA	80	C	R	T238C	point	in	-3	-12
 LmjF.02	LmjF.02.0730:mRNA	2	D	G	A5G	point	in	-1	-7
 LmjF.02	LmjF.02.0730:mRNA	5	R	R	C15T	point	in	5	0
 LmjF.02	LmjF.02.0730:mRNA	8	A	T	G22A	point	in	0	-4
@@ -16300,7 +16300,7 @@ LmjF.02	LmjF.02.0730:mRNA	118	N	N	C354T	point	in	6	0
 LmjF.02	LmjF.02.0730:mRNA	119	A	S	G355T	point	in	1	-3
 LmjF.02	LmjF.02.0730:mRNA	123	Y	R	T367C,A368G,T369G	point	in	-2	-9
 LmjF.02	LmjF.02.0730:mRNA	125	R	R	A375G	point	in	5	0
-LmjF.02	LmjF.02.0740:mRNA	129	*	R	T385A	point	in	-4	-5
+LmjF.02	LmjF.02.0730:mRNA	129	*	R	T385A	point	in	-4	-5
 LmjF.02	LmjF.02.0740:mRNA	11	P	T	C31A	point	in	-1	-8
 LmjF.02	LmjF.02.0740:mRNA	16	H	Y	C46T	point	in	2	-6
 LmjF.02	LmjF.02.0740:mRNA	21	Q	R	A62G	point	in	1	-4

@@ -1657,6 +1657,7 @@ sub label {
     my @nvar;
     $parent = 'FOOBAR';
     my $complex_vars = 0;
+    my $contig;
 
     #Define my codon table, I need to implement an option separate for
     #all the different ID values.
@@ -1692,8 +1693,8 @@ sub label {
                     $type = 'del';
                 }
                 print $outaa
-                    $var->{'seq_id'}, "\t",
-                    $var->{'parent'}, "\t",
+                    $contig, "\t",
+                    $parent, "\t",
                     $codon_num, "\t",
                     $ref_aa, "\t",
                     $alt_aa, "\t",
@@ -1722,8 +1723,8 @@ sub label {
                     $type = 'ins'
                 }
                 print $outaa
-                    $var->{'seq_id'}, "\t",
-                    $var->{'parent'}, "\t",
+                    $contig, "\t",
+                    $parent, "\t",
                     $codon_num, "\t",
                     $ref_aa, "\t",
                     $alt_aa, "\t",
@@ -1739,8 +1740,8 @@ sub label {
                 my $alt_aa = $codon_table->translate(substr($alt_codon, 0, 3));
                 if (length($ref_codon) > length($alt_codon)) {
                     print $outaa
-                        $var->{'seq_id'}, "\t",
-                        $var->{'parent'}, "\t",
+                        $contig, "\t",
+                        $parent, "\t",
                         $codon_num, "\t",
                         $ref_aa . '@', "\t",
                         $alt_aa, "\t",
@@ -1752,7 +1753,7 @@ sub label {
                 }
                 elsif (length($ref_codon) < length($alt_codon)) {
                     print $outaa
-                        $var->{'seq_id'}, "\t",
+                        $contig, "\t",
                         $parent, "\t",
                         $codon_num, "\t",
                         $ref_aa, "\t",
@@ -1769,6 +1770,7 @@ sub label {
             }
         }
         $codon_num = $var->{'codon'};
+        $contig = $var->{'seq_id'};
         $parent = $var->{'parent'};
         $ref_codon = substr($feature_seqs{$parent}, (($codon_num * 3) - 3), 3);
         $alt_codon = $ref_codon;
