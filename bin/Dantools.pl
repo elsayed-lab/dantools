@@ -47,7 +47,7 @@ if ($method eq 'pseudogen') {
     my $reads1 = ''; #mate 1 input reads
     my $reads2 = ''; #mate 2 input reads
     my $input_type;
-    my $fragment = 'yes';
+    my $no_fragment = 0;
     my $lengths = '200,10000';
     my $min_length = 20;
     my $overlap = 75;
@@ -83,7 +83,7 @@ if ($method eq 'pseudogen') {
         "var-fraction=f" => \$var_fraction,
         "var-depth=i" => \$var_depth,
         "score-min=s" => \$scoremin,
-        "fragment=s" => \$fragment,
+        "no-fragment" => \$no_fragment,
         "help|h" => \$help
         ) or die "Error in Parsing Arguments";
     #Checking input arguments and setting them manually for some
@@ -157,7 +157,7 @@ if ($method eq 'pseudogen') {
                              reads1 => "$reads1",
                              reads2 => "$reads2",
                              input_type => "$input_type",
-                             fragment => "$fragment",
+                             no_fragment => "$no_fragment",
                              lengths => "$lengths",
                              min_length => "$min_length",
                              overlap => "$overlap",
@@ -220,12 +220,13 @@ if ($method eq 'pseudogen') {
     my $parent_name = 'Parent';
     my $threads = 1;
     my $output_nuc = 'nucleotide_vars.tsv';
-    my $add_flanks = 'no';
+    my $add_flanks = 0;
+    my $all_vars = 0;
     my $flank_lengths = '200,200';
     my $flank_feature = '';
     my $flank_parent;
     #If they want it translated, they need the following:
-    my $translate = 'no';
+    my $translate = 0;
     my $coding_feature = 'CDS';
     my $output_aa = 'amino_vars.tsv';
     my $codon_table = 1; #determine the codon table to use
@@ -240,7 +241,7 @@ if ($method eq 'pseudogen') {
         "features=s" => \$features,
         "child=s" => \$child_name,
         "parent=s" => \$parent_name,
-        "add-flanks=s" => \$add_flanks,
+        "add-flanks" => \$add_flanks,
         "flank-lengths=s" => \$flank_lengths,
         "flank-feature=s" => \$flank_feature,
         "flank-parent=s" => \$flank_parent,
@@ -248,15 +249,16 @@ if ($method eq 'pseudogen') {
         "outdir=s" => \$outdir,
         "output-nuc=s" => \$output_nuc,
         "output-aa=s" => \$output_aa,
-        "translate=s" => \$translate,
+        "translate" => \$translate,
         "coding-feature=s" => \$coding_feature,
         "codon-table=i" => \$codon_table,
         "score_matrix=s" => \$score_matrix,
         "tmpdir=s" => \$tmpdir,
+        "all" => \$all_vars,
         "help|h" => \$help
         );
-    if (! defined($vcf)) { $help = 1 };
-    if (! defined($gff)) { $help = 1 };
+    if (! defined($vcf)) { print "ERROR: no VCF file provided"; $help = 1 };
+    if (! defined($gff)) { print "ERROR: no GFF/GTF file provided"; $help = 1 };
     if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/label.help");
         while (<$helpdoc>) { print $_ };
@@ -268,7 +270,9 @@ if ($method eq 'pseudogen') {
     $features =~ tr/ //d;
     if (! -r "$vcf") { die "ERROR: couldn't read $vcf" }
     elsif (! -r "$gff") { die "ERROR: couldn't read $gff" }
-    elsif ((! -r "$fasta") & ("$translate" eq 'yes')) { die "ERROR: couldn't read $fasta" };
+    elsif ((! -r "$fasta") & ($translate)) { die "ERROR: couldn't read $fasta" };
+
+    if ($features eq '') { die "ERROR: no target features provided\n" }
 
     if ("$outdir" eq '') {
         $outdir = getcwd;
@@ -283,12 +287,12 @@ if ($method eq 'pseudogen') {
     };
 
     #Try to make sure the coding feature is included in the features:
-    if ((index($features, $coding_feature) == -1) & ("$translate" eq 'yes')) {
-        die "Coding feature not included in features";
+    if ((index($features, $coding_feature) == -1) & ($translate)) {
+        die "ERROR: Coding feature not included in features\n";
     }
 
     #Parse the flank_lengths stuff
-    if ("$add_flanks" eq 'yes') {
+    if ($add_flanks) {
         $flank_lengths =~ tr/ //d;
         my @tmp = split(/\,/, "$flank_lengths");
         if (scalar(@tmp) == 1) {
@@ -300,7 +304,7 @@ if ($method eq 'pseudogen') {
 
     #If someone doesn't tell me what to add flanks to, I will try to
     #figure it out if they pass only a single feature to annotate
-    if (("$add_flanks" eq 'yes') & ("$flank_feature" eq '')) {
+    if (($add_flanks) & ("$flank_feature" eq '')) {
         if (scalar(split(/\,/, "$features")) == 1) {
             $flank_feature = "$features";
         } else {
@@ -330,6 +334,7 @@ if ($method eq 'pseudogen') {
                          score_matrix => "$score_matrix",
                          output_aa => "$output_aa",
                          outdir => "$outdir",
+                         all_vars => "$all_vars",
                          tmpdir => "$tmpdir"
         );
 

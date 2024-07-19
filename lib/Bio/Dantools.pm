@@ -11,6 +11,7 @@ use File::Copy;
 use File::Path qw"make_path rmtree";
 use FindBin;
 use List::Util qw"max min sum";
+use List::MoreUtils qw"uniq";
 use Parallel::ForkManager;
 use POSIX qw"floor ceil";
 use Text::CSV_XS::TSV;
@@ -164,7 +165,7 @@ sub pseudogen {
     my $reads1 = $args{'reads1'};
     my $reads2 = $args{'reads2'};
     my $input_type = $args{'input_type'};
-    my $fragment = $args{'fragment'};
+    my $no_fragment = $args{'no_fragment'};
     my $lengths = $args{'lengths'};
     my $overlap = $args{'overlap'};
     my $min_length = $args{'min_length'};
@@ -178,7 +179,7 @@ sub pseudogen {
     }
 
     #Begin by fragmenting my reads if a fasta is given
-    if (("$input_type" eq 'fasta') & ("$fragment" eq 'yes')) {
+    if (("$input_type" eq 'fasta') & (! $no_fragment)) {
         ## recommendation from atb: have everything return something
         Bio::Dantools::fragment(input => "$source",
                                 output => "fragments.fasta",
@@ -204,12 +205,12 @@ sub pseudogen {
     ## not protect yourself in this fashion.
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
         #Determine which aligner scheme to run based on input type
-        if (("$input_type" eq 'fasta') & ("$fragment" eq 'yes')) {
+        if (("$input_type" eq 'fasta') & (! $no_fragment)) {
             my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$source", ('.fasta'));
 
         }
-        elsif (("$input_type" eq 'fasta') & ("$fragment" eq 'no')) {
+        elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
             my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
             $input_name = basename("$source", ('.fasta.'));
 
@@ -1135,16 +1136,23 @@ sub label {
     my $score_matrix = $args{'score_matrix'};
     my $output_aa = $args{'output_aa'};
     my $tmpdir = $args{'tmpdir'};
+    my $all_vars = $args{'all_vars'};
 
     chdir($args{'outdir'});
 
     #Modify my features if flanks are added:
-    if ("$add_flanks" eq 'yes') {
+    if ($add_flanks) {
         push(@feature_types, ('up_flank', 'down_flank'));
     }
 
     #Develop method to determine which features to add
     my %feature_types = map {$_ => 1 } @feature_types;
+
+    #Add functionality for GTF file:
+    my $att_sep = '=';
+    if ($input_gff =~ /.gtf$/) {
+        $att_sep = ' ';
+    }
     #Read in my GFF file:
     my @gff;
     my $gff_fh = FileHandle->new("$input_gff");
@@ -1165,7 +1173,7 @@ sub label {
             my @tmp = split(/;/, $row->{'attributes'});
             my %attributes;
             for my $item (@tmp) {
-                my ($key, $value) = split('=', $item);
+                my ($key, $value) = split("$att_sep", $item);
                 $attributes{$key} = $value;
             }
 
@@ -1190,11 +1198,11 @@ sub label {
         #to the edges of the protein_coding_gene, and annotate
         #variants by CDS
 
-        if (("$feat_type" eq "$flank_feature") & ("$add_flanks" eq 'yes')) {
+        if (("$feat_type" eq "$flank_feature") & ($add_flanks)) {
             my @tmp = split(/;/, $row->{'attributes'});
             my %attributes;
             for my $item (@tmp) {
-                my ($key, $value) = split('=', $item);
+                my ($key, $value) = split("$att_sep", $item);
                 $attributes{$key} = $value;
             }
             ;
@@ -1275,6 +1283,12 @@ sub label {
     if (scalar(@gff) == 0) {
         die "GFF file (${input_gff}) has no features\n";
     }
+    if (! defined($gff[0]->{'parent'})) {
+        die "ERROR: Could not find parent ${parent_name} in GFF/GTF attributes\n";
+    }
+    if (! defined($gff[0]->{'child'})) {
+        die "ERROR: Could not find child ${child_name} in GFF/GTF attributes\n";
+    }
 
     #I'm going to break this into two GFF files
     my @plus_features = grep { $_->{'strand'} eq '+' } @gff;
@@ -1354,13 +1368,15 @@ sub label {
         my @labels;    #Instead of printing everytime, which can cause
         #overlap in prints, save info to an array of hashes
         #and print at the end
+        my @labeled_idx; #keep track of which variants I've printed
+
         if (scalar(@plus_sub_features) !=  0) {
             my $parent = $plus_sub_features[0]->{'parent'}; #Start this up
             my $parent_pos = 0; #track number of bases covered in parent
             my $coding_pos = 0; #track number of bases covered in coding sequence
-            my $var_idx = 0;
             my $feat_end = 0; #make sure it doesn't fail in first iteration
             my $feat_start;
+            my $var_idx = 0;
             my $var = undef;
             my $skipper = '_balrog_'; #if I have overlap, this determines which parent to skip
           FEATURES: for my $feat (@plus_sub_features) {
@@ -1395,6 +1411,7 @@ sub label {
                     if ($var_pos < $feat_start ) {
                         $var_idx++;
                         next VARIANTS;
+
                     }
                     elsif ($var_pos > $feat_end) {
                         $parent_pos = $parent_pos + $feat_end - $feat_start + 1;
@@ -1428,10 +1445,12 @@ sub label {
                         depth => $var->{'depth'}
                     );
                     push(@labels, \%hash);
+                    push(@labeled_idx, $var_idx);
                     $var_idx++;
-                }
-            }
-        }
+                } #End Variants
+            } #End Features
+        } #end scalar(@plus_sub_features) check
+
         if (scalar(@minus_sub_features) != 0) {
 
             #Now I'm going to repeat this with a slightly modified pipeline
@@ -1446,10 +1465,10 @@ sub label {
             my $parent = $minus_sub_features[0]->{'parent'}; #Start this up
             my $parent_pos = 0; #track number of bases covered in parent
             my $coding_pos = 0;
+            my $feat_start = 100000000000; #make sure it doesn't fail on first iteration
+            my $feat_end;
             my $var_idx = 0;
             my $var = undef;
-            my $feat_start = 100000000; #make sure it doesn't fail on first iteration
-            my $feat_end;
             my $skipper = '_balrog_';
           FEATURES: for my $feat (@minus_sub_features) {
                 #For whatever reason, the above sorting can create an empty
@@ -1524,10 +1543,37 @@ sub label {
                         depth => $var->{'depth'}
                     );
                     push(@labels, \%hash);
+                    push(@labeled_idx, $var_idx);
                     $var_idx++;
                 }
             }
         }
+        #if the user wants all variants printed, I need to add those
+        #to my labels with a bunch of NA:
+        if ($all_vars) {
+            my %labeled_idx = map { $_ => 1 } @labeled_idx;
+            @variants = @variants[grep { ! exists($labeled_idx{$_}) } 0..$#variants];
+            for my $var (@variants) {
+                my %hash = (
+                    contig => $var->{'seq_id'},
+                    var_pos => $var->{'pos'},
+                    refn => $var->{'ref'},
+                    altn => $var->{'alt'},
+                    parent => 'NA',
+                    child => 'NA',
+                    type => 'NA',
+                    strand => 'NA',
+                    parent_pos => 'NA',
+                    child_pos => 'NA',
+                    coding_pos => 'NA',
+                    depth => 'NA'
+                );
+                push (@labels, \%hash);
+            }
+        }
+
+
+
         #Now I've built up my @labels and need to print it
         if (scalar(@labels) != 0) {
             @labels = sort { $a->{'var_pos'} <=> $b->{'var_pos'} } @labels;
@@ -1568,7 +1614,7 @@ sub label {
     close($outnuc);
     rmtree("$tmpdir");
 
-    if ("$translate" ne 'yes') {
+    if (! $translate) {
         exit 0;
     }
     ;
@@ -1967,6 +2013,12 @@ sub summarize_depth {
         $output = *STDOUT;
     }
 
+    #Add functionality for GTF file:
+    my $att_sep = '=';
+    if ($input_gff =~ /.gtf$/) {
+        $att_sep = ' ';
+    }
+
     my @gff_db;
     my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     $gff_tsv->column_names('seq_id', 'source', 'type', 'start', 'end', 'score', 'strand', 'phase', 'attributes');
@@ -1978,7 +2030,7 @@ sub summarize_depth {
         my @tmp = split(/;/, $row->{'attributes'});
         my %attributes;
         for my $item (@tmp) {
-            my ($key, $value) = split('=', $item);
+            my ($key, $value) = split("$att_sep", $item);
             $attributes{$key} = $value;
         }
         my %hash = (

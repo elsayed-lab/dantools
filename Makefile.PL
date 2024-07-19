@@ -29,6 +29,7 @@ use ExtUtils::AutoInstall(
         'File::Which' => '',
         'Getopt::Long' => '',
         'List::Util' => '',
+        'List::MoreUtils' => '',
         'Parallel::ForkManager' => '',
         'POSIX' => '',
         'Text::CSV_XS::TSV' => '',

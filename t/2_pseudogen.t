@@ -47,7 +47,7 @@ Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
                          var_depth => 2,
                          outdir => "$start/test_output",
                          input_type => "fasta",
-                         fragment => 'yes',
+                         no_fragment => 0,
                          scoremin => 'L,0,-1.50'
     );
 
