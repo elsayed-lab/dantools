@@ -14,10 +14,12 @@ Nucleotide labeling options:
                        (default: Parent)
   --output-nuc         The file to output labeled nucleotides to (default:
                        nucleotide_vars.tsv)
+  --all                Output all nucleotide variants even if they do not
+                       fall within any feature (entries will contain NA)
 
 Flank labeling options (nucleotide only):
-  --add-flanks         A yes/no option determining whether to label variants
-                       in regions adjacent to certain features
+  --add-flanks         Label variants within "flank" regions adjacent to
+                       features
   --flank-feature      The feature type to add flanks to, i.e. around which
                        feature should variants be labeled (default: input of
                        --features if only 1 argument provided)
@@ -28,10 +30,9 @@ Flank labeling options (nucleotide only):
                        respectively (default: 200,200)
 
 Amino acid labeling opions:
-  --translate          A yes/no option determining whether translate
-                       nucleotide variants to corresponding amino
-                       acid changes (default: no)
-  -b, --fasta          The FASTA to which the VCF and GFF correspond to
+  --translate          Translate variants into corresponding amino acid
+                       changes
+  -b, --fasta          The FASTA to which the VCF and GFF/GTF correspond
   --coding-feature     Which feature corresponds to coding sequences
                        (default: CDS)
   --codon-table        A numerical index for the codon table to use.

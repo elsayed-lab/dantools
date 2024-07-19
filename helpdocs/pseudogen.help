@@ -24,8 +24,7 @@ Output options:
 Fragmentation options (only with FASTA inputs):
   -l, --lengths   a comma-separated list of fragment lengths to employ
                   (default: 200,1000,10000)
-  --fragment      whether to fragment input fasta file, yes or no (default:
-                  "yes")
+  --no-fragment   do not fragment input FASTA file
   --min-length    minimum base length of fragment to be used (default: 20)
   --overlap       integer indicating percent overlap of adjacent fragments
                   (default: 90)
