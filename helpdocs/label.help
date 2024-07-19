@@ -3,7 +3,7 @@ Labels a VCF file (as output by dantools pseudogen)
 
 Required options:
   -v, --vcf            Input VCF file to be labeled
-  -f, --gff            GFF with features to label VCF according to
+  -f, --gff            GFF/GTF with features to label VCF according to
   --features           The feature type to label variants relative to.
                        Separate multiple features by comma, e.g. UTR,CDS
 
