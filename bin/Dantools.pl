@@ -266,11 +266,24 @@ if ($method eq 'pseudogen') {
     };
     $vcf = File::Spec->rel2abs($vcf);
     $gff = File::Spec->rel2abs($gff);
+
+     if ($translate) {
+        if (! defined($fasta)) {
+            die "ERROR: translate specified but no FASTA provided\n"
+        } else {
+            $fasta = File::Spec->rel2abs($fasta);
+        }
+
+        if (! -e $fasta) {
+            die "ERROR: FASTA file $fasta does not exist\n"        }
+        elsif (! -r "$fasta") {
+            die "ERROR: FASTA file $fasta is read protected\n"
+        }
+    };
     $fasta = File::Spec->rel2abs($fasta);
     $features =~ tr/ //d;
     if (! -r "$vcf") { die "ERROR: couldn't read $vcf" }
     elsif (! -r "$gff") { die "ERROR: couldn't read $gff" }
-    elsif ((! -r "$fasta") & ($translate)) { die "ERROR: couldn't read $fasta" };
 
     if ($features eq '') { die "ERROR: no target features provided\n" }
 
