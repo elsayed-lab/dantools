@@ -41,6 +41,7 @@ Alignment/Variant options:
                   justify another iteration (default: 100)
   --no-cap        do not terminate alignment of FASTA fragments after a scaled
                   alignment of 100%
+  --var-caller    one of 'freebayes' or 'bcftools' to use in variant calling
 
 Other options:
   -t, --threads   the number of parallel threads to run (default: 1)

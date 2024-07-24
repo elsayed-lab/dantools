@@ -52,6 +52,7 @@ if ($method eq 'pseudogen') {
     my $min_length = 20;
     my $overlap = 75;
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
+    my $variant_caller = 'freebayes';
     my $output_name = '';
     my $keepers = 'all';
     my $nocap = 0;
@@ -82,6 +83,7 @@ if ($method eq 'pseudogen') {
         "bin-size=i" => \$bin_size,
         "var-fraction=f" => \$var_fraction,
         "var-depth=i" => \$var_depth,
+        "var-caller=s" => \$variant_caller,
         "score-min=s" => \$scoremin,
         "no-fragment" => \$no_fragment,
         "help|h" => \$help
@@ -97,7 +99,7 @@ if ($method eq 'pseudogen') {
 
     #The first thing I need to do is check to make sure all of my
     #required binaries like hisat2 are loaded
-    my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'freebayes-parallel', 'stretcher');
+    my @needed = ('hisat2', 'hisat2-build', 'samtools', 'bcftools', 'stretcher');
     for my $bin (@needed) {
         die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
     };
@@ -145,6 +147,17 @@ if ($method eq 'pseudogen') {
         }
     }
 
+    #Check to make sure the variant caller I'm passed is reasonable
+    my @possible_callers = ( 'freebayes', 'bcftools' );
+    if (! grep { $_ eq $variant_caller } @possible_callers) {
+        die "ERROR: $variant_caller not in list of possible callers\n"
+    }
+
+    if ($variant_caller eq 'freebayes') {
+        die "ERROR: Need binary freebayes with --variant-caller freebayes\n" unless(which('freebayes-parallel'));
+    }
+
+
     if (("$nocap" == 1) & ("$input_type" ne 'fasta')) {
         print STDERR "WARNING: Argument 'no-cap' only applies to FASTA inputs\n";
     };
@@ -162,6 +175,7 @@ if ($method eq 'pseudogen') {
                              min_length => "$min_length",
                              overlap => "$overlap",
                              min_variants => "$min_variants",
+                             variant_caller => "$variant_caller",
                              nocap => "$nocap",
                              keepers => "$keepers",
                              output_name => "$output_name",
@@ -257,8 +271,8 @@ if ($method eq 'pseudogen') {
         "all" => \$all_vars,
         "help|h" => \$help
         );
-    if (! defined($vcf)) { print "ERROR: no VCF file provided"; $help = 1 };
-    if (! defined($gff)) { print "ERROR: no GFF/GTF file provided"; $help = 1 };
+    if (! defined($vcf)) { print "ERROR: no VCF file provided\n"; $help = 1 };
+    if (! defined($gff)) { print "ERROR: no GFF/GTF file provided\n"; $help = 1 };
     if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/label.help");
         while (<$helpdoc>) { print $_ };
