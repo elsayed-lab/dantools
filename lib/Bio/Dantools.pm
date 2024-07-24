@@ -25,7 +25,7 @@ use Bio::Tools::CodonTable;
 
 ## The Makefile.PL has a version_from stanza saying the version is in this file.
 ## I do not see it, so decided to make an executive decision:
-my $VERSION = '202406';
+my $VERSION = '202407';
 
 # Set up my interrupt trap
 BEGIN {
@@ -155,6 +155,7 @@ sub pseudogen {
     my $threads = $args{'threads'};
     my $var_fraction = $args{'var_fraction'};
     my $var_depth = $args{'var_depth'};
+    my $variant_caller = $args{'variant_caller'};
     my $outdir = $args{'outdir'};
     my $min_variants = $args{'min_variants'};
     my $nocap = $args{'nocap'};
@@ -206,22 +207,22 @@ sub pseudogen {
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
         #Determine which aligner scheme to run based on input type
         if (("$input_type" eq 'fasta') & (! $no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
             $input_name = basename("$source", ('.fasta'));
 
         }
         elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
             $input_name = basename("$source", ('.fasta.'));
 
         }
         elsif (("$input_type" eq 'fastq_u')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
             $input_name = basename("$readsu", ('.fastq'));
 
         }
         elsif (("$input_type" eq 'fastq_p')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin";
+            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
             $input_name = basename("$reads1", ('.fastq'));
 
         }

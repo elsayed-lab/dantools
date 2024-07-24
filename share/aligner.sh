@@ -61,6 +61,10 @@ while [ -n "$1" ]; do
             var_depth="$2"
             shift 1
             ;;
+        --variant_caller)
+            variant_caller="$2"
+            shift 1
+            ;;
         -t)
             threads="$2"
             shift 1
@@ -143,8 +147,15 @@ rm it"$it"/raw.sam
 
 #Process substitution doesn't work in shell, so I need to create my
 #regions file separately
-fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
-freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
+if [ "$variant_caller" -eq 'freebayes' ]; then
+    fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
+    freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
+] elif [ "$variant_caller" -eq 'bcftools' ]; then
+    bcftools mpileup it"$it"/sorted.bam -a FORMAT/AD,FORMAT/DP --threads "$threads" -f "$base" it"$it"/sorted.bam |
+        bcftools call -O v -m -v --threads 8 |
+        bcftools filter --threads "$threads" -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction} > it"$it"/variants.vcf
+fi
+
 rm it"$it"/freebayes_regions.tmp
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf
