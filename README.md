@@ -54,7 +54,7 @@ dantools in a self-contained tree with the github-downloaded source in
 src/
 
 ```{bash, eval=FALSE}
-mkdir -p dantools/202406
+mkdir -p dantools/202407
 cd dantools/202406
 git clone https://github.com/elsayed-lab/dantools.git
 mv dantools src
