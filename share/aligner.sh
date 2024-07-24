@@ -150,13 +150,12 @@ rm it"$it"/raw.sam
 if [ "$variant_caller" -eq 'freebayes' ]; then
     fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
     freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
+    rm it"$it"/freebayes_regions.tmp
 ] elif [ "$variant_caller" -eq 'bcftools' ]; then
     bcftools mpileup it"$it"/sorted.bam -a FORMAT/AD,FORMAT/DP --threads "$threads" -f "$base" it"$it"/sorted.bam |
         bcftools call -O v -m -v --threads 8 |
         bcftools filter --threads "$threads" -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction} > it"$it"/variants.vcf
 fi
-
-rm it"$it"/freebayes_regions.tmp
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf
 bcftools index it"$it"/variants.bcf
