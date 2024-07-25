@@ -154,7 +154,7 @@ if ($method eq 'pseudogen') {
     }
 
     if ($variant_caller eq 'freebayes') {
-        die "ERROR: Need binary freebayes with --variant-caller freebayes\n" unless(which('freebayes-parallel'));
+        die "ERROR: Need binary freebayes with --var-caller freebayes\n" unless(which('freebayes-parallel'));
     }
 
 

@@ -147,14 +147,16 @@ rm it"$it"/raw.sam
 
 #Process substitution doesn't work in shell, so I need to create my
 #regions file separately
-if [ "$variant_caller" -eq 'freebayes' ]; then
+
+if [ "$variant_caller" == 'freebayes' ]; then
+
     fasta_generate_regions.py "$fai" 100000 > it"$it"/freebayes_regions.tmp
     freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
     rm it"$it"/freebayes_regions.tmp
-] elif [ "$variant_caller" -eq 'bcftools' ]; then
-    bcftools mpileup it"$it"/sorted.bam -a FORMAT/AD,FORMAT/DP --threads "$threads" -f "$base" it"$it"/sorted.bam |
-        bcftools call -O v -m -v --threads 8 |
-        bcftools filter --threads "$threads" -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction} > it"$it"/variants.vcf
+elif [ "$variant_caller" == 'bcftools' ]; then
+    bcftools mpileup it"$it"/sorted.bam -a FORMAT/AD,FORMAT/DP --threads "$threads" -d 250 -f "$base" it"$it"/sorted.bam |
+        bcftools call -O v -m -v --threads 8 --ploidy 2 |
+        bcftools filter --threads "$threads" -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction}" > it"$it"/variants.vcf
 fi
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf
