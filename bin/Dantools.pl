@@ -187,7 +187,7 @@ if ($method eq 'pseudogen') {
                              scoremin => "$scoremin"
         );
 } elsif ("$method" eq 'fragment') {
-    my $lengths = '200,10000';
+    my $lengths = '200,1000';
     my $overlap = 75;
     my $min_length = 20;
     my $output = 'NO_OUTPUT_PROVIDED';
@@ -197,7 +197,8 @@ if ($method eq 'pseudogen') {
 
     GetOptions(
         "lengths|l=s" => \$lengths,
-        "output|o=s" => \$output,
+        "overlap|o=s" => \$overlap,
+        "output=s" => \$output,
         "log=s" => \$log,
         "threads|t=i" => \$threads,
         "help|h" => \$help

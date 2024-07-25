@@ -154,9 +154,9 @@ if [ "$variant_caller" == 'freebayes' ]; then
     freebayes-parallel it"$it"/freebayes_regions.tmp "$threads" -f "$base" --min-alternate-fraction "$var_fraction" --min-alternate-count "$var_depth" it"$it"/sorted.bam > it"$it"/variants.vcf
     rm it"$it"/freebayes_regions.tmp
 elif [ "$variant_caller" == 'bcftools' ]; then
-    bcftools mpileup it"$it"/sorted.bam -a FORMAT/AD,FORMAT/DP --threads "$threads" -d 250 -f "$base" it"$it"/sorted.bam |
-        bcftools call -O v -m -v --threads 8 --ploidy 2 |
-        bcftools filter --threads "$threads" -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction}" > it"$it"/variants.vcf
+    bcftools mpileup -a FORMAT/AD,FORMAT/DP -d 250 -f "$base" it"$it"/sorted.bam |
+        bcftools call -O v -m -v --ploidy 2 |
+        bcftools filter -i "FORMAT/AD[0:1] >= ${var_depth} && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ${var_fraction}" > it"$it"/variants.vcf
 fi
 
 bcftools view -O bcf -o it"$it"/variants.bcf it"$it"/variants.vcf
