@@ -172,6 +172,7 @@ sub pseudogen {
     my $min_length = $args{'min_length'};
     my $input_name;
 
+
     if ("$fai" eq '') {
         $fai = 'NA';
     }
