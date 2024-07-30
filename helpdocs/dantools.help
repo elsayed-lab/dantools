@@ -11,6 +11,8 @@ Commands:
     label             label a VCF file according to a GFF. Optionally translate nucleotide
                       variants to amino acid mutations
 
+    transloc          predict translocations from fragment alignment SAM file
+
     shift             shift GFF annotations given a VCF file
 
     summarize-aa      summarize amino acid mutations for each feature

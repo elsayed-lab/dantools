@@ -1,0 +1,24 @@
+Usage: dantools transloc [options] input.sam
+Reads a SAM alignment of fragments (from dantools fragment) to predict
+translocations
+
+Options:
+  -g, --gap-thresh     Maximum base distance between alignments to
+                       consider them the same translocation
+                       (default: 10000)
+  -b, --min-qbase      Minimum number of read bases (length * number)
+                       necessary to consdier translocation
+                       (default: 10000)
+  -d, --min-depth      Minimum depth across translocation to pass
+                       filters, calculated as bases / length
+                       (default: 1)
+  -l, --min-length     Minimum length of translocation on REF to be
+                       considered (default: 1)
+  -v, --vcf            If the SAM reference is a pseudogenome, pass
+                       its VCF file to shift reference coordinates
+                       back to reference rather than pseudogenome
+  -a, --all            Print all noted events regardless of overlap.
+                       Do not parse output
+  -o, --output         File to write the output to
+  -s, --sam            Alternative way of passing the SAM file
+  -h, --help           Print this help message
