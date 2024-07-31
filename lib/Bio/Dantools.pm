@@ -1236,24 +1236,6 @@ sub transloc {
     #Set up my reading of the input file:
     my $input_fh = FileHandle->new("$input_sam");
 
-    #The position of each element in the query read may differ
-    #depending on the contig (e.g. LmjF.01 vs LbrM2903_01). Since
-    #underscores are my separation variable, I need to figure out
-    #where all my data is in the array.
-    my @contig_idx;
-    my $start_point = 0;
-    while (<$input_fh>) {
-        if ($_ =~ /^@/) {
-            $start_point += length($_);
-            next;
-        } else {
-            my ($string) = split(/\t/, $_);
-            @contig_idx = 0..(($string =~ tr/_//) - 4);
-            last;
-        }
-    }
-
-    seek ($input_fh, $start_point, 0);
     #my %data_hash;
     my @data_hashes;
     my @output_lines;
@@ -1261,6 +1243,7 @@ sub transloc {
 
   SAM: while (<$input_fh>) {
         my @row = split(/\t/, $_);
+        next SAM if ($row[0] =~ /^@/);
         if ($current_contig ne $row[2]) {
             if ($current_contig ne '') {
                 #Need to add some metadata to hashes:
