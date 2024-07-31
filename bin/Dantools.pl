@@ -373,8 +373,10 @@ if ($method eq 'pseudogen') {
 
     my $input_sam;
     my $output;
-    my $gap_thresh = 10000;
+    my $ref_gap = 1000;
+    my $query_gap = 1000;
     my $min_qbase = 10000;
+    my $max_diff = 50; #% difference in length between ref and query
     my $min_depth = 1;
     my $min_length = 1;
     my $input_vcf = 0;
@@ -383,10 +385,12 @@ if ($method eq 'pseudogen') {
     GetOptions(
         "sam|s=s" => \$input_sam,
         "output|o=s" => \$output,
-        "gap-thresh|g=i" => \$gap_thresh,
+        "ref-gap|r=i" => \$ref_gap,
+        "query-gap|q=i" => \$query_gap,
         "min-qbase|b=i" => \$min_qbase,
         "min-depth|d=i" => \$min_depth,
         "min-length|l=i" => \$min_length,
+        "max-diff=i" => \$max_diff,
         "vcf|v=s" => \$input_vcf,
         "all|a" => \$all,
         "help|h" => \$help
@@ -421,7 +425,9 @@ if ($method eq 'pseudogen') {
     Bio::Dantools::transloc(
         input_sam => "$input_sam",
         output => "$output",
-        gap_thresh => "$gap_thresh",
+        ref_gap => "$ref_gap",
+        query_gap => "$query_gap",
+        max_diff => "$max_diff",
         min_qbase => "$min_qbase",
         min_depth => "$min_depth",
         min_length => "$min_length",

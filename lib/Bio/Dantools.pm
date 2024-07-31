@@ -25,7 +25,7 @@ use Bio::Tools::CodonTable;
 
 ## The Makefile.PL has a version_from stanza saying the version is in this file.
 ## I do not see it, so decided to make an executive decision:
-my $VERSION = '202407';
+my $VERSION = '202408';
 
 # Set up my interrupt trap
 BEGIN {
@@ -879,12 +879,14 @@ sub calc_end_pos {
 #Another baby function which, given an array of hashes for one contig,
 #parses which to keep and how to do so
 sub parse_outputs {
-    my ($array_ref, $min_depth, $min_qbase, $min_length, $all) = @_;
+    my ($array_ref, $min_depth, $min_qbase, $min_length, $max_diff, $all) = @_;
     my @contig_hashes = @$array_ref;
     my @output;
     @contig_hashes = grep {$_->{'depth'} > $min_depth &&
                                $_->{'qbases'} > $min_qbase &&
-                               $_->{'rend'} - $_->{'rstart'} > $min_length } @contig_hashes;
+                               $_->{'rlength'} > $min_length &&
+                               abs(($_->{'rlength'} - $_->{'qlength'}) / $_->{'rlength'}) < $max_diff
+                           } @contig_hashes;
 
     @contig_hashes = sort {
         $a->{'rcontig'} cmp $b->{'rcontig'} ||
@@ -896,17 +898,7 @@ sub parse_outputs {
     my $idx_limit = scalar(@contig_hashes);
     #First I need to flip each feature with inverted directionality
     #(happens) with minus strand alignments
-  FLIP: while ($idx < $idx_limit) {
-        my $ref = $contig_hashes[$idx];
-        if ($ref->{'qstart'} > $ref->{'qend'}) {
-            my $tmp1 = $ref->{'qstart'};
-            my $tmp2 = $ref->{'qend'};
-            $ref->{'qstart'} = $tmp2;
-            $ref->{'qend'} = $tmp1;
-        }
-        $idx++;
-    }
-    $idx = 0;
+
 
     if ($all) {
         return (@contig_hashes);
@@ -932,7 +924,7 @@ sub parse_outputs {
             $idx++;
         } elsif ($first->{'rend'} < $second->{'rend'}) {
             #Overlapping but not fully, take weighted mean based on depth
-            my $overlap = $first->{'rend'} - $first->{'rstart'} + 1;
+            my $overlap = $first->{'rend'} - $second->{'rstart'} + 1;
 
             my $first_weight = $first->{'depth'} / ($first->{'depth'} + $second->{'depth'});
             my $second_weight = $second->{'depth'} / ($first->{'depth'} + $second->{'depth'});
@@ -942,6 +934,20 @@ sub parse_outputs {
 
             $first->{'rend'} = $first->{'rend'} - $first_scale;
             $second->{'rstart'} = $second->{'rstart'} + $second_scale;
+
+            $first->{'rlength'} = $first->{'rend'} - $first->{'rstart'} + 1;
+            if ($first->{'rlength'} > 0) {
+                $first->{'depth'} = $first->{'qbases'} / $first->{'rlength'};
+            } else {
+                splice(@contig_hashes, $idx, 1);
+            }
+
+            $second->{'rlength'} = $second->{'rend'} - $second->{'rstart'} + 1;
+            if ($second->{'rlength'} > 0) {
+                $second->{'depth'} = $second->{'qbases'} / $second->{'rlength'};
+            } else {
+                splice(@contig_hashes, $idx, 1);
+            }
         } else {
             #In this case, the second feature is nested
             #within the first, so I make a depth-based
@@ -958,7 +964,25 @@ sub parse_outputs {
 
                 $first->{'rend'} = $second->{'rstart'} - 1;
                 $third{'rstart'} = $second->{'rend'} + 1;
-                push(@contig_hashes, \%third);
+
+                #Estimate depth from relative length
+                $first->{'rlength'} = $first->{'rend'} - $first->{'rstart'} + 1;
+                $third{'rlength'} = $third{'rend'} - $third{'rstart'} + 1;
+                #If the shifting inverted the feature (negative
+                #length)
+                my $total_rlength = $first->{'rlength'} + $third{'rlength'};
+                if ($first->{'rlength'} < 1) {
+                    splice(@contig_hashes, $idx, 1);
+                } else {
+                    $first->{'depth'} = $first->{'qbases'} / $first->{'rlength'};
+                    $first->{'qbases'} = int($first->{'qbases'} * ($first->{'rlength'} / $total_rlength))
+                }
+
+                if ($third{'rlength'} > 0) {
+                    $third{'depth'} = int($third{'qbases'} * ($third{'rlength'} / $total_rlength));
+                    $third{'depth'} = $third{'qbases'} / $third{'rlength'};
+                    push(@contig_hashes, \%third);
+                }
 
             }
         }
@@ -1145,6 +1169,43 @@ sub transloc_shifter {
     return @output;
 }
 
+#My final subroutine for this translocation calculator will seek to
+#merge to input hashes:
+
+sub merge_hashes {
+     my ($array_ref) = @_;
+    my @hashes = @$array_ref;
+    my $sum_aln = 0;
+     my $sum_qbases = 0;
+     my $rstart = $hashes[0]->{'rstart'};
+     my $rend = $hashes[0]->{'rend'};
+     my $qstart = $hashes[0]->{'qstart'};
+     my $qend = $hashes[0]->{'qend'};
+     for my $ref (@hashes) {
+         $rstart = $ref->{'rstart'} if ($ref->{'rstart'} < $rstart);
+         $rend = $ref->{'rend'} if ($ref->{'rend'} > $rend);
+         $qstart = $ref->{'qstart'} if ($ref->{'qstart'} < $qstart);
+         $qend = $ref->{'qend'} if ($ref->{'qend'} > $qend);
+         $sum_aln += $ref->{'num_aln'};
+         $sum_qbases += $ref->{'qbases'};
+     }
+
+     #Create a new hash to push onto data:
+     my %hash = (
+         qcontig => $hashes[0]->{'qcontig'},
+         qstrand => $hashes[0]->{'qstrand'},
+         qbases => $sum_qbases,
+         qstart => $qstart,
+         qend => $qend,
+         rcontig => $hashes[0]->{'rcontig'},
+         rstart => $rstart,
+         rend => $rend,
+         num_aln => $sum_aln,
+     );
+
+     return (%hash);
+}
+
 #Now I can go onto the main function. My idea now is this: have a hash
 #of hashes which I add data to. For each query, I built up sections of
 #each contig separated by a given gap thresh. Every time one finishes,
@@ -1155,7 +1216,9 @@ sub transloc {
     my %args = @_;
     my $input_sam = $args{'input_sam'};
     my $output_file = $args{'output'};
-    my $gap_thresh = $args{'gap_thresh'};
+    my $ref_gap = $args{'ref_gap'};
+    my $query_gap = $args{'query_gap'};
+    my $max_diff = $args{'max_diff'} / 100;
     my $min_qbase = $args{'min_qbase'};
     my $min_depth = $args{'min_depth'};
     my $min_length = $args{'min_length'};
@@ -1165,7 +1228,8 @@ sub transloc {
     my $output;
     if ($output_file eq 'NO_OUTPUT_PROVIDED') {
         $output = *STDOUT
-    } else {
+    }
+    else {
         $output = FileHandle->new("> $output_file");
     }
 
@@ -1177,115 +1241,135 @@ sub transloc {
     #underscores are my separation variable, I need to figure out
     #where all my data is in the array.
     my @contig_idx;
+    my $start_point = 0;
     while (<$input_fh>) {
-        next if ($_ =~ /^@/);
-        my ($string) = split(/\t/, $_);
-        @contig_idx = 0..(($string =~ tr/_//) - 4);
-        last;
+        if ($_ =~ /^@/) {
+            $start_point += length($_);
+            next;
+        } else {
+            my ($string) = split(/\t/, $_);
+            @contig_idx = 0..(($string =~ tr/_//) - 4);
+            last;
+        }
     }
-    seek ($input_fh, 0, 0);
 
-    my %data_hash;
-    my @contig_hashes;
+    seek ($input_fh, $start_point, 0);
+    #my %data_hash;
+    my @data_hashes;
     my @output_lines;
     my $current_contig = '';
 
   SAM: while (<$input_fh>) {
         my @row = split(/\t/, $_);
-        next SAM if ($row[0] =~ /^@/);
         if ($current_contig ne $row[2]) {
             if ($current_contig ne '') {
-                #Need to add any still-ongoing elements of data hash
-                for my $key (keys(%data_hash)) {
-                     $data_hash{$key}{'depth'} = $data_hash{$key}{'qbases'} / ($data_hash{$key}{'rend'} - $data_hash{$key}{'rstart'});
-                    push(@contig_hashes, { %{ $data_hash{$key} } });
+                #Need to add some metadata to hashes:
+                for my $ref (@data_hashes) {
+                    $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+                    $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
+                    $ref->{'depth'} = $ref->{'qbases'} / $ref->{'rlength'};
                 }
 
-                my @new_outputs = parse_outputs(\@contig_hashes, $min_depth, $min_qbase, $min_length, $all);
+                my @new_outputs = parse_outputs(\@data_hashes, $min_depth, $min_qbase, $min_length, $max_diff, $all);
                 push(@output_lines, @new_outputs);
             }
             $current_contig = $row[2];
-
-            @contig_hashes = ();
-            %data_hash = ();
+            @data_hashes = ();
         }
         #Because some contig names have _ in them, I can't just split this easily.
         my @arr = split(/_/, $row[0]);
-        my @qarr = (join('_', @arr[@contig_idx]), @arr[-4..-1]);
+        my @qarr = (join('_', @arr[0..$#arr-4]), @arr[-4..-1]);
         my $end_pos = calc_end_pos($row[3], $row[5]);
-        my $contig_name = $qarr[0] . $qarr[1];
 
-        if (exists($data_hash{$contig_name})) {
-            #This means I already have added this to my hash and need
-            #to decide what to do with it now
-            if ($end_pos < $data_hash{$contig_name}{'rend'} + $gap_thresh) {
-                $data_hash{$contig_name}{'qbases'} += $qarr[2];
-                $data_hash{$contig_name}{'num_aln'} += 1;
-                $data_hash{$contig_name}{'qend'} = $qarr[4];
-                $data_hash{$contig_name}{'rend'} = $end_pos;
-            } else {
-                #This read is past the last one + gap thresh, add to
-                #array after calculating some extra points (notably "depth")
-                $data_hash{$contig_name}{'depth'} = $data_hash{$contig_name}{'qbases'} / ($data_hash{$contig_name}{'rend'} - $data_hash{$contig_name}{'rstart'});
-                push(@contig_hashes, { %{ $data_hash{$contig_name} } });
-                delete $data_hash{$contig_name};
-                next SAM;
-            }
-        } else {
-            #Means I need to add this first
+        my @data_idx = grep {
+            $data_hashes[$_]->{'qcontig'} eq $qarr[0] &&
+                $data_hashes[$_]->{'qstrand'} eq $qarr[1] &&
+                $data_hashes[$_]->{'qstart'} - $query_gap < $qarr[4] &&
+                $data_hashes[$_]->{'qend'} + $query_gap > $qarr[3] &&
+                $data_hashes[$_]->{'rstart'} - $ref_gap < $end_pos &&
+                $data_hashes[$_]->{'rend'} + $ref_gap > $row[3]
+            } 0..$#data_hashes;
+
+        if (scalar(@data_idx) == 1) {
+            my $idx = $data_idx[0];
+            #This means I have an element for this aln already
+            $data_hashes[$idx]->{'rend'} = $end_pos if ($data_hashes[$idx]->{'rend'} < $end_pos);
+            $data_hashes[$idx]->{'num_aln'} += 1;
+            $data_hashes[$idx]->{'qbases'} += $qarr[2];
+
+            $data_hashes[$idx]->{'qend'} = $qarr[4] if ($qarr[4] > $data_hashes[$idx]->{'qend'});
+            $data_hashes[$idx]->{'qstart'} = $qarr[3] if ($qarr[4] < $data_hashes[$idx]->{'qstart'});
+        } elsif (scalar(@data_idx) == 0) {
+            #This means I need to initialize this element
             my %hash = (
                 qcontig => $qarr[0],
                 qstrand => $qarr[1],
-                qbases => $qarr[2] + 0,
+                qbases => $qarr[2],
                 qstart => $qarr[3],
-                qend => $qarr[4] + 0,
+                qend => $qarr[4],
                 rcontig => $row[2],
                 rstart => $row[3],
                 rend => $end_pos,
                 num_aln => 1,
             );
-            $data_hash{$contig_name} = \%hash;
+            push(@data_hashes, \%hash);
+        } else {
+            #This means some of my groupings have grown together, so I
+            #need to add them together
+
+            my @match = @data_hashes[@data_idx];
+            my %hash = merge_hashes(\@match);
+
+            #Remove the combining elements
+            @data_idx = sort { $b <=> $a } @data_idx;
+            for my $idx (@data_idx) { splice(@data_hashes, $idx, 1) };
+
+            push(@data_hashes, \%hash);
         }
     } #end SAM
     #Catch the final contig:
     if ($current_contig ne '') {
-        for my $key (keys(%data_hash)) {
-            $data_hash{$key}{'depth'} = $data_hash{$key}{'qbases'} / ($data_hash{$key}{'rend'} - $data_hash{$key}{'rstart'});
-            push(@contig_hashes, { %{ $data_hash{$key} } });
+        #Need to add some metadata to hashes:
+        for my $ref (@data_hashes) {
+            $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+            $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
+            $ref->{'depth'} = $ref->{'qbases'} / $ref->{'rlength'};
         }
-        my @new_outputs = parse_outputs(\@contig_hashes, $min_depth, $min_qbase, $min_length, $all);
+
+        my @new_outputs = parse_outputs(\@data_hashes, $min_depth, $min_qbase, $min_length, $max_diff, $all);
         push(@output_lines, @new_outputs);
     }
 
-    #I need to go through my inputs again to recalculate depth, since
-    #length may have changed
-    for my $ref (@output_lines) {
-        $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
-        $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
-    }
-
-    #Some rearrangements have create a 0 or - length segment:
-    @output_lines = grep {
-        $_->{'rlength'} > 0
-    } @output_lines;
 
     #If a vcf file is passed, I need to shift my translocations
     if ($input_vcf) {
         @output_lines = transloc_shifter(\@output_lines, "$input_vcf");
     }
 
-    #Calculate depth
+    #Re-calculate lengths since this will change them. I won't do
+    #depth, since that metric is supposed to be representative of
+    #quality and doesn't need the change I feel
     for my $ref (@output_lines) {
-        $ref->{'depth'} = $ref->{'qbases'} / $ref->{'rlength'};
+        $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+        $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
     }
+
     #Re-filter after parsing (I did this during parsing too, but may
     #have changed)
     if (! $all) {
+        my $prev_num = scalar(@output_lines);
         @output_lines = grep {
-            $_->{'rlength'} >= $min_length && $_->{'depth'} >= $min_depth
+            $_->{'rlength'} >= $min_length &&
+                $_->{'depth'} >= $min_depth &&
+                abs(($_->{'rlength'} - $_->{'qlength'}) / $_->{'rlength'}) < $max_diff &&
+                $_->{'qbases'} > $min_qbase
         } @output_lines;
     }
 
+    print $output
+        "#Q_CONTIG\tQ_START\tQ_END\tQ_LENGTH\tQ_STRAND\t",
+        "R_CONTIG\tR_START\tR_END\tR_LENGTH\tR_STRAND\t",
+        "DEPTH\tQ_BASES\n";
   PRINTER: for my $line (@output_lines) {
         my $strand = '+';
         $strand = '-' if ($line->{'qstrand'} eq 'rev');

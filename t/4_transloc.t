@@ -28,7 +28,9 @@ $SIG{'INT'} = sub {
 Bio::Dantools::transloc(
     input_sam => "${start_dir}/exp_aln.sam",
     output => "$start/test_output/test_transloc.tsv",
-    gap_thresh => 1000,
+    ref_gap => 10,
+    query_gap => 10,
+    max_diff => 50,
     min_qbase => 100,
     min_depth => 1,
     min_length => 1,
@@ -45,4 +47,4 @@ unless (ok($exp_tsv eq $act_tsv, 'Expected TSV file produced')) {
 }
 
 chdir($start);
-#rmtree("test_output");
+rmtree("test_output");

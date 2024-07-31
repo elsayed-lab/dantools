@@ -3,9 +3,12 @@ Reads a SAM alignment of fragments (from dantools fragment) to predict
 translocations
 
 Options:
-  -g, --gap-thresh     Maximum base distance between alignments to
-                       consider them the same translocation
-                       (default: 10000)
+  -r, --ref-gap        Maximum base distance between alignments
+                       relative to reference to group them together
+                       (default: 1000)
+  -q, --query-gap      Maximum base distance between alignments
+                       relative to query to group them together
+                       (default: 1000)
   -b, --min-qbase      Minimum number of read bases (length * number)
                        necessary to consdier translocation
                        (default: 10000)
