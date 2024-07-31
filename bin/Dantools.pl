@@ -367,7 +367,74 @@ if ($method eq 'pseudogen') {
         );
 
 } elsif ("$method" eq 'transloc') {
-    print "Sorry, this method is still in development";
+    #This function seeks to create a TSV file indicating which regions
+    #on one chromosome correspond to those regions on another
+    #species'.
+
+    my $input_sam;
+    my $output;
+    my $ref_gap = 1000;
+    my $query_gap = 1000;
+    my $min_qbase = 10000;
+    my $max_diff = 50; #% difference in length between ref and query
+    my $min_depth = 1;
+    my $min_length = 1;
+    my $input_vcf = 0;
+    my $all = 0; #print all found regions passing thresholds?
+    my $help = 0;
+    GetOptions(
+        "sam|s=s" => \$input_sam,
+        "output|o=s" => \$output,
+        "ref-gap|r=i" => \$ref_gap,
+        "query-gap|q=i" => \$query_gap,
+        "min-qbase|b=i" => \$min_qbase,
+        "min-depth|d=i" => \$min_depth,
+        "min-length|l=i" => \$min_length,
+        "max-diff=i" => \$max_diff,
+        "vcf|v=s" => \$input_vcf,
+        "all|a" => \$all,
+        "help|h" => \$help
+        );
+
+    if (! defined($input_sam)) {
+        $input_sam = $ARGV[0];
+    }
+    if (! defined($input_sam)) {
+        $help = 1;
+    }
+    if ($help) {
+        my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/transloc.help");
+        while (<$helpdoc>) { print $_ };
+        exit;
+    };
+
+    if (! -e $input_sam) {
+        die "ERROR: Input SAM $input_sam does not exist\n";
+    } elsif (! -r $input_sam) {
+        die "ERROR: Input SAM $input_sam is read-protected\n";
+    }
+
+    if (! defined($output)) {
+        $output = 'NO_OUTPUT_PROVIDED'
+    }
+
+    if ($input_vcf && ! -e $input_vcf) {
+        die "ERROR: Input VCF $input_vcf does not exist\n";
+    }
+
+    Bio::Dantools::transloc(
+        input_sam => "$input_sam",
+        output => "$output",
+        ref_gap => "$ref_gap",
+        query_gap => "$query_gap",
+        max_diff => "$max_diff",
+        min_qbase => "$min_qbase",
+        min_depth => "$min_depth",
+        min_length => "$min_length",
+        input_vcf => "$input_vcf",
+        all => "$all"
+    )
+
 } elsif ("$method" eq 'make-vcf') {
     #Just a function for me when I mess up. Uses a combined bases file
     #to generate a vcf file

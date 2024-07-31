@@ -25,7 +25,7 @@ use Bio::Tools::CodonTable;
 
 ## The Makefile.PL has a version_from stanza saying the version is in this file.
 ## I do not see it, so decided to make an executive decision:
-my $VERSION = '202407';
+my $VERSION = '202408';
 
 # Set up my interrupt trap
 BEGIN {
@@ -855,6 +855,523 @@ sub vcf_maker {
     unlink("$tmpdir/tmp_variants.vcf");
 }
 
+#The below function seeks to take an input sam file and give a sense
+#of which regions in the alignment fragments equal which in the
+#reference it was aligned to. By its nature, this would only work with
+#alignments from dantools fragment-produced fragments, but it should
+#be cool (in my opinion).
+
+#First define a baby function that, given a start position and CIGAR
+#string, gives the end position of the alignment
+sub calc_end_pos {
+    my ($start_pos, $cigar) = @_;
+    my $end_pos = $start_pos;
+
+    while ($cigar =~ /(\d+)([MIDNSHPX=])/g) {
+        my ($length, $op) = ($1, $2);
+        if ($op eq 'M' || $op eq 'D' || $op eq 'N') {
+            $end_pos += $length;
+        }
+    }
+    return $end_pos;
+}
+
+#Another baby function which, given an array of hashes for one contig,
+#parses which to keep and how to do so
+sub parse_outputs {
+    my ($array_ref, $min_depth, $min_qbase, $min_length, $max_diff, $all) = @_;
+    my @contig_hashes = @$array_ref;
+    my @output;
+    @contig_hashes = grep {$_->{'depth'} > $min_depth &&
+                               $_->{'qbases'} > $min_qbase &&
+                               $_->{'rlength'} > $min_length &&
+                               abs(($_->{'rlength'} - $_->{'qlength'}) / $_->{'rlength'}) < $max_diff
+                           } @contig_hashes;
+
+    @contig_hashes = sort {
+        $a->{'rcontig'} cmp $b->{'rcontig'} ||
+        $a->{'rstart'} <=> $b->{'rstart'}
+    } @contig_hashes;
+
+    #Now iterate through each and consider special cases
+    my $idx = 0;
+    my $idx_limit = scalar(@contig_hashes);
+    #First I need to flip each feature with inverted directionality
+    #(happens) with minus strand alignments
+
+
+    if ($all) {
+        return (@contig_hashes);
+    }
+
+  SUBSEQS: while ($idx < $idx_limit) {
+        #I need to resort and index every iteration
+        $idx_limit = scalar(@contig_hashes);
+        @contig_hashes = sort {
+            $a->{'rcontig'} cmp $b->{'rcontig'} ||
+                $a->{'rstart'} <=> $b->{'rstart'}
+            } @contig_hashes;
+
+        my $first = $contig_hashes[$idx];
+        my $second = $contig_hashes[$idx + 1];
+
+        if (! defined($second)) {
+            push(@output, $first);
+            $idx++;
+        } elsif ($first->{'rend'} < $second->{'rstart'}) {
+            #means they don't overlap
+            push(@output, $first);
+            $idx++;
+        } elsif ($first->{'rend'} < $second->{'rend'}) {
+            #Overlapping but not fully, take weighted mean based on depth
+            my $overlap = $first->{'rend'} - $second->{'rstart'} + 1;
+
+            my $first_weight = $first->{'depth'} / ($first->{'depth'} + $second->{'depth'});
+            my $second_weight = $second->{'depth'} / ($first->{'depth'} + $second->{'depth'});
+
+            my $first_scale = int(0.5 + $first_weight * $overlap);
+            my $second_scale = $overlap - $first_scale;
+
+            $first->{'rend'} = $first->{'rend'} - $first_scale;
+            $second->{'rstart'} = $second->{'rstart'} + $second_scale;
+
+            $first->{'rlength'} = $first->{'rend'} - $first->{'rstart'} + 1;
+            if ($first->{'rlength'} > 0) {
+                $first->{'depth'} = $first->{'qbases'} / $first->{'rlength'};
+            } else {
+                splice(@contig_hashes, $idx, 1);
+            }
+
+            $second->{'rlength'} = $second->{'rend'} - $second->{'rstart'} + 1;
+            if ($second->{'rlength'} > 0) {
+                $second->{'depth'} = $second->{'qbases'} / $second->{'rlength'};
+            } else {
+                splice(@contig_hashes, $idx, 1);
+            }
+        } else {
+            #In this case, the second feature is nested
+            #within the first, so I make a depth-based
+            #determination of what to do. First though,
+            #I need to extract ALL contained elements
+            if ($first->{'depth'} > $second->{'depth'}) {
+                #Remove second subseq
+                splice(@contig_hashes, $idx + 1, 1);
+            } else {
+                #Nest second subseq within first, so I need to add a
+                #feature. I also need to update the query positions
+                #(via estimate).
+                my %third = %{$first};
+
+                $first->{'rend'} = $second->{'rstart'} - 1;
+                $third{'rstart'} = $second->{'rend'} + 1;
+
+                #Estimate depth from relative length
+                $first->{'rlength'} = $first->{'rend'} - $first->{'rstart'} + 1;
+                $third{'rlength'} = $third{'rend'} - $third{'rstart'} + 1;
+                #If the shifting inverted the feature (negative
+                #length)
+                my $total_rlength = $first->{'rlength'} + $third{'rlength'};
+                if ($first->{'rlength'} < 1) {
+                    splice(@contig_hashes, $idx, 1);
+                } else {
+                    $first->{'depth'} = $first->{'qbases'} / $first->{'rlength'};
+                    $first->{'qbases'} = int($first->{'qbases'} * ($first->{'rlength'} / $total_rlength))
+                }
+
+                if ($third{'rlength'} > 0) {
+                    $third{'depth'} = int($third{'qbases'} * ($third{'rlength'} / $total_rlength));
+                    $third{'depth'} = $third{'qbases'} / $third{'rlength'};
+                    push(@contig_hashes, \%third);
+                }
+
+            }
+        }
+    }
+    return @output;
+}
+
+#My final baby function. Takes an input transloc array of hashes and a
+#VCF file. Shifts the translocations relative to variants by changing
+#REF positions.
+
+sub transloc_shifter {
+    my ($array_ref, $vcf_file) = @_;
+    my @contig_hashes = @$array_ref;
+
+    #Read in my VCF
+    my $vcf_fh = FileHandle->new($vcf_file);
+    my @vcf;
+    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
+    open($vcf_fh, "<:encoding(utf8)", $vcf_file) or die "Could not open VCF $vcf_file\n";
+    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'info');
+    while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
+        next if ($row->{'contig'} =~ /^#/);
+        next if (! defined($row->{'info'}));
+        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        next if $shift == 0;
+        my %hash = (
+            seq_id => $row->{'contig'},
+            pos => $row->{'position'},
+            strand => $row->{'strand'},
+            ref => $row->{'ref'},
+            alt => $row->{'alt'},
+            shift => $shift
+        );
+
+        push(@vcf, \%hash);
+    }
+    close($vcf_fh);
+    if (scalar(@vcf) == 0) {
+        print STDERR "WARNING: No indels in VCF file, not adjusting output";
+        return @contig_hashes;
+    }
+    @vcf = sort {
+        $a->{'seq_id'} cmp $b->{'seq_id'} || $a->{'pos'} <=> $b->{'pos'}
+    } @vcf;
+
+    #Index my features to maintain sort order
+    my $idx = 0;
+    for my $ref (@contig_hashes) {
+        $ref->{'idx'} = $idx;
+        $idx++;
+    }
+
+    #Because I can't assume no overlap (may have passed --all), I need
+    #to sort starts and ends separately
+    my @starts = @contig_hashes;
+    my @ends = @starts;
+    @starts = sort {
+        $a->{'rcontig'} cmp $b->{'rcontig'} || $a->{'rstart'} <=> $b->{'rstart'}
+    } @starts;
+    @ends = sort {
+        $a->{'rcontig'} cmp $b->{'rcontig'} || $a->{'rstart'} <=> $b->{'rstart'}
+    } @ends;
+
+    my @shifted_starts;
+    my @shifted_ends;
+
+    my @seen_contigs;
+    my $entry;
+    my $entry_start;
+    my $contig;
+    my $entry_idx = 0;
+    my $vcf_idx = 0;
+    my $shiftsum = 0;
+    my $shift = 0;
+    my $varpos = 0;
+    my $var_contig = '';
+    my $vcf_row;
+  STARTS: while ($entry = $starts[$entry_idx]) {
+        $contig = $entry->{'rcontig'};
+        $entry_start = $entry->{'rstart'};
+        if (! grep /$contig/, @seen_contigs) {
+            $shiftsum = 0;
+            push(@seen_contigs, $contig);
+            $shift = 0;
+        }
+      START_SHIFT: while ($vcf_row = $vcf[$vcf_idx]) {
+            my $tmp_contig = $vcf_row->{'seq_id'};
+            if ($contig ne $tmp_contig) {
+                if (! grep /$tmp_contig/, @seen_contigs) {
+                    last START_SHIFT;
+                } else {
+                    $vcf_idx++;
+                    next START_SHIFT;
+                }
+            }
+            if ($entry_start < $vcf_row->{'pos'} + $shiftsum) {
+                #Note how I added $shiftsum. This is to keep track of
+                #where I am on ALT, since that is what my entries are
+                #relative to (different from GFF shifter)
+                last START_SHIFT;
+            }
+            $shift = $vcf_row->{'shift'};
+            $varpos = $vcf_row->{'pos'} + $shiftsum;
+            $shiftsum = $shiftsum + $shift;
+            $var_contig = $vcf_row->{'seq_id'};
+            $vcf_idx++;
+        }
+        if (($varpos - $shift > $entry_start ) && ($var_contig eq $contig) && ($idx != 0)) {
+            $entry->{'rstart'} = $varpos - $shiftsum + $shift;
+        } else {
+            $entry->{'rstart'} = $entry_start - $shiftsum; #subtract because I'm backshifting
+        }
+        push(@shifted_starts, $entry);
+        $entry_idx++;
+    }
+    #Repeat for end positions
+    $shiftsum = 0;
+    $shift = 0;
+    $varpos = 0;
+    $var_contig = '';
+    @seen_contigs = '';
+    $entry_idx = 0;
+    $vcf_idx = 0;
+    my $entry_end;
+  ENDS: while ($entry = $ends[$entry_idx]) {
+        $contig = $entry->{'rcontig'};
+        $entry_end = $entry->{'rend'};
+        if (! grep /$contig/, @seen_contigs) {
+            $shiftsum = 0;
+            push @seen_contigs, $contig;
+            $shift = 0;
+        }
+      END_SHIFT: while ($vcf_row = $vcf[$vcf_idx]) {
+            my $tmp_contig = $vcf_row->{'seq_id'};
+            if ($contig ne $tmp_contig) {
+                if (! grep /$tmp_contig/, @seen_contigs) {
+                    #Means this variant is on the next contig
+                    last END_SHIFT;
+                }
+                else {
+                    #Means variant is on previous chromosome
+                    $vcf_idx++;
+                    next END_SHIFT;
+                }
+            }
+            if ($entry_end < $vcf_row->{'pos'} + $shiftsum) {
+                last END_SHIFT;
+            }
+            #If we get here, it means the variant is on the right
+            #chromosome and upstream of our feature
+            $shift = $vcf_row->{'shift'};
+            $varpos = $vcf_row->{'pos'} + $shiftsum; #kept for later logic
+            $shiftsum = $shiftsum + $shift;
+            $var_contig = $vcf_row->{'seq_id'};
+            $vcf_idx++;
+        }
+        #Now I should have collected the proper shiftsum:
+        if (($varpos - $shift > $entry_end) & ($var_contig eq $contig) & ($idx != 0)) {
+            $entry->{'rend'} = $varpos - $shiftsum + $shift;
+        }
+        else {
+            $entry->{'rend'} = $entry_end - $shiftsum; #subtract because I'm backshifting
+        }
+        push(@shifted_ends, $entry);
+        $entry_idx++;
+    }
+    @shifted_starts = sort {
+        $a->{'idx'} <=> $b->{'idx'}
+    } @shifted_starts;
+    @shifted_ends = sort {
+        $a->{'idx'} <=> $b->{'idx'}
+    } @shifted_ends;
+
+    my @output;
+    my $idx_limit = scalar(@shifted_starts);
+    $idx = 0;
+    while ($idx < $idx_limit) {
+        my $tmp = $shifted_starts[$idx];
+        $tmp->{'rend'} = $shifted_ends[$idx]->{'rend'};
+        push(@output, $tmp);
+        $idx++;
+    }
+    return @output;
+}
+
+#My final subroutine for this translocation calculator will seek to
+#merge to input hashes:
+
+sub merge_hashes {
+     my ($array_ref) = @_;
+    my @hashes = @$array_ref;
+    my $sum_aln = 0;
+     my $sum_qbases = 0;
+     my $rstart = $hashes[0]->{'rstart'};
+     my $rend = $hashes[0]->{'rend'};
+     my $qstart = $hashes[0]->{'qstart'};
+     my $qend = $hashes[0]->{'qend'};
+     for my $ref (@hashes) {
+         $rstart = $ref->{'rstart'} if ($ref->{'rstart'} < $rstart);
+         $rend = $ref->{'rend'} if ($ref->{'rend'} > $rend);
+         $qstart = $ref->{'qstart'} if ($ref->{'qstart'} < $qstart);
+         $qend = $ref->{'qend'} if ($ref->{'qend'} > $qend);
+         $sum_aln += $ref->{'num_aln'};
+         $sum_qbases += $ref->{'qbases'};
+     }
+
+     #Create a new hash to push onto data:
+     my %hash = (
+         qcontig => $hashes[0]->{'qcontig'},
+         qstrand => $hashes[0]->{'qstrand'},
+         qbases => $sum_qbases,
+         qstart => $qstart,
+         qend => $qend,
+         rcontig => $hashes[0]->{'rcontig'},
+         rstart => $rstart,
+         rend => $rend,
+         num_aln => $sum_aln,
+     );
+
+     return (%hash);
+}
+
+#Now I can go onto the main function. My idea now is this: have a hash
+#of hashes which I add data to. For each query, I built up sections of
+#each contig separated by a given gap thresh. Every time one finishes,
+#I push it to an array of hashes. After each ref contig, I go through
+#this array and "decide" which groups to keep.
+
+sub transloc {
+    my %args = @_;
+    my $input_sam = $args{'input_sam'};
+    my $output_file = $args{'output'};
+    my $ref_gap = $args{'ref_gap'};
+    my $query_gap = $args{'query_gap'};
+    my $max_diff = $args{'max_diff'} / 100;
+    my $min_qbase = $args{'min_qbase'};
+    my $min_depth = $args{'min_depth'};
+    my $min_length = $args{'min_length'};
+    my $input_vcf = $args{'input_vcf'};
+    my $all = $args{'all'};
+
+    my $output;
+    if ($output_file eq 'NO_OUTPUT_PROVIDED') {
+        $output = *STDOUT
+    }
+    else {
+        $output = FileHandle->new("> $output_file");
+    }
+
+    #Set up my reading of the input file:
+    my $input_fh = FileHandle->new("$input_sam");
+
+    #my %data_hash;
+    my @data_hashes;
+    my @output_lines;
+    my $current_contig = '';
+
+  SAM: while (<$input_fh>) {
+        my @row = split(/\t/, $_);
+        next SAM if ($row[0] =~ /^@/);
+        if ($current_contig ne $row[2]) {
+            if ($current_contig ne '') {
+                #Need to add some metadata to hashes:
+                for my $ref (@data_hashes) {
+                    $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+                    $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
+                    $ref->{'depth'} = $ref->{'qbases'} / $ref->{'rlength'};
+                }
+
+                my @new_outputs = parse_outputs(\@data_hashes, $min_depth, $min_qbase, $min_length, $max_diff, $all);
+                push(@output_lines, @new_outputs);
+            }
+            $current_contig = $row[2];
+            @data_hashes = ();
+        }
+        #Because some contig names have _ in them, I can't just split this easily.
+        my @arr = split(/_/, $row[0]);
+        my @qarr = (join('_', @arr[0..$#arr-4]), @arr[-4..-1]);
+        my $end_pos = calc_end_pos($row[3], $row[5]);
+
+        my @data_idx = grep {
+            $data_hashes[$_]->{'qcontig'} eq $qarr[0] &&
+                $data_hashes[$_]->{'qstrand'} eq $qarr[1] &&
+                $data_hashes[$_]->{'qstart'} - $query_gap < $qarr[4] &&
+                $data_hashes[$_]->{'qend'} + $query_gap > $qarr[3] &&
+                $data_hashes[$_]->{'rstart'} - $ref_gap < $end_pos &&
+                $data_hashes[$_]->{'rend'} + $ref_gap > $row[3]
+            } 0..$#data_hashes;
+
+        if (scalar(@data_idx) == 1) {
+            my $idx = $data_idx[0];
+            #This means I have an element for this aln already
+            $data_hashes[$idx]->{'rend'} = $end_pos if ($data_hashes[$idx]->{'rend'} < $end_pos);
+            $data_hashes[$idx]->{'num_aln'} += 1;
+            $data_hashes[$idx]->{'qbases'} += $qarr[2];
+
+            $data_hashes[$idx]->{'qend'} = $qarr[4] if ($qarr[4] > $data_hashes[$idx]->{'qend'});
+            $data_hashes[$idx]->{'qstart'} = $qarr[3] if ($qarr[4] < $data_hashes[$idx]->{'qstart'});
+        } elsif (scalar(@data_idx) == 0) {
+            #This means I need to initialize this element
+            my %hash = (
+                qcontig => $qarr[0],
+                qstrand => $qarr[1],
+                qbases => $qarr[2],
+                qstart => $qarr[3],
+                qend => $qarr[4],
+                rcontig => $row[2],
+                rstart => $row[3],
+                rend => $end_pos,
+                num_aln => 1,
+            );
+            push(@data_hashes, \%hash);
+        } else {
+            #This means some of my groupings have grown together, so I
+            #need to add them together
+
+            my @match = @data_hashes[@data_idx];
+            my %hash = merge_hashes(\@match);
+
+            #Remove the combining elements
+            @data_idx = sort { $b <=> $a } @data_idx;
+            for my $idx (@data_idx) { splice(@data_hashes, $idx, 1) };
+
+            push(@data_hashes, \%hash);
+        }
+    } #end SAM
+    #Catch the final contig:
+    if ($current_contig ne '') {
+        #Need to add some metadata to hashes:
+        for my $ref (@data_hashes) {
+            $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+            $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
+            $ref->{'depth'} = $ref->{'qbases'} / $ref->{'rlength'};
+        }
+
+        my @new_outputs = parse_outputs(\@data_hashes, $min_depth, $min_qbase, $min_length, $max_diff, $all);
+        push(@output_lines, @new_outputs);
+    }
+
+
+    #If a vcf file is passed, I need to shift my translocations
+    if ($input_vcf) {
+        @output_lines = transloc_shifter(\@output_lines, "$input_vcf");
+    }
+
+    #Re-calculate lengths since this will change them. I won't do
+    #depth, since that metric is supposed to be representative of
+    #quality and doesn't need the change I feel
+    for my $ref (@output_lines) {
+        $ref->{'rlength'} = $ref->{'rend'} - $ref->{'rstart'} + 1;
+        $ref->{'qlength'} = $ref->{'qend'} - $ref->{'qstart'} + 1;
+    }
+
+    #Re-filter after parsing (I did this during parsing too, but may
+    #have changed)
+    if (! $all) {
+        my $prev_num = scalar(@output_lines);
+        @output_lines = grep {
+            $_->{'rlength'} >= $min_length &&
+                $_->{'depth'} >= $min_depth &&
+                abs(($_->{'rlength'} - $_->{'qlength'}) / $_->{'rlength'}) < $max_diff &&
+                $_->{'qbases'} > $min_qbase
+        } @output_lines;
+    }
+
+    print $output
+        "#Q_CONTIG\tQ_START\tQ_END\tQ_LENGTH\tQ_STRAND\t",
+        "R_CONTIG\tR_START\tR_END\tR_LENGTH\tR_STRAND\t",
+        "DEPTH\tQ_BASES\n";
+  PRINTER: for my $line (@output_lines) {
+        my $strand = '+';
+        $strand = '-' if ($line->{'qstrand'} eq 'rev');
+
+        print $output
+            $line->{'qcontig'}, "\t",
+            $line->{'qstart'}, "\t",
+            $line->{'qend'}, "\t",
+            $line->{'qlength'}, "\t",
+            $strand, "\t",
+            $line->{'rcontig'}, "\t",
+            $line->{'rstart'}, "\t",
+            $line->{'rend'}, "\t",
+            $line->{'rlength'}, "\t",
+            '+', "\t",
+            $line->{'depth'}, "\t",
+            $line->{'qbases'}, "\n";
+    }
+}
 
 #This seeks to shift feature annotations according to the indels
 #within a vcf file. To this end, it is passed an input gff, an output
@@ -985,7 +1502,7 @@ sub gff_shifter {
     my $shift = 0;
     my $varpos = 0;
     my $var_contig = '';
-    my @seen_contigs = '';
+    my @seen_contigs= ('');
     my $vcf_row;
     my $feat_start;
     $idx = 0;

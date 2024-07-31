@@ -1,4 +1,4 @@
-Dantools Version 1.0.0 by Daniel Klimes (daniel.s.klimes@gmail.com)
+Dantools Version 1.1.0 by Daniel Klimes (daniel.s.klimes@gmail.com)
 Tools for the Comparison of Disparate Genomes
 
 Usage: dantools <command> [options]
@@ -10,6 +10,8 @@ Commands:
 
     label             label a VCF file according to a GFF. Optionally translate nucleotide
                       variants to amino acid mutations
+
+    transloc          predict translocations from fragment alignment SAM file
 
     shift             shift GFF annotations given a VCF file
 
