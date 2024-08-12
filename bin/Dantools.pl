@@ -53,6 +53,7 @@ if ($method eq 'pseudogen') {
     my $overlap = 75;
     my $min_variants = 100; #The threshold of variant # to repeat an iteration
     my $variant_caller = 'freebayes';
+    my $continue = 0;
     my $output_name = '';
     my $keepers = 'all';
     my $nocap = 0;
@@ -84,6 +85,7 @@ if ($method eq 'pseudogen') {
         "var-fraction=f" => \$var_fraction,
         "var-depth=i" => \$var_depth,
         "var-caller=s" => \$variant_caller,
+        "continue" => \$continue,
         "score-min=s" => \$scoremin,
         "no-fragment" => \$no_fragment,
         "help|h" => \$help
@@ -176,6 +178,7 @@ if ($method eq 'pseudogen') {
                              overlap => "$overlap",
                              min_variants => "$min_variants",
                              variant_caller => "$variant_caller",
+                             continue => "$continue",
                              nocap => "$nocap",
                              keepers => "$keepers",
                              output_name => "$output_name",

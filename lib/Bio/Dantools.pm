@@ -156,6 +156,7 @@ sub pseudogen {
     my $var_fraction = $args{'var_fraction'};
     my $var_depth = $args{'var_depth'};
     my $variant_caller = $args{'variant_caller'};
+    my $continue = $args{'continue'};
     my $outdir = $args{'outdir'};
     my $min_variants = $args{'min_variants'};
     my $nocap = $args{'nocap'};
@@ -182,15 +183,17 @@ sub pseudogen {
 
     #Begin by fragmenting my reads if a fasta is given
     if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+        unless ($continue && -e 'fragments.fasta') {
         ## recommendation from atb: have everything return something
-        Bio::Dantools::fragment(input => "$source",
-                                output => "fragments.fasta",
-                                lengths => "$lengths",
-                                overlap => "$overlap",
-                                min_length => "$min_length",
-                                logfile => "fragment_log.txt",
-                                threads => "$threads",
-                            );
+            Bio::Dantools::fragment(input => "$source",
+                                    output => "fragments.fasta",
+                                    lengths => "$lengths",
+                                    overlap => "$overlap",
+                                    min_length => "$min_length",
+                                    logfile => "fragment_log.txt",
+                                    threads => "$threads",
+                                );
+        }
     }
 
     #Creating my metadata file
@@ -206,30 +209,42 @@ sub pseudogen {
     ## recommendation from atb: perl is smrtr than bash and you need
     ## not protect yourself in this fashion.
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
+        my $run = 1;
+        if ($continue && -e "it${it}/variants.bcf" && -e "it${it}/${output_name}_it${it}.fasta" && -e "it${it}/bins.tsv") {
+            $run = 0;
+        }
         #Determine which aligner scheme to run based on input type
         if (("$input_type" eq 'fasta') & (! $no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$source", ('.fasta'));
 
         }
         elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$source", ('.fasta.'));
 
         }
         elsif (("$input_type" eq 'fastq_u')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
-            $input_name = basename("$readsu", ('.fastq'));
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
+                $input_name = basename("$readsu", ('.fastq'));
 
-        }
+            }
         elsif (("$input_type" eq 'fastq_p')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$reads1", ('.fastq'));
 
         }
 
         #The above should have just produced everything I need to
-        #continue through with my pipeline. That includes the
+            #continue through with my pipeline. That includes the
         #it"$it"/variants.vcf file, the MAPPING.stderr file, and the
         #new genome. The next step is to shift my bins accordingly
         if ("$it" == 0) {
@@ -681,7 +696,7 @@ sub contig_split {
     my $input_fasta = $args{'fasta'};
     my $outdir = $args{'outdir'};
 
-    mkdir $outdir  if (defined($outdir));
+    mkdir $outdir  if (defined($outdir) && ! -d $outdir);
     my $fasta = Bio::SeqIO->new(-file => "$input_fasta", -format => 'Fasta');
     my $file;
 
@@ -708,7 +723,7 @@ sub vcf_maker {
     my $sample = $args{'sample'};
 
     if (! -d "$tmpdir") {
-        mkdir("$tmpdir");
+        mkdir("$tmpdir") if (! -d $tmpdir);
     }
     ;
 
