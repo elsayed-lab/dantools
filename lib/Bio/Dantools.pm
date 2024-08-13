@@ -2,7 +2,7 @@ package Bio::Dantools;
 use strict;
 use autodie;
 use diagnostics;
-use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
+#use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
 use warnings;
 
 use FileHandle;
@@ -622,10 +622,10 @@ sub bin_shifter {
     open($vcf_fh, "<:encoding(utf8)", "$args{'input_vcf'}") or die "Can't open vcf_fh";
 
     $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'metadata');
-
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if $row->{'contig'} =~ /^#/;
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
+
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},
@@ -639,9 +639,9 @@ sub bin_shifter {
     close($vcf_fh);
 
     #Importantly I don't sort this. That's because if I do, it's going
-    #to sort it in a nnnndifferent way from my original. In dantools
+    #to sort it in a different way from my original. In dantools
     #pseudogen, the vcf and bins should always be sorted the same anyway
-    my $contig;
+    my $contig = '';
     my @contigs;
     my $shiftsum;
     my $vcf_index = 0;
@@ -660,25 +660,37 @@ sub bin_shifter {
     }
     else {
       BINS: while(my $entry = $bins_tsv->getline_hr($bins_fh)) {
-            $contig = $entry->{'contig'};
-            if (! grep /$contig/, @contigs) {
+            if ($contig ne $entry->{'contig'}) {
                 $shiftsum = 0;
+                $contig = $entry->{'contig'};
                 push @contigs, $contig;
             }
             my $end = $entry->{'end'};
 
           SHIFT: while ($vcf_row = $vcf["$vcf_index"]) {
                 $vcf_contig = $vcf_row->{'seq_id'};
-                last SHIFT if(($end < $vcf_row->{'pos'}) | ($contig ne $vcf_contig));
+                if ($contig ne $vcf_contig) {
+                    if (! grep /$vcf_contig/, @contigs) {
+                        #Means this variant is on next contig;
+                        last SHIFT;
+                    } else {
+                        #Variant is still on previous contig
+                        $vcf_index++;
+                        $shiftsum = 0;
+                        next SHIFT;
+                    }
+                }
+                if ($end < $vcf_row->{'pos'}) { last SHIFT };
+
                 $shift = $vcf_row->{'shift'};
                 $shiftsum = $shiftsum + $shift;
                 $vcf_index++;
             }
             #Some logic to sheck if deletion covers the feature
-            $prev_row = $vcf["$vcf_index" - 1];
-            $shift = $prev_row->{'shift'};
-            if (($prev_row->{'pos'} - $shift > $end) & ($prev_row->{'seq_id'} eq $contig) & ($vcf_index != 0)) {
-                print $out "$contig" . "\t" . ($prev_row->{'pos'} + $shiftsum - $shift) . "\n";
+            $prev_row = $vcf[$vcf_index - 1];
+            my $prev_shift = $prev_row->{'shift'};
+            if (($prev_row->{'pos'} - $prev_shift > $end) && ($prev_row->{'seq_id'} eq $contig) && ($vcf_index != 0)) {
+                print $out "$contig" . "\t" . ($prev_row->{'pos'} + $shiftsum - $prev_shift) . "\n";
             }
             else {
                 my $new_out = $end + $shiftsum;
@@ -1022,7 +1034,7 @@ sub transloc_shifter {
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if ($row->{'contig'} =~ /^#/);
         next if (! defined($row->{'info'}));
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},
@@ -1409,7 +1421,7 @@ sub gff_shifter {
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if ($row->{'contig'} =~ /^#/);
         next if (! defined($row->{'info'}));
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},

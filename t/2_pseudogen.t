@@ -21,7 +21,7 @@ chdir($new);
 
 $SIG{'INT'} = sub {
     chdir($start);
-    rmtree('test_output', verbose => 1, error => \my $err_list);
+    #rmtree('test_output', verbose => 1, error => \my $err_list);
     exit;
 };
 
