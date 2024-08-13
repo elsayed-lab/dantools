@@ -21,7 +21,7 @@ chdir($new);
 
 $SIG{'INT'} = sub {
     chdir($start);
-    rmtree('test_output', verbose => 1, error => \my $err_list);
+    #rmtree('test_output', verbose => 1, error => \my $err_list);
     exit;
 };
 
@@ -41,6 +41,7 @@ Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
                          nocap => 1,
                          keepers => 'all',
                          output_name => 'test',
+                         continue => 0,
                          threads => 1,
                          bin_size => 10000,
                          var_fraction => 0.501,

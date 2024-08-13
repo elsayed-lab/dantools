@@ -2,7 +2,7 @@ package Bio::Dantools;
 use strict;
 use autodie;
 use diagnostics;
-use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
+#use lib "$FindBin::Bin/../lib"; #Don't need this now that it's all one file
 use warnings;
 
 use FileHandle;
@@ -156,6 +156,7 @@ sub pseudogen {
     my $var_fraction = $args{'var_fraction'};
     my $var_depth = $args{'var_depth'};
     my $variant_caller = $args{'variant_caller'};
+    my $continue = $args{'continue'};
     my $outdir = $args{'outdir'};
     my $min_variants = $args{'min_variants'};
     my $nocap = $args{'nocap'};
@@ -182,15 +183,17 @@ sub pseudogen {
 
     #Begin by fragmenting my reads if a fasta is given
     if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+        unless ($continue && -e 'fragments.fasta') {
         ## recommendation from atb: have everything return something
-        Bio::Dantools::fragment(input => "$source",
-                                output => "fragments.fasta",
-                                lengths => "$lengths",
-                                overlap => "$overlap",
-                                min_length => "$min_length",
-                                logfile => "fragment_log.txt",
-                                threads => "$threads",
-                            );
+            Bio::Dantools::fragment(input => "$source",
+                                    output => "fragments.fasta",
+                                    lengths => "$lengths",
+                                    overlap => "$overlap",
+                                    min_length => "$min_length",
+                                    logfile => "fragment_log.txt",
+                                    threads => "$threads",
+                                );
+        }
     }
 
     #Creating my metadata file
@@ -206,30 +209,42 @@ sub pseudogen {
     ## recommendation from atb: perl is smrtr than bash and you need
     ## not protect yourself in this fashion.
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
+        my $run = 1;
+        if ($continue && -e "it${it}/variants.bcf" && -e "it${it}/${output_name}_it${it}.fasta" && -e "it${it}/bins.tsv") {
+            $run = 0;
+        }
         #Determine which aligner scheme to run based on input type
         if (("$input_type" eq 'fasta') & (! $no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$source", ('.fasta'));
 
         }
         elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$source", ('.fasta.'));
 
         }
         elsif (("$input_type" eq 'fastq_u')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
-            $input_name = basename("$readsu", ('.fastq'));
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
+                $input_name = basename("$readsu", ('.fastq'));
 
-        }
+            }
         elsif (("$input_type" eq 'fastq_p')) {
-            my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            if ($run) {
+                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            }
             $input_name = basename("$reads1", ('.fastq'));
 
         }
 
         #The above should have just produced everything I need to
-        #continue through with my pipeline. That includes the
+            #continue through with my pipeline. That includes the
         #it"$it"/variants.vcf file, the MAPPING.stderr file, and the
         #new genome. The next step is to shift my bins accordingly
         if ("$it" == 0) {
@@ -607,10 +622,10 @@ sub bin_shifter {
     open($vcf_fh, "<:encoding(utf8)", "$args{'input_vcf'}") or die "Can't open vcf_fh";
 
     $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'metadata');
-
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if $row->{'contig'} =~ /^#/;
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
+
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},
@@ -624,9 +639,9 @@ sub bin_shifter {
     close($vcf_fh);
 
     #Importantly I don't sort this. That's because if I do, it's going
-    #to sort it in a nnnndifferent way from my original. In dantools
+    #to sort it in a different way from my original. In dantools
     #pseudogen, the vcf and bins should always be sorted the same anyway
-    my $contig;
+    my $contig = '';
     my @contigs;
     my $shiftsum;
     my $vcf_index = 0;
@@ -645,25 +660,37 @@ sub bin_shifter {
     }
     else {
       BINS: while(my $entry = $bins_tsv->getline_hr($bins_fh)) {
-            $contig = $entry->{'contig'};
-            if (! grep /$contig/, @contigs) {
+            if ($contig ne $entry->{'contig'}) {
                 $shiftsum = 0;
+                $contig = $entry->{'contig'};
                 push @contigs, $contig;
             }
             my $end = $entry->{'end'};
 
           SHIFT: while ($vcf_row = $vcf["$vcf_index"]) {
                 $vcf_contig = $vcf_row->{'seq_id'};
-                last SHIFT if(($end < $vcf_row->{'pos'}) | ($contig ne $vcf_contig));
+                if ($contig ne $vcf_contig) {
+                    if (! grep /$vcf_contig/, @contigs) {
+                        #Means this variant is on next contig;
+                        last SHIFT;
+                    } else {
+                        #Variant is still on previous contig
+                        $vcf_index++;
+                        $shiftsum = 0;
+                        next SHIFT;
+                    }
+                }
+                if ($end < $vcf_row->{'pos'}) { last SHIFT };
+
                 $shift = $vcf_row->{'shift'};
                 $shiftsum = $shiftsum + $shift;
                 $vcf_index++;
             }
             #Some logic to sheck if deletion covers the feature
-            $prev_row = $vcf["$vcf_index" - 1];
-            $shift = $prev_row->{'shift'};
-            if (($prev_row->{'pos'} - $shift > $end) & ($prev_row->{'seq_id'} eq $contig) & ($vcf_index != 0)) {
-                print $out "$contig" . "\t" . ($prev_row->{'pos'} + $shiftsum - $shift) . "\n";
+            $prev_row = $vcf[$vcf_index - 1];
+            my $prev_shift = $prev_row->{'shift'};
+            if (($prev_row->{'pos'} - $prev_shift > $end) && ($prev_row->{'seq_id'} eq $contig) && ($vcf_index != 0)) {
+                print $out "$contig" . "\t" . ($prev_row->{'pos'} + $shiftsum - $prev_shift) . "\n";
             }
             else {
                 my $new_out = $end + $shiftsum;
@@ -681,7 +708,7 @@ sub contig_split {
     my $input_fasta = $args{'fasta'};
     my $outdir = $args{'outdir'};
 
-    mkdir $outdir  if (defined($outdir));
+    mkdir $outdir  if (defined($outdir) && ! -d $outdir);
     my $fasta = Bio::SeqIO->new(-file => "$input_fasta", -format => 'Fasta');
     my $file;
 
@@ -708,7 +735,7 @@ sub vcf_maker {
     my $sample = $args{'sample'};
 
     if (! -d "$tmpdir") {
-        mkdir("$tmpdir");
+        mkdir("$tmpdir") if (! -d $tmpdir);
     }
     ;
 
@@ -1007,7 +1034,7 @@ sub transloc_shifter {
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if ($row->{'contig'} =~ /^#/);
         next if (! defined($row->{'info'}));
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},
@@ -1394,7 +1421,7 @@ sub gff_shifter {
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if ($row->{'contig'} =~ /^#/);
         next if (! defined($row->{'info'}));
-        my $shift = length($row->{'alternate'}) - length($row->{'reference'});
+        my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
         next if $shift == 0;
         my %hash = (
             seq_id => $row->{'contig'},

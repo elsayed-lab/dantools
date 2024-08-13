@@ -47,4 +47,6 @@ Other options:
   -t, --threads   the number of parallel threads to run (default: 1)
   --bin-size      the size of genome sections to align in final Needleman-Wunsch
                   (default: 10000)
+  --continue      tells DanTools to try and pick up from where a previous run left
+                  off
   -h, --help      display this help message
