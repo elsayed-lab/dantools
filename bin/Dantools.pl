@@ -206,7 +206,10 @@ if ($method eq 'pseudogen') {
         "threads|t=i" => \$threads,
         "help|h" => \$help
         );
+
     my $input = $ARGV[0];
+    $help = 1 if (! defined($input));
+
     if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/fragment.help");
         while (<$helpdoc>) { print $_ };

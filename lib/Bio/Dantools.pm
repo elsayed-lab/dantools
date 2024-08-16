@@ -210,7 +210,9 @@ sub pseudogen {
     ## not protect yourself in this fashion.
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
         my $run = 1;
-        if ($continue && -e "it${it}/variants.bcf" && -e "it${it}/${output_name}_it${it}.fasta" && -e "it${it}/bins.tsv") {
+        if ($continue && -e "it${it}/variants.bcf"
+            && (-e "it${it}/${output_name}_it${it}.fasta" || $it == 0)
+            && -e "it${it}/bins.tsv") {
             $run = 0;
         }
         #Determine which aligner scheme to run based on input type
@@ -2415,7 +2417,7 @@ sub summarize_aa {
     my %all_data;
     my @parent_keys;
 
-    print $output "#PARENT\tNUM_VARS\tSCORE\tSCALED_SCORE\tINDELS\tNUM_INFRAME\tNUM_OUTFRAME\n";
+    print $output "#PARENT\tVARS\tSCORE\tSCALED_SCORE\tSILENT\tMISSENSE\tSENSE\tNONSENSE\tINDELS\tINFRAME\tOUTFRAME\n";
 
     my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     $vars_tsv->column_names('seq_id', 'parent', 'codon', 'ref', 'alt', 'vars', 'type', 'frame', 'score', 'scaled_score');
@@ -2430,7 +2432,11 @@ sub summarize_aa {
                       total_score => 0,
                       total_sscore => 0,
                       num_indels => 0,
-                      num_outframe => 0
+                      num_outframe => 0,
+                      num_silent => 0,
+                      num_missense => 0,
+                      num_sense => 0,
+                      num_nonsense => 0
                   };
                   push (@parent_keys, $parent);
               }
@@ -2444,6 +2450,17 @@ sub summarize_aa {
                 $all_data{"$parent"}{'total_sscore'} += $outscore;
                 next VARS; #need to move because score of @ is NA
             }
+        } else {
+            #Get some extra stats about other types
+            if ($entry->{'ref'} eq $entry->{'alt'}) {
+                $all_data{"$parent"}{'num_silent'} += 1;
+            } elsif ($entry->{'alt'} eq '*') {
+                $all_data{"$parent"}{'num_nonsense'} += 1;
+            } elsif ($entry->{'ref'} eq '*') {
+                $all_data{"$parent"}{'num_sense'} += 1;
+            } else {
+                $all_data{"$parent"}{'num_missense'} += 1;
+            }
         }
           $all_data{"$parent"}{'total_score'} += $entry->{'score'};
           $all_data{"$parent"}{'total_sscore'} += $entry->{'scaled_score'};
@@ -2455,6 +2472,10 @@ sub summarize_aa {
             $all_data{"$i"}{'num_vars'}, "\t",
             $all_data{"$i"}{'total_score'}, "\t",
             $all_data{"$i"}{'total_sscore'}, "\t",
+            $all_data{"$i"}{'num_silent'}, "\t",
+            $all_data{"$i"}{'num_missense'}, "\t",
+            $all_data{"$i"}{'num_sense'}, "\t",
+            $all_data{"$i"}{'num_nonsense'}, "\t",
             $all_data{"$i"}{'num_indels'}, "\t",
             $all_data{"$i"}{'num_indels'} - $all_data{"$i"}{'num_outframe'}, "\t",
             $all_data{"$i"}{'num_outframe'}, "\n";
