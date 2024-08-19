@@ -391,7 +391,7 @@ if ($method eq 'pseudogen') {
     GetOptions(
         "sam|s=s" => \$input_sam,
         "output|o=s" => \$output,
-        "ref-gap|r=i" => \$ref_gap,
+        "reference-gap|r=i" => \$ref_gap,
         "query-gap|q=i" => \$query_gap,
         "min-qbase|b=i" => \$min_qbase,
         "min-depth|d=i" => \$min_depth,
