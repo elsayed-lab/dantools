@@ -276,9 +276,8 @@ sub pseudogen {
                 }
             } elsif ($variant_caller eq 'bcftools') {
                 my $filter = 'FORMAT/AD[0:1] >= ' . ${var_depth} . ' && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ' . ${var_fraction};
-                print "using filter", ${filter}, "\n";
 
-                my $bcftools=qx"bcftools mpileup -a FORMAT/AD,FORMAT/DP -d 250 -f $base it${it}/sorted.bam | bcftools call -O v -m -v --ploidy 2 | bcftools filter -i \"$filter\" > it${it}/variants.vcf"
+                my $bcftools=qx"bcftools mpileup -a FORMAT/AD,FORMAT/DP -d 250 -f $base it${it}/sorted.bam 2>/dev/null | bcftools call -O v -m -v --ploidy 2 | bcftools filter -i \"$filter\" > it${it}/variants.vcf "
             }
             my $view = qx"bcftools view -O bcf -o it${it}/variants.bcf it${it}/variants.vcf";
             my $bcf_idx = qx"bcftools index it${it}/variants.bcf";
