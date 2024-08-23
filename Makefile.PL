@@ -48,7 +48,7 @@ WriteMakefile(
     AUTHOR => 'Daniel Klimes <daniel.s.klimes@gmail.com>',
     VERSION_FROM => 'lib/Bio/Dantools.pm',
     ABSTRACT => 'dantools: Utilities to compare disparate genomes',
-    EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl', 'script/aligner.sh', 'script/postprocess.sh'],
+    EXE_FILES => ['script/dantools', 'script/Dantools', 'script/Dantools.pl'],
     META_MERGE => {
         'meta-spec' => { version => 2 },
         resources => {

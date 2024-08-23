@@ -136,8 +136,6 @@ BEGIN {
 
 sub pseudogen {
     my %args = @_;
-    my $aligner = "$FindBin::Bin/../script/aligner.sh";
-    my $postprocessor = "$FindBin::Bin/../script/postprocess.sh";
     chdir($args{'outdir'});
 
     my $it = 0;
@@ -173,14 +171,6 @@ sub pseudogen {
     my $min_length = $args{'min_length'};
     my $input_name;
 
-
-    if ("$fai" eq '') {
-        $fai = 'NA';
-    }
-    if ("$base_idx" eq '') {
-        $base_idx = 'NA';
-    }
-
     #Begin by fragmenting my reads if a fasta is given
     if (("$input_type" eq 'fasta') & (! $no_fragment)) {
         unless ($continue && -e 'fragments.fasta') {
@@ -209,44 +199,93 @@ sub pseudogen {
     ## recommendation from atb: perl is smrtr than bash and you need
     ## not protect yourself in this fashion.
     until ((("$var_count" < "$min_variants") | ( "$aln_scaled" > 100)) & ("$it" != 0)) {
-        my $run = 1;
-        if ($continue && -e "it${it}/variants.bcf"
-            && (-e "it${it}/${output_name}_it${it}.fasta" || $it == 0)
-            && -e "it${it}/bins.tsv") {
-            $run = 0;
+        #First do some things different for iteration 0
+        if (! -d "it${it}") {
+            mkdir("it${it}");
         }
-        #Determine which aligner scheme to run based on input type
-        if (("$input_type" eq 'fasta') & (! $no_fragment)) {
-            if ($run) {
-                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source fragments.fasta -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
-            }
-            $input_name = basename("$source", ('.fasta'));
 
-        }
-        elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
-            if ($run) {
-                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --source $source -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+        if (! $it == 0) {
+            unless ($continue && -s "it${it}/${output_name}_it${it}.fasta") {
+                my $consensus = Bio::Dantools::consensus(input_fasta => $base,
+                                                         output_fasta => "it${it}/${output_name}_it${it}.fasta",
+                                                         input_vcf => "it${itp}/variants.vcf");
             }
-            $input_name = basename("$source", ('.fasta.'));
 
-        }
-        elsif (("$input_type" eq 'fastq_u')) {
-            if ($run) {
-                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --readsu $readsu -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            unless ($continue && -s "it${it}/indexes/${output_name}_it${it}.1.ht2") {
+                if (! -d "it${it}/indexes") {
+                    mkdir("it${it}/indexes");
+                }
+                my $indexes = qx"hisat2-build -q -p ${threads} it${it}/${output_name}_it${it}.fasta it${it}/indexes/${output_name}_it${it}";
             }
+
+            unless ($continue && -s "it${it}/${output_name}_it${it}.fasta") {
+                my $fai = qx"samtools faidx it${it}/${output_name}_it${it}.fasta";
+            }
+            $base_idx = "it${it}/indexes/${output_name}_it${it}";
+            $base = "it$it/$output_name" . "_it$it.fasta";
+            $fai = "$base" . ".fai";
+
+        } else {
+            #Means this is iteration 0
+            if ($fai eq '') {
+                my $faidx = qx"samtools faidx -o original_base.fasta.fai ${base}";
+                $fai = 'original_base.fasta.fai';
+            }
+
+            if ($base_idx eq '') {
+                if (! -d "original_indexes") {
+                    mkdir("original_indexes");
+                }
+                my $hisat_idx=qx"hisat2-build -q -f ${base} original_indexes/original_indexes";
+                $base_idx = 'original_indexes/original_indexes';
+            }
+        }
+
+        #Now onto alignment, which is the same for every iteration
+        unless ($continue && -s "it${it}/MAPPING.stderr") {
+            if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+                my $align=qx"hisat2 -x ${base_idx} -f -p ${threads} --no-softclip --no-spliced-alignment --score-min ${scoremin} -k 1 --no-unal --norc -U fragments.fasta -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
+                $input_name = basename("$source", ('.fasta'));
+            }
+            elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
+                my $align=qx"hisat2 -x ${base_idx} -f -p ${threads} --no-softclip --no-spliced-alignment --score-min ${scoremin} -k 1 --no-unal --norc -U ${source} -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
+                $input_name = basename("$source", ('.fasta.'));
+            }
+            elsif (("$input_type" eq 'fastq_u')) {
+                my $align=qx"hisat2 -x ${base_idx} -q -p ${threads} --no-softclip --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 --score-min ${scoremin} -k 1 --no-unal -U $readsu -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
                 $input_name = basename("$readsu", ('.fastq'));
-
             }
-        elsif (("$input_type" eq 'fastq_p')) {
-            if ($run) {
-                my $foobar = qx"bash $aligner -b $base --fai $fai --indexes $base_idx -i $it --output_name $output_name --reads1 $reads1 --reads2 $reads2 -t $threads --var_fraction $var_fraction --var_depth $var_depth --input_type $input_type --scoremin $scoremin --variant_caller $variant_caller";
+            elsif (("$input_type" eq 'fastq_p')) {
+                my $align=qx"hisat2 -x ${base_idx} -q -p ${threads} --no-softclip --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 --score-min ${scoremin} -k 1 --no-unal -1 $reads1 -2 $reads2 -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
+                $input_name = basename("$reads1", ('.fastq'));
             }
-            $input_name = basename("$reads1", ('.fastq'));
+        }
 
+        my $sort = qx"samtools sort -l 9 -O BAM -@ ${threads} -o it${it}/sorted.bam it${it}/raw.sam 2>&1";
+        my $index = qx"samtools index it${it}/sorted.bam";
+        unlink("it${it}/raw.sam");
+
+        #Now to call variants
+        unless ($continue && -s "it${it}/variants.bcf") {
+            if ($variant_caller eq 'freebayes') {
+                if ($threads > 1) {
+                    my $regions=qx"fasta_generate_regions.py ${fai} 100000 > it${it}/freebayes_regions.tmp";
+                    my $freebayes=qx"freebayes-parallel it${it}/freebayes_regions.tmp ${threads} -f ${base} --min-alternate-fraction ${var_fraction} --min-alternate-count ${var_depth} it${it}/sorted.bam > it${it}/variants.vcf";
+                } else {
+                    my $freebayes=qx"freebayes -f ${base} --min-alternate-fraction ${var_fraction} --min-alternate-count ${var_depth} it${it}/sorted.bam > it${it}/variants.vcf";
+                }
+            } elsif ($variant_caller eq 'bcftools') {
+                my $filter = 'FORMAT/AD[0:1] >= ' . ${var_depth} . ' && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= ' . ${var_fraction};
+                print "using filter", ${filter}, "\n";
+
+                my $bcftools=qx"bcftools mpileup -a FORMAT/AD,FORMAT/DP -d 250 -f $base it${it}/sorted.bam | bcftools call -O v -m -v --ploidy 2 | bcftools filter -i \"$filter\" > it${it}/variants.vcf"
+            }
+            my $view = qx"bcftools view -O bcf -o it${it}/variants.bcf it${it}/variants.vcf";
+            my $bcf_idx = qx"bcftools index it${it}/variants.bcf";
         }
 
         #The above should have just produced everything I need to
-            #continue through with my pipeline. That includes the
+        #continue through with my pipeline. That includes the
         #it"$it"/variants.vcf file, the MAPPING.stderr file, and the
         #new genome. The next step is to shift my bins accordingly
         if ("$it" == 0) {
@@ -255,8 +294,7 @@ sub pseudogen {
                 output => "it0/bins.tsv",
                 bin_size => "$bin_size",
             );
-        }
-        else {
+        } else {
             Bio::Dantools::bin_shifter(
                 input_vcf => "it$itp/variants.vcf",
                 input_bins => "it$itp/bins.tsv",
@@ -290,32 +328,23 @@ sub pseudogen {
             if ("$nocap" == 1) {
                 $aln_scaled = 0;
             }
-        }
-        else {
+        }  else {
             print $meta basename($og_base, ('.fasta')) . "\t" . "$input_name\t" . "$it\t" . "$aln\t" . "$var_count\n";
             $aln_scaled = 0;
-        }
-
-        $base_idx = "it$it/indexes/$output_name" . "_it$it";
-        if ("$it" != 0) {
-            $base = "it$it/$output_name" . "_it$it.fasta";
-            $fai = "$base" . ".fai";
         }
 
         #Determine what to delete, if anything
         if (("$it" != 0)) {
             if ("$keepers" eq "none") {
                 rmtree("it$itp");
-            }
-            elsif ("$keepers" eq "genomes") {
+            } elsif ("$keepers" eq "genomes") {
                 unlink(("it$itp/variants.bcf.gz",
                         "it$itp/variants.bcf.gz.csi",
                         "it$itp/variants.vcf",
                         "it$itp/sorted.bam",
                         "it$itp/sorted.bam.bai",
                         "it$itp/bins.tsv"));
-            }
-            elsif ("$keepers" eq "alignments") {
+            } elsif ("$keepers" eq "alignments") {
                 unlink(("it$itp/variants.bcf.gz",
                         "it$itp/variants.bcf.gz.csi",
                         "it$itp/variants.vcf"));
@@ -326,8 +355,7 @@ sub pseudogen {
                             "it$itp/bins.tsv"));
                     rmtree("it$itp/indexes");
                 }
-            }
-            elsif ("$keepers" eq "variants") {
+            } elsif ("$keepers" eq "variants") {
                 unlink(("it$itp/sorted.bam",
                         "it$itp/sorted.bam.bai"));
                 #Genome files don't exist in it0
@@ -338,8 +366,7 @@ sub pseudogen {
                     rmtree("it$itp/indexes");
                 }
             }
-        }
-        else {
+        } else {
             copy("it0/bins.tsv", "original_bins.tsv");
         }
 
@@ -357,13 +384,12 @@ sub pseudogen {
             mkdir 'output';
             mkdir 'output/indexes';
         }
-    }
-    elsif (! -d 'output/indexes') {
+    } elsif (! -d 'output/indexes') {
         if (-e 'output/indexes') {
             die "output/indexes exists as a file, can't overwrite";
         }
         else {
-            mkdir 'output/indexes';
+            mkdir('output/indexes');
         }
     }
     copy("$base", "output/$output_name.fasta");
@@ -445,27 +471,52 @@ sub pseudogen {
         my @line = split(/\t/, $_);
         push @alt_ends, $line[1];
     }
-    my $contigs = join(',', @contigs);
-    my $ref_ends = join(',', @ref_ends);
-    my $alt_ends = join(',', @alt_ends);
-    my $breaks = join(',', @breaks);
 
-    if (("$input_type" eq 'fasta')) {
-        my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --source fragments.fasta --input_type $input_type";
+    my $hisat_idx = qx"hisat2-build -q -p ${threads} output/${output_name}.fasta output/indexes/${output_name}";
+
+    unless ($continue && -s "output/strict_aln.stderr") {
+            if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+                my $align=qx"hisat2 -x output/indexes/${output_name} -f -p ${threads} --no-softclip --no-spliced-alignment -k 1 --no-unal --norc -U fragments.fasta -S output/strict_aln.sam 2>output/strict_aln.stderr";
+            } elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
+                my $align=qx"hisat2 -x output/indexes/${output_name} -f -p ${threads} --no-softclip --no-spliced-alignment -k 1 --no-unal --norc -U ${source} -S output/strict_aln.sam 2>output/stric_aln.stderr";
+            } elsif (("$input_type" eq 'fastq_u')) {
+                my $align=qx"hisat2 -x output/indexes/${output_name} -q -p ${threads} --no-softclip -k 1 --no-unal -U $readsu -S output/strict_aln.sam 2>output/strict_aln.stderr";
+            } elsif (("$input_type" eq 'fastq_p')) {
+                my $align=qx"hisat2 -x output/indexes/${output_name} -q -p ${threads} --no-softclip -k 1 --no-unal -1 $reads1 -2 $reads2 -S output/strict_aln.sam 2>output/strict_aln.stderr";
+            }
+        }
+
+    my $sort = qx"samtools sort -l 9 -O BAM -@ ${threads} -o output/strict_aln.bam output/strict_aln.sam";
+    my $index = qx"samtools index output/strict_aln.bam";
+    unlink("output/strict_aln.sam");
+    my $depth = qx"samtools depth -aa -@ ${threads} -o output/depth.tsv output/strict_aln.bam";
+
+    if (! -d "needle_files") {
+        mkdir('needle_files');
     }
-    elsif (("$input_type" eq 'fastq_u')) {
-        my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --readsu $readsu --input_type $input_type";
+
+    my $pm = Parallel::ForkManager->new(${threads});
+  ALNS: for my $idx (0..$#ref_ends) {
+        my $pid = $pm->start and next ALNS;
+        if (grep { $_ eq $idx } @breaks) {
+            #This means I am at the "start" of a contig
+            my $stretch = qx"stretcher -asequence alt/$contigs[$idx] -bsequence ref/$contigs[$idx] -sbegin1 1 -send1 $alt_ends[$idx] -sbegin2 1 -send2 $ref_ends[$idx] -aformat3 fasta -sid1 alt -sid2 ref -outfile needle_files/${idx} -gapopen 50 -gapextend 15 2>>needle_files/errors.txt";
+        } else {
+            my $start1 = $alt_ends[$idx - 1] + 1;
+            my $start2 = $ref_ends[$idx - 1] + 1;
+
+            my $stretch = qx"stretcher -asequence alt/$contigs[$idx] -bsequence ref/$contigs[$idx] -sbegin1 $start1 -send1 $alt_ends[$idx] -sbegin2 $start2 -send2 $ref_ends[$idx] -aformat3 fasta -sid1 alt -sid2 ref -outfile needle_files/${idx} -gapopen 50 -gapextend 15 2>>needle_files/errors.txt";
+        }
+        $pm->finish;
     }
-    elsif (("$input_type" eq 'fastq_p')) {
-        my $foobar = qx"bash $postprocessor --ref $og_base --alt output/${output_name}.fasta --outdir $outdir --output_name $output_name --contigs $contigs --ref_ends $ref_ends --alt_ends $alt_ends --breaks $breaks --aln it${it}/alignment.bam --threads $threads --reads1 $reads1 --reads2 $reads2 --input_type $input_type";
-    }
+    $pm->wait_all_children;
+
+    #Now there should be a bunch of alignment files which I can go through
 
     my $file_idx = 0;
-    if (-e 'needle_files/combined_bases.tsv') {
-        unlink('needle_files/combined_bases.tsv');
-    }
-    my $out = FileHandle->new(">> needle_files/combined_bases.tsv");
-    while ("$file_idx" < scalar @contigs) {
+
+    my $out = FileHandle->new("> needle_files/combined_bases.tsv");
+    while ("$file_idx" < scalar(@contigs)) {
         #Note in my original I use Bio::AlignIO, maybe this won't work
         my $raw = Bio::SeqIO->new(
             -file => "needle_files/$file_idx",
@@ -527,6 +578,62 @@ sub pseudogen {
 }
 ;
 
+#The below function takes a VCF and FASTA file and applies variants
+#from the former to the latter. Importantly for me, it does not "skip"
+#variants in overlap, but sequentially applies them. This is important
+#because it keeps the bin-shifting logic correct
+sub consensus {
+    my %args = @_;
+    my $seqio_in = Bio::SeqIO->new(
+        -file => $args{'input_fasta'},
+        -format => 'Fasta');
+    my $seqio_out = Bio::SeqIO->new(
+        -format => 'Fasta',
+        -file => "> $args{'output_fasta'}");
+
+    #Read in my VCF:
+    my $input_vcf = $args{'input_vcf'};
+    my $vcf_fh = FileHandle->new($input_vcf);
+    my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1,});
+    my %vcf_hash;
+
+    open($vcf_fh, "<:encoding(utf8)", "$input_vcf") or die "Can't open vcf_fh";
+
+    $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'metadata');
+
+    while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
+        next if ($row->{'contig'} =~ /^#/);
+        my $alt = (split(/\,/, $row->{'alternate'}))[0];
+
+        my %hash = (
+            pos => $row->{'position'},
+            ref => $row->{'reference'},
+            alt => $alt
+        );
+        if (! exists($vcf_hash{$row->{'contig'}})) {
+            @vcf_hash{$row->{'contig'}} = ();
+        }
+        push(@{ $vcf_hash{$row->{'contig'}} }, \%hash);
+    }
+
+  CONTIGS: while (my $chrom = $seqio_in->next_seq) {
+        #Now to add all of the metadata
+        my @sub = sort { $a->{'pos'} <=> $b->{'pos'} } @{ $vcf_hash{ $chrom->{'primary_id'} } };
+        my $idx = 0;
+        my $contig_length = $chrom->{'primary_seq'}->{'length'};
+
+        my $shift = 0; #how much to adjust positions to account for indels
+      VARS: while (my $entry = $sub[$idx]) {
+            my $rlength = length($entry->{'ref'});
+            substr($chrom->{'primary_seq'}->{'seq'}, $entry->{'pos'} - 1 + $shift, $rlength) = $entry->{'alt'};
+            $shift += length($entry->{'alt'}) - length($entry->{'ref'});
+            $idx++;
+        }
+
+        $seqio_out->write_seq($chrom);
+    }
+
+}
 
 #The below can break my genome into pieces
 sub fragment {
@@ -623,12 +730,15 @@ sub bin_shifter {
     my $vcf_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($vcf_fh, "<:encoding(utf8)", "$args{'input_vcf'}") or die "Can't open vcf_fh";
 
+    my $contig = '';
     $vcf_tsv->column_names('contig', 'position', 'index', 'reference', 'alternate', 'quality', 'filter', 'metadata');
+
     while (my $row = $vcf_tsv->getline_hr($vcf_fh)) {
         next if $row->{'contig'} =~ /^#/;
         my $shift = length((split(/\,/, $row->{'alternate'}))[0]) - length($row->{'reference'});
 
         next if $shift == 0;
+
         my %hash = (
             seq_id => $row->{'contig'},
             pos => $row->{'position'},
@@ -639,11 +749,12 @@ sub bin_shifter {
         push(@vcf, \%hash);
     }
     close($vcf_fh);
+    #print Dumper(@vcf);
 
     #Importantly I don't sort this. That's because if I do, it's going
     #to sort it in a different way from my original. In dantools
     #pseudogen, the vcf and bins should always be sorted the same anyway
-    my $contig = '';
+    $contig = '';
     my @contigs;
     my $shiftsum;
     my $vcf_index = 0;
