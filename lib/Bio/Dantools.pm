@@ -242,28 +242,33 @@ sub pseudogen {
         }
 
         #Now onto alignment, which is the same for every iteration
-        unless ($continue && -s "it${it}/MAPPING.stderr") {
-            if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+        if (("$input_type" eq 'fasta') & (! $no_fragment)) {
+            unless ($continue && -s "it${it}/MAPPING.stderr") {
                 my $align=qx"hisat2 -x ${base_idx} -f -p ${threads} --no-softclip --no-spliced-alignment --score-min ${scoremin} -k 1 --no-unal --norc -U fragments.fasta -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
-                $input_name = basename("$source", ('.fasta'));
             }
-            elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
+            $input_name = basename("$source", ('.fasta'));
+        }  elsif (("$input_type" eq 'fasta') & ($no_fragment)) {
+            unless ($continue && -s "it${it}/MAPPING.stderr") {
                 my $align=qx"hisat2 -x ${base_idx} -f -p ${threads} --no-softclip --no-spliced-alignment --score-min ${scoremin} -k 1 --no-unal --norc -U ${source} -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
-                $input_name = basename("$source", ('.fasta.'));
             }
-            elsif (("$input_type" eq 'fastq_u')) {
+            $input_name = basename("$source", ('.fasta.'));
+        } elsif (("$input_type" eq 'fastq_u')) {
+            unless ($continue && -s "it${it}/MAPPING.stderr") {
                 my $align=qx"hisat2 -x ${base_idx} -q -p ${threads} --no-softclip --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 --score-min ${scoremin} -k 1 --no-unal -U $readsu -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
-                $input_name = basename("$readsu", ('.fastq'));
             }
-            elsif (("$input_type" eq 'fastq_p')) {
+        $input_name = basename("$readsu", ('.fastq'));
+        } elsif (("$input_type" eq 'fastq_p')) {
+            unless ($continue && -s "it${it}/MAPPING.stderr") {
                 my $align=qx"hisat2 -x ${base_idx} -q -p ${threads} --no-softclip --pen-canintronlen G,-8,7.5 --pen-noncanintronlen G,-8,7.5 --score-min ${scoremin} -k 1 --no-unal -1 $reads1 -2 $reads2 -S it${it}/raw.sam 2>it${it}/MAPPING.stderr";
-                $input_name = basename("$reads1", ('.fastq'));
             }
+            $input_name = basename("$reads1", ('.fastq'));
         }
 
         my $sort = qx"samtools sort -l 9 -O BAM -@ ${threads} -o it${it}/sorted.bam it${it}/raw.sam 2>&1";
         my $index = qx"samtools index it${it}/sorted.bam";
-        unlink("it${it}/raw.sam");
+        if (-e "it${it}/raw.sam") {
+            unlink("it${it}/raw.sam");
+        }
 
         #Now to call variants
         unless ($continue && -s "it${it}/variants.bcf") {
