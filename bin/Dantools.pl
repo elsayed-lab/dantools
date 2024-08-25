@@ -65,10 +65,10 @@ if ($method eq 'pseudogen') {
     my $help = 0;
     my $scoremin = 'L,0,-1.0';
     GetOptions(
-        "base|b=s" => \$base,
+        "reference|r=s" => \$base,
         "fai=s" => \$base_fai,
         "base-idx=s" => \$base_idx,
-        "source|s=s" => \$source,
+        "query|q=s" => \$source,
         "reads-u|u=s" => \$readsu,
         "reads-1|1=s" => \$reads1,
         "reads-2|2=s" => \$reads2,
@@ -206,7 +206,10 @@ if ($method eq 'pseudogen') {
         "threads|t=i" => \$threads,
         "help|h" => \$help
         );
+
     my $input = $ARGV[0];
+    $help = 1 if (! defined($input));
+
     if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/fragment.help");
         while (<$helpdoc>) { print $_ };
@@ -388,7 +391,7 @@ if ($method eq 'pseudogen') {
     GetOptions(
         "sam|s=s" => \$input_sam,
         "output|o=s" => \$output,
-        "ref-gap|r=i" => \$ref_gap,
+        "reference-gap|r=i" => \$ref_gap,
         "query-gap|q=i" => \$query_gap,
         "min-qbase|b=i" => \$min_qbase,
         "min-depth|d=i" => \$min_depth,

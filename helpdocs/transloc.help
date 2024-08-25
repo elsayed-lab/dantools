@@ -3,7 +3,7 @@ Reads a SAM alignment of fragments (from dantools fragment) to predict
 translocations
 
 Options:
-  -r, --ref-gap        Maximum base distance between alignments
+  -r, --reference-gap  Maximum base distance between alignments
                        relative to reference to group them together
                        (default: 1000)
   -q, --query-gap      Maximum base distance between alignments
@@ -17,6 +17,9 @@ Options:
                        (default: 1)
   -l, --min-length     Minimum length of translocation on REF to be
                        considered (default: 1)
+  --max-diff           Maximum difference in length between query
+                       and reference blocks to pass filters
+                       (default: 50)
   -v, --vcf            If the SAM reference is a pseudogenome, pass
                        its VCF file to shift reference coordinates
                        back to reference rather than pseudogenome
