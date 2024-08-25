@@ -2,10 +2,10 @@ Usage: dantools pseudogen [options]
 Produces a pseudogenome from two input fasta files
 
 Required options:
-  -b, --base      the fasta file that will serve as the basis for
+  -r, --reference the fasta file that will serve as the basis for
 
   One of:
-  -s, --source    a .fasta genome to be fragmented and aligned against the base
+  -q, --query     a .fasta genome to be fragmented and aligned against the base
   -u, --reads-u   unpaired .fastq reads to be aligned against the base
   -1, --reads-1   mate 1s of paired end .fastq reads
   -2, --reads-2   mate 2s of paired end .fastq reads
@@ -32,7 +32,7 @@ Fragmentation options (only with FASTA inputs):
 Alignment/Variant options:
   --score-min     the input to the HISAT2 score-min function, which governs
                   the minimum alignment score for a successful alignment
-		  (default: L,0,-1.0)
+		              (default: L,0,-1.0)
   --var-fraction  the fraction of alleles that must agree to call a variant
                   (default: 0.501)
   --var-depth     minimum number of alignments that need to agree with

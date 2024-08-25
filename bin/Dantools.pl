@@ -65,10 +65,10 @@ if ($method eq 'pseudogen') {
     my $help = 0;
     my $scoremin = 'L,0,-1.0';
     GetOptions(
-        "base|b=s" => \$base,
+        "reference|r=s" => \$base,
         "fai=s" => \$base_fai,
         "base-idx=s" => \$base_idx,
-        "source|s=s" => \$source,
+        "query|q=s" => \$source,
         "reads-u|u=s" => \$readsu,
         "reads-1|1=s" => \$reads1,
         "reads-2|2=s" => \$reads2,
