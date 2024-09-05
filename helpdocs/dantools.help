@@ -6,7 +6,7 @@ Usage: dantools <command> [options]
 Commands:
     pseudogen         produces a pseudogenome from two input FASTA files
 
-    fragment          produce fragments in FASTA formta from FASTA file
+    fragment          produce fragments in FASTA format from FASTA file
 
     label             label a VCF file according to a GFF. Optionally translate nucleotide
                       variants to amino acid mutations

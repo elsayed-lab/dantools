@@ -2532,7 +2532,7 @@ sub summarize_aa {
     my %all_data;
     my @parent_keys;
 
-    print $output "#PARENT\tVARS\tSCORE\tSCALED_SCORE\tSILENT\tMISSENSE\tSENSE\tNONSENSE\tINDELS\tINFRAME\tOUTFRAME\n";
+    print $output "#PARENT\tVARS\tSCORE\tSCALED_SCORE\tSILENT\tMISSENSE\tNONSTOP\tNONSENSE\tINDELS\tINFRAME\tOUTFRAME\n";
 
     my $vars_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     $vars_tsv->column_names('seq_id', 'parent', 'codon', 'ref', 'alt', 'vars', 'type', 'frame', 'score', 'scaled_score');
@@ -2550,7 +2550,7 @@ sub summarize_aa {
                       num_outframe => 0,
                       num_silent => 0,
                       num_missense => 0,
-                      num_sense => 0,
+                      num_nonstop => 0,
                       num_nonsense => 0
                   };
                   push (@parent_keys, $parent);
@@ -2572,7 +2572,7 @@ sub summarize_aa {
             } elsif ($entry->{'alt'} eq '*') {
                 $all_data{"$parent"}{'num_nonsense'} += 1;
             } elsif ($entry->{'ref'} eq '*') {
-                $all_data{"$parent"}{'num_sense'} += 1;
+                $all_data{"$parent"}{'num_nonstop'} += 1;
             } else {
                 $all_data{"$parent"}{'num_missense'} += 1;
             }
@@ -2589,7 +2589,7 @@ sub summarize_aa {
             $all_data{"$i"}{'total_sscore'}, "\t",
             $all_data{"$i"}{'num_silent'}, "\t",
             $all_data{"$i"}{'num_missense'}, "\t",
-            $all_data{"$i"}{'num_sense'}, "\t",
+            $all_data{"$i"}{'num_nonstop'}, "\t",
             $all_data{"$i"}{'num_nonsense'}, "\t",
             $all_data{"$i"}{'num_indels'}, "\t",
             $all_data{"$i"}{'num_indels'} - $all_data{"$i"}{'num_outframe'}, "\t",
