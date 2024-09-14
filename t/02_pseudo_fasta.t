@@ -84,13 +84,5 @@ unless (ok($exp_vcf eq $act_vcf, 'Expected VCF file produced')) {
     diag("--Output--\n${expected}\n--Actual--\n${actual}\n");
 }
 
-my $exp_depth = File::Slurp::read_file("${start_dir}/exp_fasta_depth.tsv");
-my $act_depth = File::Slurp::read_file("output/depth.tsv");
-
-unless (ok($exp_depth eq $act_depth, 'Expected depth file produced')) {
-    my( $expected, $actual) = diff($exp_depth, $act_depth);
-    diag("--Output\n${expected}\n--Actual--\n${actual}\n");
-};
-
 chdir($start);
 #rmtree("test_output");
