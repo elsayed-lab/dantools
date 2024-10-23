@@ -30,10 +30,10 @@ for my $bin (@needed) {
     die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
 };
 
-Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
-                         fai => "$start_dir/base.fasta.fai",
-                         base_idx => "$start_dir/indexes/base",
-                         source => "$start_dir/source.fasta",
+Bio::Dantools::pseudogen(reference => "$start_dir/reference.fasta",
+                         fai => "$start_dir/reference.fasta.fai",
+                         reference_idx => "$start_dir/indexes/reference",
+                         query => "$start_dir/query.fasta",
                          lengths => '100,200',
                          min_length => 20,
                          overlap => 50,
@@ -55,14 +55,14 @@ Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
 
 #Now I should have all the files ready and I can begin checking them
 #for consistency. I think the most imporant test is using bcftools
-#consensus with the vcf I generate and my original base to make sure I
+#consensus with the vcf I generate and my original reference  to make sure I
 #perfectly recreate the fragmented genome
 
 system("bcftools view -O bcf -o output/test.bcf output/test.vcf");
 
 system("bcftools index output/test.bcf");
 
-my $error = qx"bcftools consensus -f $start_dir/base.fasta -o output/remade.fasta output/test.bcf 2>&1";
+my $error = qx"bcftools consensus -f $start_dir/reference.fasta -o output/remade.fasta output/test.bcf 2>&1";
 
 if (index($error, "Applied") == -1) {
     print "$error\n";

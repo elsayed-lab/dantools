@@ -39,10 +39,10 @@ if (! defined($method)) {
 
 #This is the whole pseudogenome worker
 if ($method eq 'pseudogen') {
-    my $base; #The genome I'll be aligning against
-    my $base_fai = ''; #.fai indexes for my reference, not required
-    my $base_idx = ''; #.ht2 reference indexes, not required
-    my $source = ''; #The input genome
+    my $reference; #The genome I'll be aligning against
+    my $reference_fai = ''; #.fai indexes for my reference, not required
+    my $reference_idx = ''; #.ht2 reference indexes, not required
+    my $query = ''; #The input genome
     my $readsu = ''; #input unpaired reads
     my $reads1 = ''; #mate 1 input reads
     my $reads2 = ''; #mate 2 input reads
@@ -65,10 +65,10 @@ if ($method eq 'pseudogen') {
     my $help = 0;
     my $scoremin = 'L,0,-1.0';
     GetOptions(
-        "reference|r=s" => \$base,
-        "fai=s" => \$base_fai,
-        "base-idx=s" => \$base_idx,
-        "query|q=s" => \$source,
+        "reference|r=s" => \$reference,
+        "fai=s" => \$reference_fai,
+        "ref-idx=s" => \$reference_idx,
+        "query|q=s" => \$query,
         "reads-u|u=s" => \$readsu,
         "reads-1|1=s" => \$reads1,
         "reads-2|2=s" => \$reads2,
@@ -91,7 +91,7 @@ if ($method eq 'pseudogen') {
         "help|h" => \$help
         ) or die "Error in Parsing Arguments";
     #Checking input arguments and setting them manually for some
-    if (! defined($base)) { $help = 1 };
+    if (! defined($reference)) { $help = 1 };
 
     if ($help) {
         my $helpdoc = FileHandle->new("< $FindBin::Bin/../helpdocs/pseudogen.help");
@@ -106,46 +106,46 @@ if ($method eq 'pseudogen') {
         die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
     };
 
-    if ("$outdir" eq '') {
+    if ($outdir eq '') {
         $outdir = getcwd;
-    } elsif ( ! -d "$outdir" ) {
-        make_path("$outdir");
+    } elsif ( ! -d $outdir ) {
+        make_path($outdir);
     }
 
     if (! grep /^$keepers/, ('all', 'variants', 'alignments', 'genomes', 'none')) {
         die "ERROR: The keepers argument \"$keepers\" is not supported, supported arguments:\nall, variants, alignments, genomes, none\n"
     }
-    if (! -e "$base") {
+    if (! -e $reference) {
         die "ERROR: input base file does not exist\n";
     }
-    $base = File::Spec->rel2abs($base);
+    $reference = File::Spec->rel2abs($reference);
 
     $lengths =~ tr/ //d;
 
     #Figure out what "source_type" was brought in, which should make
     #downstream tools not always have to check this:
-    if ("$source" ne '') {
-        die "Error reading input source file $source" if (! -e "$source");
+    if ($query ne '') {
+        die "Error reading input query file $query" if (! -e $query);
         $input_type = 'fasta';
-        $source = File::Spec->rel2abs($source);
+        $query = File::Spec->rel2abs($query);
         if ("$output_name" eq '') {
-            $output_name = basename($source, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+            $output_name = basename($query, ('.fasta', '.fastq')) . "_on_" . basename($reference, ('.fasta', '.fastq'));
         }
-    } elsif ("$readsu" ne '') {
-        die "Error reading input reads $readsu" if (! -e "$readsu");
+    } elsif ($readsu ne '') {
+        die "Error reading input reads $readsu" if (! -e $readsu);
         $input_type = 'fastq_u'; #unpaired fastq
         $readsu = File::Spec->rel2abs($readsu);
         if ("$output_name" eq '') {
-            $output_name = basename($readsu, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+            $output_name = basename($readsu, ('.fasta', '.fastq')) . "_on_" . basename($reference, ('.fasta', '.fastq'));
         }
-    } elsif (("$reads1" ne '') & ("$reads2" ne '')) {
+    } elsif (($reads1 ne '') & ("$reads2" ne '')) {
         die "Error reading input reads $reads1" if (! -e "$reads1");
         die "Error reading input reads $reads2" if (! -e "$reads2");
         $input_type = 'fastq_p'; #paired fastq
         $reads1 = File::Spec->rel2abs($reads1);
         $reads2 = File::Spec->rel2abs($reads2);
-        if ("$output_name" eq '') {
-            $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($base, ('.fasta', '.fastq'));
+        if ($output_name eq '') {
+            $output_name = basename($reads1, ('.fasta', '.fastq')) . "_on_" . basename($reference, ('.fasta', '.fastq'));
         }
     }
 
@@ -160,14 +160,14 @@ if ($method eq 'pseudogen') {
     }
 
 
-    if (("$nocap" == 1) & ("$input_type" ne 'fasta')) {
+    if (($nocap == 1) & ("$input_type" ne 'fasta')) {
         print STDERR "WARNING: Argument 'no-cap' only applies to FASTA inputs\n";
     };
 
-    Bio::Dantools::pseudogen(base => "$base",
-                             fai => "$base_fai",
-                             base_idx => "$base_idx",
-                             source => "$source",
+    Bio::Dantools::pseudogen(reference => "$reference",
+                             fai => "$reference_fai",
+                             reference_idx => "$reference_idx",
+                             query => "$query",
                              readsu => "$readsu",
                              reads1 => "$reads1",
                              reads2 => "$reads2",

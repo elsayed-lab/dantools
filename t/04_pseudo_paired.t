@@ -30,10 +30,10 @@ for my $bin (@needed) {
     die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
 };
 
-Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
-                         fai => "$start_dir/base.fasta.fai",
-                         base_idx => "$start_dir/indexes/base",
-                         source => "$start_dir/source.fasta",
+Bio::Dantools::pseudogen(reference => "$start_dir/reference.fasta",
+                         fai => "$start_dir/reference.fasta.fai",
+                         reference_idx => "$start_dir/indexes/reference",
+                         query => "$start_dir/query.fasta",
                          min_variants => 100,
                          keepers => 'all',
                          output_name => 'test',

@@ -12,7 +12,7 @@ Required options:
 
 Optional inputs:
   --fai           a .fasta.fai index file for the base fasta
-  --base-idx      the path and base name for hisat2 indexes
+  --ref-idx      the path and base name for hisat2 indexes of reference
 
 Output options:
   --outdir        the directory in which to output all files (default:
