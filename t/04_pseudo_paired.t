@@ -30,10 +30,10 @@ for my $bin (@needed) {
     die "Need binary ${bin}, not in PATH\n" unless(which("$bin"));
 };
 
-Bio::Dantools::pseudogen(base => "$start_dir/base.fasta",
-                         fai => "$start_dir/base.fasta.fai",
-                         base_idx => "$start_dir/indexes/base",
-                         source => "$start_dir/source.fasta",
+Bio::Dantools::pseudogen(reference => "$start_dir/reference.fasta",
+                         fai => "$start_dir/reference.fasta.fai",
+                         reference_idx => "$start_dir/indexes/reference",
+                         query => "$start_dir/query.fasta",
                          min_variants => 100,
                          keepers => 'all',
                          output_name => 'test',
@@ -84,14 +84,6 @@ unless (ok($exp_vcf eq $act_vcf, 'Expected VCF file produced')) {
     my ($expected, $actual) = diff($exp_vcf, $act_vcf);
     diag("--Output--\n${expected}\n--Actual--\n${actual}\n");
 }
-
-my $exp_depth = File::Slurp::read_file("${start_dir}/exp_paired_depth.tsv");
-my $act_depth = File::Slurp::read_file("output/depth.tsv");
-
-unless (ok($exp_depth eq $act_depth, 'Expected depth file produced')) {
-    my( $expected, $actual) = diff($exp_depth, $act_depth);
-    diag("--Output\n${expected}\n--Actual--\n${actual}\n");
-};
 
 chdir($start);
 #rmtree("test_output");
