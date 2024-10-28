@@ -2388,8 +2388,10 @@ sub label {
   CODONS: while (my $var = $labeled_vars[$var_idx]) {
         #If I'm still on the same codon:
         if (($codon_num eq $var->{'codon'}) & ($parent eq $var->{'parent'})) {
-            substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
-            @nvar = (@nvar, $var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+            #Ensure this works with multiallelic sites:
+            my $alt = (split(/,/, $var->{'alt'}))[0];
+            substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $alt;
+            @nvar = (@nvar, $var->{'ref'} . $var->{'rel_coding'} . $alt);
             $var_idx++;
             next CODONS;
         }
@@ -2494,9 +2496,10 @@ sub label {
         $parent = $var->{'parent'};
         $ref_codon = substr($feature_seqs{$parent}, (($codon_num * 3) - 3), 3);
         $alt_codon = $ref_codon;
+        my $alt = (split(/,/, $var->{'alt'}))[0];
         substr($ref_codon, $var->{'codon_pos'} - 1, 1) = $var->{'ref'}; #necessary for complex
-        substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
-        @nvar = ($var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+        substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $alt;
+        @nvar = ($var->{'ref'} . $var->{'rel_coding'} . $alt);
 
         $var_idx++;
     }
