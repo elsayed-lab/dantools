@@ -2642,6 +2642,8 @@ sub summarize_nuc {
 
   VARS: while (my $entry = $vars_tsv->getline_hr($input_vars_fh)) {
         next if $entry->{'seq_id'} =~ /^#/;
+        #Ensure this works with multiallelic sites:
+        my $alt = (split(/,/, $entry->{'alt'}))[0];
 
         if ("$parent" ne $entry->{'parent'}) {
             $parent = $entry->{'parent'};
@@ -2661,13 +2663,13 @@ sub summarize_nuc {
 
         if ($entry->{'type'} eq 'up_flank') {
             $all_data{"$parent"}{'up_flank_vars'}++;
-            $all_data{"$parent"}{'up_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'up_flank_indels'}++ if (length($entry->{'ref'}) != length($alt));
         } elsif ($entry->{'type'} eq 'down_flank') {
             $all_data{"$parent"}{'down_flank_vars'}++;
-            $all_data{"$parent"}{'down_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'down_flank_indels'}++ if (length($entry->{'ref'}) != length($alt));
         } else {
             $all_data{"$parent"}{'feat_vars'}++;
-            $all_data{"$parent"}{'feat_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'feat_indels'}++ if (length($entry->{'ref'}) != length($alt));
         }
     }
 
