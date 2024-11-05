@@ -2005,8 +2005,8 @@ sub label {
     my $death = 0;              #Determines if I "die" or not
   CONTIGS: for my $contig (@unique_contigs) {
         my $pid = $pm->start and next CONTIGS;
-        my @plus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @plus_features;
-        my @variants = grep { $_->{'seq_id'} =~ /$contig/i } @vcf;
+        my @plus_sub_features = grep { $_->{'seq_id'} eq $contig } @plus_features;
+        my @variants = grep { $_->{'seq_id'} eq $contig } @vcf;
         if (scalar(@variants) == 0) {
             $pm->finish;
         }
@@ -2021,7 +2021,7 @@ sub label {
                 $a->{'start'} <=> $b->{'start'}
             } @plus_sub_features;
         #Set up features no minus strand:
-        my @minus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @minus_features;
+        my @minus_sub_features = grep { $_->{'seq_id'} eq $contig } @minus_features;
         @minus_sub_features = sort {
             $b->{'parent'} cmp $a->{'parent'} ||
                 $b->{'start'} <=> $a->{'start'}
