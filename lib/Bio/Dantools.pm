@@ -2041,6 +2041,7 @@ sub label {
             my $feat_end = 0; #make sure it doesn't fail in first iteration
             my $feat_start;
             my $var_idx = 0;
+            my $idx_max = $#variants;
             my $var = undef;
             my $skipper = '_balrog_'; #if I have overlap, this determines which parent to skip
           FEATURES: for my $feat (@plus_sub_features) {
@@ -2074,6 +2075,7 @@ sub label {
                     my $var_pos = $var->{'pos'};
                     if ($var_pos < $feat_start ) {
                         $var_idx++;
+                        last FEATURES if($var_idx > $idx_max);
                         next VARIANTS;
 
                     }
@@ -2111,27 +2113,20 @@ sub label {
                     push(@labels, \%hash);
                     push(@labeled_idx, $var_idx);
                     $var_idx++;
+                    last FEATURES if($var_idx > $idx_max);
                 } #End Variants
             } #End Features
         } #end scalar(@plus_sub_features) check
 
         if (scalar(@minus_sub_features) != 0) {
-
-            #Now I'm going to repeat this with a slightly modified pipeline
-            #for the minus strand variants
-            #I need to reload features because it differs by strand,
-            #variants don't
-
-            @variants = sort {
-                $b->{'pos'} <=> $a->{'pos'}
-            } @variants;
             my %positions = ();
             my $parent = $minus_sub_features[0]->{'parent'}; #Start this up
             my $parent_pos = 0; #track number of bases covered in parent
             my $coding_pos = 0;
             my $feat_start = 100000000000; #make sure it doesn't fail on first iteration
             my $feat_end;
-            my $var_idx = 0;
+            my $var_idx = $#variants;
+            my $idx_min = 0;
             my $var = undef;
             my $skipper = '_balrog_';
           FEATURES: for my $feat (@minus_sub_features) {
@@ -2170,7 +2165,8 @@ sub label {
                     my $refn = $var->{'ref'};
                     $var_pos = $var_pos + length($refn) - 1; #Change position for deletions
                     if ($var_pos > $feat_end) {
-                        $var_idx++;
+                        $var_idx--;
+                        last FEATURES if($var_idx < $idx_min);
                         next VARIANTS;
                     }
                     elsif ($var_pos < $feat_start) {
@@ -2208,7 +2204,8 @@ sub label {
                     );
                     push(@labels, \%hash);
                     push(@labeled_idx, $var_idx);
-                    $var_idx++;
+                    $var_idx--;
+                    last FEATURES if($var_idx < $idx_min);
                 }
             }
         }
