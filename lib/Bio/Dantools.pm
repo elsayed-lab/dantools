@@ -2005,8 +2005,8 @@ sub label {
     my $death = 0;              #Determines if I "die" or not
   CONTIGS: for my $contig (@unique_contigs) {
         my $pid = $pm->start and next CONTIGS;
-        my @plus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @plus_features;
-        my @variants = grep { $_->{'seq_id'} =~ /$contig/i } @vcf;
+        my @plus_sub_features = grep { $_->{'seq_id'} eq $contig } @plus_features;
+        my @variants = grep { $_->{'seq_id'} eq $contig } @vcf;
         if (scalar(@variants) == 0) {
             $pm->finish;
         }
@@ -2021,7 +2021,7 @@ sub label {
                 $a->{'start'} <=> $b->{'start'}
             } @plus_sub_features;
         #Set up features no minus strand:
-        my @minus_sub_features = grep { $_->{'seq_id'} =~ /$contig/i } @minus_features;
+        my @minus_sub_features = grep { $_->{'seq_id'} eq $contig } @minus_features;
         @minus_sub_features = sort {
             $b->{'parent'} cmp $a->{'parent'} ||
                 $b->{'start'} <=> $a->{'start'}
@@ -2388,8 +2388,10 @@ sub label {
   CODONS: while (my $var = $labeled_vars[$var_idx]) {
         #If I'm still on the same codon:
         if (($codon_num eq $var->{'codon'}) & ($parent eq $var->{'parent'})) {
-            substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
-            @nvar = (@nvar, $var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+            #Ensure this works with multiallelic sites:
+            my $alt = (split(/,/, $var->{'alt'}))[0];
+            substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $alt;
+            @nvar = (@nvar, $var->{'ref'} . $var->{'rel_coding'} . $alt);
             $var_idx++;
             next CODONS;
         }
@@ -2494,9 +2496,10 @@ sub label {
         $parent = $var->{'parent'};
         $ref_codon = substr($feature_seqs{$parent}, (($codon_num * 3) - 3), 3);
         $alt_codon = $ref_codon;
+        my $alt = (split(/,/, $var->{'alt'}))[0];
         substr($ref_codon, $var->{'codon_pos'} - 1, 1) = $var->{'ref'}; #necessary for complex
-        substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $var->{'alt'};
-        @nvar = ($var->{'ref'} . $var->{'rel_coding'} . $var->{'alt'});
+        substr($alt_codon, $var->{'codon_pos'} - 1, 1) = $alt;
+        @nvar = ($var->{'ref'} . $var->{'rel_coding'} . $alt);
 
         $var_idx++;
     }
@@ -2639,6 +2642,8 @@ sub summarize_nuc {
 
   VARS: while (my $entry = $vars_tsv->getline_hr($input_vars_fh)) {
         next if $entry->{'seq_id'} =~ /^#/;
+        #Ensure this works with multiallelic sites:
+        my $alt = (split(/,/, $entry->{'alt'}))[0];
 
         if ("$parent" ne $entry->{'parent'}) {
             $parent = $entry->{'parent'};
@@ -2658,13 +2663,13 @@ sub summarize_nuc {
 
         if ($entry->{'type'} eq 'up_flank') {
             $all_data{"$parent"}{'up_flank_vars'}++;
-            $all_data{"$parent"}{'up_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'up_flank_indels'}++ if (length($entry->{'ref'}) != length($alt));
         } elsif ($entry->{'type'} eq 'down_flank') {
             $all_data{"$parent"}{'down_flank_vars'}++;
-            $all_data{"$parent"}{'down_flank_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'down_flank_indels'}++ if (length($entry->{'ref'}) != length($alt));
         } else {
             $all_data{"$parent"}{'feat_vars'}++;
-            $all_data{"$parent"}{'feat_indels'}++ if (length($entry->{'ref'}) != length($entry->{'alt'}));
+            $all_data{"$parent"}{'feat_indels'}++ if (length($entry->{'ref'}) != length($alt));
         }
     }
 
