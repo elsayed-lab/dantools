@@ -1792,6 +1792,7 @@ sub label {
     my @flank_lengths = split(/\,/, $args{'flank_lengths'});
     my $flank_feature = $args{'flank_feature'};
     my $flank_parent = $args{'flank_parent'};
+    my $add_info = $args{'add_info'};
     my $threads = $args{'threads'};
     my $output_nuc = $args{'output_nuc'};
     my $translate = $args{'translate'};
@@ -1812,7 +1813,7 @@ sub label {
     #Develop method to determine which features to add
     my %feature_types = map {$_ => 1 } @feature_types;
 
-    #Add functionality for GTF file:
+    #Create functionality for GTF file:
     my $att_sep = '=';
     if ($input_gff =~ /.gtf$/) {
         $att_sep = ' ';
@@ -1828,7 +1829,11 @@ sub label {
     my $feat;
     my $protpos = 1;
     my $outnuc = FileHandle->new("> ${output_nuc}");
-    print $outnuc "#CHROM\tPOS\tREF\tALT\tPARENT\tCHILD\tTYPE\tSTRAND\tPOS_PARENT\tPOS_CHILD\tPOS_CODING\tDEPTH\n";
+    if ($add_info) {
+        print $outnuc "#CHROM\tPOS\tREF\tALT\tINFO\tPARENT\tCHILD\tTYPE\tSTRAND\tPOS_PARENT\tPOS_CHILD\tPOS_CODING\tDEPTH\n";
+    } else {
+        print $outnuc "#CHROM\tPOS\tREF\tALT\tPARENT\tCHILD\tTYPE\tSTRAND\tPOS_PARENT\tPOS_CHILD\tPOS_CODING\tDEPTH\n";
+    }
     while (my $row = $gff_tsv->getline_hr($gff_fh)) {
         next if($row->{'seq_id'} =~ /^#/);
         my $feat_type = $row->{'type'};
@@ -1983,6 +1988,9 @@ sub label {
             alt => $row->{'alt'},
             depth => $info{'DP'}
         );
+        if ($add_info) {
+            $var{'info'} = $row->{'info'};
+        }
         push(@vcf, \%var);
     }
 
@@ -2110,6 +2118,9 @@ sub label {
                         coding_pos => $cd,
                         depth => $var->{'depth'}
                     );
+                    if ($add_info) {
+                        $hash{'info'} = $var->{'info'};
+                    }
                     push(@labels, \%hash);
                     push(@labeled_idx, $var_idx);
                     $var_idx++;
@@ -2202,6 +2213,9 @@ sub label {
                         coding_pos => $cd,
                         depth => $var->{'depth'}
                     );
+                    if ($add_info) {
+                        $hash{'info'} = $var->{'info'};
+                    }
                     push(@labels, \%hash);
                     push(@labeled_idx, $var_idx);
                     $var_idx--;
@@ -2229,6 +2243,9 @@ sub label {
                     coding_pos => 'NA',
                     depth => 'NA'
                 );
+                if ($add_info) {
+                    $hash{'info'} = $var->{'info'};
+                }
                 push (@labels, \%hash);
             }
         }
@@ -2240,19 +2257,36 @@ sub label {
             @labels = sort { $a->{'var_pos'} <=> $b->{'var_pos'} } @labels;
             my $tmp_fh = FileHandle->new("> ${tmpdir}/$contig");
             for my $feat (@labels) {
-                print $tmp_fh
-                    $feat->{'contig'}, "\t",
-                    $feat->{'var_pos'}, "\t",
-                    $feat->{'refn'}, "\t",
-                    $feat->{'altn'}, "\t",
-                    $feat->{'parent'}, "\t",
-                    $feat->{'child'}, "\t",
-                    $feat->{'type'}, "\t",
-                    $feat->{'strand'}, "\t",
-                    $feat->{'parent_pos'}, "\t",
-                    $feat->{'child_pos'}, "\t",
-                    $feat->{'coding_pos'}, "\t",
-                    $feat->{'depth'}, "\n";
+                if ($add_info) {
+                    print $tmp_fh
+                        $feat->{'contig'}, "\t",
+                        $feat->{'var_pos'}, "\t",
+                        $feat->{'refn'}, "\t",
+                        $feat->{'altn'}, "\t",
+                        $feat->{'info'}, "\t",
+                        $feat->{'parent'}, "\t",
+                        $feat->{'child'}, "\t",
+                        $feat->{'type'}, "\t",
+                        $feat->{'strand'}, "\t",
+                        $feat->{'parent_pos'}, "\t",
+                        $feat->{'child_pos'}, "\t",
+                        $feat->{'coding_pos'}, "\t",
+                        $feat->{'depth'}, "\n";
+                } else {
+                    print $tmp_fh
+                        $feat->{'contig'}, "\t",
+                        $feat->{'var_pos'}, "\t",
+                        $feat->{'refn'}, "\t",
+                        $feat->{'altn'}, "\t",
+                        $feat->{'parent'}, "\t",
+                        $feat->{'child'}, "\t",
+                        $feat->{'type'}, "\t",
+                        $feat->{'strand'}, "\t",
+                        $feat->{'parent_pos'}, "\t",
+                        $feat->{'child_pos'}, "\t",
+                        $feat->{'coding_pos'}, "\t",
+                        $feat->{'depth'}, "\n";
+            }
             }
             close($tmp_fh);
         }

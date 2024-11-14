@@ -246,6 +246,7 @@ if ($method eq 'pseudogen') {
     my $flank_lengths = '200,200';
     my $flank_feature = '';
     my $flank_parent;
+    my $add_info = 0; #whether to add the INFO field to the output
     #If they want it translated, they need the following:
     my $translate = 0;
     my $coding_feature = 'CDS';
@@ -266,6 +267,7 @@ if ($method eq 'pseudogen') {
         "flank-lengths=s" => \$flank_lengths,
         "flank-feature=s" => \$flank_feature,
         "flank-parent=s" => \$flank_parent,
+        "add-info" => \$add_info,
         "threads|t=i" => \$threads,
         "outdir=s" => \$outdir,
         "output-nuc=s" => \$output_nuc,
@@ -360,6 +362,7 @@ if ($method eq 'pseudogen') {
                          add_flanks => "$add_flanks",
                          flank_feature => "$flank_feature",
                          flank_parent => "$flank_parent",
+                         add_info => "$add_info",
                          threads => "$threads",
                          output_nuc => "$output_nuc",
                          translate => "$translate",
