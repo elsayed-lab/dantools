@@ -2370,7 +2370,11 @@ sub label {
     my @labeled_vars;
     my $labeled_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     my $labeled_fh = FileHandle->new("${output_nuc}");
-    $labeled_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'parent', 'child', 'type', 'strand', 'rel_parent', 'rel_child', 'rel_coding', 'depth');
+    if ($add_info) {
+        $labeled_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'info', 'parent', 'child', 'type', 'strand', 'rel_parent', 'rel_child', 'rel_coding', 'depth');
+    } else {
+        $labeled_tsv->column_names('seq_id', 'pos', 'ref', 'alt', 'parent', 'child', 'type', 'strand', 'rel_parent', 'rel_child', 'rel_coding', 'depth');
+    }
     while (my $row = $labeled_tsv->getline_hr($labeled_fh)) {
         next if($row->{'seq_id'} =~ /^#/);
         next if($row->{'type'} ne "$coding_feature");
