@@ -1819,7 +1819,7 @@ sub label {
         $att_sep = ' ';
     }
     #Read in my GFF file:
-    my @gff;
+    my %grouped_gff;
     my $gff_fh = FileHandle->new("$input_gff");
     my $gff_tsv = Text::CSV_XS::TSV->new({binary => 1, });
     open($gff_fh, "<:encoding(utf8)", "$input_gff");
@@ -1857,7 +1857,11 @@ sub label {
                         child => $child
                     );
             if (%feat) {
-                push(@gff, \%feat);
+                if (! exists($grouped_gff{$parent})) {
+                    @grouped_gff{$parent} = ();
+                }
+
+                push(@{ $grouped_gff{$parent} }, \%feat);
             }
 
         }
@@ -1887,7 +1891,7 @@ sub label {
                               parent => $parent,
                               child => "up_flank_" . $child
                           );
-                    push(@gff, \%up);
+                    push(@{ $grouped_gff{$parent}}, \%up);
                 }
                 if ($flank_lengths[1] != 0) {
                     #Need to make sure the downstream flank doesn't go below zero
@@ -1906,7 +1910,7 @@ sub label {
                                     parent => $parent,
                                     child => "down_flank_" . $child
                                 );
-                        push(@gff, \%down);
+                        push(@{ $grouped_gff{$parent} }, \%down);
                     }
                 }
             }
@@ -1931,7 +1935,7 @@ sub label {
                                   parent => $parent,
                                   child => "up_flank_" . $child
                               );
-                        push(@gff, \%up);
+                        push(@{ $grouped_gff{$parent}}, \%up);
                     }
                 }
                 if ($flank_lengths[1] != 0) {
@@ -1943,26 +1947,54 @@ sub label {
                                 parent => $parent,
                                 child => "down_flank_" . $child
                             );
-                    push(@gff, \%down);
+                    push(@{ $grouped_gff{$parent}}, \%down);
                 }
             }
         }
     }
 
-    if (scalar(@gff) == 0) {
+     if (scalar(keys(%grouped_gff)) == 0) {
         die "GFF file (${input_gff}) has no features\n";
     }
-    if (! defined($gff[0]->{'parent'})) {
+    my $first_key = (keys(%grouped_gff))[0];
+    if (! defined($grouped_gff{$first_key}[0]->{'parent'})) {
         die "ERROR: Could not find parent ${parent_name} in GFF/GTF attributes\n";
     }
-    if (! defined($gff[0]->{'child'})) {
+    if (! defined($grouped_gff{$first_key}[0]->{'child'})) {
         die "ERROR: Could not find child ${child_name} in GFF/GTF attributes\n";
     }
 
-    #I'm going to break this into two GFF files
-    my @plus_features = grep { $_->{'strand'} eq '+' } @gff;
-    my @minus_features = grep { $_->{'strand'} eq '-' } @gff;
+    #So now my grouped_gff is a hash of arrays of hashes organized as
+    #hash->parent->child->info. I now need to sort each parent group
+    my %plus_gff;
+    my %minus_gff;
+    for my $i (keys(%grouped_gff)) {
+        if ($grouped_gff{$i}[0]->{'strand'} eq '+') {
+            @{ $plus_gff{$i} } = sort {
+                $a->{'start'} <=> $b->{'start'}
+            } @{ $grouped_gff{$i} };
+        } else {
+             @{ $minus_gff{$i} } = sort {
+                $b->{'end'} <=> $a->{'end'}
+            } @{ $grouped_gff{$i} };
+        }
+    }
 
+    my @plus_keys = sort {
+        $plus_gff{$a}[0]->{'start'} <=> $plus_gff{$b}[0]->{'end'}
+    } keys(%plus_gff);
+    my @minus_keys = sort {
+        $minus_gff{$b}[0]->{'end'} <=> $minus_gff{$a}[0]->{'end'}
+    } keys(%minus_gff);
+
+    my @plus_features;
+    my @minus_features;
+    for my $i (@plus_keys) {
+        push(@plus_features, @{ $plus_gff{$i} });
+    }
+    for my $i (@minus_keys) {
+        push(@minus_features, @{ $minus_gff{$i} });
+    }
     #Now that I've loaded my GFF I want to load my VCF.
     my $vcf_fh = FileHandle->new("$input_vcf");
     my @vcf;
@@ -2024,17 +2056,9 @@ sub label {
         @variants = sort {
             $a->{'pos'} <=> $b->{'pos'}
         } @variants;
-        @plus_sub_features = sort {
-            $a->{'parent'} cmp $b->{'parent'} ||
-                $a->{'start'} <=> $b->{'start'}
-            } @plus_sub_features;
-        #Set up features no minus strand:
-        my @minus_sub_features = grep { $_->{'seq_id'} eq $contig } @minus_features;
-        @minus_sub_features = sort {
-            $b->{'parent'} cmp $a->{'parent'} ||
-                $b->{'start'} <=> $a->{'start'}
-            } @minus_sub_features;
 
+        #Set up features on minus strand:
+        my @minus_sub_features = grep { $_->{'seq_id'} eq $contig } @minus_features;
 
         #Now I need to iterate over each feature, keeping track of the parent
         my @labels;    #Instead of printing everytime, which can cause
@@ -2130,7 +2154,7 @@ sub label {
         } #end scalar(@plus_sub_features) check
 
         if (scalar(@minus_sub_features) != 0) {
-            my %positions = ();
+            %positions = ();
             my $parent = $minus_sub_features[0]->{'parent'}; #Start this up
             my $parent_pos = 0; #track number of bases covered in parent
             my $coding_pos = 0;

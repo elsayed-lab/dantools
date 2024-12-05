@@ -1,0 +1,70 @@
+##fileformat=VCFv4.2
+##FILTER=<ID=PASS,Description="All filters passed">
+##bcftoolsVersion=1.13+htslib-1.13
+##bcftoolsCommand=mpileup -a FORMAT/AD,FORMAT/DP -d 250 -f it2/test_it2.fasta it2/sorted.bam
+##reference=file://it2/test_it2.fasta
+##contig=<ID=LmjF.01,length=268982>
+##contig=<ID=LmjF.02,length=355693>
+##ALT=<ID=*,Description="Represents allele(s) other than observed.">
+##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
+##INFO=<ID=IDV,Number=1,Type=Integer,Description="Maximum number of raw reads supporting an indel">
+##INFO=<ID=IMF,Number=1,Type=Float,Description="Maximum fraction of raw reads supporting an indel">
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
+##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better)",Version="3">
+##INFO=<ID=RPBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Read Position Bias (closer to 0 is better)">
+##INFO=<ID=MQBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Mapping Quality Bias (closer to 0 is better)">
+##INFO=<ID=BQBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Base Quality Bias (closer to 0 is better)">
+##INFO=<ID=MQSBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Mapping Quality vs Strand Bias (closer to 0 is better)">
+##INFO=<ID=SCBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Soft-Clip Length Bias (closer to 0 is better)">
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=SGB,Number=1,Type=Float,Description="Segregation based metric.">
+##INFO=<ID=MQ0F,Number=1,Type=Float,Description="Fraction of MQ0 reads (smaller is better)">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="List of Phred-scaled genotype likelihoods">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Number of high-quality bases">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths (high-quality bases)">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=DP4,Number=4,Type=Integer,Description="Number of high-quality ref-forward , ref-reverse, alt-forward and alt-reverse bases">
+##INFO=<ID=MQ,Number=1,Type=Integer,Description="Average mapping quality">
+##bcftools_callVersion=1.13+htslib-1.13
+##bcftools_callCommand=call -O v -m -v --ploidy 2; Date=Thu Dec  5 12:09:24 2024
+##bcftools_filterVersion=1.13+htslib-1.13
+##bcftools_filterCommand=filter -i 'FORMAT/AD[0:1] >= 2 && (FORMAT/AD[0:1] / (FORMAT/AD[0:0] + FORMAT/AD[0:1])) >= 0.501'; Date=Thu Dec  5 12:09:24 2024
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	it2/sorted.bam
+LmjF.01	75242	.	C	T	32.4168	PASS	DP=2;VDB=0.84;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	75243	.	A	G	36.4154	PASS	DP=2;VDB=0.84;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.01	75247	.	C	A	36.4154	PASS	DP=2;VDB=0.84;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.01	84220	.	G	A	15.5373	PASS	DP=2;VDB=0.14;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:45,6,0:2:0,2
+LmjF.01	84229	.	TGG	TG	32.4168	PASS	INDEL;IDV=2;IMF=1;DP=2;VDB=0.14;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	101144	.	A	G	9.88514	PASS	DP=3;VDB=0.392388;SGB=-0.511536;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,3;MQ=20	GT:PL:DP:AD	1/1:39,9,0:3:0,3
+LmjF.01	101145	.	A	G	9.88514	PASS	DP=3;VDB=0.37344;SGB=-0.511536;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,3;MQ=20	GT:PL:DP:AD	1/1:39,9,0:3:0,3
+LmjF.01	101443	.	C	G	32.4168	PASS	DP=2;VDB=0.94;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	101448	.	T	C	28.4205	PASS	DP=2;VDB=0.94;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:58,6,0:2:0,2
+LmjF.01	101449	.	C	G	32.4168	PASS	DP=2;VDB=0.94;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	101497	.	C	G	36.4154	PASS	DP=2;VDB=0.66;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.01	101499	.	T	C	32.4168	PASS	DP=2;VDB=0.64;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	101507	.	A	G	32.4168	PASS	DP=2;VDB=0.56;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.01	135191	.	C	A	36.4154	PASS	DP=2;VDB=0.14;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.01	153248	.	A	G	36.4154	PASS	DP=2;VDB=0.5;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,2;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.01	235958	.	C	A	109.415	PASS	DP=6;VDB=0.831298;SGB=-0.616816;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,6;MQ=60	GT:PL:DP:AD	1/1:139,18,0:6:0,6
+LmjF.01	235959	.	G	C	119.415	PASS	DP=7;VDB=0.921138;SGB=-0.636426;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,7;MQ=60	GT:PL:DP:AD	1/1:149,21,0:7:0,7
+LmjF.01	236795	.	G	GCA	127.416	PASS	INDEL;IDV=3;IMF=0.75;DP=4;VDB=0.560696;SGB=-0.556411;RPBZ=-1.34164;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,0,4;MQ=60	GT:PL:DP:AD	1/1:157,12,0:4:0,4
+LmjF.02	7726	.	G	C	28.3508	PASS	DP=5;VDB=0.470313;SGB=-0.511536;RPBZ=0.57735;BQBZ=0;FS=0;MQ0F=0;AC=1;AN=2;DP4=2,0,3,0;MQ=60	GT:PL:DP:AD	0/1:61,0,48:5:2,3
+LmjF.02	7875	.	AG	A	38.415	PASS	INDEL;IDV=2;IMF=1;DP=2;VDB=0.22;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:68,6,0:2:0,2
+LmjF.02	8092	.	G	C	36.4154	PASS	DP=2;VDB=0.02;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	8099	.	T	C	36.4154	PASS	DP=2;VDB=0.02;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	8124	.	TCTCC	TC	82.415	PASS	INDEL;IDV=4;IMF=1;DP=4;VDB=0.0625499;SGB=-0.556411;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,4,0;MQ=60	GT:PL:DP:AD	1/1:112,12,0:4:0,4
+LmjF.02	122663	.	A	C	36.4154	PASS	DP=2;VDB=0.52;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	122669	.	T	C	36.4154	PASS	DP=2;VDB=0.52;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	122674	.	C	T	36.4154	PASS	DP=2;VDB=0.52;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	122675	.	G	A	36.4154	PASS	DP=2;VDB=0.52;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	122677	.	A	G	36.4154	PASS	DP=2;VDB=0.52;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	135892	.	G	C	32.4168	PASS	DP=2;VDB=0.32;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.02	137302	.	AGGGGGGG	AGGGGGG	26.4242	PASS	INDEL;IDV=3;IMF=1;DP=3;VDB=0.235765;SGB=-0.511536;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,3,0;MQ=60	GT:PL:DP:AD	1/1:56,9,0:3:0,3
+LmjF.02	150141	.	A	G	32.4168	PASS	DP=2;VDB=0.28;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.02	150180	.	C	G	36.4154	PASS	DP=2;VDB=0.28;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	203786	.	G	T	36.4154	PASS	DP=2;VDB=0.64;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	203791	.	G	A	32.4168	PASS	DP=2;VDB=0.64;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:62,6,0:2:0,2
+LmjF.02	204485	.	A	G	36.4154	PASS	DP=2;VDB=0.22;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
+LmjF.02	228418	.	G	C	36.4154	PASS	DP=2;VDB=0.38;SGB=-0.453602;FS=0;MQ0F=0;AC=2;AN=2;DP4=0,0,2,0;MQ=60	GT:PL:DP:AD	1/1:66,6,0:2:0,2
