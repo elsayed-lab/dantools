@@ -41,6 +41,7 @@ Bio::Dantools::label(
     add_flanks => 1,
     flank_feature => 'CDS',
     flank_parent => 'Parent',
+    add_info => 0,
     threads => 1,
     output_nuc => 'test-nuc.tsv',
     translate => 1,
