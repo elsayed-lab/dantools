@@ -8,3 +8,4 @@ MANIFEST
 .Rhistory
 README.html
 .Makefile.PL.swp
+test_output

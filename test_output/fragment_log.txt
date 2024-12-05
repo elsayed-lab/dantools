@@ -1,4 +1,0 @@
-Wrote 5566 fragments of size 100 for LinJ.01. 
-Wrote 8349 fragments of size 200 for LinJ.01. 
-Wrote 7126 fragments of size 100 for LinJ.02. 
-Wrote 10689 fragments of size 200 for LinJ.02. 
